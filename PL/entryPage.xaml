@@ -150,8 +150,8 @@
                     VerticalAlignment="Center"
                     Height="80" 
                     Width="80" 
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}">
+                    BorderBrush="Transparent"
+                    Background="Transparent">
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Customer/client.png"/>
@@ -165,8 +165,8 @@
                     VerticalAlignment="Center"
                     Height="80" 
                     Width="80" 
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}">
+                    BorderBrush="Transparent"
+                    Background="Transparent">
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/lighting.png"/>
@@ -180,8 +180,8 @@
                     VerticalAlignment="Center"
                     Height="80" 
                     Width="80" 
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}">
+                    BorderBrush="Transparent"
+                    Background="Transparent">
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/box.png"/>
@@ -195,8 +195,8 @@
                     VerticalAlignment="Center"
                     Height="80" 
                     Width="80" 
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}">
+                    BorderBrush="Transparent"
+                    Background="Transparent">
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/home.png"/>

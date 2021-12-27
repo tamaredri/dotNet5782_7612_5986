@@ -102,7 +102,7 @@
                     Height="70" 
                     Width="70" 
                     BorderBrush="#B2000000"
-                    Background="{x:Null}" FontStyle="Normal" FontWeight="Normal">
+                    Background="Transparent" >
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Customer/drone.png"/>
@@ -116,8 +116,8 @@
                     VerticalAlignment="Center"
                     Height="70" 
                     Width="70" 
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}">
+                    BorderBrush="Transparent"
+                    Background="Transparent">
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Customer/client.png"/>
@@ -131,8 +131,8 @@
                     VerticalAlignment="Center"
                     Height="70" 
                     Width="70" 
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}">
+                    BorderBrush="Transparent"
+                    Background="Transparent">
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/lighting.png"/>
@@ -146,8 +146,8 @@
                     VerticalAlignment="Center"
                     Height="70" 
                     Width="70" 
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}">
+                    BorderBrush="Transparent"
+                    Background="Transparent">
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/box.png"/>
@@ -161,8 +161,8 @@
                     VerticalAlignment="Center"
                     Height="70" 
                     Width="70" 
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}">
+                    BorderBrush="Transparent"
+                    Background="Transparent">
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/home.png"/>
