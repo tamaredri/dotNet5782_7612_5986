@@ -62,7 +62,7 @@
                     BorderBrush="Transparent"
                        FontSize="20"
                        HorizontalAlignment="Right"
-                       Margin="0,-10,5,5" Click="closeWindow"
+                       Margin="0,-10,5,5"
                        Width="30" Height="30"/>
 
                 <Button Content="☐" Foreground="#c4b3a3"
@@ -70,7 +70,7 @@
                     BorderBrush="Transparent"
                        FontSize="20"
                        HorizontalAlignment="Right"
-                       Margin="0,0,5,5" Click="closeWindow"
+                       Margin="0,0,5,5"
                        Width="30" Height="30"/>
 
                 <Button Content="✕" Foreground="#c4b3a3"
@@ -78,7 +78,7 @@
                     BorderBrush="Transparent"
                        FontSize="20"
                        HorizontalAlignment="Right"
-                       Margin="0,0,5,0" Click="closeWindow"
+                       Margin="0,0,5,0"
                        Width="30" Height="30"/>
             </StackPanel>
 
@@ -87,8 +87,6 @@
         <Grid Grid.Row="1"
                     Background="#fff3e3">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -103,15 +101,15 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Margin="5"/>
-            <Image Grid.Row="2" Source="C:\Users\Dror\Source\Repos\dotNet5782_7612_5986\PL\Images\lighting.png"
+            <Image Grid.Row="2" Source="pack://siteoforigin:,,,/lighting.png"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Margin="5"/>
-            <Image Grid.Row="3" Source="C:\Users\Dror\Source\Repos\dotNet5782_7612_5986\PL\Images\box.png" 
+            <Image Grid.Row="3" Source="pack://siteoforigin:,,,/box.png" 
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Margin="5"/>
-            <Image Grid.Row="6" Source="C:\Users\Dror\Source\Repos\dotNet5782_7612_5986\PL\Images\home.png"
+            <Image Grid.Row="4" Source="pack://siteoforigin:,,,/home.png"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Margin="5"/>
