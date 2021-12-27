@@ -93,7 +93,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="pack://siteoforigin:,,,/drone.png"
+            <Image Grid.Row="0" Source="PL/Images/drone.png"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Margin="5"/>
