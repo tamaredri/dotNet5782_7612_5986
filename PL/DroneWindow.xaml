@@ -137,7 +137,7 @@
             <Button x:Name="send" 
                     Grid.Column="3" Grid.Row="3"
                     Margin="5, 5, 80, 5"
-                    IsEnabled="false"
+                    IsEnabled="False"
                     Content="OK" Click="Send_Click" />
             
             <Button x:Name="CancleRleaseFromCharge"
