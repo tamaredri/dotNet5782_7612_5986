@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
+using BlApi;
 
 namespace PL
 {
@@ -19,9 +21,12 @@ namespace PL
     /// </summary>
     public partial class DronesListView : Window
     {
+        readonly IBL BLAccess = BlFactory.GetBl();
         public DronesListView()
         {
             InitializeComponent();
+            droneDetails.DataContext = BLAccess.GetDrone(1);
+            trialStack.DataContext = BLAccess.GetDrone(1);
         }
     }
 }
