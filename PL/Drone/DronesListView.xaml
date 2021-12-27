@@ -84,12 +84,38 @@
 
         </Grid>
 
-        <StackPanel Grid.Row="1"
-                    Background="#866d5c">
-            <Image Source="pack://siteoforigin:,,,/drone.png"
-                   Margin="5,5,5,5"/>
-            <Image Source="pack://siteoforigin:,,,/client.png"
-                   Margin="5,5,5,5"/>
-        </StackPanel>
+        <Grid Grid.Row="1"
+                    Background="#fff3e3">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="pack://siteoforigin:,,,/drone.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="1" Source="pack://siteoforigin:,,,/client.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="2" Source="C:\Users\Dror\Source\Repos\dotNet5782_7612_5986\PL\Images\lighting.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="3" Source="C:\Users\Dror\Source\Repos\dotNet5782_7612_5986\PL\Images\box.png" 
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="6" Source="C:\Users\Dror\Source\Repos\dotNet5782_7612_5986\PL\Images\home.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+        </Grid>
+       
     </Grid>
 </Window>
