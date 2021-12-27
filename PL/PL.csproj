@@ -10,11 +10,4 @@
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Station\" />
-    <Folder Include="Drone\" />
-    <Folder Include="Parcel\" />
-    <Folder Include="Customer\" />
-  </ItemGroup>
-
 </Project>
