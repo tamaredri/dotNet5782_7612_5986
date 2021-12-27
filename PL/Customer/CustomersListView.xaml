@@ -5,8 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Customer"
         mc:Ignorable="d"
-        Title="CustomersListView" Height="450" Width="800">
+        Title="CustomersListView" Height="600" Width="950"
+        Background="#fff9fc" 
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        FontFamily="Arial Rounded MT Bold">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="5"
+                  Background="#17313b">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                            Grid.ColumnSpan="5"
+                            VerticalAlignment="Center">
+                <TextBlock
+                           Foreground="#c4c3b3"
+                           Text="prog name"
+                           Margin="5,5,5,5"
+                           HorizontalAlignment="center"/>
+                <TextBlock
+                           Foreground="#e9e9ec"
+                           Text="welcome"
+                           Margin="5,5,5,5"
+                           HorizontalAlignment="center"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="11" Grid.ColumnSpan="2"
+                        Orientation="Horizontal" Margin="36,0,0,0">
+
+                <Button Content="🗕" Foreground="#c4b3a3"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                       FontSize="20"
+                       HorizontalAlignment="Right"
+                       Margin="0,-10,5,5" Click="closeWindow"
+                       Width="30" Height="30"/>
+
+                <Button Content="☐" Foreground="#c4b3a3"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                       FontSize="20"
+                       HorizontalAlignment="Right"
+                       Margin="0,0,5,5" Click="closeWindow"
+                       Width="30" Height="30"/>
+
+                <Button Content="✕" Foreground="#c4b3a3"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                       FontSize="20"
+                       HorizontalAlignment="Right"
+                       Margin="0,0,5,0" Click="closeWindow"
+                       Width="30" Height="30"/>
+            </StackPanel>
+            
+
+        </Grid>
+
+        <StackPanel Grid.Row="1"
+                        Background="#866d5c">
+            <Image Source="pack://siteoforigin:,,,/box.png" 
+                   Margin="5,5,15,5"/>
+            <Image Source="pack://siteoforigin:,,,/lighting.png"
+                   Margin="10,10,10,10"/>
+        </StackPanel>
     </Grid>
 </Window>
