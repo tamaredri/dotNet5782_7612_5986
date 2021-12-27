@@ -173,5 +173,32 @@
             
             
         </Grid>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1"
+                    Grid.Column="1">
+            
+            <ComboBox x:Name="byName"
+                  Width="150"
+                  Height="50"
+                  Margin="10,10,10,10"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  BorderBrush="#17313b"
+                  Background="#17313b" 
+                  Text="by name"
+                    />
+            <ComboBox x:Name="byID"
+                  Width="150"
+                  Height="50"
+                  Margin="10,10,10,10"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  BorderBrush="#17313b"
+                  Background="#17313b" 
+                  Text="by ID"
+                    />
+
+        </StackPanel>
     </Grid>
 </Window>
