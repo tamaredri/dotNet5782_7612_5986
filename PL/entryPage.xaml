@@ -19,7 +19,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="60"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
@@ -117,6 +117,7 @@
 
 
         </StackPanel>
+     
 
     </Grid>
 </Window>
