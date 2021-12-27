@@ -93,27 +93,83 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="PL/Images/drone.png"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="5"/>
-            <Image Grid.Row="1" Source="pack://siteoforigin:,,,/client.png"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="5"/>
-            <Image Grid.Row="2" Source="pack://siteoforigin:,,,/lighting.png"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="5"/>
-            <Image Grid.Row="3" Source="pack://siteoforigin:,,,/box.png" 
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="5"/>
-            <Image Grid.Row="4" Source="pack://siteoforigin:,,,/home.png"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="5"/>
+
+            <Button x:Name="drone" 
+                    Grid.Row="0"
+                    Margin="0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Height="70" 
+                    Width="70" 
+                    BorderBrush="#B2000000"
+                    Background="{x:Null}" FontStyle="Normal" FontWeight="Normal">
+                <StackPanel Height="60" Width="60">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/Customer/drone.png"/>
+                    </StackPanel.Background>
+                </StackPanel>
+            </Button>
+            <Button x:Name="customer" 
+                    Grid.Row="1"
+                    Margin="0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Height="70" 
+                    Width="70" 
+                    BorderBrush="{x:Null}"
+                    Background="{x:Null}">
+                <StackPanel Height="60" Width="60">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/Customer/client.png"/>
+                    </StackPanel.Background>
+                </StackPanel>
+            </Button>
+            <Button x:Name="battary" 
+                    Grid.Row="2"
+                    Margin="0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Height="70" 
+                    Width="70" 
+                    BorderBrush="{x:Null}"
+                    Background="{x:Null}">
+                <StackPanel Height="60" Width="60">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/lighting.png"/>
+                    </StackPanel.Background>
+                </StackPanel>
+            </Button>
+            <Button x:Name="box" 
+                    Grid.Row="3"
+                    Margin="0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Height="70" 
+                    Width="70" 
+                    BorderBrush="{x:Null}"
+                    Background="{x:Null}">
+                <StackPanel Height="60" Width="60">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/box.png"/>
+                    </StackPanel.Background>
+                </StackPanel>
+            </Button>
+            <Button x:Name="home" 
+                    Grid.Row="4"
+                    Margin="0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Height="70" 
+                    Width="70" 
+                    BorderBrush="{x:Null}"
+                    Background="{x:Null}">
+                <StackPanel Height="60" Width="60">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/home.png"/>
+                    </StackPanel.Background>
+                </StackPanel>
+            </Button>
         </Grid>
-       
+
     </Grid>
 </Window>
