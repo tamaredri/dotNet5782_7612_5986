@@ -1,0 +1,108 @@
+﻿<Window x:Class="PL.entryPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="entryPage" Height="600" Width="950"
+        Background="#fff9fc" 
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        FontFamily="Arial Rounded MT Bold">
+    <!--BorderThickness="1" BorderBrush="#b3504b"-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Row="0" Grid.ColumnSpan="5"
+                  Background="#17313b">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Orientation="Horizontal"
+                            Grid.ColumnSpan="5"
+                            VerticalAlignment="Center">
+                    <TextBlock
+                           Foreground="#c4c3b3"
+                           Text="prog name"
+                           Margin="5,5,5,5"
+                           HorizontalAlignment="center"/>
+                    <TextBlock
+                           Foreground="#e9e9ec"
+                           Text="welcome"
+                           Margin="5,5,5,5"
+                           HorizontalAlignment="center"/>
+                </StackPanel>
+
+            <Button Content="✕" Foreground="#c4b3a3"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                       Grid.Column="12"
+                       FontSize="20"
+                       HorizontalAlignment="Right"
+                       Margin="0,0,5,0" Click="closeWindow"
+                       Width="30"/>
+        </Grid>
+
+
+        <StackPanel Grid.Row="1" Grid.Column="1"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center">
+            <TextBlock Grid.Row="1"
+                   Grid.Column="1" Grid.ColumnSpan="2"
+                   Text="welcome! who are you?"
+                   VerticalAlignment="Center"
+                   FontSize="25"
+                   Foreground="#414f47"
+                   HorizontalAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,50,0,0">
+                <Button Content="MANNAGER"
+                        Foreground="#e9e9ec"
+                        Background="#414f47"
+                        Margin="0,0,20,0"
+                        Height="50" Width="150"/>
+
+                <Button Content="CUSTOMER"
+                        Background="#414f47"
+                        Foreground="#e9e9ec"
+                        Margin="20,0,0,0"
+                        Height="50" Width="150"/>
+            </StackPanel>
+           
+
+            
+
+
+        </StackPanel>
+        
+
+       
+    </Grid>
+</Window>
