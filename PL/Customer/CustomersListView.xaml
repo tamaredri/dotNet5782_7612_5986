@@ -85,12 +85,37 @@
 
         </Grid>
 
-        <StackPanel Grid.Row="1"
+        <Grid Grid.Row="1"
                         Background="#866d5c">
-            <Image Source="pack://siteoforigin:,,,/box.png" 
-                   Margin="5,5,15,5"/>
-            <Image Source="pack://siteoforigin:,,,/lighting.png"
-                   Margin="10,10,10,10"/>
-        </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Source="pack://siteoforigin:,,,/drone.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="1" Source="pack://siteoforigin:,,,/client.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="2" Source="pack://siteoforigin:,,,/lighting.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="3" Source="pack://siteoforigin:,,,/box.png" 
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="6" Source="pack://siteoforigin:,,,/home.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            
+        </Grid>
     </Grid>
 </Window>

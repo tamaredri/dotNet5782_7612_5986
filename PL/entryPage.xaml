@@ -19,7 +19,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="60"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
@@ -117,8 +117,39 @@
            
 
         </StackPanel>
-        
 
-       
+        <Grid Grid.Row="1"
+                        Background="#866d5c">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Source="pack://siteoforigin:,,,/drone.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="1" Source="pack://siteoforigin:,,,/client.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="2" Source="pack://siteoforigin:,,,/lighting.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="3" Source="pack://siteoforigin:,,,/box.png" 
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+            <Image Grid.Row="6" Source="pack://siteoforigin:,,,/home.png"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5"/>
+
+        </Grid>
+
     </Grid>
 </Window>
