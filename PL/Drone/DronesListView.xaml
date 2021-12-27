@@ -86,7 +86,10 @@
 
         <StackPanel Grid.Row="1"
                     Background="#866d5c">
-            <Image/>
+            <Image Source="pack://siteoforigin:,,,/drone.png"
+                   Margin="5,5,5,5"/>
+            <Image Source="pack://siteoforigin:,,,/client.png"
+                   Margin="5,5,5,5"/>
         </StackPanel>
     </Grid>
 </Window>
