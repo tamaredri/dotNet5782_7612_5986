@@ -7,11 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="box.png" />
+    <None Remove="Customer\client.png" />
+    <None Remove="Customer\drone.png" />
+    <None Remove="home.png" />
+    <None Remove="lighting.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="box.png" />
+    <Resource Include="Customer\client.png" />
+    <Resource Include="Customer\drone.png" />
+    <Resource Include="home.png" />
+    <Resource Include="lighting.png" />
   </ItemGroup>
 
 </Project>

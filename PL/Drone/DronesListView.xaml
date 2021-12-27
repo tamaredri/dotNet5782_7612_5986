@@ -93,105 +93,83 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="pack://siteoforigin:,,,/drone.png"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="5"/>
-            <Image Grid.Row="1" Source="pack://siteoforigin:,,,/client.png"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="5"/>
-            <Image Grid.Row="2" Source="pack://siteoforigin:,,,/lighting.png"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="5"/>
-            <Image Grid.Row="3" Source="pack://siteoforigin:,,,/box.png" 
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="5"/>
-            <Image Grid.Row="4" Source="pack://siteoforigin:,,,/home.png"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="5"/>-->
-        </Grid>
-        
-        <StackPanel x:Name="droneDetails" Grid.Row="1" Grid.Column="1"
-                    Orientation="Horizontal">
-            <StackPanel.DataContext>
-                <DataTemplate>
-                    <GroupBox Width="300"
-                            Height="100">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="80" Height="80"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
 
-                                <TextBlock Text="ID:" 
-                                         Grid.Row="0"
-                                         Grid.Column="0"
-                                         Background="Transparent"/>
-                                <TextBlock Text="model:"
-                                          Grid.Row="1"
-                                         Background="Transparent"/>
-                                
-                                
-                            </Grid>
-                        </StackPanel>
-                    </GroupBox>
-                </DataTemplate>
-            </StackPanel.DataContext>
-            
-            <GroupBox Width="300"
-                            Height="100">
-                <StackPanel x:Name="trialStack" Orientation="Horizontal">
-                    <Image Width="80" Height="80"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        
-                       <TextBox Text="ID:" 
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                Height="20"/>
-                        <TextBox Text="model:"
-                             Grid.Row="1"
-                              Background="Transparent"
-                                BorderBrush="Transparent"
-                                Height="20"/>
-                        
-                        <TextBox Text="{Binding Path=ID}"
-                             Grid.Row="0"
-                                 Grid.Column="1"
-                                 Width="100"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                Height="20"/>
-                        
-                        <TextBox Text="{Binding Path=Model}"
-                             Grid.Row="1"
-                                 Grid.Column="1"
-                                 Width="100"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                Height="20"/>
-                    </Grid>
+            <Button x:Name="drone" 
+                    Grid.Row="0"
+                    Margin="0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Height="70" 
+                    Width="70" 
+                    BorderBrush="#B2000000"
+                    Background="{x:Null}" FontStyle="Normal" FontWeight="Normal">
+                <StackPanel Height="60" Width="60">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/Customer/drone.png"/>
+                    </StackPanel.Background>
                 </StackPanel>
-            </GroupBox>
-        </StackPanel>
+            </Button>
+            <Button x:Name="customer" 
+                    Grid.Row="1"
+                    Margin="0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Height="70" 
+                    Width="70" 
+                    BorderBrush="{x:Null}"
+                    Background="{x:Null}">
+                <StackPanel Height="60" Width="60">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/Customer/client.png"/>
+                    </StackPanel.Background>
+                </StackPanel>
+            </Button>
+            <Button x:Name="battary" 
+                    Grid.Row="2"
+                    Margin="0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Height="70" 
+                    Width="70" 
+                    BorderBrush="{x:Null}"
+                    Background="{x:Null}">
+                <StackPanel Height="60" Width="60">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/lighting.png"/>
+                    </StackPanel.Background>
+                </StackPanel>
+            </Button>
+            <Button x:Name="box" 
+                    Grid.Row="3"
+                    Margin="0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Height="70" 
+                    Width="70" 
+                    BorderBrush="{x:Null}"
+                    Background="{x:Null}">
+                <StackPanel Height="60" Width="60">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/box.png"/>
+                    </StackPanel.Background>
+                </StackPanel>
+            </Button>
+            <Button x:Name="home" 
+                    Grid.Row="4"
+                    Margin="0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Height="70" 
+                    Width="70" 
+                    BorderBrush="{x:Null}"
+                    Background="{x:Null}">
+                <StackPanel Height="60" Width="60">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/home.png"/>
+                    </StackPanel.Background>
+                </StackPanel>
+            </Button>
+        </Grid>
+
     </Grid>
 </Window>
