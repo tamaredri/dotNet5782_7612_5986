@@ -25,8 +25,8 @@ namespace PL
         public DronesListView()
         {
             InitializeComponent();
-            droneDetails.DataContext = BLAccess.GetDrone(1);
-            trialStack.DataContext = BLAccess.GetDrone(1);
+            //droneDetails.DataContext = BLAccess.GetDrone(1);
+            droneTemplate.DataContext = BLAccess.GetDrone(1);
         }
     }
 }

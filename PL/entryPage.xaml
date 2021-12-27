@@ -19,7 +19,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
@@ -136,8 +136,8 @@
                     VerticalAlignment="Center"
                     Height="80" 
                     Width="80" 
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}" >
+                    BorderBrush="Transparent"
+                    Background="Transparent" Click="GoToDronrsList" >
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Customer/drone.png"/>

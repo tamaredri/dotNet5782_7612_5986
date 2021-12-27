@@ -31,6 +31,10 @@ namespace PL
             this.Close();
         }
 
-        
+        private void GoToDronrsList(object sender, RoutedEventArgs e)
+        {
+            DronesListView dronesListViewWindow = new DronesListView();
+            dronesListViewWindow.ShowDialog();
+        }
     }
 }
