@@ -152,7 +152,7 @@
                     Height="80" 
                     Width="80" 
                     BorderBrush="Transparent"
-                    Background="Transparent">
+                    Background="Transparent" Click="GoToCustomersrsList">
                 <StackPanel Height="60" Width="60">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Customer/client.png"/>

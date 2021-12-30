@@ -36,5 +36,12 @@ namespace PL
             DronesListView dronesListViewWindow = new DronesListView();
             dronesListViewWindow.ShowDialog();
         }
+
+
+        private void GoToCustomersrsList(object sender, RoutedEventArgs e)
+        {
+            CustomersListView customerListViewWindow = new CustomersListView();
+            customerListViewWindow.ShowDialog();
+        }
     }
 }
