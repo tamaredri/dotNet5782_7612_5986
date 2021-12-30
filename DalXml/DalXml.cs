@@ -8,14 +8,14 @@ using DO;
 
 namespace Dal
 {
-    sealed class DalXml //: IDal
+    sealed class DalXml : IDal
     {
         #region singlton
-        //static readonly IDal instance = new DalXml();
-        //public static IDal Instance { get => instance; }
+        static readonly IDal instance = new DalXml();
+        public static IDal Instance { get => instance; }
         DalXml() 
         {
-            XmlTools.LoadListFromXMLElement(configPath);
+            //XmlTools.LoadListFromXMLElement(configPath);
         }
         static DalXml() { }
         #endregion

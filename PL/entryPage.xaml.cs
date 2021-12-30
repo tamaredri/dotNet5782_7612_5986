@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using BlApi;
 
 
 namespace PL
@@ -24,6 +24,7 @@ namespace PL
         public entryPage()
         {
             InitializeComponent();
+            IBL blaccess = BlFactory.GetBl();
         }
 
         private void closeWindow(object sender, RoutedEventArgs e)
