@@ -149,7 +149,7 @@ namespace Dal
         #endregion
 
         //-----------------drone-----------------
-        #region XmlSerializer
+        #region drone XmlSerializer
         #region CreateDrone
         public int CreateDrone(Drone droneToCreate)
         { 
@@ -270,6 +270,19 @@ namespace Dal
         #region DeleteDrone
         #endregion
         #endregion
+
+        double getImportentNumber(string typeOfNumber)
+        {
+            List<ImportentNumbers> runningList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
+
+            ImportentNumbers runningNum = (from number in runningList
+                                           where (number.typeOfnumber == typeOfNumber)
+                                           select number).FirstOrDefault();
+            if (runningNum.Equals(default(ImportentNumbers)))
+                throw new DoesntExistExeption();
+
+            return runningNum.numberSaved;
+        }
         //-----------------drone-charge-----------
         #region createChargeEntity
         /// <summary>
