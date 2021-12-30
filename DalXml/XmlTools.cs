@@ -7,9 +7,9 @@ using System.Xml.Linq;
 using System.IO;
 using DO;
 
-namespace dal
+namespace Dal
 {
-    static class XmlTools
+    static internal class XmlTools
     {
         #region load to file
         public static XElement LoadListFromXMLElement(string filePath)
@@ -23,8 +23,8 @@ namespace dal
                 else
                 {
                     XElement rootElem = new XElement(filePath);
-                    //if (filePath == @"configurationXml.xml")
-                    //    rootElem.Add(new XElement("BusLineID", 1));
+                    if (filePath == @"config.xml")
+                        rootElem.Add(new XElement("customerRunningNum", 1));
                     rootElem.Save(filePath);
                     return rootElem;
                 }
