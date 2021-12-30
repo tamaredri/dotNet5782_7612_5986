@@ -26,10 +26,11 @@ namespace Dal
 
         #region DS xml file
 
-        string dronePath = "@droneXml.xml";
-        string customerPath = "@customereXml.xml";
-        string parcelPath = "@parcelXml.xml";
-        string stationPath = "@stationXml.xml";
+        string dronePath = @"droneXml.xml";
+        string customerPath = @"customereXml.xml";
+        string parcelPath = @"parcelXml.xml";
+        string SuccessfullyParcelPath = @"SuccessfullyParcelXml.xml";
+        string stationPath = @"stationXml.xml";
         string configPath = @"config.xml";
 
         #endregion
@@ -352,86 +353,121 @@ namespace Dal
         #region CreateParcel
         public void CreateParcel(Parcel parcelToCreate)
         {
-            //DataSource.Config.runningPackageNumber++;
-            //parcelToCreate.ID = DataSource.Config.runningPackageNumber;
-            //DataSource.ParcelsList.Add(parcelToCreate);
+            List<Parcel> parcelsList = GetParcelList().ToList();
+            List<ImportentNumbers> runningList =XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
+
+            ImportentNumbers runningNum = (from number in runningList
+                                           where (number.typeOfnumber == "Parcel Running Number")
+                                           select number).FirstOrDefault();
+            runningList.Remove(runningNum);
+            runningNum.numberSaved++;
+            runningList.Add(runningNum);
+            parcelToCreate.ID = runningNum.numberSaved;
+            parcelsList.Add(parcelToCreate);
+
+            XmlTools.SaveListToXMLSerializer(parcelsList, stationPath);
+            XmlTools.SaveListToXMLSerializer(runningList, configPath);
+
         }
         #endregion
         #region GetParcel
         public Parcel GetParcel(int idToGet)
         {
-            //Parcel parcelToGet = (from parcel in DataSource.ParcelsList
-            //                      where parcel.ID == idToGet
-            //                      select parcel).FirstOrDefault();
-            //if (parcelToGet.ID == 0)
-            //{   //the parcel is not in the existing parcels, look for it in the delivered parcels
-            //    parcelToGet = (from parcel in DataSource.SuccessfullyDeliveredParcelList
-            //                   where parcel.ID == idToGet
-            //                   select parcel).FirstOrDefault();
-            //    if (parcelToGet.ID == 0)
-            //        throw new DoesntExistExeption("the parcel dosen't exited");
-            //}
-            //return parcelToGet;
-            return new Parcel();
+
+            List<Parcel> parcelsList = GetParcelList().ToList();
+            List<Parcel> SuccessfullyParcelList = XmlTools.LoadListFromXMLSerializer<Parcel>(SuccessfullyParcelPath);
+
+            Parcel parcelToGet = (from parcel in parcelsList
+                                  where parcel.ID == idToGet
+                                  select parcel).FirstOrDefault();
+            if (parcelToGet.Equals(default(Parcel)))
+            {   //the parcel is not in the existing parcels, look for it in the delivered parcels
+                parcelToGet = (from parcel in SuccessfullyParcelList
+                               where parcel.ID == idToGet
+                               select parcel).FirstOrDefault();
+                if (parcelToGet.Equals(default(Parcel)))
+                    throw new DoesntExistExeption("the parcel dosen't exited");
+            }
+            return parcelToGet;
         }
         #endregion
         #region GetParcelList
         public IEnumerable<Parcel> GetParcelList()
         {
-            return new List<Parcel>();
-
-            // return (from p in DataSource.ParcelsList select p).ToList();
+            return XmlTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
         }
         #endregion
         #region GetsuccessfullyDeliveredParcelList
         public IEnumerable<Parcel> GetsuccessfullyDeliveredParcelList()
         {
-            return new List<Parcel>();
-
-            //return (from s in DataSource.SuccessfullyDeliveredParcelList select s).ToList();
+            return  XmlTools.LoadListFromXMLSerializer<Parcel>(SuccessfullyParcelPath);
         }
         #endregion
         #region GetPartOfParcel
         public IEnumerable<Parcel> GetPartOfParcel(Predicate<Parcel> check)
         {
-            return new List<Parcel>();
+            List<Parcel> parcelsList = GetParcelList().ToList();
+            List<Parcel> SuccessfullyParcelList = GetsuccessfullyDeliveredParcelList().ToList();
 
-            //return (from parcel in DataSource.ParcelsList
-            //        where check(parcel)
-            //        select parcel).ToList<Parcel>();
+
+            List<Parcel> parcelListToReturn= (from parcel in parcelsList
+                    where check(parcel)
+                    select parcel).ToList<Parcel>();
+            List<Parcel> parcelListToReturn2 = (from parcel in SuccessfullyParcelList
+                                               where check(parcel)
+                                               select parcel).ToList<Parcel>();
+            parcelListToReturn.AddRange(parcelListToReturn2);
+            return parcelListToReturn;
         }
         #endregion
         #region ScheduleDroneParcel
         public void ScheduleDroneParcel(int idParcelToSchedule, int idDroneToSchedule)
         {
-            //Parcel parcelToSchedule = GetParcel(idParcelToSchedule);//doesnt exist exception
+            List<Parcel> parcelList = GetParcelList().ToList();
 
-            //GetDrone(idDroneToSchedule);//doesnt exist exception
+            Parcel parcelToSchedule = GetParcel(idParcelToSchedule);//doesnt exist exception
 
-            //DataSource.ParcelsList.Remove(parcelToSchedule);
-            //parcelToSchedule.Scheduled = DateTime.Now;
-            //parcelToSchedule.DroneID = idDroneToSchedule;
-            //DataSource.ParcelsList.Add(parcelToSchedule);
+            GetDrone(idDroneToSchedule);//doesnt exist exception
+
+            parcelList.Remove(parcelToSchedule);
+            parcelToSchedule.Scheduled = DateTime.Now;
+            parcelToSchedule.DroneID = idDroneToSchedule;
+            parcelList.Add(parcelToSchedule);
+
+            XmlTools.SaveListToXMLSerializer(parcelList, parcelPath);
         }
         #endregion
         #region PickUpByDrone
         public void PickUpByDrone(int idParcelToPickUp)
         {
-            //Parcel parcelToPickUp = GetParcel(idParcelToPickUp);//doesnt exist exception
+            List<Parcel> parcelsList = GetParcelList().ToList();
 
-            //DataSource.ParcelsList.Remove(parcelToPickUp);
-            //parcelToPickUp.PickedUp = DateTime.Now;
-            //DataSource.ParcelsList.Add(parcelToPickUp);
+            Parcel parcelToPickUp = GetParcel(idParcelToPickUp);//doesnt exist exception
+
+            parcelsList.Remove(parcelToPickUp);
+            parcelToPickUp.PickedUp = DateTime.Now;
+            parcelsList.Add(parcelToPickUp);
+
+            XmlTools.SaveListToXMLSerializer(parcelsList, parcelPath);
+
         }
         #endregion
         #region DelivereParcel
         public void DelivereParcel(int idParcelToDelivere)
         {
-            //Parcel parcelToDeliver = GetParcel(idParcelToDelivere);//doesnt exist exception
+            List<Parcel> parcelList = GetParcelList().ToList();
+            List<Parcel> successfullyDeliveredParcelList = GetsuccessfullyDeliveredParcelList().ToList();
+            
 
-            //DataSource.ParcelsList.Remove(parcelToDeliver);
-            //parcelToDeliver.Delivered = DateTime.Now;
-            //DataSource.SuccessfullyDeliveredParcelList.Add(parcelToDeliver);
+            Parcel parcelToDeliver = GetParcel(idParcelToDelivere);//doesnt exist exception
+
+            parcelList.Remove(parcelToDeliver);
+            parcelToDeliver.Delivered = DateTime.Now;
+            successfullyDeliveredParcelList.Add(parcelToDeliver);
+
+            XmlTools.SaveListToXMLSerializer(parcelList, parcelPath);
+            XmlTools.SaveListToXMLSerializer(successfullyDeliveredParcelList, SuccessfullyParcelPath);
+
         }
         #endregion
         #region DeleteParcel
@@ -441,8 +477,8 @@ namespace Dal
         #region CreateStation
         public void CreateStation(Station stationToCreate)
         {
-            List<Station> stationsList = XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
-            //List<Station> stationsList = XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
+            List<Station> stationsList = GetStationList().ToList();
+            List<ImportentNumbers> runningList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
 
             //check if there is a station with the same name and location as the wanted station to add
             if (stationsList.Exists(x => x.Name == stationToCreate.Name) ||
@@ -450,15 +486,27 @@ namespace Dal
                                                    && (x.Longitude == stationToCreate.Longitude)))
                 throw new AlreadyExistExeption("the station already exist");
 
-            //DataSource.Config.runningStationNumber++;
-            //stationToCreate.ID = DataSource.Config.runningStationNumber;
-            //DataSource.StationsList.Add(stationToCreate);
+            ImportentNumbers runningNum = (from number in runningList
+                                           where (number.typeOfnumber == "drone")
+                                           select number).FirstOrDefault();
+
+            runningList.Remove(runningNum);
+            runningNum.numberSaved++;
+            stationToCreate.ID = runningNum.numberSaved;
+
+            runningList.Add(runningNum);
+            stationsList.Add(stationToCreate);
+
+            XmlTools.SaveListToXMLSerializer(runningList, configPath);
+            XmlTools.SaveListToXMLSerializer(stationsList, stationPath);
+
         }
         #endregion
         #region GetStation
         public Station GetStation(int idToGet)
         {
-            List<Station> stationsList = XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
+            List<Station> stationsList = GetStationList().ToList();
+
 
             Station stationToGet = (from station in stationsList
                                     where station.ID == idToGet
@@ -472,39 +520,40 @@ namespace Dal
         #region GetStationList
         public IEnumerable<Station> GetStationList()
         {
-            List<Station> stationsList = XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
-
-            return (from s in stationsList select s).ToList();
-
+            return XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
         }
         #endregion
         #region GetPartOfStation
         public IEnumerable<Station> GetPartOfStation(Predicate<Station> check)
         {
-            //return (from station in DataSource.StationsList
-            //        where check(station)
-            //        select station).ToList<Station>();
-            return new List<Station>();
+            List<Station> stationsList = GetStationList().ToList();
+
+            return (from station in stationsList
+                    where check(station)
+                    select station).ToList<Station>();
 
         }
         #endregion
         #region UpdateStation
         public void UpdateStation(int stationIDToUpdate, int newChargeSlots, string newName)
         {
-            //Station stationToUpdate = GetStation(stationIDToUpdate);
+            List<Station> stationsList = GetStationList().ToList();
 
-            //if (newChargeSlots >= 0)
-            //{
-            //    int usedChargeSlots = getAmountOfUsedChargeSlots(stationIDToUpdate);
-            //    updateChargeSlots(stationIDToUpdate, x => x = newChargeSlots - usedChargeSlots); //check
-            //}
+            Station stationToUpdate = GetStation(stationIDToUpdate);
 
-            //if (newName != null)
-            //{
-            //    DataSource.StationsList.Remove(stationToUpdate);
-            //    stationToUpdate.Name = newName;
-            //    DataSource.StationsList.Add(stationToUpdate);
-            //}
+            if (newChargeSlots >= 0)
+            {
+                int usedChargeSlots = getAmountOfUsedChargeSlots(stationIDToUpdate);
+                updateChargeSlots(stationIDToUpdate, x => x = newChargeSlots - usedChargeSlots); //check
+            }
+
+            if (newName != null)
+            {
+                stationsList.Remove(stationToUpdate);
+                stationToUpdate.Name = newName;
+                stationsList.Add(stationToUpdate);
+            }
+            XmlTools.SaveListToXMLSerializer(stationsList, stationPath);
         }
         #endregion
         #region DeleteStation
@@ -519,12 +568,15 @@ namespace Dal
         /// <param name="update"></param>
         void updateChargeSlots(int stationIDToCharge, Converter<int, int> update)
         {
-            //Station stationToPair = GetStation(stationIDToCharge);//doesnt exist exception
+            List<Station> stationsList = GetStationList().ToList();
 
-            //DataSource.StationsList.Remove(stationToPair);
-            //stationToPair.ChargeSlots = update(stationToPair.ChargeSlots);
-            //DataSource.StationsList.Add(stationToPair);
+            Station stationToPair = GetStation(stationIDToCharge);//doesnt exist exception
 
+            stationsList.Remove(stationToPair);
+            stationToPair.ChargeSlots = update(stationToPair.ChargeSlots);
+            stationsList.Add(stationToPair);
+
+            XmlTools.SaveListToXMLSerializer(stationsList, stationPath);
         }
         #endregion
         #endregion
