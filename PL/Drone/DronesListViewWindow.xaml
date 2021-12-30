@@ -171,19 +171,35 @@
             </Button>
         </Grid>
 
-        <StackPanel x:Name="dronesFullList"
-                    Orientation="Horizontal">
-            <StackPanel.DataContext>
+        <!--<StackPanel Grid.Row="1" Grid.Column="1">
+            <DataGrid x:Name="DronesList">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
+                    <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
+                    <DataGridTextColumn Header="Battery" Binding="{Binding Battery}"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                    <DataGridTextColumn Header="ParcelId" Binding="{Binding ParcelId}"/>
+                </DataGrid.Columns> 
+            </DataGrid>
+        </StackPanel>-->
+
+        <WrapPanel x:Name="dronesFullList"
+                    Orientation="Horizontal"
+                    Grid.Row="1"
+                    Grid.Column="1">
+            <WrapPanel.DataContext>
                 <DataTemplate>
                     <GroupBox x:Name="droneTemplate" 
-                  Grid.Row="1" Grid.Column="1"
-                  Height="100"
-                  Width="300"
-                  BorderBrush="#866d5c">
+                                Grid.Row="1" Grid.Column="1"
+                                Height="100"
+                                Width="300"
+                                BorderBrush="#866d5c"
+                                Margin="10">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="80" Width="80" 
-                       Source="/Drone/drone.png"
-                       Margin="5"/>
+                                    Source="/Drone/drone.png"
+                                    Margin="5"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -226,10 +242,10 @@
                         </StackPanel>
                     </GroupBox>
                 </DataTemplate>
-            </StackPanel.DataContext>
-        </StackPanel>
+            </WrapPanel.DataContext>
+        </WrapPanel>
         
-        <GroupBox x:Name="droneTemplate" 
+        <!--<GroupBox x:Name="droneTemplate" 
                   Grid.Row="1" Grid.Column="1"
                   Height="100"
                   Width="300"
@@ -278,7 +294,7 @@
 
 
             </StackPanel>
-        </GroupBox>
+        </GroupBox>-->
 
     </Grid>
 </Window>

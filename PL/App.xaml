@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="entryPage.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DroneStyle.xaml"/>
+                <ResourceDictionary Source="Style/ListPageStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
