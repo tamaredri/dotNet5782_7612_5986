@@ -16,5 +16,12 @@
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Width" Value="150"/>
         <Setter Property="Height" Value="25"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Background" Value="AliceBlue"/>
+                <Setter Property="BorderBrush" Value="Blue"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

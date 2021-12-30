@@ -23,6 +23,7 @@ namespace PL
     {
         public entryPage()
         {
+            IBL BLAccess = BlFactory.GetBl();
             InitializeComponent();
             IBL blaccess = BlFactory.GetBl();
         }
