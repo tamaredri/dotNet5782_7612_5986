@@ -20,13 +20,97 @@ namespace Dal
         #region singlton
         static readonly IDal instance = new DalXml();
         public static IDal Instance { get => instance; }
-        DalXml() { }
+        DalXml()
+        {
+            //initialize
+            Random rand = new Random();
+            #region initializing customer list:
+            for (int i = 0; i < 10; i++)//איתחול 10 לקוחות
+            {
+                CreateCustomer(new Customer()
+                {
+                    ID = 100000000 + i,
+                    Name = "" + ((char)(97 + i)),
+                    Phone = "0" + rand.Next(0580000000, 0590000000),
+                    Lattitude = 35.810873,
+                    Longitude = 32.982540
+                });
+            }
+            #endregion
+
+            List<ImportentNumbers> runningList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
+
+            #region initializing base station list:
+            ImportentNumbers runningNum = (from number in runningList
+                                           where (number.typeOfnumber == "Station Running Number")
+                                           select number).FirstOrDefault();
+            runningList.Remove(runningNum);
+            for (int i = 0; i < 2; i++)
+            {
+                runningNum.numberSaved++;
+                CreateStation(new Station
+                {
+                    ID = runningNum.numberSaved++,
+                    ChargeSlots = 1,
+                    Lattitude = 34.981915,
+                    Longitude = 31.713762,
+                    Name = "a" + ((char)(97 + i))
+                });
+            }
+            runningList.Add(runningNum);
+            #endregion
+
+            #region initializing drones list:
+            runningNum = (from number in runningList
+                          where (number.typeOfnumber == "Drone Running Number")
+                          select number).FirstOrDefault();
+            runningList.Remove(runningNum);
+            for (int i = 0; i < 5; i++)
+            {
+                runningNum.numberSaved++;
+
+                CreateDrone(new Drone
+                {
+                    ID = runningNum.numberSaved++,
+                    MaxWeight = (WeightCategories)(i % 3),
+                    Model = "Sky-Fly-" + (char)(97 + i) + "-" + i
+                });
+            }
+            runningList.Add(runningNum);
+            #endregion
+
+            #region initializing parcel list:
+            runningNum = (from number in runningList
+                          where (number.typeOfnumber == "Parcel Running Number")
+                          select number).FirstOrDefault();
+            runningList.Remove(runningNum);
+            for (int i = 0; i < 10; i++)//איתחול 10 חבילות
+            {
+                runningNum.numberSaved++;
+
+                CreateParcel(new Parcel
+                {
+                    ID = runningNum.numberSaved,
+                    SenderID = 100000000 + i,
+                    TargetID = 100000000 + 9 - i,
+                    Weight = (WeightCategories)(i % 3),
+                    Priority = (Prioritie)(i % 3),
+                    Requested = DateTime.Now,
+                    DroneID = 0
+                });
+            }
+            runningList.Add(runningNum);
+            #endregion
+
+            XmlTools.SaveListToXMLSerializer(runningList, configPath);
+        }
         static DalXml() { }
         #endregion
 
         #region DS xml file
 
         string dronePath = "@droneXml.xml";
+        string droneChargePath = "@droneChargeXml.xml";
         string customerPath = "@customereXml.xml";
         string parcelPath = "@parcelXml.xml";
         string stationPath = "@stationXml.xml";
@@ -36,6 +120,7 @@ namespace Dal
 
         //-----------------customer--------------
         #region customer XElement
+
         #region AddCustomer
         public void CreateCustomer(Customer customerToCreate)
         {
@@ -63,6 +148,7 @@ namespace Dal
             XmlTools.SaveListToXMLElement(customerRoot, customerPath);
         }
         #endregion
+
         #region GetCustomer
         public Customer GetCustomer(int idToGet)
         {
@@ -87,6 +173,7 @@ namespace Dal
             };
         }
         #endregion
+
         #region GetCustomersList
         public IEnumerable<Customer> GetCustomersList()
         {
@@ -103,6 +190,7 @@ namespace Dal
                     }).ToList();
         }
         #endregion
+
         #region GetPartOfCustomer
         public IEnumerable<Customer> GetPartOfCustomer(Predicate<Customer> check)
         {
@@ -121,6 +209,7 @@ namespace Dal
                     select customerToCheck).ToList();
         }
         #endregion
+
         #region UpdateCustomer
         public void UpdateCustomer(int customerID, int newPhone = 0, string newName = null)
         {
@@ -143,21 +232,23 @@ namespace Dal
                 customerFromFile.Element("Name").Value = newName;
         }
         #endregion
+
         #region DeleteCustomer
         #endregion
+
         #endregion
 
         //-----------------drone-----------------
         #region drone XmlSerializer
         #region CreateDrone
         public int CreateDrone(Drone droneToCreate)
-        { 
-            List<Drone> dronesList = XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
+        {
+            List<Drone> dronesList = GetDroneList().ToList();
             List<ImportentNumbers> runningList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
 
             ImportentNumbers runningNum = (from number in runningList
-                                        where (number.typeOfnumber == "drone")
-                                        select number).FirstOrDefault();
+                                           where (number.typeOfnumber == "Drone Running Number")
+                                           select number).FirstOrDefault();
 
             runningList.Remove(runningNum);
 
@@ -173,10 +264,11 @@ namespace Dal
             return runningNum.numberSaved;
         }
         #endregion
+
         #region GetDrone
         public Drone GetDrone(int idToGet)
         {
-            List<Drone> dronesList = XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
+            List<Drone> dronesList = GetDroneList().ToList();
 
             Drone droneToReturn = (from drone in dronesList
                                    where drone.ID == idToGet
@@ -188,88 +280,92 @@ namespace Dal
             return droneToReturn;
         }
         #endregion
+
         #region GetDroneList
         public IEnumerable<Drone> GetDroneList()
         {
-            List<Drone> dronesList = XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
+            return XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
 
-            return (from drone in dronesList
-                    select drone).ToList();
         }
         #endregion
+
         #region GetPartOfDrone
         public IEnumerable<Drone> GetPartOfDrone(Predicate<Drone> check)
         {
-            List<Drone> dronesList = XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
+            List<Drone> dronesList = GetDroneList().ToList();
 
             return (from drone in dronesList
                     where check(drone)
                     select drone).ToList();
         }
         #endregion
+
         #region GetPowerConsumptionByDrone
         public double[] GetPowerConsumptionByDrone()
         {
-            List<ImportentNumbers> runningList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
-
-            ImportentNumbers runningNum = (from number in runningList
-                                           where (number.typeOfnumber == "drone")
-                                           select number).FirstOrDefault();
-            return new double[5];
-            //{
-            //   DataSource.Config.powerMinimumIfAvailable,
-            //   DataSource.Config.powerMinimumIfCarryLightWeight,
-            //   DataSource.Config.powerMinimumIfCarryMiddleWeight,
-            //   DataSource.Config.powerMinimumIfCarryHeavyWeight,
-            //   DataSource.Config.ChargePrecentagePerHoure
-            //};
+            return new double[] {
+            getImportentNumber("Minimum If Available"),
+            getImportentNumber("Minimum If Carry Light Weigh"),
+            getImportentNumber("Minimum If Carry Middle Weight"),
+            getImportentNumber("Minimum If Carry Heavy Weight"),
+            getImportentNumber("Charging Precentage Per Hour"),
+            };
         }
         #endregion
+
         #region GetDroneRunningNumber
         public int GetDroneRunningNumber()
         {
-            return 1;//return DataSource.Config.runningDroneNumber; 
+            return (int)getImportentNumber("Drone Running Number");//return DataSource.Config.runningDroneNumber; 
         }
         #endregion
+
         #region UpdateDrone
         public void UpdateDrone(int id, string newModel)
         {
-            //Drone droneToUpdate = GetDrone(id);
+            Drone droneToUpdate = GetDrone(id);
 
-            //DataSource.DronesList.Remove(droneToUpdate);
-            //droneToUpdate.Model = newModel;
-            //DataSource.DronesList.Add(droneToUpdate);
+            List<Drone> dronesList = GetDroneList().ToList();
+
+            dronesList.Remove(droneToUpdate);
+            droneToUpdate.Model = newModel;
+            dronesList.Add(droneToUpdate);
+
+            XmlTools.SaveListToXMLSerializer(dronesList, dronePath);
         }
         #endregion
+
         #region SendToCharge
         public void SendToCharge(int droneIDToCharge, int stationIDToCharge)
         {
-            //Drone droneToCharge = GetDrone(droneIDToCharge);
+            Drone droneToCharge = GetDrone(droneIDToCharge);
 
-            ////send to charge in the station.
-            //updateChargeSlots(stationIDToCharge,
-            //                    x =>
-            //                    {
-            //                        if (x <= 0)
-            //                            throw new DoesntExistExeption("there are no charge slots available in the station");
-            //                        return --x;
-            //                    });
+            //send to charge in the station.
+            updateChargeSlots(stationIDToCharge,
+                                x =>
+                                {
+                                    if (x <= 0)
+                                        throw new DoesntExistExeption("there are no charge slots available in the station");
+                                    return --x;
+                                });
 
-            //createChargeEntity(droneIDToCharge, stationIDToCharge);
+            createChargeEntity(droneIDToCharge, stationIDToCharge);
         }
         #endregion
+
         #region ReleaseFromCharge
         public void ReleaseFromCharge(int droneIDToRelease)
         {
-            //GetDrone(droneIDToRelease);//doesnt exist exception 
-
-            //deleteChargeEntity(droneIDToRelease); //release
+            GetDrone(droneIDToRelease);//doesnt exist exception 
+            deleteChargeEntity(droneIDToRelease); //release
         }
         #endregion
+
         #region DeleteDrone
         #endregion
-        #endregion
 
+        #region private drone functions
+        #region get a runnig/consumption number
         double getImportentNumber(string typeOfNumber)
         {
             List<ImportentNumbers> runningList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
@@ -282,7 +378,14 @@ namespace Dal
 
             return runningNum.numberSaved;
         }
+        #endregion
+        #endregion
+
+        #endregion
+
         //-----------------drone-charge-----------
+        #region droneCharge XmlSerializer
+
         #region createChargeEntity
         /// <summary>
         /// create a new drone-charge entity
@@ -293,21 +396,36 @@ namespace Dal
         /// <param name="stationIDToCharge"></param>
         void createChargeEntity(int droneIDToCharge, int stationIDToCharge)
         {
-            //DataSource.Config.runningChargeNumber++;
-            //DroneCharge newCharge = new DroneCharge()
-            //{
-            //    Droneld = droneIDToCharge,
-            //    Stationld = stationIDToCharge,
-            //    IsInCharge = true,
-            //    TimeStart = DateTime.Now,
-            //    ID = DataSource.Config.runningChargeNumber
-            //};
-            //DataSource.ChargesList.Add(newCharge);
+            List<DroneCharge> chargeList = XmlTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
+            List<ImportentNumbers> runningList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
+
+            ImportentNumbers runningNum = (from number in runningList
+                                           where (number.typeOfnumber == "Charge Running Number")
+                                           select number).FirstOrDefault();
+
+            runningList.Remove(runningNum);
+
+            runningNum.numberSaved++;
+
+            chargeList.Add(new DroneCharge()
+            {
+                ID = runningNum.numberSaved,
+                Droneld = droneIDToCharge,
+                IsInCharge = true,
+                Stationld = stationIDToCharge,
+                TimeStart = DateTime.Now
+            });
+            runningList.Add(runningNum);
+
+            XmlTools.SaveListToXMLSerializer(runningList, configPath);
+            XmlTools.SaveListToXMLSerializer(chargeList, droneChargePath);
         }
         #endregion
+
         #region GetDroneCharge
 
         #endregion
+
         #region deleteChargeEntity
         /// <summary>
         /// the function removes a drone-charge entity
@@ -316,49 +434,56 @@ namespace Dal
         /// <param name="droneID"></param>
         void deleteChargeEntity(int droneID)
         {
-            //DroneCharge chargeToUpdate = (from droneCharge in DataSource.ChargesList
-            //                              where droneCharge.Droneld == droneID
-            //                              select droneCharge).FirstOrDefault();
-            //if (chargeToUpdate.ID == 0)
-            //    throw new DoesntExistExeption("the drone is not charging");
+            List<DroneCharge> chargeList = XmlTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
 
-            ////update in the station that the drone is released from charge
-            //updateChargeSlots(chargeToUpdate.Stationld, x => ++x);
+            DroneCharge chargeToUpdate = (from droneCharge in chargeList
+                                          where droneCharge.Droneld == droneID
+                                          select droneCharge).FirstOrDefault();
 
-            //DataSource.ChargesList.Remove(chargeToUpdate);
-            //chargeToUpdate.IsInCharge = false;
-            //chargeToUpdate.TimeFinish = DateTime.Now;
-            //DataSource.ChargesList.Add(chargeToUpdate);
+            if (chargeToUpdate.ID.Equals(default(DroneCharge)))
+                throw new DoesntExistExeption("the drone is not charging");
+
+            //update in the station that the drone is released from charge
+            updateChargeSlots(chargeToUpdate.Stationld, x => ++x);
+
+            chargeList.Remove(chargeToUpdate);
+            chargeToUpdate.IsInCharge = false;
+            chargeToUpdate.TimeFinish = DateTime.Now;
+            chargeList.Add(chargeToUpdate);
+
+            XmlTools.SaveListToXMLSerializer(chargeList, droneChargePath);
         }
         #endregion
+
         #region GetPartOfDroneCharge
         public IEnumerable<DroneCharge> GetPartOfDroneCharge(Predicate<DroneCharge> check)
         {
-            return new List<DroneCharge>();
+            List<DroneCharge> chargeList = XmlTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
 
-            //return (from droneCharge in DataSource.ChargesList
-            //        where check(droneCharge)
-            //        select droneCharge).ToList();
+            return (from droneCharge in chargeList
+                    where check(droneCharge)
+                    select droneCharge).ToList();
         }
         #endregion
+
         #region private drone-charge functions
         #region getAmountOfUsedChargeSlots
         /// <summary>
-        /// get the amount of the charging slots taken in a specific atation
+        /// get the amount of the charging slots taken in a specific station
         /// </summary>
         /// <param name="stationID"></param>
         /// <returns></returns>
         int getAmountOfUsedChargeSlots(int stationID)
         {
-            //GetStation(stationID);
+            GetStation(stationID);
 
-            ////choose all the drones in maintenance and in the wanted location
-            //return DataSource.ChargesList.
-            //        Where<DroneCharge>(x => x.IsInCharge == true && x.Stationld == stationID)
-            //        .Count();
-            return 1;
+            return (from charge in GetPartOfDroneCharge(x => x.IsInCharge == true)
+                    where charge.ID == stationID
+                    select charge).ToList().Count();
         }
         #endregion
+        #endregion
+
         #endregion
 
         //-----------------parcel-----------------
@@ -541,20 +666,19 @@ namespace Dal
         }
         #endregion
         #endregion
+
+        //List<ImportentNumbers> helpList = new List<ImportentNumbers>();
+        //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Drone Running Number" });
+        //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Station Running Number" });
+        //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Parcel Running Number" });
+        //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Charge Running Number" });
+
+        //helpList.Add(new ImportentNumbers() { numberSaved = 10, typeOfnumber = "Minimum If Available" });
+        //helpList.Add(new ImportentNumbers() { numberSaved = 20, typeOfnumber = "Minimum If Carry Light Weigh" });
+        //helpList.Add(new ImportentNumbers() { numberSaved = 30, typeOfnumber = "Minimum If Carry Middle Weight" });
+        //helpList.Add(new ImportentNumbers() { numberSaved = 40, typeOfnumber = "Minimum If Carry Heavy Weight" });
+        //helpList.Add(new ImportentNumbers() { numberSaved = 50, typeOfnumber = "Charging Precentage Per Hour" });
+
+        //XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpList, configPath);
     }
-
-
-    //List<ImportentNumbers> helpList = new List<ImportentNumbers>();
-    //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Drone Running Number" });
-    //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Station Running Number" });
-    //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Parcel Running Number" });
-    //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Charge Running Number" });
-
-    //helpList.Add(new ImportentNumbers() { numberSaved = 10, typeOfnumber = "Minimum If Available" });
-    //helpList.Add(new ImportentNumbers() { numberSaved = 20, typeOfnumber = "Minimum If Carry Light Weigh" });
-    //helpList.Add(new ImportentNumbers() { numberSaved = 30, typeOfnumber = "Minimum If Carry Middle Weight" });
-    //helpList.Add(new ImportentNumbers() { numberSaved = 40, typeOfnumber = "Minimum If Carry Heavy Weight" });
-    //helpList.Add(new ImportentNumbers() { numberSaved = 50, typeOfnumber = "Charging Precentage Per Hour" });
-
-    //XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpList, configPath);
 }
