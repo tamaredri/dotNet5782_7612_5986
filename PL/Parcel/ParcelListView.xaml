@@ -11,9 +11,35 @@
     <Border CornerRadius="10" 
             Style="{StaticResource ResourceKey=ListPageStyle}">
         <Grid>
-            <StackPanel>
-                <ComboBox Style="{StaticResource ResourceKey=ComboBoxSortButton}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <ComboBox Name="status" Text="status"
+                    Style="{StaticResource ResourceKey=ComboBoxSortButton}"/>
+                <ComboBox Name="priority" 
+                    Style="{StaticResource ResourceKey=ComboBoxSortButton}"/>
+                <ComboBox Name="weight"
+                    Style="{StaticResource ResourceKey=ComboBoxSortButton}"/>
+                <ComboBox Name="sender"
+                    Style="{StaticResource ResourceKey=ComboBoxSortButton}"/>
+                <ComboBox Name="target"
+                    Style="{StaticResource ResourceKey=ComboBoxSortButton}"/>
             </StackPanel>
+
+            <DataGrid x:Name="list" Grid.Row="1"
+                      AutoGenerateColumns="True"
+                      Style="{StaticResource DataGridListStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Sender" Binding="{Binding Sender}"/>
+                    <DataGridTextColumn Header="Target" Binding="{Binding Target}"/>
+                    <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                    <DataGridTextColumn Header="Priority" Binding="{Binding Priority}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </Border>
 </Page>

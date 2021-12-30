@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlApi;
+using BO;
 
 namespace PL
 {
@@ -20,9 +22,18 @@ namespace PL
     /// </summary>
     public partial class ParcelListView : Page
     {
-        public ParcelListView()
+        public ParcelListView(List<ParcelToList> parcelsList)
         {
             InitializeComponent();
+
+            list.ItemsSource = parcelsList;
+            list.DataContext = parcelsList;
+
+            status.ItemsSource = Enum.GetValues(typeof(ParcelStatuse));
+            priority.ItemsSource = Enum.GetValues(typeof(Priorities));
+            weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            //sender.ItemsSource = Enum.GetValues(typeof(?));
+            //target.ItemsSource = Enum.GetValues(typeof(?));
         }
     }
 }

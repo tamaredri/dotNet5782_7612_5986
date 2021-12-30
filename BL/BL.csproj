@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BL\" />
     <Folder Include="BlApi\" />
     <Folder Include="BO\" />
   </ItemGroup>
