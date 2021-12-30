@@ -10,7 +10,7 @@ namespace BL
 {
     public static class ExtansionMethods
     {
-
+        #region to string for a list
         public static string ToString<T>(List<T> set)
         {
             string sb = "";
@@ -22,7 +22,9 @@ namespace BL
             }
             return sb;
         }
+        #endregion
         //------------------------------------Location------------------------------------
+        #region check correctness of the location. inside israel teritory
         public static void checkLongitudeLatitude(this Location location)
         {
             if (location.Longitude > 33.2896 || location.Longitude < 29.4942)
@@ -31,12 +33,16 @@ namespace BL
                 throw new BO.InvalidInputExeption("Lattitude wronge");
 
         }
+        #endregion
+        #region distance between 2 locations
         static public double distanceLongitudeLatitude(this Location first, Location second)
         {
             //check the math..
             double distance = Math.Abs(Math.Sqrt(Math.Pow(first.Longitude - second.Longitude, 2) + Math.Pow(first.Lattitude - second.Lattitude, 2)));
             return distance;
         }
+        #endregion
+        #region find city
         static public string findCity(this Location location)
         {
             if (location.Lattitude >= 32.9273 && location.Lattitude <= 32.9891
@@ -121,6 +127,8 @@ namespace BL
             return "The location not found..";
 
         }
+        #endregion
+        #region compare locations
         public static bool IsEquel(this Location firstLoc, Location secondLoc)
         {
             firstLoc.checkLongitudeLatitude();      //validate first location
@@ -128,24 +136,30 @@ namespace BL
                                                     //check the coordinates:
             return (firstLoc.Lattitude == secondLoc.Lattitude) && (firstLoc.Longitude == secondLoc.Longitude);
         }
-
+        #endregion
         //------------------------------------input-check---------------------------------
+        #region check phone number
         public static void checkPhone(this int phone)
         {
             if (phone < 100000000 || phone > 999999999)
                 throw new BO.InvalidInputExeption("wrong phone");
         }
+        #endregion
+        #region check id
         public static void checkID(this int id)
         {
             if (id < 100000000 || id > 999999999)
                 throw new BO.InvalidInputExeption("wrong id");
         }
+        #endregion
+        #region check charge slots
         public static void checkChargeSlote(this int chargeSlots)
         {
             if (chargeSlots < 0)
                 throw new BO.InvalidInputExeption("wrong chargeSlote");
         }
+        #endregion
 
-        //-----------------------------------list------------------------------
+        //-------------------------------------operator overloading-----------------------
     }
 }
