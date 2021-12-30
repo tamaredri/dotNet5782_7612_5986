@@ -2,18 +2,6 @@
 <ArrayOfImportentNumbers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ImportentNumbers>
     <numberSaved>0</numberSaved>
-    <typeOfnumber>Drone Running Number</typeOfnumber>
-  </ImportentNumbers>
-  <ImportentNumbers>
-    <numberSaved>0</numberSaved>
-    <typeOfnumber>Station Running Number</typeOfnumber>
-  </ImportentNumbers>
-  <ImportentNumbers>
-    <numberSaved>0</numberSaved>
-    <typeOfnumber>Parcel Running Number</typeOfnumber>
-  </ImportentNumbers>
-  <ImportentNumbers>
-    <numberSaved>0</numberSaved>
     <typeOfnumber>Charge Running Number</typeOfnumber>
   </ImportentNumbers>
   <ImportentNumbers>
@@ -35,5 +23,17 @@
   <ImportentNumbers>
     <numberSaved>50</numberSaved>
     <typeOfnumber>Charging Precentage Per Hour</typeOfnumber>
+  </ImportentNumbers>
+  <ImportentNumbers>
+    <numberSaved>5</numberSaved>
+    <typeOfnumber>Drone Running Number</typeOfnumber>
+  </ImportentNumbers>
+  <ImportentNumbers>
+    <numberSaved>2</numberSaved>
+    <typeOfnumber>Station Running Number</typeOfnumber>
+  </ImportentNumbers>
+  <ImportentNumbers>
+    <numberSaved>10</numberSaved>
+    <typeOfnumber>Parcel Running Number</typeOfnumber>
   </ImportentNumbers>
 </ArrayOfImportentNumbers>

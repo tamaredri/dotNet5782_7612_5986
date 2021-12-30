@@ -22,87 +22,238 @@ namespace Dal
         public static IDal Instance { get => instance; }
         DalXml()
         {
+            List<ImportentNumbers> helpList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
+            ImportentNumbers newImp = helpList.Find(x => x.typeOfnumber == "Parcel Running Number");
+            helpList.Remove(newImp);
+
+            //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Drone Running Number" });
+            //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Station Running Number" });
+            //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Parcel Running Number" });
+            //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Charge Running Number" });
+
+            //helpList.Add(new ImportentNumbers() { numberSaved = 10, typeOfnumber = "Minimum If Available" });
+            //helpList.Add(new ImportentNumbers() { numberSaved = 20, typeOfnumber = "Minimum If Carry Light Weigh" });
+            //helpList.Add(new ImportentNumbers() { numberSaved = 30, typeOfnumber = "Minimum If Carry Middle Weight" });
+            //helpList.Add(new ImportentNumbers() { numberSaved = 40, typeOfnumber = "Minimum If Carry Heavy Weight" });
+            //helpList.Add(new ImportentNumbers() { numberSaved = 50, typeOfnumber = "Charging Precentage Per Hour" });
+
+            newImp.numberSaved = 0;
+            helpList.Add(newImp);
+            XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpList, configPath);
             //initialize
             Random rand = new Random();
             #region initializing customer list:
-            for (int i = 0; i < 10; i++)//איתחול 10 לקוחות
-            {
-                CreateCustomer(new Customer()
-                {
-                    ID = 100000000 + i,
-                    Name = "" + ((char)(97 + i)),
-                    Phone = "0" + rand.Next(0580000000, 0590000000),
-                    Lattitude = 35.810873,
-                    Longitude = 32.982540
-                });
-            }
+            ////first customer
+            //CreateCustomer(new Customer()
+            //{
+            //    ID = 322637596,
+            //    Name = "Tamar",
+            //    Phone = "0" + rand.Next(0580000000, 0590000000),
+            //    Lattitude = 31.713620,
+            //    Longitude = 34.997140 //Beit Shemesh
+            //});
+
+            ////second customer
+            //CreateCustomer(new Customer()
+            //{
+            //    ID = 323805695,
+            //    Name = "Reut",
+            //    Phone = "0" + rand.Next(0580000000, 0590000000),
+            //    Lattitude = 32.982125,
+            //    Longitude = 35.810217 //jerusalem
+
+            //});
+
+            ////third customer
+            //CreateCustomer(new Customer()
+            //{
+            //    ID = 225658541,
+            //    Name = "Avraham",
+            //    Phone = "0" + rand.Next(0580000000, 0590000000),
+            //    Lattitude = 32.795501,
+            //    Longitude = 35.531364 //tveria
+            //});
+
+            ////forth customer
+            //CreateCustomer(new Customer()
+            //{
+            //    ID = 033584722,
+            //    Name = "Moshe",
+            //    Phone = "0" + rand.Next(0580000000, 0590000000),
+            //    Lattitude = 31.604789,
+            //    Longitude = 34.767405 //kiryat gat
+            //});
+
+            ////fifth customer
+            //CreateCustomer(new Customer()
+            //{
+            //    ID = 221156457,
+            //    Name = "Ayala",
+            //    Phone = "0" + rand.Next(0580000000, 0590000000),
+            //    Lattitude = 31.560358,
+            //    Longitude = 34.843347 //lachish
+            //});
             #endregion
 
-            List<ImportentNumbers> runningList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
 
             #region initializing base station list:
-            ImportentNumbers runningNum = (from number in runningList
-                                           where (number.typeOfnumber == "Station Running Number")
-                                           select number).FirstOrDefault();
-            runningList.Remove(runningNum);
-            for (int i = 0; i < 2; i++)
+
+            //first station
+            CreateStation(new Station
             {
-                runningNum.numberSaved++;
-                CreateStation(new Station
-                {
-                    ID = runningNum.numberSaved++,
-                    ChargeSlots = 1,
-                    Lattitude = 34.981915,
-                    Longitude = 31.713762,
-                    Name = "a" + ((char)(97 + i))
-                });
-            }
-            runningList.Add(runningNum);
+                ChargeSlots = 3,
+                Lattitude = 31.767827, //jerusalem
+                Longitude = 35.177496,
+                Name = "Drones - Kiryat Yovel"
+            });
+
+            //second station
+            CreateStation(new Station
+            {
+                ChargeSlots = 3,
+                Lattitude = 31.799753,
+                Longitude = 34.646484, //ashdod
+                Name = "Ashdo-D-rones"
+            });
+
             #endregion
 
             #region initializing drones list:
-            runningNum = (from number in runningList
-                          where (number.typeOfnumber == "Drone Running Number")
-                          select number).FirstOrDefault();
-            runningList.Remove(runningNum);
-            for (int i = 0; i < 5; i++)
-            {
-                runningNum.numberSaved++;
 
-                CreateDrone(new Drone
-                {
-                    ID = runningNum.numberSaved++,
-                    MaxWeight = (WeightCategories)(i % 3),
-                    Model = "Sky-Fly-" + (char)(97 + i) + "-" + i
-                });
-            }
-            runningList.Add(runningNum);
+            //CreateDrone(new Drone
+            //{
+            //    MaxWeight = WeightCategories.heavey,
+            //    Model = "Ka233"
+            //});
+
+            //CreateDrone(new Drone
+            //{
+            //    MaxWeight = WeightCategories.light,
+            //    Model = "Ka998"
+            //});
+
+            //CreateDrone(new Drone
+            //{
+            //    MaxWeight = WeightCategories.middle,
+            //    Model = "j-123"
+            //});
+
+            //CreateDrone(new Drone
+            //{
+            //    MaxWeight = WeightCategories.heavey,
+            //    Model = "xp-666"
+            //});
+
+            //CreateDrone(new Drone
+            //{
+            //    MaxWeight = WeightCategories.middle,
+            //    Model = "dr258"
+            //});
             #endregion
 
             #region initializing parcel list:
-            runningNum = (from number in runningList
-                          where (number.typeOfnumber == "Parcel Running Number")
-                          select number).FirstOrDefault();
-            runningList.Remove(runningNum);
-            for (int i = 0; i < 10; i++)//איתחול 10 חבילות
+
+            CreateParcel(new Parcel
             {
-                runningNum.numberSaved++;
+                SenderID = 322637596 ,
+                TargetID = 323805695 ,
+                Weight = WeightCategories.light,
+                Priority = Prioritie.emergency,
+                Requested = DateTime.Now,
+                DroneID = 0
+            });
 
-                CreateParcel(new Parcel
-                {
-                    ID = runningNum.numberSaved,
-                    SenderID = 100000000 + i,
-                    TargetID = 100000000 + 9 - i,
-                    Weight = (WeightCategories)(i % 3),
-                    Priority = (Prioritie)(i % 3),
-                    Requested = DateTime.Now,
-                    DroneID = 0
-                });
-            }
-            runningList.Add(runningNum);
+            CreateParcel(new Parcel
+            {
+                SenderID = 225658541,
+                TargetID = 221156457,
+                Weight = WeightCategories.light,
+                Priority = Prioritie.fast,
+                Requested = DateTime.Now,
+                DroneID = 0
+            });
+
+            CreateParcel(new Parcel
+            {
+                SenderID = 221156457,
+                TargetID = 225658541,
+                Weight = WeightCategories.light,
+                Priority = Prioritie.regular,
+                Requested = DateTime.Now,
+                DroneID = 0
+            });
+
+            CreateParcel(new Parcel
+            {
+                SenderID = 221156457,
+                TargetID = 322637596,
+                Weight = WeightCategories.heavey,
+                Priority = Prioritie.regular,
+                Requested = DateTime.Now,
+                DroneID = 0
+            });
+
+            CreateParcel(new Parcel
+            {
+                SenderID = 323805695,
+                TargetID = 221156457,
+                Weight = WeightCategories.middle,
+                Priority = Prioritie.regular,
+                Requested = DateTime.Now,
+                DroneID = 0
+            });
+
+            CreateParcel(new Parcel
+            {
+                SenderID = 033584722,
+                TargetID = 225658541,
+                Weight = WeightCategories.middle,
+                Priority = Prioritie.fast,
+                Requested = DateTime.Now,
+                DroneID = 0
+            });
+
+            CreateParcel(new Parcel
+            {
+                SenderID = 225658541,
+                TargetID = 323805695,
+                Weight = WeightCategories.middle,
+                Priority = Prioritie.regular,
+                Requested = DateTime.Now,
+                DroneID = 0
+            });
+
+            CreateParcel(new Parcel
+            {
+                SenderID = 033584722,
+                TargetID = 221156457,
+                Weight = WeightCategories.light,
+                Priority = Prioritie.fast,
+                Requested = DateTime.Now,
+                DroneID = 0
+            });
+
+            CreateParcel(new Parcel
+            {
+                SenderID = 225658541,
+                TargetID = 322637596,
+                Weight = WeightCategories.heavey,
+                Priority = Prioritie.fast,
+                Requested = DateTime.Now,
+                DroneID = 0
+            });
+
+            CreateParcel(new Parcel
+            {
+                SenderID = 221156457,
+                TargetID = 322637596,
+                Weight = WeightCategories.light,
+                Priority = Prioritie.fast,
+                Requested = DateTime.Now,
+                DroneID = 0
+            });
+
             #endregion
-
-            XmlTools.SaveListToXMLSerializer(runningList, configPath);
         }
         static DalXml() { }
         #endregion
@@ -110,9 +261,10 @@ namespace Dal
         #region DS xml file
 
         string dronePath = @"droneXml.xml";
-        string customerPath = @"customereXml.xml";
+        string droneChargePath = @"droneChargeXml.xml";
+        string customerPath = @"customerXml.xml";
         string parcelPath = @"parcelXml.xml";
-        string SuccessfullyParcelPath = @"SuccessfullyParcelXml.xml";
+        string successfullyParcelPath = @"successfullyParcelXml.xml";
         string stationPath = @"stationXml.xml";
         string configPath = @"config.xml";
 
@@ -487,6 +639,8 @@ namespace Dal
         #endregion
 
         //-----------------parcel-----------------
+        #region parcel XmlSerializer
+
         #region CreateParcel
         public void CreateParcel(Parcel parcelToCreate)
         {
@@ -502,44 +656,51 @@ namespace Dal
             parcelToCreate.ID = runningNum.numberSaved;
             parcelsList.Add(parcelToCreate);
 
-            XmlTools.SaveListToXMLSerializer(parcelsList, stationPath);
+            XmlTools.SaveListToXMLSerializer(parcelsList, parcelPath);
             XmlTools.SaveListToXMLSerializer(runningList, configPath);
 
         }
         #endregion
+
         #region GetParcel
         public Parcel GetParcel(int idToGet)
         {
-
             List<Parcel> parcelsList = GetParcelList().ToList();
-            List<Parcel> SuccessfullyParcelList = XmlTools.LoadListFromXMLSerializer<Parcel>(SuccessfullyParcelPath);
+            List<Parcel> SuccessfullyParcelList = XmlTools.LoadListFromXMLSerializer<Parcel>(successfullyParcelPath);
 
             Parcel parcelToGet = (from parcel in parcelsList
                                   where parcel.ID == idToGet
                                   select parcel).FirstOrDefault();
+
             if (parcelToGet.Equals(default(Parcel)))
-            {   //the parcel is not in the existing parcels, look for it in the delivered parcels
+            {   
+                //the parcel is not in the existing parcels, look for it in the delivered parcels
                 parcelToGet = (from parcel in SuccessfullyParcelList
                                where parcel.ID == idToGet
                                select parcel).FirstOrDefault();
+
                 if (parcelToGet.Equals(default(Parcel)))
                     throw new DoesntExistExeption("the parcel dosen't exited");
             }
+
             return parcelToGet;
         }
         #endregion
+
         #region GetParcelList
         public IEnumerable<Parcel> GetParcelList()
         {
             return XmlTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
         }
         #endregion
+
         #region GetsuccessfullyDeliveredParcelList
         public IEnumerable<Parcel> GetsuccessfullyDeliveredParcelList()
         {
-            return  XmlTools.LoadListFromXMLSerializer<Parcel>(SuccessfullyParcelPath);
+            return  XmlTools.LoadListFromXMLSerializer<Parcel>(successfullyParcelPath);
         }
         #endregion
+
         #region GetPartOfParcel
         public IEnumerable<Parcel> GetPartOfParcel(Predicate<Parcel> check)
         {
@@ -550,13 +711,16 @@ namespace Dal
             List<Parcel> parcelListToReturn= (from parcel in parcelsList
                     where check(parcel)
                     select parcel).ToList<Parcel>();
+
             List<Parcel> parcelListToReturn2 = (from parcel in SuccessfullyParcelList
                                                where check(parcel)
                                                select parcel).ToList<Parcel>();
+
             parcelListToReturn.AddRange(parcelListToReturn2);
             return parcelListToReturn;
         }
         #endregion
+
         #region ScheduleDroneParcel
         public void ScheduleDroneParcel(int idParcelToSchedule, int idDroneToSchedule)
         {
@@ -574,21 +738,22 @@ namespace Dal
             XmlTools.SaveListToXMLSerializer(parcelList, parcelPath);
         }
         #endregion
+
         #region PickUpByDrone
         public void PickUpByDrone(int idParcelToPickUp)
         {
             List<Parcel> parcelsList = GetParcelList().ToList();
 
-            Parcel parcelToPickUp = GetParcel(idParcelToPickUp);//doesnt exist exception
+            Parcel parcelToPickUp = GetParcel(idParcelToPickUp);
 
             parcelsList.Remove(parcelToPickUp);
             parcelToPickUp.PickedUp = DateTime.Now;
             parcelsList.Add(parcelToPickUp);
 
             XmlTools.SaveListToXMLSerializer(parcelsList, parcelPath);
-
         }
         #endregion
+
         #region DelivereParcel
         public void DelivereParcel(int idParcelToDelivere)
         {
@@ -603,14 +768,18 @@ namespace Dal
             successfullyDeliveredParcelList.Add(parcelToDeliver);
 
             XmlTools.SaveListToXMLSerializer(parcelList, parcelPath);
-            XmlTools.SaveListToXMLSerializer(successfullyDeliveredParcelList, SuccessfullyParcelPath);
-
+            XmlTools.SaveListToXMLSerializer(successfullyDeliveredParcelList, successfullyParcelPath);
         }
         #endregion
+
         #region DeleteParcel
         #endregion
 
+        #endregion
+
         //-----------------station-----------------
+        #region station XmlSerializer
+
         #region CreateStation
         public void CreateStation(Station stationToCreate)
         {
@@ -624,7 +793,7 @@ namespace Dal
                 throw new AlreadyExistExeption("the station already exist");
 
             ImportentNumbers runningNum = (from number in runningList
-                                           where (number.typeOfnumber == "drone")
+                                           where (number.typeOfnumber == "Station Running Number")
                                            select number).FirstOrDefault();
 
             runningList.Remove(runningNum);
@@ -639,6 +808,7 @@ namespace Dal
 
         }
         #endregion
+
         #region GetStation
         public Station GetStation(int idToGet)
         {
@@ -654,12 +824,14 @@ namespace Dal
             return new Station();
         }
         #endregion
+
         #region GetStationList
         public IEnumerable<Station> GetStationList()
         {
             return XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
         }
         #endregion
+
         #region GetPartOfStation
         public IEnumerable<Station> GetPartOfStation(Predicate<Station> check)
         {
@@ -671,6 +843,7 @@ namespace Dal
 
         }
         #endregion
+
         #region UpdateStation
         public void UpdateStation(int stationIDToUpdate, int newChargeSlots, string newName)
         {
@@ -682,7 +855,9 @@ namespace Dal
             {
                 int usedChargeSlots = getAmountOfUsedChargeSlots(stationIDToUpdate);
                 updateChargeSlots(stationIDToUpdate, x => x = newChargeSlots - usedChargeSlots); //check
+                stationsList = GetStationList().ToList(); //reread the updated file
             }
+
 
             if (newName != null)
             {
@@ -693,8 +868,10 @@ namespace Dal
             XmlTools.SaveListToXMLSerializer(stationsList, stationPath);
         }
         #endregion
+
         #region DeleteStation
         #endregion
+
         #region private station functions
         #region updateChargeSlots
         /// <summary>
@@ -716,6 +893,8 @@ namespace Dal
             XmlTools.SaveListToXMLSerializer(stationsList, stationPath);
         }
         #endregion
+        #endregion
+
         #endregion
 
         //List<ImportentNumbers> helpList = new List<ImportentNumbers>();

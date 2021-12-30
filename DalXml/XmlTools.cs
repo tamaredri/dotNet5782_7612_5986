@@ -79,7 +79,7 @@ namespace Dal
         {
             try
             {
-                if (File.Exists(filePath))
+                if (File.Exists(suffixPath + filePath))
                 {
                     List<T> list;
                     XmlSerializer x = new XmlSerializer(typeof(List<T>));

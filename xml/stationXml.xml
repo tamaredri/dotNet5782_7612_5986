@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Station>
+    <ID>1</ID>
+    <Name>Drones - Kiryat Yovel</Name>
+    <Longitude>35.177496</Longitude>
+    <Lattitude>31.767827</Lattitude>
+    <ChargeSlots>3</ChargeSlots>
+  </Station>
+  <Station>
+    <ID>2</ID>
+    <Name>Ashdo-D-rones</Name>
+    <Longitude>34.646484</Longitude>
+    <Lattitude>31.799753</Lattitude>
+    <ChargeSlots>3</ChargeSlots>
+  </Station>
+</ArrayOfStation>

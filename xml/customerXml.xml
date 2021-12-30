@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customerXml.xml>
+  <customer>
+    <ID>322637596</ID>
+    <Name>Tamar</Name>
+    <Phone>0580610638</Phone>
+    <Lattitude>31.71362</Lattitude>
+    <Longitude>34.99714</Longitude>
+  </customer>
+  <customer>
+    <ID>323805695</ID>
+    <Name>Reut</Name>
+    <Phone>0588607765</Phone>
+    <Lattitude>32.982125</Lattitude>
+    <Longitude>35.810217</Longitude>
+  </customer>
+  <customer>
+    <ID>225658541</ID>
+    <Name>Avraham</Name>
+    <Phone>0587829579</Phone>
+    <Lattitude>32.795501</Lattitude>
+    <Longitude>35.531364</Longitude>
+  </customer>
+  <customer>
+    <ID>33584722</ID>
+    <Name>Moshe</Name>
+    <Phone>0587800337</Phone>
+    <Lattitude>31.604789</Lattitude>
+    <Longitude>34.767405</Longitude>
+  </customer>
+  <customer>
+    <ID>221156457</ID>
+    <Name>Ayala</Name>
+    <Phone>0589814005</Phone>
+    <Lattitude>31.560358</Lattitude>
+    <Longitude>34.843347</Longitude>
+  </customer>
+</customerXml.xml>
