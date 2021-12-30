@@ -25,6 +25,7 @@ namespace PL
         {
             IBL BLAccess = BlFactory.GetBl();
             InitializeComponent();
+            IBL blaccess = BlFactory.GetBl();
         }
 
         private void closeWindow(object sender, RoutedEventArgs e)
