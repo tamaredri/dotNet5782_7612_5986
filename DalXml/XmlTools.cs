@@ -12,7 +12,7 @@ namespace Dal
 {
     static internal class XmlTools
     {
-        static string suffixPath = @"..\..\xml\";
+        static string suffixPath = @"xml\";
 
         #region XElement
         #region load to file

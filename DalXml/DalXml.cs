@@ -9,10 +9,10 @@ using System.IO;
 
 namespace Dal
 {
-    public struct RunningNumber
+    public struct ImportentNumbers
     {
-        public int runningNum { get; set; }
-        public string typeOfRunningNum { get; set; }
+        public int numberSaved { get; set; }
+        public string typeOfnumber { get; set; }
     }
 
     sealed class DalXml : IDal
@@ -20,8 +20,7 @@ namespace Dal
         #region singlton
         static readonly IDal instance = new DalXml();
         public static IDal Instance { get => instance; }
-        DalXml()
-        { }
+        DalXml() { }
         static DalXml() { }
         #endregion
 
@@ -154,16 +153,16 @@ namespace Dal
         public int CreateDrone(Drone droneToCreate)
         { 
             List<Drone> dronesList = XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
-            List<RunningNumber> runningList = XmlTools.LoadListFromXMLSerializer<RunningNumber>(configPath);
+            List<ImportentNumbers> runningList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
 
-            RunningNumber runningNum = (from number in runningList
-                                        where (number.typeOfRunningNum == "drone")
+            ImportentNumbers runningNum = (from number in runningList
+                                        where (number.typeOfnumber == "drone")
                                         select number).FirstOrDefault();
 
             runningList.Remove(runningNum);
 
-            runningNum.runningNum++;
-            droneToCreate.ID = runningNum.runningNum;
+            runningNum.numberSaved++;
+            droneToCreate.ID = runningNum.numberSaved;
 
             runningList.Add(runningNum);
             dronesList.Add(droneToCreate);
@@ -171,7 +170,7 @@ namespace Dal
             XmlTools.SaveListToXMLSerializer(runningList, configPath);
             XmlTools.SaveListToXMLSerializer(dronesList, dronePath);
 
-            return runningNum.runningNum;
+            return runningNum.numberSaved;
         }
         #endregion
         #region GetDrone
@@ -179,34 +178,43 @@ namespace Dal
         {
             List<Drone> dronesList = XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
 
-            if (!dronesList.Exists(x=> x.ID == idToGet))
+            Drone droneToReturn = (from drone in dronesList
+                                   where drone.ID == idToGet
+                                   select drone).FirstOrDefault();
+
+            if (droneToReturn.Equals(default(Drone)))
                 throw new DoesntExistExeption("GetDrone : the drone doesn't exist");
 
-           return (from drone in dronesList
-                                where drone.ID == idToGet
-                                select drone).FirstOrDefault();
+            return droneToReturn;
         }
         #endregion
         #region GetDroneList
         public IEnumerable<Drone> GetDroneList()
         {
-            return new List<Drone>();
+            List<Drone> dronesList = XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
 
-            //return (from drone in DataSource.DronesList select drone).ToList();
+            return (from drone in dronesList
+                    select drone).ToList();
         }
         #endregion
         #region GetPartOfDrone
         public IEnumerable<Drone> GetPartOfDrone(Predicate<Drone> check)
         {
-            //return (from drone in DataSource.DronesList
-            //        where check(drone)
-            //        select drone).ToList<Drone>();
-            return new List<Drone>();
+            List<Drone> dronesList = XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
+
+            return (from drone in dronesList
+                    where check(drone)
+                    select drone).ToList();
         }
         #endregion
         #region GetPowerConsumptionByDrone
         public double[] GetPowerConsumptionByDrone()
         {
+            List<ImportentNumbers> runningList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
+
+            ImportentNumbers runningNum = (from number in runningList
+                                           where (number.typeOfnumber == "drone")
+                                           select number).FirstOrDefault();
             return new double[5];
             //{
             //   DataSource.Config.powerMinimumIfAvailable,
@@ -518,12 +526,17 @@ namespace Dal
     }
 
 
-    //List<runningNumber> helpList = new List<runningNumber>();
-    //helpList.Add(new runningNumber() { runningNum = 0, typeOfRunningNum = "drone" });
-    //helpList.Add(new runningNumber() { runningNum = 0, typeOfRunningNum = "station" });
-    //helpList.Add(new runningNumber() { runningNum = 0, typeOfRunningNum = "parcel" });
-    //helpList.Add(new runningNumber() { runningNum = 0, typeOfRunningNum = "charge" });
+    //List<ImportentNumbers> helpList = new List<ImportentNumbers>();
+    //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Drone Running Number" });
+    //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Station Running Number" });
+    //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Parcel Running Number" });
+    //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Charge Running Number" });
 
-    //XmlTools.SaveListToXMLSerializer<runningNumber>(helpList, configPath);
-    ////XmlSerializer xml = new XmlSerializer(typeof(List<runningNumber>));
+    //helpList.Add(new ImportentNumbers() { numberSaved = 10, typeOfnumber = "Minimum If Available" });
+    //helpList.Add(new ImportentNumbers() { numberSaved = 20, typeOfnumber = "Minimum If Carry Light Weigh" });
+    //helpList.Add(new ImportentNumbers() { numberSaved = 30, typeOfnumber = "Minimum If Carry Middle Weight" });
+    //helpList.Add(new ImportentNumbers() { numberSaved = 40, typeOfnumber = "Minimum If Carry Heavy Weight" });
+    //helpList.Add(new ImportentNumbers() { numberSaved = 50, typeOfnumber = "Charging Precentage Per Hour" });
+
+    //XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpList, configPath);
 }
