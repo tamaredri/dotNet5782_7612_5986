@@ -21,11 +21,11 @@ namespace PL
     /// </summary>
     public partial class entryPage : Window
     {
+        IBL BLAccess;
         public entryPage()
         {
-            IBL BLAccess = BlFactory.GetBl();
+            BLAccess = BlFactory.GetBl();
             InitializeComponent();
-            IBL blaccess = BlFactory.GetBl();
         }
 
         private void closeWindow(object sender, RoutedEventArgs e)
@@ -35,8 +35,9 @@ namespace PL
 
         private void GoToDronrsList(object sender, RoutedEventArgs e)
         {
-            DronesListView dronesListViewWindow = new DronesListView();
-            dronesListViewWindow.ShowDialog();
+            ListViewFrame.Content = new ParcelListView(BLAccess.GetParcelList().ToList());
+            //DronesListView dronesListViewWindow = new DronesListView();
+            //dronesListViewWindow.ShowDialog();
         }
 
 

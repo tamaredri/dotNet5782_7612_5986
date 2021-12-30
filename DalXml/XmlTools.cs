@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.IO;
@@ -11,21 +12,24 @@ namespace Dal
 {
     static internal class XmlTools
     {
+        static string suffixPath = @"..\..\xml\";
+
+        #region XElement
         #region load to file
         public static XElement LoadListFromXMLElement(string filePath)
         {
             try
             {
-                if (File.Exists(filePath))
+                if (File.Exists(suffixPath + filePath))
                 {
-                    return XElement.Load(filePath);
+                    return XElement.Load(suffixPath + filePath);
                 }
                 else
                 {
                     XElement rootElem = new XElement(filePath);
                     if (filePath == @"config.xml") { }
-                        //rootElem.Add(new XElement("customerRunningNum", 1)); //להוריד
-                    rootElem.Save(filePath);
+                        //rootElem.Add(new XElement("droneRunningNum", 1)); //להוריד
+                    rootElem.Save(suffixPath + filePath);
                     return rootElem;
                 }
             }
@@ -40,16 +44,58 @@ namespace Dal
         {
             try
             {
-                rootElem.Save(filePath);
+                rootElem.Save(suffixPath + filePath);
             }
             catch (Exception ex)
             {
-                throw new LoadingException(filePath, $"fail to create xml file: {filePath}", ex);
+                throw new LoadingException(suffixPath + filePath, $"fail to create xml file: {suffixPath + filePath}", ex);
             }
         }
 
         #endregion
+        #endregion
+
+        #region XmlSerializer
+        //save a complete list in a specific file- throw exception in case of problems..
+        //for the using with XMLSerializer..
+        public static void SaveListToXMLSerializer<T>(List<T> list, string filePath)
+        {
+            try
+            {
+                FileStream file = new FileStream(suffixPath + filePath, FileMode.Create);
+                XmlSerializer x = new XmlSerializer(list.GetType());
+                x.Serialize(file, list);
+                file.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new LoadingException(suffixPath + filePath, $"fail to create xml file: {suffixPath + filePath}", ex);
+            }
+        }
+
+        //load a complete list from a specific file- throw exception in case of problems..
+        //for the using with XMLSerializer..
+        public static List<T> LoadListFromXMLSerializer<T>(string filePath)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    List<T> list;
+                    XmlSerializer x = new XmlSerializer(typeof(List<T>));
+                    FileStream file = new FileStream(suffixPath + filePath, FileMode.Open);
+                    list = (List<T>)x.Deserialize(file);
+                    file.Close();
+                    return list;
+                }
+                else
+                    return new List<T>();
+            }
+            catch (Exception ex)
+            {
+                throw new LoadingException(suffixPath + filePath, $"fail to load xml file: {suffixPath + filePath}", ex);
+            }
+        }
+        #endregion
     }
-
-
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ArrayOfRunningNumber xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <runningNumber>
+    <runningNum>0</runningNum>
+    <typeOfRunningNum>drone</typeOfRunningNum>
+  </runningNumber>
+  <runningNumber>
+    <runningNum>0</runningNum>
+    <typeOfRunningNum>station</typeOfRunningNum>
+  </runningNumber>
+  <runningNumber>
+    <runningNum>0</runningNum>
+    <typeOfRunningNum>parcel</typeOfRunningNum>
+  </runningNumber>
+  <runningNumber>
+    <runningNum>0</runningNum>
+    <typeOfRunningNum>charge</typeOfRunningNum>
+  </runningNumber>
+</ArrayOfRunningNumber>

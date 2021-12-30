@@ -87,8 +87,9 @@
 
         </Grid>
 
+        <Frame x:Name="ListViewFrame" Grid.Row="1" Grid.Column="1"/>
 
-        <StackPanel Grid.Row="1" Grid.Column="1"
+        <!--<StackPanel Grid.Row="1" Grid.Column="1"
                     Orientation="Vertical"
                     VerticalAlignment="Center" Height="128">
             <TextBlock Grid.Row="1"
@@ -116,7 +117,7 @@
             </StackPanel>
 
 
-        </StackPanel>
+        </StackPanel>-->
      
 
         <Grid Grid.Row="1"

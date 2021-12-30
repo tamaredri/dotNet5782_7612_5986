@@ -1,21 +1,27 @@
 ﻿using System;
 using DalApi;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using System.Collections.Generic;
 using DO;
 using System.Linq;
+using System.IO;
 
 namespace Dal
 {
+    public struct RunningNumber
+    {
+        public int runningNum { get; set; }
+        public string typeOfRunningNum { get; set; }
+    }
+
     sealed class DalXml : IDal
     {
         #region singlton
         static readonly IDal instance = new DalXml();
         public static IDal Instance { get => instance; }
         DalXml()
-        {
-           XmlTools.LoadListFromXMLElement(configPath);
-        }
+        { }
         static DalXml() { }
         #endregion
 
@@ -25,7 +31,7 @@ namespace Dal
         string customerPath = "@customereXml.xml";
         string parcelPath = "@parcelXml.xml";
         string stationPath = "@stationXml.xml";
-        string configPath = "@config.xml";
+        string configPath = @"config.xml";
 
         #endregion
 
@@ -143,27 +149,42 @@ namespace Dal
         #endregion
 
         //-----------------drone-----------------
+        #region XmlSerializer
         #region CreateDrone
         public int CreateDrone(Drone droneToCreate)
-        {
-            //DataSource.Config.runningDroneNumber++;
-            //droneToCreate.ID = DataSource.Config.runningDroneNumber;
-            //DataSource.DronesList.Add(droneToCreate);
+        { 
+            List<Drone> dronesList = XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
+            List<RunningNumber> runningList = XmlTools.LoadListFromXMLSerializer<RunningNumber>(configPath);
 
-            //return DataSource.Config.runningDroneNumber; //the drone's ID
-            return 4;
+            RunningNumber runningNum = (from number in runningList
+                                        where (number.typeOfRunningNum == "drone")
+                                        select number).FirstOrDefault();
+
+            runningList.Remove(runningNum);
+
+            runningNum.runningNum++;
+            droneToCreate.ID = runningNum.runningNum;
+
+            runningList.Add(runningNum);
+            dronesList.Add(droneToCreate);
+
+            XmlTools.SaveListToXMLSerializer(runningList, configPath);
+            XmlTools.SaveListToXMLSerializer(dronesList, dronePath);
+
+            return runningNum.runningNum;
         }
         #endregion
         #region GetDrone
         public Drone GetDrone(int idToGet)
         {
-            //Drone droneToGet = (from drone in DataSource.DronesList
-            //                    where drone.ID == idToGet
-            //                    select drone).FirstOrDefault();
-            //if (droneToGet.ID == 0)
-            //    throw new DoesntExistExeption("GetDrone : the drone doesn't exist");
-            //return droneToGet;
-            return new Drone();
+            List<Drone> dronesList = XmlTools.LoadListFromXMLSerializer<Drone>(dronePath);
+
+            if (!dronesList.Exists(x=> x.ID == idToGet))
+                throw new DoesntExistExeption("GetDrone : the drone doesn't exist");
+
+           return (from drone in dronesList
+                                where drone.ID == idToGet
+                                select drone).FirstOrDefault();
         }
         #endregion
         #region GetDroneList
@@ -239,8 +260,7 @@ namespace Dal
         #endregion
         #region DeleteDrone
         #endregion
-
-
+        #endregion
         //-----------------drone-charge-----------
         #region createChargeEntity
         /// <summary>
@@ -496,4 +516,14 @@ namespace Dal
         #endregion
         #endregion
     }
+
+
+    //List<runningNumber> helpList = new List<runningNumber>();
+    //helpList.Add(new runningNumber() { runningNum = 0, typeOfRunningNum = "drone" });
+    //helpList.Add(new runningNumber() { runningNum = 0, typeOfRunningNum = "station" });
+    //helpList.Add(new runningNumber() { runningNum = 0, typeOfRunningNum = "parcel" });
+    //helpList.Add(new runningNumber() { runningNum = 0, typeOfRunningNum = "charge" });
+
+    //XmlTools.SaveListToXMLSerializer<runningNumber>(helpList, configPath);
+    ////XmlSerializer xml = new XmlSerializer(typeof(List<runningNumber>));
 }
