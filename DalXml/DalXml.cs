@@ -2,9 +2,8 @@
 using DalApi;
 using System.Xml.Linq;
 using System.Collections.Generic;
-
 using DO;
-
+using System.Linq;
 
 namespace Dal
 {
@@ -13,9 +12,9 @@ namespace Dal
         #region singlton
         static readonly IDal instance = new DalXml();
         public static IDal Instance { get => instance; }
-        DalXml() 
+        DalXml()
         {
-            //XmlTools.LoadListFromXMLElement(configPath);
+           XmlTools.LoadListFromXMLElement(configPath);
         }
         static DalXml() { }
         #endregion
@@ -30,74 +29,117 @@ namespace Dal
 
         #endregion
 
-        #region customer XElement
-
         //-----------------customer--------------
+        #region customer XElement
         #region AddCustomer
-
-
-
         public void CreateCustomer(Customer customerToCreate)
         {
+            XElement customerRoot = XmlTools.LoadListFromXMLElement(customerPath); //get all the elements from the file
 
-            XElement customerRoot = XmlTools.LoadListFromXMLElement(customerPath);
+            //check if the customer exists in th file
+            var customerFromFile = (from customer in customerRoot.Elements()
+                                    where (customer.Element("ID").Value == customerToCreate.ID.ToString())
+                                    select customer).FirstOrDefault();
 
-            //DataSource.Config.runningCustomerNumber++;
+            //throw an exception
+            if (customerFromFile != null)
+                throw new AlreadyExistExeption("the customer already exit");
 
-            //if (DataSource.CustomersList.Find(x => x.ID == customerToCreate.ID).Name != null)
-            //    throw new AlreadyExistExeption("the customer already exit");
+            //add the customer to the root element
+            customerRoot.Add(
+                new XElement("customer",
+                new XElement("ID", customerToCreate.ID),
+                new XElement("Name", customerToCreate.Name),
+                new XElement("Phone", customerToCreate.Phone),
+                new XElement("Lattitude", customerToCreate.Lattitude),
+                new XElement("Longitude", customerToCreate.Longitude)));
 
-            //DataSource.CustomersList.Add(customerToCreate);
+            //save the root in the file
+            XmlTools.SaveListToXMLElement(customerRoot, customerPath);
         }
         #endregion
         #region GetCustomer
         public Customer GetCustomer(int idToGet)
         {
-            //Customer customerToGet = (from customer in DataSource.CustomersList
-            //                          where customer.ID == idToGet
-            //                          select customer).FirstOrDefault();
-            //if (customerToGet.Name == null)
-            //    throw new DoesntExistExeption("the customer doesn't exited");
-            //return customerToGet;
-            return new Customer();
+            XElement customerRoot = XmlTools.LoadListFromXMLElement(customerPath); //get all the elements from the file
+
+            //check if the customer exists in th file
+            var customerFromFile = (from customer in customerRoot.Elements()
+                                    where (customer.Element("ID").Value == idToGet.ToString())
+                                    select customer).FirstOrDefault();
+
+            //throw an exception
+            if (customerFromFile == null)
+                throw new DoesntExistExeption("the customer Doesnt exit");
+
+            return new Customer()
+            {
+                ID = int.Parse(customerFromFile.Element("ID").Value),
+                Name = customerFromFile.Element("Name").Value,
+                Phone = customerFromFile.Element("Name").Value,
+                Longitude = int.Parse(customerFromFile.Element("Longitude").Value),
+                Lattitude = int.Parse(customerFromFile.Element("Lattitude").Value),
+            };
         }
         #endregion
         #region GetCustomersList
         public IEnumerable<Customer> GetCustomersList()
         {
-            return new List<Customer>();
-            //return (from customer in DataSource.CustomersList
-            //        select customer).ToList();
+            XElement customerRoot = XmlTools.LoadListFromXMLElement(customerPath); //get all the elements from the file
+
+            return (from customer in customerRoot.Elements()
+                    select new Customer()
+                    {
+                        ID = int.Parse(customer.Element("ID").Value),
+                        Name = customer.Element("Name").Value,
+                        Phone = customer.Element("Name").Value,
+                        Longitude = int.Parse(customer.Element("Longitude").Value),
+                        Lattitude = int.Parse(customer.Element("Lattitude").Value),
+                    }).ToList();
         }
         #endregion
         #region GetPartOfCustomer
         public IEnumerable<Customer> GetPartOfCustomer(Predicate<Customer> check)
         {
-            //return (from customer in DataSource.CustomersList
-            //        where check(customer)
-            //        select customer).ToList<Customer>();
-            return new List<Customer>();
-            
+            XElement customerRoot = XmlTools.LoadListFromXMLElement(customerPath); //get all the elements from the file
+
+            return (from customer in customerRoot.Elements()
+                    let customerToCheck = new Customer()
+                    {
+                        ID = int.Parse(customer.Element("ID").Value),
+                        Name = customer.Element("Name").Value,
+                        Phone = customer.Element("Name").Value,
+                        Longitude = int.Parse(customer.Element("Longitude").Value),
+                        Lattitude = int.Parse(customer.Element("Lattitude").Value),
+                    }
+                    where check(customerToCheck)
+                    select customerToCheck).ToList();
         }
         #endregion
         #region UpdateCustomer
         public void UpdateCustomer(int customerID, int newPhone = 0, string newName = null)
         {
-            //Customer customerToUpdate = GetCustomer(customerID);
+            XElement customerRoot = XmlTools.LoadListFromXMLElement(customerPath); //get all the elements from the file
 
-            //DataSource.CustomersList.Remove(customerToUpdate);
-            //if (newPhone >= 100000000 || newPhone <= 999999999)
-            //    customerToUpdate.Phone = "0" + newPhone.ToString();
-            //if (newName != null)
-            //    customerToUpdate.Name = newName;
-            //DataSource.CustomersList.Add(customerToUpdate);
+            //check if the customer exists in th file
+            var customerFromFile = (from customer in customerRoot.Elements()
+                                    where (customer.Element("ID").Value == customerID.ToString())
+                                    select customer).FirstOrDefault();
+
+            //throw an exception
+            if (customerFromFile == null)
+                throw new DoesntExistExeption("the customer doesnt exit");
+
+            Customer customerToUpdate = GetCustomer(customerID);
+
+            if (newPhone >= 100000000 || newPhone <= 999999999)
+                customerFromFile.Element("Phone").Value = "0" + newPhone;
+            if (newName != null)
+                customerFromFile.Element("Name").Value = newName;
         }
         #endregion
         #region DeleteCustomer
         #endregion
-
-
-
         #endregion
 
         //-----------------drone-----------------
@@ -399,7 +441,7 @@ namespace Dal
         {
             //return (from s in DataSource.StationsList select s).ToList();
             ////return DataSource.StationsList.FindAll(x => x.ID != 0);
-           return new List<Station>();
+            return new List<Station>();
 
         }
         #endregion

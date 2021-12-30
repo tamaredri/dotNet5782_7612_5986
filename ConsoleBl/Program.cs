@@ -1,4 +1,5 @@
 ﻿using System;
+using BlApi;
 
 namespace ConsoleBl
 {
@@ -6,7 +7,10 @@ namespace ConsoleBl
     {
         static void Main(string[] args)
         {
-            
+            IBL blaccess = BlFactory.GetBl();
+
+            blaccess.GetCustomerList();
+
             Console.WriteLine("Hello World!");
         }
     }

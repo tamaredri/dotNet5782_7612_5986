@@ -23,8 +23,8 @@ namespace Dal
                 else
                 {
                     XElement rootElem = new XElement(filePath);
-                    if (filePath == @"config.xml")
-                        rootElem.Add(new XElement("customerRunningNum", 1));
+                    if (filePath == @"config.xml") { }
+                        //rootElem.Add(new XElement("customerRunningNum", 1)); //להוריד
                     rootElem.Save(filePath);
                     return rootElem;
                 }
