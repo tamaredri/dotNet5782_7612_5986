@@ -433,11 +433,14 @@ namespace Dal
         #region CreateStation
         public void CreateStation(Station stationToCreate)
         {
-            ////check if there is a station with the same name and location as the wanted station to add
-            //if (GetPartOfStation(x => x.Name == stationToCreate.Name).FirstOrDefault().Name != null ||
-            //    GetPartOfStation(x => (x.Lattitude == stationToCreate.Lattitude)
-            //                                       && (x.Longitude == stationToCreate.Longitude)).FirstOrDefault().Name != null)
-            //    throw new AlreadyExistExeption("the station already exist");
+            List<Station> stationsList = XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
+            //List<Station> stationsList = XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
+
+            //check if there is a station with the same name and location as the wanted station to add
+            if (stationsList.Exists(x => x.Name == stationToCreate.Name) ||
+                stationsList.Exists(x => (x.Lattitude == stationToCreate.Lattitude)
+                                                   && (x.Longitude == stationToCreate.Longitude)))
+                throw new AlreadyExistExeption("the station already exist");
 
             //DataSource.Config.runningStationNumber++;
             //stationToCreate.ID = DataSource.Config.runningStationNumber;
@@ -447,11 +450,13 @@ namespace Dal
         #region GetStation
         public Station GetStation(int idToGet)
         {
-            //Station stationToGet = (from station in DataSource.StationsList
-            //                        where station.ID == idToGet
-            //                        select station).FirstOrDefault();
-            //if (stationToGet.Name == null)
-            //    throw new DoesntExistExeption("the station doesn't exist");
+            List<Station> stationsList = XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
+
+            Station stationToGet = (from station in stationsList
+                                    where station.ID == idToGet
+                                    select station).FirstOrDefault();
+            if (stationToGet.Equals(default(Station)))
+                throw new DoesntExistExeption("the station doesn't exist");
             //return stationToGet;
             return new Station();
         }
@@ -459,9 +464,9 @@ namespace Dal
         #region GetStationList
         public IEnumerable<Station> GetStationList()
         {
-            //return (from s in DataSource.StationsList select s).ToList();
-            ////return DataSource.StationsList.FindAll(x => x.ID != 0);
-            return new List<Station>();
+            List<Station> stationsList = XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
+
+            return (from s in stationsList select s).ToList();
 
         }
         #endregion
