@@ -31,8 +31,8 @@
         <Setter Property="MaxColumnWidth" Value="200"/>
         <Setter Property="MinColumnWidth" Value="50"/>
 
-        <Setter Property="Background" Value="AliceBlue"/>
-        <Setter Property="BorderBrush" Value="AliceBlue"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="#414f47"/>
         <Setter Property="HorizontalGridLinesBrush" Value="#d5aaaa"/>
         <Setter Property="VerticalGridLinesBrush" Value="#d5aaaa"/>
         <Setter Property="RowBackground" Value="#fff3e3"/>
@@ -48,4 +48,23 @@
     <Style x:Key="BorderForComboboxStyle" TargetType="Border">
         <Setter Property="CornerRadius" Value="1"/>
     </Style>
+
+    <Style x:Key="PageStyle" TargetType="Page">
+        <Setter Property="Height" Value="570"/>
+        <Setter Property="Width" Value="870"/>
+    </Style>
+
+    <Style x:Key="DetailsViewForSingleView" TargetType="StackPanel">
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Width" Value="100"/>
+    </Style>
+
+    <Style x:Key="TextBoxForInput" TargetType="TextBox">
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+
 </ResourceDictionary>

@@ -40,6 +40,7 @@ namespace Dal
             newImp.numberSaved = 0;
             helpList.Add(newImp);
             XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpList, configPath);
+            
             //initialize
             Random rand = new Random();
             #region initializing customer list:
@@ -95,26 +96,25 @@ namespace Dal
             //});
             #endregion
 
-
             #region initializing base station list:
 
-            //first station
-            CreateStation(new Station
-            {
-                ChargeSlots = 3,
-                Lattitude = 31.767827, //jerusalem
-                Longitude = 35.177496,
-                Name = "Drones - Kiryat Yovel"
-            });
+            ////first station
+            //CreateStation(new Station
+            //{
+            //    ChargeSlots = 3,
+            //    Lattitude = 31.767827, //jerusalem
+            //    Longitude = 35.177496,
+            //    Name = "Drones - Kiryat Yovel"
+            //});
 
-            //second station
-            CreateStation(new Station
-            {
-                ChargeSlots = 3,
-                Lattitude = 31.799753,
-                Longitude = 34.646484, //ashdod
-                Name = "Ashdo-D-rones"
-            });
+            ////second station
+            //CreateStation(new Station
+            //{
+            //    ChargeSlots = 3,
+            //    Lattitude = 31.799753,
+            //    Longitude = 34.646484, //ashdod
+            //    Name = "Ashdo-D-rones"
+            //});
 
             #endregion
 
@@ -818,6 +818,7 @@ namespace Dal
             Station stationToGet = (from station in stationsList
                                     where station.ID == idToGet
                                     select station).FirstOrDefault();
+
             if (stationToGet.Equals(default(Station)))
                 throw new DoesntExistExeption("the station doesn't exist");
             //return stationToGet;

@@ -75,7 +75,6 @@ namespace DS
             #region initializing drones list:
             for (int i = 0; i < 5; i++)
             {
-
                 Config.runningDroneNumber++;// לפני שנוסיף רחפן נעדכן שיש לנו רחפן נוסף
 
                 DronesList.Add(new Drone
@@ -84,16 +83,15 @@ namespace DS
                     MaxWeight = (WeightCategories)(i % 3),
                     Model = "Sky-Fly-" + (char)(97 + i) + "-" + i
                 });
-
-
-
             }
             #endregion
 
             #region initializing parcel list:
-            for (int i = 0; i < 10; i++)//איתחול 10 חבילות
+
+            //unscheduled
+            for (int i = 0; i < 3; i++)
             {
-                Config.runningPackageNumber++; //increasing the running number before build a new parcel
+                Config.runningPackageNumber++;
 
                 ParcelsList.Add(new Parcel
                 {
@@ -106,6 +104,44 @@ namespace DS
                     DroneID = 0
                 });
             }
+
+            //scheduled
+            for (int i = 3; i < 6; i++)
+            {
+                Config.runningPackageNumber++; //increasing the running number before build a new parcel
+
+                ParcelsList.Add(new Parcel
+                {
+                    ID = Config.runningPackageNumber,
+                    SenderID = 100000000 + i,
+                    TargetID = 100000000 + 9 - i,
+                    Weight = (WeightCategories)(i % 3),
+                    Priority = (Prioritie)(i % 3),
+                    Requested = DateTime.Now,
+                    Scheduled = DateTime.Now,
+                    DroneID = i
+                });
+            }
+
+            //picked-up
+            for (int i = 6; i < 10; i++)
+            {
+                Config.runningPackageNumber++; //increasing the running number before build a new parcel
+
+                ParcelsList.Add(new Parcel
+                {
+                    ID = Config.runningPackageNumber,
+                    SenderID = 100000000 + i,
+                    TargetID = 100000000 + 9 - i,
+                    Weight = (WeightCategories)(i % 3),
+                    Priority = (Prioritie)(i % 3),
+                    Requested = DateTime.Now,
+                    Scheduled = DateTime.Now,
+                    PickedUp = DateTime.Now,
+                    DroneID = i
+                });
+            }
+
             #endregion
         }
         #endregion
