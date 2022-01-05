@@ -256,42 +256,31 @@ namespace BL
         {
             List<DO.Parcel> doParcelList = DalAccess.GetParcelList().ToList();
 
-            List<BO.ParcelToList> parcelListToReturn = new();
-            ParcelToList newParcelToList;
-
-            foreach (var item in doParcelList)
-            {
+            return (from parcel in doParcelList
+                    let parcelFromBl = GetParcel(parcel.ID)
+                    select new ParcelToList()
+                    {
+                        ID = parcelFromBl.ID,
+                        Priority = parcelFromBl.ParcelPriorities,
+                        Weight = parcelFromBl.Weight,
+                        SenderName = parcelFromBl.Sender.Name,
+                        TargetName = parcelFromBl.Target.Name,
+                        //short if
+                        Status = ((parcelFromBl.ScheduleTime == null) ?
+                        ParcelStatuse.created : ((parcelFromBl.PickUpTime == null) ?
+                        ParcelStatuse.pairedToDrone : ((parcelFromBl.DelivereTime == null) ?
+                        ParcelStatuse.pickedUp : ParcelStatuse.delivered)))
+                    }).ToList();
+            
                 //check if there was an error in the deais of the parcel
                 //find sender name
-                try { DalAccess.GetCustomer(item.SenderID); }
-                catch (DO.DoesntExistExeption x) { throw new ContradictoryDataExeption("the sender customer not found but he sent parcel", x); }
-                //find target name
-                try { DalAccess.GetCustomer(item.TargetID); }
-                catch (DO.DoesntExistExeption x) { throw new ContradictoryDataExeption("the target customer not found but there is a parcel that sent to him", x); }
+                //try { DalAccess.GetCustomer(item.SenderID); }
+                //catch (DO.DoesntExistExeption x) { throw new ContradictoryDataExeption("the sender customer not found but he sent parcel", x); }
+                ////find target name
+                //try { DalAccess.GetCustomer(item.TargetID); }
+                //catch (DO.DoesntExistExeption x) { throw new ContradictoryDataExeption("the target customer not found but there is a parcel that sent to him", x); }
 
-                BO.Parcel parcelToCopyFrom = GetParcel(item.ID);
-
-                newParcelToList = new()
-                {
-                    ID = parcelToCopyFrom.ID,
-                    Weight = parcelToCopyFrom.Weight,
-                    Priority = parcelToCopyFrom.ParcelPriorities,
-                    SenderName = parcelToCopyFrom.Sender.Name,
-                    TargetName = parcelToCopyFrom.Target.Name
-                };
-
-                //change the status according to the time
-                if (item.Scheduled == null)
-                    newParcelToList.Status = ParcelStatuse.created;
-                else if (item.PickedUp == null)
-                    newParcelToList.Status = ParcelStatuse.pairedToDrone;
-                else if (item.Delivered == null)
-                    newParcelToList.Status = ParcelStatuse.pickedUp;
-                else newParcelToList.Status = ParcelStatuse.delivered;
-
-                parcelListToReturn.Add(newParcelToList);
-            }
-            return parcelListToReturn;
+              
         }
         #endregion
 

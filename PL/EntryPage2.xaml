@@ -1,0 +1,156 @@
+﻿<Window x:Class="PL.EntryPage2"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="entryPage" Height="600" Width="950"
+        Background="#fff9fc" 
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        FontFamily="Arial Rounded MT Bold">
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="panelHeader" 
+              VerticalAlignment="Top" Height="50" 
+               MouseDown="PanelHeader_MouseDown"
+              Grid.Row="0" Grid.ColumnSpan="3"
+              Background="#17313b">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                            Grid.ColumnSpan="5"
+                            VerticalAlignment="Center">
+                <TextBlock
+                           Foreground="#c4c3b3"
+                           Text="prog name"
+                           Margin="5,5,5,5"
+                           HorizontalAlignment="center"/>
+                <TextBlock
+                           Foreground="#e9e9ec"
+                           Text="welcome"
+                           Margin="5,5,5,5"
+                           HorizontalAlignment="center"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="11" Grid.ColumnSpan="2"
+                        Orientation="Horizontal" Margin="36,0,0,0">
+
+                <Button Content="🗕" Foreground="#c4b3a3"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                       FontSize="20"
+                       HorizontalAlignment="Right"
+                       Margin="0,-10,5,5" 
+                       Width="30" Height="30"/>
+
+                <Button Content="☐" Foreground="#c4b3a3"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                       FontSize="20"
+                       HorizontalAlignment="Right"
+                       Margin="0,0,5,5" 
+                       Width="30" Height="30"/>
+
+                <Button Content="✕" Foreground="#c4b3a3"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                       FontSize="20"
+                       HorizontalAlignment="Right"
+                       Margin="0,0,5,0" Click="closeWindow"
+                       Width="30" Height="30"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="sidePanel" Grid.Row="1" 
+              Background="#fff3e3" 
+              HorizontalAlignment="Left" Width="180" Height="550">
+            
+            <StackPanel>
+                <Grid Height="120" Background="Transparent">
+                    <Button HorizontalAlignment="Right"
+                            Height="40" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Click="Button_Click">
+                        <Image Source="Icons/menu.png"
+                               Width="30" Height="40"/>
+                    </Button>
+                </Grid>
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                          FontFamily="Century Gothic" 
+                          FontSize="14" Foreground="Black" 
+                          BorderBrush="Transparent" 
+                          Background="Transparent" FontWeight="Bold">
+                    <ListViewItem Height="75" FontSize="20">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Icons/drone.png" 
+                                   Height="50" 
+                                   VerticalAlignment="Center"/>
+                            <TextBlock Margin="20 0 0 0" 
+                                       Text="Drone" 
+                                       VerticalAlignment="Center"
+                                       FontSize="20"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="75" FontSize="20">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Icons/customer.png" 
+                                   Height="50" 
+                                   VerticalAlignment="Center"/>
+                            <TextBlock Margin="20 0 0 0" Text="Customer" 
+                                       VerticalAlignment="Center" 
+                                       FontSize="20"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="75" FontSize="25">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Icons/battery.png" 
+                                   Height="50" 
+                                   VerticalAlignment="Center"/>
+                            <TextBlock Margin="20 0 0 0" 
+                                       Text="Station" 
+                                       VerticalAlignment="Center"
+                                       FontSize="20"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="75" FontSize="25">
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Source="Icons/parcel.png" 
+                                   Height="45" 
+                                   VerticalAlignment="Center"/>
+                            <TextBlock Margin="20 0 0 0" 
+                                       Text="Parcel" 
+                                       VerticalAlignment="Center"
+                                       FontSize="20"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="150" FontSize="25">
+                        <StackPanel Orientation="Horizontal" Margin="0, 0,0,0">
+                            <Image Source="Icons/home.png" 
+                                   Height="50" VerticalAlignment="Center"/>
+                            <TextBlock Margin="20 0 0 0" Text="Home" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

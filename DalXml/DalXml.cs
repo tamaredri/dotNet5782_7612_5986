@@ -22,9 +22,9 @@ namespace Dal
         public static IDal Instance { get => instance; }
         DalXml()
         {
-            List<ImportentNumbers> helpList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
-            ImportentNumbers newImp = helpList.Find(x => x.typeOfnumber == "Parcel Running Number");
-            helpList.Remove(newImp);
+            //List<ImportentNumbers> helpList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
+            //ImportentNumbers newImp = helpList.Find(x => x.typeOfnumber == "Parcel Running Number");
+            //helpList.Remove(newImp);
 
             //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Drone Running Number" });
             //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Station Running Number" });
@@ -37,11 +37,11 @@ namespace Dal
             //helpList.Add(new ImportentNumbers() { numberSaved = 40, typeOfnumber = "Minimum If Carry Heavy Weight" });
             //helpList.Add(new ImportentNumbers() { numberSaved = 50, typeOfnumber = "Charging Precentage Per Hour" });
 
-            newImp.numberSaved = 0;
-            helpList.Add(newImp);
-            XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpList, configPath);
-            //initialize
-            Random rand = new Random();
+            //newImp.numberSaved = 0;
+            //helpList.Add(newImp);
+            //XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpList, configPath);
+            ////initialize
+            //Random rand = new Random();
             #region initializing customer list:
             ////first customer
             //CreateCustomer(new Customer()
@@ -98,23 +98,23 @@ namespace Dal
 
             #region initializing base station list:
 
-            //first station
-            CreateStation(new Station
-            {
-                ChargeSlots = 3,
-                Lattitude = 31.767827, //jerusalem
-                Longitude = 35.177496,
-                Name = "Drones - Kiryat Yovel"
-            });
+            ////first station
+            //CreateStation(new Station
+            //{
+            //    ChargeSlots = 3,
+            //    Lattitude = 31.767827, //jerusalem
+            //    Longitude = 35.177496,
+            //    Name = "Drones - Kiryat Yovel"
+            //});
 
-            //second station
-            CreateStation(new Station
-            {
-                ChargeSlots = 3,
-                Lattitude = 31.799753,
-                Longitude = 34.646484, //ashdod
-                Name = "Ashdo-D-rones"
-            });
+            ////second station
+            //CreateStation(new Station
+            //{
+            //    ChargeSlots = 3,
+            //    Lattitude = 31.799753,
+            //    Longitude = 34.646484, //ashdod
+            //    Name = "Ashdo-D-rones"
+            //});
 
             #endregion
 
@@ -153,105 +153,105 @@ namespace Dal
 
             #region initializing parcel list:
 
-            CreateParcel(new Parcel
-            {
-                SenderID = 322637596 ,
-                TargetID = 323805695 ,
-                Weight = WeightCategories.light,
-                Priority = Prioritie.emergency,
-                Requested = DateTime.Now,
-                DroneID = 0
-            });
+            //CreateParcel(new Parcel
+            //{
+            //    SenderID = 322637596 ,
+            //    TargetID = 323805695 ,
+            //    Weight = WeightCategories.light,
+            //    Priority = Prioritie.emergency,
+            //    Requested = DateTime.Now,
+            //    DroneID = 0
+            //});
 
-            CreateParcel(new Parcel
-            {
-                SenderID = 225658541,
-                TargetID = 221156457,
-                Weight = WeightCategories.light,
-                Priority = Prioritie.fast,
-                Requested = DateTime.Now,
-                DroneID = 0
-            });
+            //CreateParcel(new Parcel
+            //{
+            //    SenderID = 225658541,
+            //    TargetID = 221156457,
+            //    Weight = WeightCategories.light,
+            //    Priority = Prioritie.fast,
+            //    Requested = DateTime.Now,
+            //    DroneID = 0
+            //});
 
-            CreateParcel(new Parcel
-            {
-                SenderID = 221156457,
-                TargetID = 225658541,
-                Weight = WeightCategories.light,
-                Priority = Prioritie.regular,
-                Requested = DateTime.Now,
-                DroneID = 0
-            });
+            //CreateParcel(new Parcel
+            //{
+            //    SenderID = 221156457,
+            //    TargetID = 225658541,
+            //    Weight = WeightCategories.light,
+            //    Priority = Prioritie.regular,
+            //    Requested = DateTime.Now,
+            //    DroneID = 0
+            //});
 
-            CreateParcel(new Parcel
-            {
-                SenderID = 221156457,
-                TargetID = 322637596,
-                Weight = WeightCategories.heavey,
-                Priority = Prioritie.regular,
-                Requested = DateTime.Now,
-                DroneID = 0
-            });
+            //CreateParcel(new Parcel
+            //{
+            //    SenderID = 221156457,
+            //    TargetID = 322637596,
+            //    Weight = WeightCategories.heavey,
+            //    Priority = Prioritie.regular,
+            //    Requested = DateTime.Now,
+            //    DroneID = 0
+            //});
 
-            CreateParcel(new Parcel
-            {
-                SenderID = 323805695,
-                TargetID = 221156457,
-                Weight = WeightCategories.middle,
-                Priority = Prioritie.regular,
-                Requested = DateTime.Now,
-                DroneID = 0
-            });
+            //CreateParcel(new Parcel
+            //{
+            //    SenderID = 323805695,
+            //    TargetID = 221156457,
+            //    Weight = WeightCategories.middle,
+            //    Priority = Prioritie.regular,
+            //    Requested = DateTime.Now,
+            //    DroneID = 0
+            //});
 
-            CreateParcel(new Parcel
-            {
-                SenderID = 033584722,
-                TargetID = 225658541,
-                Weight = WeightCategories.middle,
-                Priority = Prioritie.fast,
-                Requested = DateTime.Now,
-                DroneID = 0
-            });
+            //CreateParcel(new Parcel
+            //{
+            //    SenderID = 033584722,
+            //    TargetID = 225658541,
+            //    Weight = WeightCategories.middle,
+            //    Priority = Prioritie.fast,
+            //    Requested = DateTime.Now,
+            //    DroneID = 0
+            //});
 
-            CreateParcel(new Parcel
-            {
-                SenderID = 225658541,
-                TargetID = 323805695,
-                Weight = WeightCategories.middle,
-                Priority = Prioritie.regular,
-                Requested = DateTime.Now,
-                DroneID = 0
-            });
+            //CreateParcel(new Parcel
+            //{
+            //    SenderID = 225658541,
+            //    TargetID = 323805695,
+            //    Weight = WeightCategories.middle,
+            //    Priority = Prioritie.regular,
+            //    Requested = DateTime.Now,
+            //    DroneID = 0
+            //});
 
-            CreateParcel(new Parcel
-            {
-                SenderID = 033584722,
-                TargetID = 221156457,
-                Weight = WeightCategories.light,
-                Priority = Prioritie.fast,
-                Requested = DateTime.Now,
-                DroneID = 0
-            });
+            //CreateParcel(new Parcel
+            //{
+            //    SenderID = 033584722,
+            //    TargetID = 221156457,
+            //    Weight = WeightCategories.light,
+            //    Priority = Prioritie.fast,
+            //    Requested = DateTime.Now,
+            //    DroneID = 0
+            //});
 
-            CreateParcel(new Parcel
-            {
-                SenderID = 225658541,
-                TargetID = 322637596,
-                Weight = WeightCategories.heavey,
-                Priority = Prioritie.fast,
-                Requested = DateTime.Now,
-                DroneID = 0
-            });
+            //CreateParcel(new Parcel
+            //{
+            //    SenderID = 225658541,
+            //    TargetID = 322637596,
+            //    Weight = WeightCategories.heavey,
+            //    Priority = Prioritie.fast,
+            //    Requested = DateTime.Now,
+            //    DroneID = 0
+            //});
 
-            CreateParcel(new Parcel
-            {
-                SenderID = 221156457,
-                TargetID = 322637596,
-                Weight = WeightCategories.light,
-                Priority = Prioritie.fast,
-                Requested = DateTime.Now,
-                DroneID = 0
-            });
+            //CreateParcel(new Parcel
+            //{
+            //    SenderID = 221156457,
+            //    TargetID = 322637596,
+            //    Weight = WeightCategories.light,
+            //    Priority = Prioritie.fast,
+            //    Requested = DateTime.Now,
+            //    DroneID = 0
+            //});
 
             #endregion
         }
@@ -816,12 +816,13 @@ namespace Dal
 
 
             Station stationToGet = (from station in stationsList
-                                    where station.ID == idToGet
+                                    where 
+                                    (station.ID == idToGet)
                                     select station).FirstOrDefault();
+
             if (stationToGet.Equals(default(Station)))
                 throw new DoesntExistExeption("the station doesn't exist");
-            //return stationToGet;
-            return new Station();
+            return stationToGet;
         }
         #endregion
 

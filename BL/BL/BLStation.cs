@@ -64,27 +64,18 @@ namespace BL
         public IEnumerable<StationToList> GetStationList()
         {
             List<DO.Station> doStationList = DalAccess.GetStationList().ToList();
-            
-            List<StationToList> stationListToReturn = new();
-            StationToList newStation = new();
-            
-            //build stationListToReturn
-            foreach (var item in doStationList)
-            {
-                //build new stationToList
-                newStation = new()
-                {
-                    ID = item.ID,
-                    Name = item.Name,
-                    AvailableChargeSlots = item.ChargeSlots
-                };
-                //find count of drone that charge in this station
-                newStation.UsedChargeSlots = DalAccess.GetPartOfDroneCharge(x =>
-                   (x.Stationld == item.ID) && (x.IsInCharge == true))
-                    .Count();
-                stationListToReturn.Add(newStation);
-            }
-            return stationListToReturn;
+
+            return (from station in doStationList
+                    let stationFromBl = GetStation(station.ID)
+                    select new StationToList()
+                    {
+                        ID = stationFromBl.ID,
+                        Name = stationFromBl.Name,
+                        AvailableChargeSlots = stationFromBl.AvailableChargeSlots,
+                        UsedChargeSlots = DalAccess.GetPartOfDroneCharge(x =>
+                     (x.Stationld == stationFromBl.ID) && (x.IsInCharge == true))
+                    .Count()
+                    }).ToList();
         }
         #endregion
 

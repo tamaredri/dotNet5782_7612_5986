@@ -137,9 +137,15 @@ namespace BL
             return (firstLoc.Lattitude == secondLoc.Lattitude) && (firstLoc.Longitude == secondLoc.Longitude);
         }
         #endregion
-        //------------------------------------input-check---------------------------------
-        #region check phone number
-        public static void checkPhone(this int phone)
+        #region copyLocation
+        public static Location CopyLocation(this Location location)
+        {
+            return new Location() { Lattitude = location.Lattitude, Longitude = location.Longitude };
+        }
+            #endregion
+            //------------------------------------input-check---------------------------------
+            #region check phone number
+            public static void checkPhone(this int phone)
         {
             if (phone < 100000000 || phone > 999999999)
                 throw new BO.InvalidInputExeption("wrong phone");

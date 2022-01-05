@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlApi;
+using BO;
 
 
 namespace PL
@@ -43,8 +44,8 @@ namespace PL
 
         private void GoToCustomersrsList(object sender, RoutedEventArgs e)
         {
-            CustomersListView customerListViewWindow = new CustomersListView();
-            customerListViewWindow.ShowDialog();
+            //CustomersListView customerListViewWindow = new CustomersListView();
+            //customerListViewWindow.ShowDialog();
         }
     }
 }

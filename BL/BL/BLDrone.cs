@@ -102,13 +102,20 @@ namespace BL
         #region GetDroneList
         public IEnumerable<BO.DroneToList> GetDroneList()
         {
-            List<BO.DroneToList> droneListToReturn = new();
-            foreach (var item in dronesList)
-            {
-                droneListToReturn.Add(item);
-            }
-            return droneListToReturn;
+            List<DO.Drone> dronesFromDal= DalAccess.GetDroneList().ToList();
 
+            return (from drone in dronesFromDal
+                                 let droneFromBl = GetDrone(drone.ID)
+                                 select new DroneToList()
+                                 {
+                                     ID = droneFromBl.ID,
+                                     Battery = droneFromBl.Battery,
+                                     DroneLocation = droneFromBl.DroneLocation.CopyLocation(),
+                                     Model = droneFromBl.Model,
+                                     ParcelId = droneFromBl.ParcelInDeliveryByDrone.ID,
+                                     Status = droneFromBl.Status,
+                                     Weight = droneFromBl.Weight
+                                 }).ToList();
         }
         #endregion
 

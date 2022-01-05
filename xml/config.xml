@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfImportentNumbers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ImportentNumbers>
-    <numberSaved>0</numberSaved>
-    <typeOfnumber>Charge Running Number</typeOfnumber>
-  </ImportentNumbers>
-  <ImportentNumbers>
     <numberSaved>10</numberSaved>
     <typeOfnumber>Minimum If Available</typeOfnumber>
   </ImportentNumbers>
@@ -35,5 +31,9 @@
   <ImportentNumbers>
     <numberSaved>10</numberSaved>
     <typeOfnumber>Parcel Running Number</typeOfnumber>
+  </ImportentNumbers>
+  <ImportentNumbers>
+    <numberSaved>1</numberSaved>
+    <typeOfnumber>Charge Running Number</typeOfnumber>
   </ImportentNumbers>
 </ArrayOfImportentNumbers>
