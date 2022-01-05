@@ -1,0 +1,73 @@
+﻿<Page x:Class="PL.StationSingleView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:local="clr-namespace:PL"
+      mc:Ignorable="d" 
+      Title="StationSingleView"
+      Style="{StaticResource PageStyle}"
+      DataContext="{Binding Source=Station}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel x:Name="StationDetails"
+                    Orientation="Vertical"
+                    DataContext="{Binding Source=Station}">
+            <Image Height="100" Width="100"
+                   Margin="20"/>
+            
+            <StackPanel Margin="20"
+                        Orientation="Horizontal">
+                <TextBlock Text="ID:"/>
+                <TextBlock Text="{Binding Path=ID}"/>
+            </StackPanel>
+
+            <StackPanel Margin="20"
+                        Orientation="Horizontal">
+                <TextBlock Text="Name:"/>
+                <TextBlock Text="{Binding Path=Name}"/>
+            </StackPanel>
+
+            <StackPanel Margin="20"
+                        Orientation="Horizontal">
+                <TextBlock Text="Available Charge Slots:"/>
+                <TextBlock Text="{Binding Path=AvailableChargeSlots}"/>
+            </StackPanel>
+
+            <StackPanel Margin="20"
+                        Orientation="Horizontal">
+                <TextBlock Text="Location:"/>
+                <TextBlock Text="{Binding Path=Location}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1">
+            <StackPanel Orientation="Horizontal"
+                        Margin="20">
+                <Label Content="Update:" Margin="20"/>
+                <TextBox Text="Name" Margin="20"
+                         Width="100"
+                         Style="{StaticResource ResourceKey=TextBoxForInput}"/>
+                <TextBox Text="available slots" Margin="20"
+                         Width="100"
+                         Style="{StaticResource ResourceKey=TextBoxForInput}"/>
+                <Button Content="Submit" Margin="20"/>
+            </StackPanel>
+
+            <DataGrid
+                DataContext="{Binding Source=DroneInCharge}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
+                    <DataGridTextColumn Header="Battery" Binding="{Binding Path=Battery}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+    <!--<iconPacks:PackIconMaterial x:Name="contant" Kind="station"/>-->
+</Page>

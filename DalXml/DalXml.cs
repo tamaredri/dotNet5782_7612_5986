@@ -95,7 +95,6 @@ namespace Dal
             //});
             #endregion
 
-
             #region initializing base station list:
 
             ////first station

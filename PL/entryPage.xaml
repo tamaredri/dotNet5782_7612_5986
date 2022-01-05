@@ -19,7 +19,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="30"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
@@ -89,7 +89,7 @@
 
         <Frame x:Name="ListViewFrame" Grid.Row="1" Grid.Column="1"/>
 
-        <!--<StackPanel Grid.Row="1" Grid.Column="1"
+        <StackPanel Grid.Row="1" Grid.Column="1"
                     Orientation="Vertical"
                     VerticalAlignment="Center" Height="128">
             <TextBlock Grid.Row="1"
@@ -107,7 +107,8 @@
                         Foreground="#e9e9ec"
                         Background="#414f47"
                         Margin="0,0,20,0"
-                        Height="50" Width="150"/>
+                        Height="50" Width="150"
+                        Click="OpenListView_Click"/>
 
                 <Button Content="CUSTOMER"
                         Background="#414f47"
@@ -117,96 +118,9 @@
             </StackPanel>
 
 
-        </StackPanel>-->
-     
+        </StackPanel>
 
-        <Grid Grid.Row="1"
-                        Background="#fff3e3">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
 
-            <Button x:Name="drone" 
-                    Grid.Row="0"
-                    Margin="0"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Height="80" 
-                    Width="80" 
-                    BorderBrush="Transparent"
-                    Background="Transparent" Click="GoToDronrsList" >
-                <StackPanel Height="60" Width="60">
-                    <StackPanel.Background>
-                        <ImageBrush ImageSource="/Customer/drone.png"/>
-                    </StackPanel.Background>
-                </StackPanel>
-            </Button>
-            <Button x:Name="customer" 
-                    Grid.Row="1"
-                    Margin="0"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Height="80" 
-                    Width="80" 
-                    BorderBrush="Transparent"
-                    Background="Transparent" Click="GoToCustomersrsList">
-                <StackPanel Height="60" Width="60">
-                    <StackPanel.Background>
-                        <ImageBrush ImageSource="/Customer/client.png"/>
-                    </StackPanel.Background>
-                </StackPanel>
-            </Button>
-            <Button x:Name="battary" 
-                    Grid.Row="2"
-                    Margin="0"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Height="80" 
-                    Width="80" 
-                    BorderBrush="Transparent"
-                    Background="Transparent">
-                <StackPanel Height="60" Width="60">
-                    <StackPanel.Background>
-                        <ImageBrush ImageSource="/lighting.png"/>
-                    </StackPanel.Background>
-                </StackPanel>
-            </Button>
-            <Button x:Name="box" 
-                    Grid.Row="3"
-                    Margin="0"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Height="80" 
-                    Width="80" 
-                    BorderBrush="Transparent"
-                    Background="Transparent">
-                <StackPanel Height="60" Width="60">
-                    <StackPanel.Background>
-                        <ImageBrush ImageSource="/box.png"/>
-                    </StackPanel.Background>
-                </StackPanel>
-            </Button>
-            <Button x:Name="home" 
-                    Grid.Row="4"
-                    Margin="0"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Height="80" 
-                    Width="80" 
-                    BorderBrush="Transparent"
-                    Background="Transparent">
-                <StackPanel Height="60" Width="60">
-                    <StackPanel.Background>
-                        <ImageBrush ImageSource="/home.png"/>
-                    </StackPanel.Background>
-                </StackPanel>
-            </Button>
-            
 
-        </Grid>
     </Grid>
 </Window>

@@ -47,5 +47,11 @@ namespace PL
             //CustomersListView customerListViewWindow = new CustomersListView();
             //customerListViewWindow.ShowDialog();
         }
+
+        private void OpenListView_Click(object sender, RoutedEventArgs e)
+        {
+            ListViewPageMannager win = new ListViewPageMannager(BLAccess);
+            win.ShowDialog();
+        }
     }
 }

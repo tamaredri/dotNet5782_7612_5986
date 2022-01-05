@@ -25,6 +25,11 @@
 
   <ItemGroup>
     <Folder Include="Images\" />
+    <Folder Include="Parcel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

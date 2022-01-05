@@ -55,7 +55,6 @@
     <Weight>light</Weight>
     <DroneID>0</DroneID>
     <Priority>fast</Priority>
-    <Requested>2022-01-02T17:09:29.9951662+02:00</Requested>
     <Scheduled xsi:nil="true" />
     <PickedUp xsi:nil="true" />
     <Delivered xsi:nil="true" />

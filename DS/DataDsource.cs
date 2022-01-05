@@ -47,7 +47,7 @@ namespace DS
 
                 CustomersList.Add(new Customer
                 {
-                    ID = 100000000 + i,
+                    ID = 100000000 + i + 1,
                     Name = "" + ((char)(97 + i)),
                     Phone = "0" + rand.Next(0580000000, 0590000000),
                     Lattitude = 35.810873,
@@ -75,7 +75,6 @@ namespace DS
             #region initializing drones list:
             for (int i = 0; i < 5; i++)
             {
-
                 Config.runningDroneNumber++;// לפני שנוסיף רחפן נעדכן שיש לנו רחפן נוסף
 
                 DronesList.Add(new Drone
@@ -84,28 +83,81 @@ namespace DS
                     MaxWeight = (WeightCategories)(i % 3),
                     Model = "Sky-Fly-" + (char)(97 + i) + "-" + i
                 });
-
-
-
             }
             #endregion
 
             #region initializing parcel list:
-            for (int i = 0; i < 10; i++)//איתחול 10 חבילות
+
+            //unscheduled
+            for (int i = 0; i < 3; i++)
             {
-                Config.runningPackageNumber++; //increasing the running number before build a new parcel
+                Config.runningPackageNumber++;
 
                 ParcelsList.Add(new Parcel
                 {
                     ID = Config.runningPackageNumber,
-                    SenderID = 100000000 + i,
-                    TargetID = 100000000 + 9 - i,
+                    SenderID = 100000000 + i + 1,
+                    TargetID = 100000000 + 10 - i,
                     Weight = (WeightCategories)(i % 3),
                     Priority = (Prioritie)(i % 3),
                     Requested = DateTime.Now,
                     DroneID = 0
                 });
             }
+
+            //scheduled
+            for (int i = 3; i < 6; i++)
+            {
+                Config.runningPackageNumber++; //increasing the running number before build a new parcel
+
+                ParcelsList.Add(new Parcel
+                {
+                    ID = Config.runningPackageNumber,
+                    SenderID = 100000000 + i + 1,
+                    TargetID = 100000000 + 10 - i,
+                    Weight = (from drone in DronesList where drone.ID == i select drone ).FirstOrDefault().MaxWeight,
+                    Priority = (Prioritie)(i % 3),
+                    Requested = DateTime.Now,
+                    Scheduled = DateTime.Now,
+                    DroneID = i
+                });
+            }
+
+            //picked-up
+            for (int i = 6; i < 9; i++)
+            {
+                Config.runningPackageNumber++; //increasing the running number before build a new parcel
+
+                ParcelsList.Add(new Parcel
+                {
+                    ID = Config.runningPackageNumber,
+                    SenderID = 100000000 + i + 1,
+                    TargetID = 100000000 + 10 - i,
+                    Weight = (from drone in DronesList where drone.ID == i select drone).FirstOrDefault().MaxWeight,
+                    Priority = (Prioritie)(i % 3),
+                    Requested = DateTime.Now,
+                    Scheduled = DateTime.Now,
+                    PickedUp = DateTime.Now,
+                    DroneID = i
+                });
+            }
+
+            Config.runningPackageNumber++; //increasing the running number before build a new parcel
+
+            SuccessfullyDeliveredParcelList.Add(new Parcel
+            {
+                ID = Config.runningPackageNumber,
+                SenderID = 100000000 + 10,
+                TargetID = 100000000 + 1,
+                Weight = (from drone in DronesList where drone.ID == 10 select drone).FirstOrDefault().MaxWeight,
+                Priority = (Prioritie)(10 % 3),
+                Requested = DateTime.Now,
+                Scheduled = DateTime.Now,
+                PickedUp = DateTime.Now,
+                Delivered = DateTime.Now,
+                DroneID = 10
+            });
+
             #endregion
         }
         #endregion
