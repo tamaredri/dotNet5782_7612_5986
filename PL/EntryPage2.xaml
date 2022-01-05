@@ -17,6 +17,13 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Frame x:Name="ListFrame"/>
+
         <Grid x:Name="panelHeader" 
               VerticalAlignment="Top" Height="50" 
                MouseDown="PanelHeader_MouseDown"
@@ -85,7 +92,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         <Grid x:Name="sidePanel" Grid.Row="1" 
               Background="#fff3e3" 
               HorizontalAlignment="Left" Width="180" Height="550">
-            
+
             <StackPanel>
                 <Grid Height="120" Background="Transparent">
                     <Button HorizontalAlignment="Right"
@@ -110,7 +117,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                        FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="75" FontSize="20">
+                    <ListViewItem Height="75" FontSize="20" MouseDoubleClick="OpenCustomer_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Icons/customer.png" 
                                    Height="50" 
@@ -122,9 +129,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     </ListViewItem>
                     <ListViewItem Height="75" FontSize="25">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Icons/battery.png" 
+                            <Label>
+                                <Image Source="Icons/battery.png" 
                                    Height="50" 
-                                   VerticalAlignment="Center"/>
+                                   />
+                            </Label>
                             <TextBlock Margin="20 0 0 0" 
                                        Text="Station" 
                                        VerticalAlignment="Center"

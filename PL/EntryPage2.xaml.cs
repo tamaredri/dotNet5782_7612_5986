@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using BlApi;
+using BO;
 
 namespace PL
 {
@@ -75,6 +77,11 @@ namespace PL
         private void closeWindow(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void OpenCustomer_Click(object sender, MouseButtonEventArgs e)
+        {
+            ListFrame.Content = new CustometSingleView(BlFactory.GetBl(), 100000001);
         }
     }
 }
