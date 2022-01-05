@@ -24,7 +24,7 @@ namespace Dal
         {
             DataSource.Config.runningCustomerNumber++;
 
-            if (DataSource.CustomersList.Find(x => x.ID == customerToCreate.ID).Name != null)
+            if (DataSource.CustomersList.Find(x => x.ID == customerToCreate.ID).Equals(default(Customer)))
                 throw new AlreadyExistExeption("the customer already exit");
 
             DataSource.CustomersList.Add(customerToCreate);
@@ -42,19 +42,13 @@ namespace Dal
         }
         #endregion
         #region GetCustomersList
-        public IEnumerable<Customer> GetCustomersList()
-        {
-            return (from customer in DataSource.CustomersList
-                    select customer).ToList();
-        }
+        public IEnumerable<Customer> GetCustomersList() => (from customer in DataSource.CustomersList
+                                                            select customer).ToList();
         #endregion
         #region GetPartOfCustomer
-        public IEnumerable<Customer> GetPartOfCustomer(Predicate<Customer> check)
-        {
-            return (from customer in DataSource.CustomersList
-                    where check(customer)
-                    select customer).ToList<Customer>();
-        }
+        public IEnumerable<Customer> GetPartOfCustomer(Predicate<Customer> check) => (from customer in DataSource.CustomersList
+                                                                                      where check(customer)
+                                                                                      select customer).ToList<Customer>();
         #endregion
         #region UpdateCustomer
         public void UpdateCustomer(int customerID, int newPhone = 0, string newName = null)
@@ -95,18 +89,12 @@ namespace Dal
         }
         #endregion
         #region GetDroneList
-        public IEnumerable<Drone> GetDroneList()
-        {
-            return (from drone in DataSource.DronesList select drone).ToList();
-        }
+        public IEnumerable<Drone> GetDroneList() => (from drone in DataSource.DronesList select drone).ToList();
         #endregion
         #region GetPartOfDrone
-        public IEnumerable<Drone> GetPartOfDrone(Predicate<Drone> check)
-        {
-            return (from drone in DataSource.DronesList
-                    where check(drone)
-                    select drone).ToList<Drone>();
-        }
+        public IEnumerable<Drone> GetPartOfDrone(Predicate<Drone> check) => (from drone in DataSource.DronesList
+                                                                             where check(drone)
+                                                                             select drone).ToList<Drone>();
         #endregion
         #region GetPowerConsumptionByDrone
         public double[] GetPowerConsumptionByDrone()
@@ -122,7 +110,7 @@ namespace Dal
         }
         #endregion
         #region GetDroneRunningNumber
-        public int GetDroneRunningNumber() { return DataSource.Config.runningDroneNumber; }
+        public int GetDroneRunningNumber() => DataSource.Config.runningDroneNumber; 
         #endregion
         #region UpdateDrone
         public void UpdateDrone(int id, string newModel)
@@ -175,15 +163,15 @@ namespace Dal
         void createChargeEntity(int droneIDToCharge, int stationIDToCharge)
         {
             DataSource.Config.runningChargeNumber++;
-            DroneCharge newCharge = new DroneCharge()
+            
+            DataSource.ChargesList.Add(new DroneCharge()
             {
                 Droneld = droneIDToCharge,
                 Stationld = stationIDToCharge,
                 IsInCharge = true,
                 TimeStart = DateTime.Now,
                 ID = DataSource.Config.runningChargeNumber
-            };
-            DataSource.ChargesList.Add(newCharge);
+            });
         }
         #endregion
         #region GetDroneCharge
@@ -200,7 +188,7 @@ namespace Dal
             DroneCharge chargeToUpdate = (from droneCharge in DataSource.ChargesList
                                           where droneCharge.Droneld == droneID
                                           select droneCharge).FirstOrDefault();
-            if (chargeToUpdate.ID == 0)
+            if (chargeToUpdate.Equals(default(DroneCharge)))
                 throw new DoesntExistExeption("the drone is not charging");
 
             //update in the station that the drone is released from charge
@@ -213,12 +201,9 @@ namespace Dal
         }
         #endregion
         #region GetPartOfDroneCharge
-        public IEnumerable<DroneCharge> GetPartOfDroneCharge(Predicate<DroneCharge> check)
-        {
-            return (from droneCharge in DataSource.ChargesList
-                    where check(droneCharge)
-                    select droneCharge).ToList();
-        }
+        public IEnumerable<DroneCharge> GetPartOfDroneCharge(Predicate<DroneCharge> check) => (from droneCharge in DataSource.ChargesList
+                                                                                               where check(droneCharge)
+                                                                                               select droneCharge).ToList();
         #endregion
         #region private drone-charge functions
         #region getAmountOfUsedChargeSlots
@@ -259,31 +244,22 @@ namespace Dal
                 parcelToGet = (from parcel in DataSource.SuccessfullyDeliveredParcelList
                                where parcel.ID == idToGet
                                select parcel).FirstOrDefault();
-                if (parcelToGet.ID == 0)
+                if (parcelToGet.Equals(default(Parcel)))
                     throw new DoesntExistExeption("the parcel dosen't exited");
             }
             return parcelToGet;
         }
         #endregion
         #region GetParcelList
-        public IEnumerable<Parcel> GetParcelList()
-        {
-            return (from p in DataSource.ParcelsList select p).ToList();
-        }
+        public IEnumerable<Parcel> GetParcelList() => (from p in DataSource.ParcelsList select p).ToList();
         #endregion
         #region GetsuccessfullyDeliveredParcelList
-        public IEnumerable<Parcel> GetsuccessfullyDeliveredParcelList()
-        {
-            return (from s in DataSource.SuccessfullyDeliveredParcelList select s).ToList();
-        }
+        public IEnumerable<Parcel> GetsuccessfullyDeliveredParcelList() => (from s in DataSource.SuccessfullyDeliveredParcelList select s).ToList();
         #endregion
         #region GetPartOfParcel
-        public IEnumerable<Parcel> GetPartOfParcel(Predicate<Parcel> check)
-        {
-            return (from parcel in DataSource.ParcelsList
-                    where check(parcel)
-                    select parcel).ToList<Parcel>();
-        }
+        public IEnumerable<Parcel> GetPartOfParcel(Predicate<Parcel> check) => (from parcel in DataSource.ParcelsList
+                                                                                where check(parcel)
+                                                                                select parcel).ToList<Parcel>();
         #endregion
         #region ScheduleDroneParcel
         public void ScheduleDroneParcel(int idParcelToSchedule, int idDroneToSchedule)
@@ -326,9 +302,9 @@ namespace Dal
         public void CreateStation(Station stationToCreate)
         {
             //check if there is a station with the same name and location as the wanted station to add
-            if (GetPartOfStation(x => x.Name == stationToCreate.Name).FirstOrDefault().Name != null ||
+            if (GetPartOfStation(x => x.Name == stationToCreate.Name).FirstOrDefault().Equals(default(Station)) ||
                 GetPartOfStation(x => (x.Lattitude == stationToCreate.Lattitude)
-                                                   && (x.Longitude == stationToCreate.Longitude)).FirstOrDefault().Name != null)
+                                                   && (x.Longitude == stationToCreate.Longitude)).FirstOrDefault().Equals(default(Station)))
                 throw new AlreadyExistExeption("the station already exist");
 
             DataSource.Config.runningStationNumber++;
@@ -342,25 +318,18 @@ namespace Dal
             Station stationToGet = (from station in DataSource.StationsList
                                     where station.ID == idToGet
                                     select station).FirstOrDefault();
-            if (stationToGet.Name == null)
+            if (stationToGet.Equals(default(Station)))
                 throw new DoesntExistExeption("the station doesn't exist");
             return stationToGet;
         }
         #endregion
         #region GetStationList
-        public IEnumerable<Station> GetStationList()
-        {
-            return (from s in DataSource.StationsList select s).ToList();
-            //return DataSource.StationsList.FindAll(x => x.ID != 0);
-        }
+        public IEnumerable<Station> GetStationList() => (from s in DataSource.StationsList select s).ToList();
         #endregion
         #region GetPartOfStation
-        public IEnumerable<Station> GetPartOfStation(Predicate<Station> check)
-        {
-            return (from station in DataSource.StationsList
-                    where check(station)
-                    select station).ToList<Station>();
-        }
+        public IEnumerable<Station> GetPartOfStation(Predicate<Station> check) => (from station in DataSource.StationsList
+                                                                                   where check(station)
+                                                                                   select station).ToList<Station>();
         #endregion
         #region UpdateStation
         public void UpdateStation(int stationIDToUpdate, int newChargeSlots, string newName)

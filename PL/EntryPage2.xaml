@@ -17,6 +17,13 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Frame x:Name="ListFrame"/>
+
         <Grid x:Name="panelHeader" 
               VerticalAlignment="Top" Height="50" 
                MouseDown="PanelHeader_MouseDown"
@@ -112,7 +119,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                        FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="75" FontSize="20">
+                    <ListViewItem Height="75" FontSize="20" MouseDoubleClick="OpenCustomer_Click">
                         <StackPanel Orientation="Horizontal">
                             <Button BorderBrush="Transparent" Height="50" Width="50">
                                 <Button.Background>
