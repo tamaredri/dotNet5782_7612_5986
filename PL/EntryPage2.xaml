@@ -85,7 +85,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         <Grid x:Name="sidePanel" Grid.Row="1" 
               Background="#fff3e3" 
               HorizontalAlignment="Left" Width="180" Height="550">
-            
+
             <StackPanel>
                 <Grid Height="120" Background="Transparent">
                     <Button HorizontalAlignment="Right"
@@ -101,9 +101,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                           Background="Transparent" FontWeight="Bold">
                     <ListViewItem Height="75" FontSize="20">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Icons/drone.png" 
-                                   Height="50" 
-                                   VerticalAlignment="Center"/>
+                            <Button BorderBrush="Transparent" Height="50" Width="50">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="Icones/drone.png"/>
+                                </Button.Background>
+                            </Button>
                             <TextBlock Margin="20 0 0 0" 
                                        Text="Drone" 
                                        VerticalAlignment="Center"
@@ -112,9 +114,12 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     </ListViewItem>
                     <ListViewItem Height="75" FontSize="20">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Icons/customer.png" 
-                                   Height="50" 
-                                   VerticalAlignment="Center"/>
+                            <Button BorderBrush="Transparent" Height="50" Width="50">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="Icons/customer.png"/>
+                                </Button.Background>
+                            </Button>
+
                             <TextBlock Margin="20 0 0 0" Text="Customer" 
                                        VerticalAlignment="Center" 
                                        FontSize="20"/>
@@ -122,9 +127,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     </ListViewItem>
                     <ListViewItem Height="75" FontSize="25">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Icons/battery.png" 
-                                   Height="50" 
-                                   VerticalAlignment="Center"/>
+                            <Button BorderBrush="Transparent" Height="50" Width="50">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="Icons/battery.png"/>
+                                </Button.Background>
+                            </Button>
                             <TextBlock Margin="20 0 0 0" 
                                        Text="Station" 
                                        VerticalAlignment="Center"
@@ -133,9 +140,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     </ListViewItem>
                     <ListViewItem Height="75" FontSize="25">
                         <StackPanel Orientation="Horizontal" >
-                            <Image Source="Icons/parcel.png" 
-                                   Height="45" 
-                                   VerticalAlignment="Center"/>
+                            <Button BorderBrush="Transparent" Height="50" Width="50">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="Icons/parcel.png"/>
+                                </Button.Background>
+                            </Button>
                             <TextBlock Margin="20 0 0 0" 
                                        Text="Parcel" 
                                        VerticalAlignment="Center"
@@ -144,8 +153,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     </ListViewItem>
                     <ListViewItem Height="150" FontSize="25">
                         <StackPanel Orientation="Horizontal" Margin="0, 0,0,0">
-                            <Image Source="Icons/home.png" 
-                                   Height="50" VerticalAlignment="Center"/>
+                            <Button BorderBrush="Transparent" Height="50" Width="50">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="Icons/home.png"/>
+                                </Button.Background>
+                            </Button>
                             <TextBlock Margin="20 0 0 0" Text="Home" VerticalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
