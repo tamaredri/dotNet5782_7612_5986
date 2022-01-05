@@ -141,19 +141,61 @@ namespace BL
             */
             #endregion
 
+            //(from drone in DalAccess.GetDroneList() //the full list
+            //let parcel = DalAccess.GetPartOfParcel(x => x.DroneID == drone.ID).FirstOrDefault() //save the parcel 
+            //let status = (BO.DroneStatuses)rand.Next(0,2)
+            //where !parcel.Equals(default(DO.Parcel)) //the drone is paired
+            //select new DroneToList()
+            //{
+            //    ID = drone.ID,
+            //    Model = drone.Model, 
+            //    Status = BO.DroneStatuses.delivery, 
+            //    ParcelId = parcel.ID, 
+            //    Weight = (BO.WeightCategories)parcel.Weight, 
+            //    DroneLocation = //the location is according to the parcel
+            //    ((parcel.Delivered == null)?  
+            //    ((parcel.PickedUp == null)?  //not picked up
+            //    ((parcel.Scheduled == null)? //not scheduled  
+            //    ((status == BO.DroneStatuses.available)?  
+            //            new Location() { /*location of customer*/ } :  //available
+            //            new Location() { /*location of a station*/ }   //maintanence
+            //            ) :
+            //            (new Location() { }) //not picked up but  scheduled -> location of a station
+            //            )  :
+            //            (new Location() { }) //not delivered but picked up -> location of the sender
+            //            )  :
+            //            (new Location() { }) //delivered -> not soppoused to happend
+            //            )
+                 
+            //}).ToList();
 
+            //get the full list of parcels and remove the parcel that was paired.. 
+            //create drones for the un pired drones
+
+            /*
+                ((parcel.Delivered == null) ?
+                ((parcel.PickedUp == null) ?
+                ((parcel.Scheduled == null) ?
+                ((status == BO.DroneStatuses.available) ? ) ) ) )
+            */
             foreach (var drone in dalDronelList) //go over all the drones
             {
                 //if a parcel is connected to the drone
                 DO.Parcel parcel = DalAccess.GetPartOfParcel(x => x.DroneID == drone.ID).FirstOrDefault();
 
-                if (parcel.Equals(default(Parcel))) //no parcel was found
+                BO.DroneStatuses droneStatus = DroneStatuses.available;
+
+                if (parcel.Equals(default(DO.Parcel))) //no parcel was found
                 {
                     //the drone is not paired to a parcel
-                    BO.DroneStatuses droneStatus = (BO.DroneStatuses)(rand.Next(0, 2)); //status is a random value
+                    droneStatus = (BO.DroneStatuses)(rand.Next(0, 2)); //status is a random value
 
                     if (droneStatus == BO.DroneStatuses.available)
                     {
+                        //unauthorized access to a parcel that is not set to an object
+
+                        //GetCustomer(DalAccess.GetsuccessfullyDeliveredParcelList().FirstOrDefault();
+
                         Location customerLocation = GetCustomer(DalAccess.GetsuccessfullyDeliveredParcelList().FirstOrDefault().TargetID).LocationOfCustomer;//random location from parcels that was delivered
                         DroneToBL = new DroneToList()
                         {
@@ -173,18 +215,25 @@ namespace BL
                     }
                     else if (droneStatus == BO.DroneStatuses.maintenance)
                     {
+                        Location stationLocation = GetStation( GetStationList().FirstOrDefault().ID).StationLocation;
+
                         DroneToBL = new DroneToList()
                         {
                             ID = drone.ID,
                             Model = drone.Model,
                             ParcelId = 0,
                             Weight = (BO.WeightCategories)rand.Next(0, 4),
-                            Status = droneStatus,
-                            Battery = rand.Next(0, 21)
+                            Status = BO.DroneStatuses.available,
+                            DroneLocation = new Location()
+                            {
+                                Longitude = stationLocation.Longitude, 
+                                Lattitude = stationLocation.Lattitude
+                            },
+                            Battery = 100
                         };
                     }
                 }
-                else if (parcel.Delivered != null) //the parcel was picked up
+                else if (parcel.PickedUp != null) //the parcel was picked up
                 {
                     Location customersLocation = GetCustomer(parcel.SenderID).LocationOfCustomer;
                     DroneToBL = new DroneToList()
@@ -203,7 +252,7 @@ namespace BL
                         Battery = rand.Next((int)powerConsumption[(int)(parcel.Weight) + 1], 101)
                     };
                 }
-                else if (parcel.PickedUp != null) //scheduled but not pickud up
+                else if (parcel.Scheduled != null) //scheduled but not pickud up
                 {
                     Location stationLocation = GetStation(findClosestStation(GetCustomer(parcel.SenderID).LocationOfCustomer, x => true)).StationLocation;
                     DroneToBL = new DroneToList()
@@ -223,11 +272,14 @@ namespace BL
                     };
                 }
 
-                if (DroneToBL.Status == BO.DroneStatuses.maintenance)
+                if (droneStatus == BO.DroneStatuses.maintenance)
                 {
-                    DroneToBL.Status = BO.DroneStatuses.available;
                     dronesList.Add(DroneToBL);
                     SendToCharge(DroneToBL.ID);
+                    dronesList.Remove(DroneToBL);
+
+                    DroneToBL.Battery = rand.Next(0, 21);
+                    dronesList.Add(DroneToBL);
                 }
                 else dronesList.Add(DroneToBL);
             }

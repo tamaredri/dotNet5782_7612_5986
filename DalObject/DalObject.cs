@@ -36,7 +36,7 @@ namespace Dal
             Customer customerToGet = (from customer in DataSource.CustomersList
                                       where customer.ID == idToGet
                                       select customer).FirstOrDefault();
-            if (customerToGet.Name == null)
+            if (customerToGet.Equals(default(Customer)))
                 throw new DoesntExistExeption("the customer doesn't exited");
             return customerToGet;
         }
@@ -89,7 +89,7 @@ namespace Dal
             Drone droneToGet = (from drone in DataSource.DronesList
                                 where drone.ID == idToGet
                                 select drone).FirstOrDefault();
-            if (droneToGet.ID == 0)
+            if (droneToGet.Equals(default(Drone)))
                 throw new DoesntExistExeption("GetDrone : the drone doesn't exist");
             return droneToGet;
         }
@@ -254,7 +254,7 @@ namespace Dal
             Parcel parcelToGet = (from parcel in DataSource.ParcelsList
                                   where parcel.ID == idToGet
                                   select parcel).FirstOrDefault();
-            if (parcelToGet.ID == 0)
+            if (parcelToGet.Equals(default(Parcel)))
             {   //the parcel is not in the existing parcels, look for it in the delivered parcels
                 parcelToGet = (from parcel in DataSource.SuccessfullyDeliveredParcelList
                                where parcel.ID == idToGet

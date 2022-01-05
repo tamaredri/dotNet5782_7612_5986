@@ -29,6 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="box.png" />
     <Resource Include="Customer\client.png" />
     <Resource Include="Customer\drone.png" />
