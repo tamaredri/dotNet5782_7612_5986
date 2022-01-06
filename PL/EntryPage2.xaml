@@ -5,12 +5,21 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+        
         Title="entryPage" Height="600" Width="950"
-        Background="#fff9fc" 
+         
         ResizeMode="NoResize"
         WindowStyle="None"
-        AllowsTransparency="True"
-        FontFamily="Arial Rounded MT Bold">
+        AllowsTransparency="True">
+
     <Grid Background="WhiteSmoke">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -108,11 +117,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                           Background="Transparent" FontWeight="Bold">
                     <ListViewItem Height="75" FontSize="20">
                         <StackPanel Orientation="Horizontal">
-                            <Button BorderBrush="Transparent" Height="50" Width="50">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="Icones/drone.png"/>
-                                </Button.Background>
-                            </Button>
+                            <RadioButton BorderBrush="Transparent" Height="50" Width="50">
+                                <!--<RadioButton.Background>
+                                    <ImageBrush ImageSource="icons/drone.png">
+                                </RadioButton.Background>-->
+                            </RadioButton>
                             <TextBlock Margin="20 0 0 0" 
                                        Text="Drone" 
                                        VerticalAlignment="Center"

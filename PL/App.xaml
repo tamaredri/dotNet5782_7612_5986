@@ -8,7 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="DroneStyle.xaml"/>
                 <ResourceDictionary Source="Style/ListPageStyle.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.WPF;component/Themes/MaterialDesignTheme.Dark.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.WPF;component/Themes/MaterialDesignTheme.light.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.WPF;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Red.xaml"/>

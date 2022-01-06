@@ -14,6 +14,7 @@
     <None Remove="Customer\client.png" />
     <None Remove="Customer\drone.png" />
     <None Remove="Drone\drone.png" />
+    <None Remove="Icons\drone.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Images\" />
-    <Folder Include="Parcel\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +37,7 @@
     <Resource Include="Customer\client.png" />
     <Resource Include="Customer\drone.png" />
     <Resource Include="Drone\drone.png" />
+    <Resource Include="Icons\drone.png" />
   </ItemGroup>
 
 </Project>
