@@ -1,0 +1,28 @@
+﻿<Page x:Class="PL.MannagerHomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PL"
+      mc:Ignorable="d" 
+      Title="MannagerHomePage"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:BO="clr-namespace:BO;assembly=BL"
+      Style="{StaticResource PageStyle}">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <materialDesign:PackIcon Kind="HomeRoof"  Width="60" Height="60"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" Foreground="#FFBCC8BA"
+                                     />
+            <TextBlock Text="Welcome To our Delivery system" 
+                       VerticalAlignment="Center" 
+                       FontSize="20" Margin="0,0,0,10"
+                       Foreground="#2b331f"/>
+            <TextBlock Text="We wish you a good experience"
+                       Foreground="#546747" 
+                       HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Page>

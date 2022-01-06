@@ -20,13 +20,13 @@ namespace PL
     /// <summary>
     /// Interaction logic for EntryPage2.xaml
     /// </summary>
-    public partial class EntryPage2 : Window
+    public partial class HomePageManager : Window
     {
         DispatcherTimer timer;
 
         double panelWidth;
         bool hidden = true;
-        public EntryPage2()
+        public HomePageManager()
         {
             InitializeComponent();
             timer = new DispatcherTimer();
@@ -37,14 +37,14 @@ namespace PL
             sidePanel.Width = 60;
         }
 
-        
-        
-        
+
+
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             if (hidden)
             {
-                sidePanel.Width += 1;
+                sidePanel.Width += 5;
                 if (sidePanel.Width >= panelWidth)
                 {
                     timer.Stop();
@@ -53,7 +53,7 @@ namespace PL
             }
             else
             {
-                sidePanel.Width -= 1;
+                sidePanel.Width -= 5;
                 if (sidePanel.Width <= 60)
                 {
                     timer.Stop();

@@ -105,7 +105,7 @@ namespace PL
                 {
                     Model = DroneModel.Text,
                     Battery = (int)DroneBattery.Value,
-                    Weight = (WeightCategories)MaximumWeightSelector.SelectedItem
+                    MaxWeight = (WeightCategories)MaximumWeightSelector.SelectedItem
                 };
 
 

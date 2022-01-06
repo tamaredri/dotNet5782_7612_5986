@@ -10,44 +10,7 @@ namespace BL
 {
     public static class OperatorOverloading
     {
-        //public static bool Equles<T>(this T caller, T comparer)
-        //{
-        //    Type type = caller.GetType();
-        //    if (type.Namespace == "BL")
-        //    {
-        //        return caller.
-        //    }
-
-        //}
-
-        //public static bool Equles(this Customer caller, Customer comparer)
-        //{
-        //    return caller.ID == comparer.ID;
-        //}
-
-        //public static bool Equles(this Drone caller, Drone comparer)
-        //{
-        //    return caller.ID == comparer.ID;
-        //}
-
-        //public static bool Equles(this Parcel caller, Parcel comparer)
-        //{
-        //    return caller.ID == comparer.ID;
-        //}
-
-        //public static bool Equles(this Drone caller, Drone comparer)
-        //{
-        //    return caller.ID == comparer.ID;
-        //}
-        //public static bool operator == (this Station caller, Station comparer)
-        //{
-        //    return caller.Name == comparer.Name;
-        //}
-
-        //public static bool operator !=(this Station)
-        //{
-
-        //}
+        #region copy properties
         public static void CopyPropertiesTo<T, S>(this S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())//loop on all the properties in the new object
@@ -60,5 +23,6 @@ namespace BL
                     propTo.SetValue(to, value);//insert the value to the suitable property
             }
         }
+        #endregion
     }
 }

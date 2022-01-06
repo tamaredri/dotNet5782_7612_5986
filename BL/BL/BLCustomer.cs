@@ -89,31 +89,26 @@ namespace BL
         #endregion
 
         #region GetCustomerList
-        public IEnumerable<BO.CustomerToList> GetCustomerList()
-        {
+        public IEnumerable<BO.CustomerToList> GetCustomerList() =>
+                                (from customer in DalAccess.GetCustomersList()
+                                 let customerFromBl = GetCustomer(customer.ID)
+                                 select new CustomerToList()
+                                 {
+                                     ID = customerFromBl.ID,
+                                     Name = customerFromBl.Name,
+                                     Phone = customerFromBl.Phone,
+                                     //count of parcel that were sent by the customer but not delivered
+                                     //(assuming that if the parcel is in the sent list, then it's status is not created)
+                                     SentParcels = customerFromBl.Sent.FindAll(x => x.Status != ParcelStatuse.pairedToDrone).Count(),
+                                     //count of parcel that were received by the customer
+                                     ReceivedParcels = customerFromBl.Recieved.FindAll(x => x.Status == ParcelStatuse.delivered).Count(),
+                                     //count of parcel that are on the way to this customer
+                                     //(assuming that if the parcel is in the recived list, then it's status is not created)
+                                     OnTheWay = customerFromBl.Recieved.FindAll(x => x.Status != ParcelStatuse.delivered).Count(),
+                                     //count of parcel that were sent by the customer and also delivered
+                                     DeliveredParcels = customerFromBl.Sent.FindAll(x => x.Status == ParcelStatuse.delivered).Count(),
 
-            List<DO.Customer> doCustomerList = DalAccess.GetCustomersList().ToList();
-
-            return (from customer in doCustomerList
-                    let customerFromBl = GetCustomer(customer.ID)
-                    select new CustomerToList()
-                    {
-                        ID = customerFromBl.ID,
-                        Name = customerFromBl.Name,
-                        Phone = customerFromBl.Phone,
-                        //count of parcel that were sent by the customer but not delivered
-                        //(assuming that if the parcel is in the sent list, then it's status is not created)
-                        SentParcels = customerFromBl.Sent.FindAll(x => x.Status != ParcelStatuse.pairedToDrone).Count(),
-                        //count of parcel that were received by the customer
-                        ReceivedParcels = customerFromBl.Recieved.FindAll(x => x.Status == ParcelStatuse.delivered).Count(),
-                        //count of parcel that are on the way to this customer
-                        //(assuming that if the parcel is in the recived list, then it's status is not created)
-                        OnTheWay = customerFromBl.Recieved.FindAll(x => x.Status != ParcelStatuse.delivered).Count(),
-                        //count of parcel that were sent by the customer and also delivered
-                        DeliveredParcels = customerFromBl.Sent.FindAll(x => x.Status == ParcelStatuse.delivered).Count(),
-
-                    }).ToList();
-        }
+                                 }).ToList();
         #endregion
 
         #region GetCustomerForParcel
