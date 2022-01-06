@@ -14,11 +14,15 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <materialDesign:PackIcon Kind="HomeRoof"  Width="60" Height="60"
                                      HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"/>
+                                     VerticalAlignment="Center" Foreground="#FFBCC8BA"
+                                     />
             <TextBlock Text="Welcome To our Delivery system" 
                        VerticalAlignment="Center" 
-                       FontSize="20" Margin="0,10,0,10"/>
-            <TextBlock Text="We wish you a good experience"/>
+                       FontSize="20" Margin="0,0,0,10"
+                       Foreground="#2b331f"/>
+            <TextBlock Text="We wish you a good experience"
+                       Foreground="#546747" 
+                       HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Page>
