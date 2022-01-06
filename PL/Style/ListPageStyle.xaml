@@ -50,8 +50,15 @@
     </Style>
 
     <Style x:Key="PageStyle" TargetType="Page">
-        <Setter Property="Height" Value="570"/>
-        <Setter Property="Width" Value="870"/>
+        <Setter Property="Height" Value="550"/>
+        <Setter Property="Width" Value="890"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialDesignFont}"/>
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
+        <Setter Property="TextElement.FontSize" Value="13"/>
+        <Setter Property="TextElement.FontWeight" Value="Regular"/>
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource MaterialDesignBody}"/>
     </Style>
 
     <Style x:Key="DetailsViewForSingleView" TargetType="StackPanel">

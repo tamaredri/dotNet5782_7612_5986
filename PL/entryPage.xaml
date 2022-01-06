@@ -4,14 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="entryPage" Height="600" Width="950"
-        Background="#fff9fc" 
         ResizeMode="NoResize"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        FontFamily="Arial Rounded MT Bold">
-    <!--BorderThickness="1" BorderBrush="#b3504b"-->
+        WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -24,7 +28,7 @@
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.ColumnSpan="3"
+        <!--<Grid Grid.Row="0" Grid.ColumnSpan="3"
                   Background="#17313b">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -85,7 +89,7 @@
                        Width="30" Height="30"/>
             </StackPanel>
 
-        </Grid>
+        </Grid>-->
 
         <Frame x:Name="ListViewFrame" Grid.Row="1" Grid.Column="1"/>
 
@@ -107,8 +111,7 @@
                         Foreground="#e9e9ec"
                         Background="#414f47"
                         Margin="0,0,20,0"
-                        Height="50" Width="150"
-                        Click="OpenListView_Click"/>
+                        Height="50" Width="150"/>
 
                 <Button Content="CUSTOMER"
                         Background="#414f47"

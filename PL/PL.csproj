@@ -11,18 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Customer\client.png" />
-    <None Remove="Customer\drone.png" />
-    <None Remove="Drone\drone.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Images\" />
-    <Folder Include="Parcel\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,12 +24,6 @@
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Customer\client.png" />
-    <Resource Include="Customer\drone.png" />
-    <Resource Include="Drone\drone.png" />
   </ItemGroup>
 
 </Project>

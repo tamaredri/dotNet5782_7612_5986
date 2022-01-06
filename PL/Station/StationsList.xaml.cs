@@ -10,22 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BO;
-using BlApi;
-
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for DronesListView.xaml
+    /// Interaction logic for StationsList.xaml
     /// </summary>
-    public partial class DronesListView : Window
+    public partial class StationsList : Page
     {
-        readonly IBL BLAccess = BlFactory.GetBl();
-        public DronesListView()
+        public StationsList()
         {
             InitializeComponent();
-            //DronesList.DataContext = BLAccess.GetDroneList();
         }
     }
 }

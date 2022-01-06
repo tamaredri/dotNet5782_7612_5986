@@ -25,7 +25,7 @@ namespace PL
         DispatcherTimer timer;
 
         double panelWidth;
-        bool hidden;
+        bool hidden = true;
         public EntryPage2()
         {
             InitializeComponent();
@@ -34,6 +34,7 @@ namespace PL
             timer.Tick += Timer_Tick;
 
             panelWidth = sidePanel.Width;
+            sidePanel.Width = 60;
         }
 
         
@@ -53,7 +54,7 @@ namespace PL
             else
             {
                 sidePanel.Width -= 1;
-                if (sidePanel.Width <= 35)
+                if (sidePanel.Width <= 60)
                 {
                     timer.Stop();
                     hidden = true;
@@ -74,14 +75,13 @@ namespace PL
             }
         }
 
-        private void closeWindow(object sender, RoutedEventArgs e)
+        private void CloseWindow_MouseDown(object sender, RoutedEventArgs e)
         {
-            this.Close();
         }
 
-        private void OpenCustomer_Click(object sender, MouseButtonEventArgs e)
+        private void CloseWindow_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ListFrame.Content = new CustometSingleView(BlFactory.GetBl(), 100000001);
+            this.Close();
         }
     }
 }

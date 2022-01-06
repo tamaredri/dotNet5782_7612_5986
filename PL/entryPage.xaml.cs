@@ -29,29 +29,5 @@ namespace PL
             InitializeComponent();
         }
 
-        private void closeWindow(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void GoToDronrsList(object sender, RoutedEventArgs e)
-        {
-            ListViewFrame.Content = new ParcelListView(BLAccess.GetParcelList().ToList());
-            //DronesListView dronesListViewWindow = new DronesListView();
-            //dronesListViewWindow.ShowDialog();
-        }
-
-
-        private void GoToCustomersrsList(object sender, RoutedEventArgs e)
-        {
-            //CustomersListView customerListViewWindow = new CustomersListView();
-            //customerListViewWindow.ShowDialog();
-        }
-
-        private void OpenListView_Click(object sender, RoutedEventArgs e)
-        {
-            ListViewPageMannager win = new ListViewPageMannager(BLAccess);
-            win.ShowDialog();
-        }
     }
 }
