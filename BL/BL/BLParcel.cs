@@ -19,12 +19,10 @@ namespace BL
             { DalAccess.GetCustomer(parcelToCreate.Sender.ID); }
             catch (DO.DoesntExistExeption x)
             { throw new BO.DoesntExistExeption("wrong sender ID", x); }
-
             try
             { DalAccess.GetCustomer(parcelToCreate.Target.ID); }
             catch (DO.DoesntExistExeption x)
             { throw new BO.DoesntExistExeption("wrong target ID", x); }
-
 
             //BO Parcel-> DO Parcel
             DO.Parcel doParcelToCreate = new()

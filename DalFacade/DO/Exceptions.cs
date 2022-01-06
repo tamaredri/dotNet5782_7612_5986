@@ -12,6 +12,11 @@ namespace DO
         public InvalidInputExeption(string message) : base(message) { }
         public InvalidInputExeption(string message, Exception inner) : base(message, inner) { }
         protected InvalidInputExeption(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
+        //public override string ToString()
+        //{
+        //    return $"Invalid Input in field: {Message}";
+        //}
     }
 
     [Serializable]

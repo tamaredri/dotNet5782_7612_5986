@@ -18,22 +18,23 @@ namespace BL
         {
             DO.Station stationToCharge;
             try
-            { stationToCharge = DalAccess.GetStation(idStationToCharge); }
+            { 
+                stationToCharge = DalAccess.GetStation(idStationToCharge); 
+            }
             catch (DO.DoesntExistExeption x)
-            { throw new BO.DoesntExistExeption("wrong station ID", x); }
+            { 
+                throw new BO.DoesntExistExeption("wrong station ID", x); 
+            }
 
-            //creating a new drone in the BL
-            DO.Drone doDronelToCreate = new()
+            DO.Drone doDronelToCreate = new DO.Drone()
             {
                 Model = droneToCreate.Model,
-                MaxWeight = (DO.WeightCategories)droneToCreate.Weight
+                MaxWeight = (DO.WeightCategories)droneToCreate.MaxWeight
             };
 
             try
             {
-                //sent to dal create Parcel
                 int DroneID = DalAccess.CreateDrone(doDronelToCreate);
-
                 DalAccess.SendToCharge(DroneID, idStationToCharge);
 
                 BO.DroneToList newDrone = new()
@@ -51,15 +52,21 @@ namespace BL
                     Weight = (BO.WeightCategories)doDronelToCreate.MaxWeight
                 };
 
+
                 if (dronesList.Find(x => x.ID == newDrone.ID) != null)
-                { throw new BO.ContradictoryDataExeption("the drone already exist - the drone list in the BL is wrong"); }
+                {
+                    throw new BO.ContradictoryDataExeption("the drone already exist - the drone list in the BL is wrong"); 
+                }
                 dronesList.Add(newDrone);
-                
             }
             catch (DO.AlreadyExistExeption x)
-            { throw new BO.AlreadyExistExeption(x.Message, x); }
+            {
+                throw new BO.AlreadyExistExeption(x.Message, x); 
+            }
             catch (DO.DoesntExistExeption x)
-            {throw new BO.DoesntExistExeption(x.Message, x);}
+            {
+                throw new BO.DoesntExistExeption(x.Message, x);
+            }
         }
         #endregion
 
@@ -69,13 +76,16 @@ namespace BL
             DO.Drone doDroneToShow = new();
             try { doDroneToShow = DalAccess.GetDrone(droneID); }
             catch (DO.DoesntExistExeption x) { throw new BO.DoesntExistExeption(x.Message, x); }
-            
+
             //build the drone to return
-            BO.Drone boDroneToShow = new()
+            /*BO.Drone boDroneToShow = new BO.Drone()*/;
+
+            //doDroneToShow.CopyPropertiesTo(boDroneToShow);
+            BO.Drone boDroneToShow = new BO.Drone()
             {
                 ID = doDroneToShow.ID,
                 Model = doDroneToShow.Model,
-                Weight = (BO.WeightCategories)doDroneToShow.MaxWeight
+                MaxWeight = (BO.WeightCategories)doDroneToShow.MaxWeight
             };
 
             //find the drone from the drones list
@@ -100,36 +110,7 @@ namespace BL
         #endregion
 
         #region GetDroneList
-        //public IEnumerable<BO.DroneToList> GetDroneList()
-        //{
-        //    List<DO.Drone> dronesFromDal= DalAccess.GetDroneList().ToList();
-
-        //    return (from drone in dronesFromDal
-        //                         let droneFromBl = GetDrone(drone.ID)
-        //                         select new DroneToList()
-        //                         {
-        //                             ID = droneFromBl.ID,
-        //                             Battery = droneFromBl.Battery,
-        //                             DroneLocation = droneFromBl.DroneLocation.CopyLocation(),
-        //                             Model = droneFromBl.Model,
-        //                             ParcelId = droneFromBl.ParcelInDeliveryByDrone.ID,
-        //                             Status = droneFromBl.Status,
-        //                             Weight = droneFromBl.Weight
-        //                         }).ToList();
-        //}
-        #endregion
-
-        #region GetDroneList
-        public IEnumerable<BO.DroneToList> GetDroneList()
-        {
-            List<BO.DroneToList> droneListToReturn = new();
-            foreach (var item in dronesList)
-            {
-                droneListToReturn.Add(item);
-            }
-            return droneListToReturn;
-
-        }
+        public IEnumerable<BO.DroneToList> GetDroneList() => (from drone in dronesList select drone).ToList();
         #endregion
 
         #region GetDroneInCharge

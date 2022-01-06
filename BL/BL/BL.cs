@@ -35,10 +35,9 @@ namespace BL
 
         BL()
         {
-            
-                rand = new Random();
+            rand = new Random();
 
-                #region save the charging details
+            #region save the charging details
                 //save the charging details
                 double[] powerConsumption = DalAccess.GetPowerConsumptionByDrone();
                 powerMinimumIfAvailable = powerConsumption[0];
