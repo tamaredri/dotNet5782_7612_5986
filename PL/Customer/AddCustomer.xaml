@@ -23,68 +23,9 @@
 
         <Grid x:Name="panelHeader"  Grid.Column="0"
               VerticalAlignment="Top" Height="50" 
-               MouseDown="PanelHeader_MouseDown"
               Grid.Row="0" Grid.ColumnSpan="3"
               Background="#B2165E41">
-            
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Orientation="Horizontal"
-                            Grid.ColumnSpan="5"
-                            VerticalAlignment="Center">
-                <TextBlock
-                           Foreground="#c4c3b3"
-                           Text="prog name"
-                           Margin="5,5,5,5"
-                           HorizontalAlignment="center"/>
-                <TextBlock
-                           Foreground="#e9e9ec"
-                           Text="welcome"
-                           Margin="5,5,5,5"
-                           HorizontalAlignment="center"/>
-            </StackPanel>
-
-            <StackPanel Grid.Column="11" Grid.ColumnSpan="2"
-                        Orientation="Horizontal" Margin="36,0,0,0">
-
-                <Button Content="🗕" Foreground="#c4b3a3"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                       FontSize="20"
-                       HorizontalAlignment="Right"
-                       Margin="0,-10,5,5" 
-                       Width="30" Height="30"/>
-
-                <Button Content="☐" Foreground="#c4b3a3"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                       FontSize="20"
-                       HorizontalAlignment="Right"
-                       Margin="0,0,5,5" 
-                       Width="30" Height="30"/>
-
-                <Button Content="✕" Foreground="#c4b3a3"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                       FontSize="20"
-                       HorizontalAlignment="Right"
-                       Margin="0,0,5,0" Click="closeWindow"
-                       Width="30" Height="30"/>
-            </StackPanel>
+          
         </Grid>
         
         <!--<Image Grid.Row="1" Source="../Icons/customer.png"/>-->

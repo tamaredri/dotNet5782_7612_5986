@@ -23,7 +23,6 @@
         
         <Grid x:Name="panelHeader"  Grid.Column="0"
               VerticalAlignment="Top" Height="50" 
-               MouseDown="PanelHeader_MouseDown"
               Grid.Row="0" Grid.ColumnSpan="3"
               Background="#B2165E41">
             <Grid.ColumnDefinitions>
@@ -81,7 +80,7 @@
                     BorderBrush="Transparent"
                        FontSize="20"
                        HorizontalAlignment="Right"
-                       Margin="0,0,5,0" Click="closeWindow"
+                       Margin="0,0,5,0"
                        Width="30" Height="30"/>
             </StackPanel>
         </Grid>

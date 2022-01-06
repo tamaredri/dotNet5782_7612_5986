@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for MannagerHomePage.xaml
+    /// Interaction logic for HomeListPageManager.xaml
     /// </summary>
-    public partial class MannagerHomePage : Page
+    public partial class HomeListPageManager : Page
     {
-        public MannagerHomePage()
+        public HomeListPageManager()
         {
             InitializeComponent();
         }
