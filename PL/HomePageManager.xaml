@@ -23,7 +23,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         <Grid x:Name="panelHeader" 
               MouseDown="PanelHeader_MouseDown"
               VerticalAlignment="Top" Height="50" 
-              Background="#546747">
+              Background="#2b331f">
 
             <StackPanel Orientation="Horizontal"
                 HorizontalAlignment="Right">
@@ -55,6 +55,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
             </StackPanel>
         </Grid>
+
 
         <Grid x:Name="sidePanel" 
               HorizontalAlignment="Left" Width="200" Height="550"

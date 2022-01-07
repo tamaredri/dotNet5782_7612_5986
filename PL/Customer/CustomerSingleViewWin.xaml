@@ -24,66 +24,38 @@
         </Grid.RowDefinitions>
 
         <Grid x:Name="panelHeader" 
+              MouseDown="PanelHeader_MouseDown"
               VerticalAlignment="Top" Height="50" 
-              Grid.Row="0" Grid.ColumnSpan="3"
-              Background="#B2165E41">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+              Background="#2b331f">
 
             <StackPanel Orientation="Horizontal"
-                            Grid.ColumnSpan="5"
-                            VerticalAlignment="Center">
-                <TextBlock
-                           Foreground="#c4c3b3"
-                           Text="prog name"
-                           Margin="5,5,5,5"
-                           HorizontalAlignment="center"/>
-                <TextBlock
-                           Foreground="#e9e9ec"
-                           Text="welcome"
-                           Margin="5,5,5,5"
-                           HorizontalAlignment="center"/>
-            </StackPanel>
+                HorizontalAlignment="Right">
+                <materialDesign:PackIcon Kind="WindowMinimize"
+                                         Width="20" Height="20" 
+                                         Background="Transparent"
+                                         BorderBrush="#bbc8ba" 
+                                         VerticalAlignment="Center"
+                                         Margin="3,5,5,3" 
+                                         Foreground="#fddca5
+"/>
+                <materialDesign:PackIcon Kind="WindowMaximize"
+                                         Width="20" Height="20" 
+                                         Background="Transparent"
+                                         BorderBrush="#bbc8ba" 
+                                         HorizontalAlignment="Center" 
+                                         VerticalAlignment="Center" 
+                                         Margin="3,5,5,3" 
+                                         Foreground="#fddca5"/>
+                <materialDesign:PackIcon Kind="WindowClose" 
+                                         Background="Transparent"
+                                         BorderBrush="#bbc8ba" 
+                                         VerticalAlignment="Center" 
+                                         HorizontalAlignment="Center" 
+                                         Height="20" Width="20"
+                                        
+                                         Margin="3,5,5,3" 
+                                         Foreground="#fddca5"/>
 
-            <StackPanel Grid.Column="11" Grid.ColumnSpan="2"
-                        Orientation="Horizontal" Margin="36,0,0,0">
-
-                <Button Content="🗕" Foreground="#c4b3a3"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                       FontSize="20"
-                       HorizontalAlignment="Right"
-                       Margin="0,-10,5,5" 
-                       Width="30" Height="30"/>
-
-                <Button Content="☐" Foreground="#c4b3a3"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                       FontSize="20"
-                       HorizontalAlignment="Right"
-                       Margin="0,0,5,5" 
-                       Width="30" Height="30"/>
-
-                <Button Content="✕" Foreground="#c4b3a3"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                       FontSize="20"
-                       HorizontalAlignment="Right"
-                       Margin="0,0,5,0"
-                       Width="30" Height="30"/>
             </StackPanel>
         </Grid>
 
@@ -133,7 +105,7 @@
             </Grid.RowDefinitions>
                 <materialDesign:Card
                 materialDesign:ShadowAssist.ShadowDepth="Depth2" 
-                    Background="#B2165E41" Width="550" Height="1.5" 
+                    Background="#B52B331F" Width="550" Height="1.5" 
                     UniformCornerRadius="2" 
                     VerticalAlignment="Bottom"
                      />
@@ -173,7 +145,7 @@
             <Grid Grid.Row="1">
                 <materialDesign:Card
                 materialDesign:ShadowAssist.ShadowDepth="Depth2" 
-                    Background="#B2165E41" Width="1.5" Height="250" 
+                    Background="#B22B331F" Width="1.5" Height="250" 
                     UniformCornerRadius="2" 
                     VerticalAlignment="Center"
                      />
@@ -191,7 +163,7 @@
                 <StackPanel>
 
                         <materialDesign:Card
-                            Background="#335A8D78"
+                            Background="#33BBC8BA"
                             Width="100" Height="30" Margin="0,25,0,0"
                             Padding="8" FontWeight="Bold" 
                             FontSize="14" 
@@ -200,7 +172,7 @@
                             >
                                 <TextBlock Name="onTheWay" 
                                     Text="On The Way:" 
-                                    HorizontalAlignment="Center" />
+                                    HorizontalAlignment="Right" Margin="0,0,3,0" />
                                 
                         </materialDesign:Card>
                         
@@ -211,7 +183,7 @@
                 <StackPanel Grid.Column="1">
 
                         <materialDesign:Card
-                            Background="#335A8D78"
+                            Background="#33BBC8BA"
                             Width="100" Height="30" Margin="0,25,0,0"
                             Padding="8" FontWeight="Bold" 
                             FontSize="14" 

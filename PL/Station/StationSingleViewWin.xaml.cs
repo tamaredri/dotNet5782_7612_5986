@@ -17,9 +17,9 @@ namespace PL
     /// <summary>
     /// Interaction logic for ParcelSingleViewWin.xaml
     /// </summary>
-    public partial class ParcelSingleViewWin : Window
+    public partial class StationSingleViewWin : Window
     {
-        public ParcelSingleViewWin()
+        public StationSingleViewWin()
         {
             InitializeComponent();
         }
