@@ -22,7 +22,6 @@
         </Grid.RowDefinitions>
 
         <Grid x:Name="panelHeader" 
-              MouseDown="PanelHeader_MouseDown"
               VerticalAlignment="Top" Height="50" 
               Background="#2b331f">
 

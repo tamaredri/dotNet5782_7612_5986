@@ -52,7 +52,7 @@
                                          VerticalAlignment="Center" 
                                          HorizontalAlignment="Center" 
                                          Height="20" Width="20"
-                                        
+                                         MouseDown="Close_MouseDown"
                                          Margin="3,5,5,3" 
                                          Foreground="#fddca5"/>
 
