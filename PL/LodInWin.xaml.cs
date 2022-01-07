@@ -29,5 +29,15 @@ namespace PL
             LoginManager loginManager = new LoginManager();
 
         }
+
+        private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
     }
 }

@@ -23,5 +23,15 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
+
+        private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
     }
 }

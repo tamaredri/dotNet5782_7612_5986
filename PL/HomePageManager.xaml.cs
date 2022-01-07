@@ -24,6 +24,8 @@ namespace PL
     {
         DispatcherTimer timer;
 
+        IBL BL = BlFactory.GetBl();
+
         double panelWidth;
         bool hidden = true;
         public HomePageManager()
@@ -62,10 +64,7 @@ namespace PL
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            timer.Start();
-        }
+        private void Button_Click(object sender, RoutedEventArgs e) => timer.Start();
 
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -75,10 +74,8 @@ namespace PL
             }
         }
 
-        private void CloseWindow_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
-        }
+        private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
+
     }
 }
 
