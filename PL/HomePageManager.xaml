@@ -75,7 +75,7 @@
                           Background="Transparent" FontWeight="Bold">
                     <ListViewItem Height="80"
                                   Background="Transparent" 
-                                  MouseDown="DronesListOpen_MouseDown">
+                                  >
                         
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Icons/drone.png"

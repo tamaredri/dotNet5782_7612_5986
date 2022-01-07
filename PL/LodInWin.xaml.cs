@@ -26,8 +26,15 @@ namespace PL
 
         private void ManagerLogIn_Click(object sender, RoutedEventArgs e)
         {
-            LoginManager loginManager = new LoginManager();
+            managerButton.Visibility = Visibility.Hidden;
+            managerButton.IsEnabled = false;
 
+        }
+
+        private void CloseManagerLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            managerButton.Visibility = Visibility.Visible;
+            managerButton.IsEnabled = true;
         }
 
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
@@ -38,6 +45,19 @@ namespace PL
             }
         }
 
-        private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
+        private void Close_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ManagerlogInWithPassword_Click(object sender, RoutedEventArgs e)
+        {
+            if (PasswordBox.Password == "1234")
+            {
+                HomePageManager homeManager = new();
+                homeManager.ShowDialog();
+            }
+                
+        }
     }
 }
