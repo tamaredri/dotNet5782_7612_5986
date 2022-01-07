@@ -1,4 +1,4 @@
-﻿<Window x:Class="PL.ParcelSingleViewWin"
+﻿<Window x:Class="PL.StationSingleViewWin"
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,7 +22,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-       <Grid x:Name="panelHeader" 
+        <Grid x:Name="panelHeader" 
               MouseDown="PanelHeader_MouseDown"
               VerticalAlignment="Top" Height="50" 
               Background="#546747">
@@ -135,7 +135,7 @@
 
                 </StackPanel>
 
-                
+
                 <Grid Grid.Row="1">
 
                     <StackPanel>

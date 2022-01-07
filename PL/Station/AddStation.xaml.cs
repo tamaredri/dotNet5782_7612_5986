@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for StationSingleView.xaml
+    /// Interaction logic for AddStation.xaml
     /// </summary>
-    public partial class StationSingleView : Window
+    public partial class AddStation : Window
     {
-        public StationSingleView()
+        public AddStation()
         {
             InitializeComponent();
         }
