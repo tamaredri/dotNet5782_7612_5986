@@ -17,11 +17,17 @@ namespace PL
     /// <summary>
     /// Interaction logic for LodInWin.xaml
     /// </summary>
-    public partial class LodInWin : Window
+    public partial class LogInWin : Window
     {
-        public LodInWin()
+        public LogInWin()
         {
             InitializeComponent();
+        }
+
+        private void ManagerLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            LoginManager loginManager = new LoginManager();
+
         }
     }
 }

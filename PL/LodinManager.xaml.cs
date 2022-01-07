@@ -17,9 +17,9 @@ namespace PL
     /// <summary>
     /// Interaction logic for LodinManager.xaml
     /// </summary>
-    public partial class LodinManager : Window
+    public partial class LoginManager : Window
     {
-        public LodinManager()
+        public LoginManager()
         {
             InitializeComponent();
         }
