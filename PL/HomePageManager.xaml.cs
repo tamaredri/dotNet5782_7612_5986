@@ -37,6 +37,8 @@ namespace PL
 
             panelWidth = sidePanel.Width;
             sidePanel.Width = 60;
+
+            ListFrame.Content = new HomeListPageManager();
         }
 
 
@@ -76,6 +78,22 @@ namespace PL
 
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
 
+        private void OpenDronesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int selectedIndex = ((ListView)sender).SelectedIndex;
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    {
+                        ListFrame.Content = new DronesList(BL);
+
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
     }
 }
 

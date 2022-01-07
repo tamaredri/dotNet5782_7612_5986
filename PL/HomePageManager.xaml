@@ -72,10 +72,10 @@
                           FontFamily="Century Gothic" 
                           FontSize="20" Foreground="Black" 
                           BorderBrush="Transparent" 
-                          Background="Transparent" FontWeight="Bold">
+                          Background="Transparent" FontWeight="Bold"
+                          MouseDoubleClick="OpenDronesList_MouseDoubleClick">
                     <ListViewItem Height="80"
-                                  Background="Transparent" 
-                                  MouseDown="DronesListOpen_MouseDown">
+                                  Background="Transparent">
                         
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Icons/drone.png"
@@ -134,8 +134,9 @@
                     <ListViewItem Height="60"
                                   Background="Transparent">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="HomeRoof"  Width="40" Height="40"
-                                   VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Kind="HomeRoof"  
+                                                     Width="40" Height="40"
+                                                     VerticalAlignment="Center"/>
                             <TextBlock Text="Home" 
                                        HorizontalAlignment="Center" 
                                        Margin="20,5,0,0"/>

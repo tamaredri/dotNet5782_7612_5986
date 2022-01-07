@@ -117,13 +117,18 @@ namespace BL
         //create a list of all the drones that are charging in the station
         private IEnumerable<BO.DroneInCharge> GetDroneInCharge(int stationID)
         {
-            List<BO.DroneInCharge> DroneInChargeToReturn = new();
-            List<DO.DroneCharge> boDroneInChargeSlote = DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true)).ToList();
+            //List<BO.DroneInCharge> DroneInChargeToReturn = new List<BO.DroneInCharge>();
+            //List<DO.DroneCharge> boDroneInChargeSlote = DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true)).ToList();
 
-            foreach (var item in boDroneInChargeSlote)
-            { DroneInChargeToReturn.Add(new BO.DroneInCharge() { ID = item.ID, Battery = dronesList.Find(x => x.ID == item.ID).Battery }); }
+            //foreach (var item in boDroneInChargeSlote)
+            //{ DroneInChargeToReturn.Add(new BO.DroneInCharge() { ID = item.ID, Battery = dronesList.Find(x => x.ID == item.ID).Battery }); }
 
-            return DroneInChargeToReturn;
+            return (from charge in DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true))
+                    select new BO.DroneInCharge()
+                    {
+                        ID = charge.ID,
+                        Battery = dronesList.Find(x => x.ID == charge.ID).Battery
+                    }).ToList();
         }
         #endregion
 
