@@ -17,11 +17,24 @@ namespace PL
     /// <summary>
     /// Interaction logic for LodInWin.xaml
     /// </summary>
-    public partial class LodInWin : Window
+    public partial class LogInWin : Window
     {
-        public LodInWin()
+        public LogInWin()
         {
             InitializeComponent();
+        }
+
+        private void ManagerLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            managerButton.Visibility = Visibility.Hidden;
+            managerButton.IsEnabled = false;
+
+        }
+
+        private void CloseManagerLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            managerButton.Visibility = Visibility.Visible;
+            managerButton.IsEnabled = true;
         }
 
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
@@ -32,6 +45,19 @@ namespace PL
             }
         }
 
-        private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
+        private void Close_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ManagerlogInWithPassword_Click(object sender, RoutedEventArgs e)
+        {
+            if (PasswordBox.Password == "1234")
+            {
+                HomePageManager homeManager = new();
+                homeManager.ShowDialog();
+            }
+                
+        }
     }
 }
