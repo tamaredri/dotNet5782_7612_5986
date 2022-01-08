@@ -31,20 +31,18 @@
                     Margin="10,0,0,0" 
                     Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
-                <ComboBox Name="statusCombobox"
+                <ComboBox x:Name="statusCombobox"
                     Margin="10"  Width="150"
                     materialDesign:HintAssist.Hint="(status)"
                     Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
-                    BorderBrush="#89000000" AutomationProperties.ItemType="" ContextMenuOpening="ConboboxStatus_open">
-                   
-
-                </ComboBox>
-                <ComboBox Margin="10"  Width="150"
+                    BorderBrush="#89000000" AutomationProperties.ItemType="" 
+                    DropDownOpened="ConboboxStatus_open" SelectionChanged="Status_SelectionChanged"/>
+                <ComboBox Name="weightCombobox" Margin="10"  Width="150"
                     materialDesign:HintAssist.Hint="(maximum weight)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-                <ComboBox Margin="10"  Width="150"
-                    materialDesign:HintAssist.Hint="(battery??)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" DropDownOpened="ConboboxWeight_open"/>
+                <ComboBox Name="batteryConbobox" Margin="10"  Width="150"
+                    materialDesign:HintAssist.Hint="(battery)"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" DropDownOpened="ConboboxBattery_open"/>
             </StackPanel>
 
 
