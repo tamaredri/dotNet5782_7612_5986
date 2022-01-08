@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BO;
 using BlApi;
+using System.Collections.ObjectModel;
 
 namespace PL
 {
@@ -23,10 +24,20 @@ namespace PL
     public partial class CustomersList : Page
     {
         IBL BL;
+
+        ObservableCollection<CustomerToList> CList = new ObservableCollection<CustomerToList>();
         public CustomersList(IBL BLAccess)
         {
             InitializeComponent();
             BL = BLAccess;
+
+            foreach (var customer in BL.GetCustomerList())
+            {
+                CList.Add(customer);
+            }
+
+            DataContext = CList;
+
         }
     }
 }

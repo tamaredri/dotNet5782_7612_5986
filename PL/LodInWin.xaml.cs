@@ -35,6 +35,7 @@ namespace PL
         {
             managerButton.Visibility = Visibility.Visible;
             managerButton.IsEnabled = true;
+            PasswordBox.Password = "";
         }
 
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
@@ -45,16 +46,14 @@ namespace PL
             }
         }
 
-        private void Close_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
-        }
+        private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
 
         private void ManagerlogInWithPassword_Click(object sender, RoutedEventArgs e)
         {
             if (PasswordBox.Password == "1234")
             {
                 HomePageManager homeManager = new();
+                PasswordBox.Password = "";
                 homeManager.ShowDialog();
             }
                 

@@ -12,11 +12,9 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d"
         Height="600" Width="950"
         ResizeMode="NoResize"
         WindowStyle="None"
-        AllowsTransparency="True" 
         WindowStartupLocation="CenterScreen">
 
     <Grid>

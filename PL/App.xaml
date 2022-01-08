@@ -7,6 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Style/RadioButtonTheme.xaml"/>
+                <ResourceDictionary Source="Style/DataGridTheme.xaml"/>
                 <ResourceDictionary Source="Style/ListPageStyle.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.WPF;component/Themes/MaterialDesignTheme.light.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.WPF;component/Themes/MaterialDesignTheme.Defaults.xaml"/>

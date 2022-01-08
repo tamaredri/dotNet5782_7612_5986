@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL"
+      xmlns:converter="clr-namespace:PLConverter"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:BO="clr-namespace:BO;assembly=BL"
       Style="{StaticResource PageStyle}">
@@ -11,6 +12,9 @@
         <BO:CustomerToList/>
     </Page.DataContext>
 
+    <Page.Resources>
+        <converter:IntToStringPhoneConverter x:Key="intToStringPhoneConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -63,24 +67,28 @@
             </Grid>
         </Button>
 
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
-                  Cursor="ScrollAll" Margin="10,10,10,10"
+        <DataGrid x:Name="ListOfCustomers"
+                  ItemsSource="{Binding}"
+                  Grid.Row="1" Grid.ColumnSpan="2"
+                  Cursor="Arrow" Margin="10,10,10,10"
                   CanUserAddRows="False"
                   materialDesign:DataGridAssist.CellPadding="10"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="10" 
-                  IsTextSearchEnabled="True" 
                   AutoGenerateColumns="False" 
-                  GridLinesVisibility="Vertical" 
+                  GridLinesVisibility="Vertical"
                   ScrollViewer.VerticalScrollBarVisibility="Visible" 
                   CanUserDeleteRows="False" 
                   CanUserResizeRows="False"
-                  Foreground="DarkGreen">
+                  Foreground="Black"
+                  IsReadOnly="True"
+                  SelectionUnit="FullRow"
+                  SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"
                                     MinWidth="10"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"
                                     MinWidth="10"/>
-                <DataGridTextColumn Header="Phone" Binding="{Binding Path=Phone}"
+                <DataGridTextColumn Header="Phone" Binding="{Binding Path=Phone, Converter={StaticResource intToStringPhoneConverter}}"
                                     MinWidth="10"/>
                 <DataGridTextColumn Header="Sent By Me"  Binding="{Binding Path=SentParcels}"
                                     MinWidth="10"/>
