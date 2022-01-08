@@ -30,7 +30,7 @@
                          Width="83" Background="#FF19364E" 
                          Foreground="#FFBACDE0"  />
         </Label>-->
-        <StackPanel VerticalAlignment="Center" 
+        <!--<StackPanel VerticalAlignment="Center" 
                     Margin="10,0,0,0" 
                     Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
@@ -51,7 +51,7 @@
                     Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                 </ComboBox>
             </StackPanel>
-        </StackPanel>
+        </StackPanel>-->
         <Button Grid.Column="2"
             Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}" 
                 BorderBrush="#007E8C7F" Width="56" 

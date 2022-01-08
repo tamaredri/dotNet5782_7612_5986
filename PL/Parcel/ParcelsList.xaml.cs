@@ -24,19 +24,19 @@ namespace PL
     public partial class ParcelsList : Page
     {
         IBL BL;
+        ObservableCollection<ParcelToList> parcelsList = new();
+
         public ParcelsList(IBL BLAccess)
         {
             InitializeComponent();
             BL = BLAccess;
-
-            ObservableCollection<ParcelToList> parcelsList = new();
-
             foreach (var item in BL.GetParcelList())
             {
                 parcelsList.Add(item);
             }
-
             DataContext = parcelsList;
+
+
         }
     }
 }
