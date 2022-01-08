@@ -48,7 +48,7 @@ namespace PL
         {
             TakenChargeSlotsComboBox.Items.Clear();
             TakenChargeSlotsComboBox.Items.Add("");
-            IEnumerable<IGrouping<int, StationToList>> groupings = groupByAvailableChargeSlots(stationsList);
+            IEnumerable<IGrouping<int, StationToList>> groupings = groupByTakenChargeSlots(stationsList);
             groupings = groupings.OrderBy(g => g.Key);
             foreach (var group in groupings)
                 TakenChargeSlotsComboBox.Items.Add(group.Key);
@@ -59,12 +59,12 @@ namespace PL
         /// </summary>
         private void AvailableItems_DropDownOpened(object sender, EventArgs e)
         {
-            TakenChargeSlotsComboBox.Items.Clear();
-            TakenChargeSlotsComboBox.Items.Add("");
+            AvailableChargeSlotsComboBox.Items.Clear();
+            AvailableChargeSlotsComboBox.Items.Add("");
             IEnumerable<IGrouping<int, StationToList>> groupings = groupByAvailableChargeSlots(stationsList);
             groupings = groupings.OrderBy(g => g.Key);
             foreach (var group in groupings)
-                TakenChargeSlotsComboBox.Items.Add(group.Key);
+                AvailableChargeSlotsComboBox.Items.Add(group.Key);
         }
         #endregion
 

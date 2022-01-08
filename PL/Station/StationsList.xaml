@@ -26,16 +26,16 @@
                     Margin="10,0,0,0" 
                     Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
+                <ComboBox Name="AvailableChargeSlotsComboBox"
+                          Margin="10"  Width="100"
+                          materialDesign:HintAssist.Hint="(available)"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                          DropDownOpened="AvailableItems_DropDownOpened"/>
                 <ComboBox Name="TakenChargeSlotsComboBox"
                           Margin="10"  Width="100"
                           materialDesign:HintAssist.Hint="(taken)"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           DropDownOpened="TakenItems_DropDownOpened"/>
-                <ComboBox Name="AvailableChargeSlotsComboBox"
-                          Margin="10"  Width="100"
-                          materialDesign:HintAssist.Hint="(available)"
-                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" DropDownOpened="AvailableItems_DropDownOpened"/>
-
             </StackPanel>
         </StackPanel>
         <Button Grid.Column="2"
