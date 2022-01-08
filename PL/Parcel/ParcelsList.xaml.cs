@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BO;
+using BlApi;
 
 namespace PL
 {
@@ -21,9 +22,11 @@ namespace PL
     /// </summary>
     public partial class ParcelsList : Page
     {
-        public ParcelsList()
+        IBL BL;
+        public ParcelsList(IBL BLAccess)
         {
             InitializeComponent();
+            BL = BLAccess;
         }
     }
 }

@@ -55,7 +55,12 @@
 
             </StackPanel>
         </Grid>
-
+        
+        <Frame x:Name="ListFrame"
+               HorizontalAlignment="Right" 
+               VerticalAlignment="Bottom"
+               Width="890" Height="550"
+               NavigationUIVisibility="Hidden"/>
 
         <Grid x:Name="sidePanel" 
               HorizontalAlignment="Left" Width="200" Height="550"
@@ -73,7 +78,7 @@
                           FontSize="20" Foreground="Black" 
                           BorderBrush="Transparent" 
                           Background="Transparent" FontWeight="Bold"
-                          MouseDoubleClick="OpenDronesList_MouseDoubleClick">
+                          MouseDoubleClick="OpenLists_MouseDoubleClick">
                     <ListViewItem Height="80"
                                   Background="Transparent">
                         
@@ -122,17 +127,9 @@
                                        Margin="20,5,0,0"/>
                         </StackPanel>
                     </ListViewItem>
-                </ListView>
-            </StackPanel>
-            <Grid VerticalAlignment="Bottom"
-                  Height="60">
-                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                          FontFamily="Century Gothic" 
-                          FontSize="20" Foreground="Black" 
-                          BorderBrush="Transparent" 
-                          Background="Transparent" FontWeight="Bold">
-                    <ListViewItem Height="60"
-                                  Background="Transparent">
+
+                    <ListViewItem Height="80"
+                                  Background="Transparent" Margin="0,20,0,0">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="HomeRoof"  
                                                      Width="40" Height="40"
@@ -143,15 +140,10 @@
                         </StackPanel>
                     </ListViewItem>
                 </ListView>
-            </Grid>
-
+            </StackPanel>
         </Grid>
 
-        <Frame x:Name="ListFrame"
-               HorizontalAlignment="Right" 
-               VerticalAlignment="Bottom"
-               Width="890" Height="550"
-               NavigationUIVisibility="Hidden"/>
+       
 
 
         <!--Background="#fff9fc" 

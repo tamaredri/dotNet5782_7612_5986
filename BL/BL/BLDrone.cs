@@ -123,12 +123,13 @@ namespace BL
             //foreach (var item in boDroneInChargeSlote)
             //{ DroneInChargeToReturn.Add(new BO.DroneInCharge() { ID = item.ID, Battery = dronesList.Find(x => x.ID == item.ID).Battery }); }
 
-            return (from charge in DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true))
-                    select new BO.DroneInCharge()
-                    {
-                        ID = charge.ID,
-                        Battery = dronesList.Find(x => x.ID == charge.ID).Battery
-                    }).ToList();
+            //return (from charge in DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true))
+            //        select  new BO.DroneInCharge()
+            //        {
+            //            ID = charge.ID,
+            //            Battery = dronesList.Find(x => x.ID == charge.ID).Battery
+            //        }).ToList();
+            return new List<BO.DroneInCharge>();
         }
         #endregion
 

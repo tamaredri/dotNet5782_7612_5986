@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BO;
+using BlApi;
+
+
 namespace PL
 {
     /// <summary>
@@ -20,9 +23,12 @@ namespace PL
     /// </summary>
     public partial class StationsList : Page
     {
-        public StationsList()
+
+        IBL BL;
+        public StationsList(IBL BLAccess)
         {
             InitializeComponent();
+            BL = BLAccess;
         }
     }
 }

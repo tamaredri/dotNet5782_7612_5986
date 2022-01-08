@@ -16,7 +16,8 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="600" Width="950"
-        WindowStyle="None">
+        WindowStyle="None" 
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <converter:NotVisibilityToVisibilityConverter x:Key="notVisibilityToVisibilityConverter"/>
@@ -76,22 +77,24 @@
                 Padding="32"
                 Background="#26E8E5E5"
                 Width="350" Height="400" 
-                HorizontalAlignment="Center" VerticalAlignment="Center"
-                >
-                <StackPanel Name="managetLogin"  Orientation="Vertical" 
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Center"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center">
+                
+                <StackPanel Name="managetLogin"  
+                            Orientation="Vertical" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
                             Visibility="{Binding ElementName=managerButton, Path=Visibility, Converter={StaticResource notVisibilityToVisibilityConverter}}"
                             IsEnabled="{Binding ElementName=managerButton, Path=IsEnabled , Converter={StaticResource falseToTrueConverter}}">
 
                     <Button
                         Background="Transparent"
                         BorderBrush="Transparent"
-                        
                         ToolTip="MaterialDesignFloatingActionLightButton"
                         Click="CloseManagerLogIn_Click" HorizontalAlignment="Left" 
                         VerticalAlignment="Top" Margin="0,-20,0,0">
-                        <materialDesign:PackIcon Kind="ArrowLeftThin" />
+                        <materialDesign:PackIcon Kind="ArrowLeftThin"
+                                                 Height="30" Width="30"/>
 
                     </Button>
                     <TextBlock x:Name="manager" 

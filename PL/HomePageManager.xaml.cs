@@ -78,7 +78,7 @@ namespace PL
 
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
 
-        private void OpenDronesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void OpenLists_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int selectedIndex = ((ListView)sender).SelectedIndex;
 
@@ -87,6 +87,30 @@ namespace PL
                 case 0:
                     {
                         ListFrame.Content = new DronesList(BL);
+
+                        break;
+                    }
+                case 1:
+                    {
+                        ListFrame.Content = new StationsList(BL);
+
+                        break;
+                    }
+                case 2:
+                    {
+                        ListFrame.Content = new CustomersList(BL);
+
+                        break;
+                    }
+                case 3:
+                    {
+                        ListFrame.Content = new ParcelsList(BL);
+
+                        break;
+                    }
+                case 4:
+                    {
+                        ListFrame.Content = new HomeListPageManager();
 
                         break;
                     }
