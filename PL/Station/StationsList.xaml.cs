@@ -25,12 +25,11 @@ namespace PL
     {
 
         IBL BL;
+        ObservableCollection<StationToList> stationsList = new ObservableCollection<StationToList>();
         public StationsList(IBL BLAccess)
         {
             InitializeComponent();
             BL = BLAccess;
-
-            ObservableCollection<StationToList> stationsList = new();
 
             foreach (var item in BL.GetStationList())
             {
@@ -38,6 +37,53 @@ namespace PL
             }
 
             DataContext = stationsList;
+            initializTakenComboBox();
+            initializeAvailableComboBox();
+
         }
+
+        /// <summary>
+        /// initialize the taken comboBox with the values according to the list of stations
+        /// </summary>
+        void initializTakenComboBox()
+        {
+            TakenChargeSlotsComboBox.Items.Add("Clear");
+            IEnumerable<IGrouping<int, StationToList>> groupings = groupByAvailableChargeSlots(stationsList);
+            groupings = groupings.OrderBy(g => g.Key);
+            foreach (var group in groupings)
+                TakenChargeSlotsComboBox.Items.Add(group.Key);
+        }
+
+        /// <summary>
+        /// initialize the available comboBox with the values according to the list of stations
+        /// </summary>
+        void initializeAvailableComboBox()
+        {
+            AvailableChargeSlotsComboBox.Items.Add("Clear");
+            IEnumerable<IGrouping<int, StationToList>> groupings = groupByTakenChargeSlots(stationsList);
+            groupings = groupings.OrderBy(g => g.Key);
+            foreach (var group in groupings)
+                AvailableChargeSlotsComboBox.Items.Add(group.Key);
+        }
+
+        /// <summary>
+        /// group the list of stations according to the available charge slots in eace station in the list
+        /// </summary>
+        /// <param name="listToGroup">the list to group by</param>
+        /// <returns>IEnumerable with the groups</returns>
+        IEnumerable<IGrouping<int, StationToList>> groupByAvailableChargeSlots(IEnumerable<StationToList> listToGroup)
+        => (from charge in listToGroup
+            group charge by charge.AvailableChargeSlots into chargeInfo
+            select chargeInfo).ToList();
+
+        /// <summary>
+        /// group the list of stations according to the used charge slots in eace station in the list
+        /// </summary>
+        /// <param name="listToGroup">the list to group by</param>
+        /// <returns>IEnumerable with the groups</returns>
+        IEnumerable<IGrouping<int, StationToList>> groupByTakenChargeSlots(IEnumerable<StationToList> listToGroup)
+           => (from charge in listToGroup
+                    group charge by charge.UsedChargeSlots into chargeInfo
+                    select chargeInfo).ToList();
     }
 }

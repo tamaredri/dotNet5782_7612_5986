@@ -26,12 +26,14 @@
                     Margin="10,0,0,0" 
                     Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
-                <ComboBox Margin="10"  Width="100"
-                    materialDesign:HintAssist.Hint="(taken)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-                <ComboBox Margin="10"  Width="100"
-                    materialDesign:HintAssist.Hint="(available)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                <ComboBox Name="TakenChargeSlotsComboBox"
+                          Margin="10"  Width="100"
+                          materialDesign:HintAssist.Hint="(taken)"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                <ComboBox Name="AvailableChargeSlotsComboBox"
+                          Margin="10"  Width="100"
+                          materialDesign:HintAssist.Hint="(available)"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
 
             </StackPanel>
         </StackPanel>
@@ -67,9 +69,9 @@
                                     MinWidth="10"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"
                                     MinWidth="10"/>
-                <DataGridTextColumn Header="available charge slost" Binding="{Binding AvailableChargeSlots}"
+                <DataGridTextColumn Header="Available Charge Slost" Binding="{Binding AvailableChargeSlots}"
                                     MinWidth="10"/>
-                <DataGridTextColumn Header="used chaege slots"  Binding="{Binding UsedChargeSlots}"
+                <DataGridTextColumn Header="Used Charge Slots"  Binding="{Binding UsedChargeSlots}"
                                     MinWidth="10"/>
             </DataGrid.Columns>
         </DataGrid>
