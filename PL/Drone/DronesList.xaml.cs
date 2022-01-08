@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,20 @@ namespace PL
     /// </summary>
     public partial class DronesList : Page
     {
+        IBL BL;
         public DronesList(IBL BlAccess)
         {
             InitializeComponent();
+            BL = BlAccess;
+
+            ObservableCollection<DroneToList> dronsList = new();
+           
+            foreach (var item  in BL.GetDroneList())
+            {
+                dronsList.Add(item);
+            }
+
+            DataContext = dronsList;
         }
     }
 }
