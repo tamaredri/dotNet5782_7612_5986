@@ -29,11 +29,12 @@
                 <ComboBox Name="TakenChargeSlotsComboBox"
                           Margin="10"  Width="100"
                           materialDesign:HintAssist.Hint="(taken)"
-                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          DropDownOpened="TakenItems_DropDownOpened"/>
                 <ComboBox Name="AvailableChargeSlotsComboBox"
                           Margin="10"  Width="100"
                           materialDesign:HintAssist.Hint="(available)"
-                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" DropDownOpened="AvailableItems_DropDownOpened"/>
 
             </StackPanel>
         </StackPanel>
@@ -49,7 +50,8 @@
             </Grid>
         </Button>
 
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
+        <DataGrid x:Name="SList" 
+                  Grid.Row="1" Grid.ColumnSpan="2"
                   Cursor="Arrow" Margin="10,10,10,10"
                   CanUserAddRows="False"
                   materialDesign:DataGridAssist.CellPadding="10"

@@ -37,17 +37,17 @@ namespace PL
             }
 
             DataContext = stationsList;
-            initializTakenComboBox();
-            initializeAvailableComboBox();
 
         }
 
+        #region comboBox
         /// <summary>
-        /// initialize the taken comboBox with the values according to the list of stations
+        /// initialize the available comboBox with the values according to the list of stations
         /// </summary>
-        void initializTakenComboBox()
+        private void TakenItems_DropDownOpened(object sender, EventArgs e)
         {
-            TakenChargeSlotsComboBox.Items.Add("Clear");
+            TakenChargeSlotsComboBox.Items.Clear();
+            TakenChargeSlotsComboBox.Items.Add("");
             IEnumerable<IGrouping<int, StationToList>> groupings = groupByAvailableChargeSlots(stationsList);
             groupings = groupings.OrderBy(g => g.Key);
             foreach (var group in groupings)
@@ -55,17 +55,20 @@ namespace PL
         }
 
         /// <summary>
-        /// initialize the available comboBox with the values according to the list of stations
+        /// initialize the taken comboBox with the values according to the list of stations
         /// </summary>
-        void initializeAvailableComboBox()
+        private void AvailableItems_DropDownOpened(object sender, EventArgs e)
         {
-            AvailableChargeSlotsComboBox.Items.Add("Clear");
-            IEnumerable<IGrouping<int, StationToList>> groupings = groupByTakenChargeSlots(stationsList);
+            TakenChargeSlotsComboBox.Items.Clear();
+            TakenChargeSlotsComboBox.Items.Add("");
+            IEnumerable<IGrouping<int, StationToList>> groupings = groupByAvailableChargeSlots(stationsList);
             groupings = groupings.OrderBy(g => g.Key);
             foreach (var group in groupings)
-                AvailableChargeSlotsComboBox.Items.Add(group.Key);
+                TakenChargeSlotsComboBox.Items.Add(group.Key);
         }
+        #endregion
 
+        #region group
         /// <summary>
         /// group the list of stations according to the available charge slots in eace station in the list
         /// </summary>
@@ -85,5 +88,6 @@ namespace PL
            => (from charge in listToGroup
                     group charge by charge.UsedChargeSlots into chargeInfo
                     select chargeInfo).ToList();
+        #endregion
     }
 }
