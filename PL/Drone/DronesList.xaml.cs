@@ -30,13 +30,31 @@ namespace PL
             BL = BlAccess;
 
             ObservableCollection<DroneToList> dronsList = new();
-           
-            foreach (var item  in BL.GetDroneList())
+
+            foreach (var item in BL.GetDroneList())
             {
                 dronsList.Add(item);
             }
 
             DataContext = dronsList;
+
+
+
+            
+            
+        }
+
+       
+
+        private void ConboboxStatus_open(object sender, ContextMenuEventArgs e)
+        {
+            statusCombobox.Items.Add("Clear");
+
+            IEnumerable<IGrouping<DroneStatuses, DroneToList>> grouping = (from drone in BL.GetDroneList()
+                        group drone by drone.Status into droneInfo
+                        select droneInfo).ToList();
+            
         }
     }
+
 }
