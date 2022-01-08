@@ -55,17 +55,19 @@
         </Button>
 
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
-                  Cursor="ScrollAll" Margin="10,10,10,10"
+                  Cursor="Arrow" Margin="10,10,10,10"
                   CanUserAddRows="False"
                   materialDesign:DataGridAssist.CellPadding="10"
-                  materialDesign:DataGridAssist.ColumnHeaderPadding="10" 
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="30" 
                   IsTextSearchEnabled="True" 
                   AutoGenerateColumns="False" 
                   GridLinesVisibility="Vertical" 
                   ScrollViewer.VerticalScrollBarVisibility="Visible" 
                   CanUserDeleteRows="False" 
                   CanUserResizeRows="False"
-                  Foreground="DarkGreen">
+                  Foreground="Black"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"
                                     MinWidth="10"/>

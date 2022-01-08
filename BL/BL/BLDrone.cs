@@ -78,7 +78,7 @@ namespace BL
             catch (DO.DoesntExistExeption x) { throw new BO.DoesntExistExeption(x.Message, x); }
 
             //build the drone to return
-            /*BO.Drone boDroneToShow = new BO.Drone()*/;
+            /*BO.Drone boDroneToShow = new BO.Drone()*/
 
             //doDroneToShow.CopyPropertiesTo(boDroneToShow);
             BO.Drone boDroneToShow = new BO.Drone()
@@ -118,18 +118,18 @@ namespace BL
         private IEnumerable<BO.DroneInCharge> GetDroneInCharge(int stationID)
         {
             //List<BO.DroneInCharge> DroneInChargeToReturn = new List<BO.DroneInCharge>();
-            //List<DO.DroneCharge> boDroneInChargeSlote = DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true)).ToList();
+            //List<DO.DroneCharge> doDroneInChargeSlote = DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true)).ToList();
 
             //foreach (var item in boDroneInChargeSlote)
             //{ DroneInChargeToReturn.Add(new BO.DroneInCharge() { ID = item.ID, Battery = dronesList.Find(x => x.ID == item.ID).Battery }); }
 
-            //return (from charge in DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true))
-            //        select  new BO.DroneInCharge()
-            //        {
-            //            ID = charge.ID,
-            //            Battery = dronesList.Find(x => x.ID == charge.ID).Battery
-            //        }).ToList();
-            return new List<BO.DroneInCharge>();
+            return (from charge in DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true))
+                    select new BO.DroneInCharge()
+                    {
+                        ID = charge.ID,
+                        Battery = dronesList.Find(x => x.ID == charge.ID).Battery
+                    }).ToList();
+           
         }
         #endregion
 
@@ -263,13 +263,15 @@ namespace BL
                 int closestStatioID = findClosestStation(droneToCharge.DroneLocation, x => x.ChargeSlots > 0);
                 DalAccess.SendToCharge(id, closestStatioID);
 
+
+                Location location= copyLocation(GetStation(closestStatioID).StationLocation);
                 //update the drone's details
                 dronesList.Remove(droneToCharge);
 
                 //the location of the drone is the location of the closest ststion
-                droneToCharge.DroneLocation = copyLocation(GetStation(closestStatioID).StationLocation);
+                droneToCharge.DroneLocation = location;
                 //battery -> %20 of the distance between the station and the drone
-                droneToCharge.Battery -= ((int)droneToCharge.DroneLocation.distanceLongitudeLatitude(GetStation(closestStatioID).StationLocation)) % (droneToCharge.Battery - 40);
+                droneToCharge.Battery -= ((int)droneToCharge.DroneLocation.distanceLongitudeLatitude(location)) % (droneToCharge.Battery - 40);
                 droneToCharge.Status = BO.DroneStatuses.maintenance;
 
                 dronesList.Add(droneToCharge);

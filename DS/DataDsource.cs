@@ -64,7 +64,7 @@ namespace DS
                 StationsList.Add(new Station
                 {
                     ID = Config.runningStationNumber,
-                    ChargeSlots = 1,
+                    ChargeSlots = 5,
                     Lattitude = 34.981915,
                     Longitude = 31.713762,
                     Name = "a" + ((char)(97 + i))
@@ -89,7 +89,7 @@ namespace DS
             #region initializing parcel list:
 
             //unscheduled
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Config.runningPackageNumber++;
 
@@ -106,7 +106,7 @@ namespace DS
             }
 
             //scheduled
-            for (int i = 3; i < 6; i++)
+            for (int i = 5; i < 6; i++)
             {
                 Config.runningPackageNumber++; //increasing the running number before build a new parcel
 
@@ -119,7 +119,7 @@ namespace DS
                     Priority = (Prioritie)(i % 3),
                     Requested = DateTime.Now,
                     Scheduled = DateTime.Now,
-                    DroneID = i
+                    DroneID = i-4
                 });
             }
 
@@ -138,7 +138,7 @@ namespace DS
                     Requested = DateTime.Now,
                     Scheduled = DateTime.Now,
                     PickedUp = DateTime.Now,
-                    DroneID = i
+                    DroneID = i-4
                 });
             }
 
@@ -155,7 +155,7 @@ namespace DS
                 Scheduled = DateTime.Now,
                 PickedUp = DateTime.Now,
                 Delivered = DateTime.Now,
-                DroneID = 10
+                DroneID = 2
             });
 
             #endregion

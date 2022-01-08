@@ -215,7 +215,7 @@ namespace BL
                     }
                     else if (droneStatus == BO.DroneStatuses.maintenance)
                     {
-                        Location stationLocation = GetStation( GetStationList().FirstOrDefault().ID).StationLocation;
+                        Location stationLocation = GetStation(GetStationList().FirstOrDefault().ID).StationLocation;
 
                         DroneToBL = new DroneToList()
                         {

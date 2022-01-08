@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BO;
 using BlApi;
-
+using System.Collections.ObjectModel;
 
 namespace PL
 {
@@ -29,6 +29,15 @@ namespace PL
         {
             InitializeComponent();
             BL = BLAccess;
+
+            ObservableCollection<StationToList> stationsList = new();
+
+            foreach (var item in BL.GetStationList())
+            {
+                stationsList.Add(item);
+            }
+
+            DataContext = stationsList;
         }
     }
 }
