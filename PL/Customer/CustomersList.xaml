@@ -73,7 +73,7 @@
                   Cursor="Arrow" Margin="10,10,10,10"
                   CanUserAddRows="False"
                   materialDesign:DataGridAssist.CellPadding="10"
-                  materialDesign:DataGridAssist.ColumnHeaderPadding="10" 
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="30" 
                   AutoGenerateColumns="False" 
                   GridLinesVisibility="Vertical"
                   ScrollViewer.VerticalScrollBarVisibility="Visible" 

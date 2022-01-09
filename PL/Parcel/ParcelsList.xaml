@@ -26,20 +26,31 @@
                     Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
                 <ComboBox Name="StatusComboBox" Margin="10"  Width="100"
-                    materialDesign:HintAssist.Hint="(status)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-                <ComboBox Margin="10"  Width="100"
-                    materialDesign:HintAssist.Hint="(priority)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-                <ComboBox Margin="10"  Width="100"
-                    materialDesign:HintAssist.Hint="(weight)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-                <ComboBox Margin="10"  Width="100"
-                    materialDesign:HintAssist.Hint="(sender)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-                <ComboBox Margin="10"  Width="100"
-                    materialDesign:HintAssist.Hint="(target)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                          materialDesign:HintAssist.Hint="(status)"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                          DropDownOpened="Status_DropDownOpened" 
+                          SelectionChanged="Status_SelectionChanged"/>
+                <ComboBox Name="PriorityComboBox" 
+                          Margin="10"  Width="100"
+                          materialDesign:HintAssist.Hint="(priority)"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                          DropDownOpened="Priority_DropDownOpened" SelectionChanged="Priority_SelectionChanged"/>
+                <ComboBox Name="WeightComboBox"
+                          Margin="10"  Width="100"
+                          materialDesign:HintAssist.Hint="(weight)"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                          DropDownOpened="Weight_DropDownOpened" SelectionChanged="Weight_SelectionChanged"/>
+                <Button Name="GroupBySenderButton"
+                        Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                        ToolTip="MaterialDesignOutlinedButton"
+                        Content="Group By Sender" 
+                        Margin="10,0,10,0" 
+                        Click="GroupBySender_Click"/>
+                <Button Name="GroupByTargetButton"
+                        Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                        ToolTip="MaterialDesignOutlinedButton"
+                        Content="Group By Target" 
+                        Margin="10,0,10,0"/>
             </StackPanel>
         </StackPanel>
         <Button Grid.Column="2"
@@ -54,7 +65,8 @@
             </Grid>
         </Button>
 
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
+        <DataGrid x:Name="PList"
+                  Grid.Row="1" Grid.ColumnSpan="2"
                   Cursor="Arrow" Margin="10,10,10,10"
                   CanUserAddRows="False"
                   materialDesign:DataGridAssist.CellPadding="10"

@@ -30,42 +30,39 @@ namespace PL
         {
             InitializeComponent();
             BL = BLAccess;
-
-            foreach (var item in BL.GetStationList())
-            {
-                stationsList.Add(item);
-            }
-
+            iEnumerableToObservable(BL.GetStationList());
             DataContext = stationsList;
-            initializTakenComboBox();
-            initializeAvailableComboBox();
-
         }
 
+        #region comboBox
         /// <summary>
-        /// initialize the taken comboBox with the values according to the list of stations
+        /// initialize the available comboBox with the values according to the list of stations
         /// </summary>
-        void initializTakenComboBox()
+        private void TakenItems_DropDownOpened(object sender, EventArgs e)
         {
-            TakenChargeSlotsComboBox.Items.Add("Clear");
-            IEnumerable<IGrouping<int, StationToList>> groupings = groupByAvailableChargeSlots(stationsList);
+            TakenChargeSlotsComboBox.Items.Clear();
+            TakenChargeSlotsComboBox.Items.Add("");
+            IEnumerable<IGrouping<int, StationToList>> groupings = groupByTakenChargeSlots(BL.GetStationList());
             groupings = groupings.OrderBy(g => g.Key);
             foreach (var group in groupings)
                 TakenChargeSlotsComboBox.Items.Add(group.Key);
         }
 
         /// <summary>
-        /// initialize the available comboBox with the values according to the list of stations
+        /// initialize the taken comboBox with the values according to the list of stations
         /// </summary>
-        void initializeAvailableComboBox()
+        private void AvailableItems_DropDownOpened(object sender, EventArgs e)
         {
-            AvailableChargeSlotsComboBox.Items.Add("Clear");
-            IEnumerable<IGrouping<int, StationToList>> groupings = groupByTakenChargeSlots(stationsList);
+            AvailableChargeSlotsComboBox.Items.Clear();
+            AvailableChargeSlotsComboBox.Items.Add("");
+            IEnumerable<IGrouping<int, StationToList>> groupings = groupByAvailableChargeSlots(BL.GetStationList());
             groupings = groupings.OrderBy(g => g.Key);
             foreach (var group in groupings)
                 AvailableChargeSlotsComboBox.Items.Add(group.Key);
         }
+        #endregion
 
+        #region group
         /// <summary>
         /// group the list of stations according to the available charge slots in eace station in the list
         /// </summary>
@@ -85,5 +82,38 @@ namespace PL
            => (from charge in listToGroup
                     group charge by charge.UsedChargeSlots into chargeInfo
                     select chargeInfo).ToList();
+        #endregion
+
+        #region selection changed - comboBox
+        private void Taken_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TakenChargeSlotsComboBox.SelectedItem is int)
+                iEnumerableToObservable(BL.GetPartOfStation(station => station.UsedChargeSlots == (int)TakenChargeSlotsComboBox.SelectedItem));
+            else if (TakenChargeSlotsComboBox.SelectedItem is "")
+                iEnumerableToObservable(BL.GetStationList());
+            AvailableChargeSlotsComboBox.SelectedItem = "";
+        }
+
+        private void Available_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AvailableChargeSlotsComboBox.SelectedItem is int)
+                iEnumerableToObservable(BL.GetPartOfStation(station => station.AvailableChargeSlots == (int)AvailableChargeSlotsComboBox.SelectedItem));
+
+            else if (AvailableChargeSlotsComboBox.SelectedItem is "")
+                iEnumerableToObservable(BL.GetStationList());
+            TakenChargeSlotsComboBox.SelectedItem = "";
+        }
+        #endregion
+
+        /// <summary>
+        /// convert from ienumerable to an observable collection
+        /// </summary>
+        /// <param name="listTOConvert">IEnumerable to convert</param>
+        private void iEnumerableToObservable(IEnumerable<StationToList> listTOConvert)
+        {
+            stationsList.Clear();
+            foreach (var station in listTOConvert)
+                stationsList.Add(station);
+        }
     }
 }
