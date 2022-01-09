@@ -11,6 +11,26 @@
         <BO:ParcelToList/>
     </Page.DataContext>
 
+    <Page.Resources>
+        <Style x:Key="GroupHeaderStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                        <Expander x:Name="expander" IsExpanded="True"
+                                  Background="Transparent"
+                                  Foreground="#2b331f">
+                            <Expander.Header>
+                                <TextBlock Text="{Binding Name}"/>
+                            </Expander.Header>
+                            <ItemsPresenter/>
+                        </Expander>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -42,15 +62,20 @@
                           DropDownOpened="Weight_DropDownOpened" SelectionChanged="Weight_SelectionChanged"/>
                 <Button Name="GroupBySenderButton"
                         Style="{StaticResource MaterialDesignOutlinedDarkButton}"
-                        ToolTip="MaterialDesignOutlinedButton"
                         Content="Group By Sender" 
                         Margin="10,0,10,0" 
                         Click="GroupBySender_Click"/>
                 <Button Name="GroupByTargetButton"
                         Style="{StaticResource MaterialDesignOutlinedDarkButton}"
-                        ToolTip="MaterialDesignOutlinedButton"
                         Content="Group By Target" 
-                        Margin="10,0,10,0"/>
+                        Margin="10,0,10,0" 
+                        Click="GroupByTarget_Click"/>
+                <Button Name="RemoveGroup"
+                        Width="125"
+                        Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                        Content="Remove Groups" 
+                        Margin="10,0,10,0" 
+                        Click="RemoveGroupings_Click" />
             </StackPanel>
         </StackPanel>
         <Button Grid.Column="2"
@@ -80,6 +105,15 @@
                   Foreground="Black"
                   IsReadOnly="True"
                   ItemsSource="{Binding}">
+            <DataGrid.GroupStyle>
+                <GroupStyle ContainerStyle="{StaticResource ResourceKey=GroupHeaderStyle}">
+                    <GroupStyle.Panel>
+                        <ItemsPanelTemplate>
+                            <DataGridRowsPresenter/>
+                        </ItemsPanelTemplate>
+                    </GroupStyle.Panel>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"
                                     MinWidth="10"/>

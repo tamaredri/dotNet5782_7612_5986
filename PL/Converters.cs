@@ -61,11 +61,7 @@ namespace PLConverter
             }
         }
 
-
-
         //convert from target property type to source property type
-
-
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool boolValue = (bool)value;
