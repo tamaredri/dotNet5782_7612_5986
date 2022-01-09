@@ -32,6 +32,7 @@ namespace PL
             BL = BLAccess;
             iEnumerableToObservable(BL.GetParcelList());
             DataContext = parcelsList;
+
         }
 
         #region comboBox initializetion
@@ -107,6 +108,7 @@ namespace PL
            select parcelInfo).ToList();
         #endregion
 
+        #region Selection changed - combobox
         private void Status_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (StatusComboBox.SelectedItem is ParcelStatuse)
@@ -136,14 +138,7 @@ namespace PL
             PriorityComboBox.SelectedItem = "";
             StatusComboBox.SelectedItem = "";
         }
-
-
-
-        private void GroupBySender_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        #endregion  
 
         /// <summary>
         /// convert from ienumerable to an observable collection
@@ -155,5 +150,25 @@ namespace PL
             foreach (var station in listTOConvert)
                 parcelsList.Add(station);
         }
+
+        #region group by sender / target
+        private void GroupBySender_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveGroupings_Click(sender, e);
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(PList.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("SenderName");
+            view.GroupDescriptions.Add(groupDescription);
+        }
+
+        private void GroupByTarget_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveGroupings_Click(sender, e);
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(PList.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("TargetName");
+            view.GroupDescriptions.Add(groupDescription);
+        }
+
+        private void RemoveGroupings_Click(object sender, RoutedEventArgs e) => PList.ItemsSource = BL.GetParcelList();
+        #endregion
     }
 }
