@@ -22,11 +22,12 @@ namespace PL
     public partial class AddDrone : Window
     {
         IBL BL;
+        Drone droneToAdd = new();
         public AddDrone(IBL BLAcsses)
         {
             InitializeComponent();
             BL = BLAcsses;
-            Drone droneToAdd = new();
+            
             droneToAdd.ID = BL.GetDroneRunnindNumber()+1;
             DataContext = droneToAdd;
 
@@ -47,6 +48,22 @@ namespace PL
         private void DroneBattery_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             DroneBattery.Value = (int)DroneBattery.Value;
+        }
+
+        private void location_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            LocationWin location = new();
+            location.ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            droneToAdd.Model = modelTextBox.Text;
+            droneToAdd.MaxWeight = (WeightCategories)weightCombobox.SelectedItem;
+            //droneToAdd.DroneLocation= stationCombobox
+
+            droneToAdd.Battery = (int)DroneBattery.Value;
+            //BL.CreateDrone()
         }
     }
 }
