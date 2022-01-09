@@ -135,6 +135,12 @@ namespace PL
             }
         }
 
+        private void addDrone_Click(object sender, RoutedEventArgs e)
+        {
+            AddDrone addDrone = new AddDrone(BL);
+            addDrone.ShowDialog();
+
+        }
     }
 
 }

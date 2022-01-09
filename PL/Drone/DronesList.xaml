@@ -52,12 +52,13 @@
 
 
         </StackPanel>
-        <Button Grid.Column="2"
+        <Button Name="addDrone" Grid.Column="2"
                 Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}" 
                 BorderBrush="#007E8C7F" Width="56" 
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Center" 
-                Margin="0,0,10,0" Background="#FFC7D9C2">
+                Margin="0,0,10,0" Background="#FFC7D9C2" Click="addDrone_Click" 
+                >
             <Grid>
                 <Image Source="../Icons/drone.png" Height="35" OpacityMask="Black"/>
                 <materialDesign:PackIcon Kind="PlusCircle" Margin="27,19,0,0" Foreground="Black"/>

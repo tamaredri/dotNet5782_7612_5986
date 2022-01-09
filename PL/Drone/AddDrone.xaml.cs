@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlApi;
+using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,18 @@ namespace PL
     /// </summary>
     public partial class AddDrone : Window
     {
-        public AddDrone()
+        IBL BL;
+        public AddDrone(IBL BLAcsses)
         {
             InitializeComponent();
+            BL = BLAcsses;
+            Drone droneToAdd = new();
+            droneToAdd.ID = BL.GetDroneRunnindNumber()+1;
+            DataContext = droneToAdd;
+
+            //station To Charge
+            stationCombobox.ItemsSource = BL.GetPartOfStation(x => x.AvailableChargeSlots > 0);
+
         }
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -32,5 +43,10 @@ namespace PL
         }
 
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
+
+        private void DroneBattery_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            DroneBattery.Value = (int)DroneBattery.Value;
+        }
     }
 }
