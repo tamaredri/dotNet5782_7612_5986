@@ -45,7 +45,8 @@
                 BorderBrush="#007E8C7F" Width="56" 
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Center" 
-                Margin="0,0,10,0" Background="#FFB1BFAD">
+                Margin="0,0,10,0" 
+                Background="#FFB1BFAD" Click="AddStation_Click">
             <Grid>
                 <Image Source="../Icons/battery.png" Height="35" OpacityMask="Black"/>
                 <materialDesign:PackIcon Kind="PlusCircle" Margin="27,19,0,0" Foreground="Black"/>

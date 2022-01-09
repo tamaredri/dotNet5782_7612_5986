@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BlApi;
+using BO;
 
 namespace PL
 {
@@ -19,9 +21,14 @@ namespace PL
     /// </summary>
     public partial class AddStation : Window
     {
-        public AddStation()
+        IBL BL;
+        Station stationToCreate = new Station();
+        public AddStation(IBL BLAccess)
         {
             InitializeComponent();
+            BL = BLAccess;
+            DataContext = stationToCreate;
+           // BL.CreateStation(new Station());
         }
 
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
@@ -33,5 +40,18 @@ namespace PL
         }
 
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
+
+        private void AddStationToBL_Click(object sender, RoutedEventArgs e)
+        {
+            try 
+            {
+                BL.CreateStation(stationToCreate);
+                this.Close();
+            }
+            catch(Exception x)
+            {
+                MessageBox.Show(x.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

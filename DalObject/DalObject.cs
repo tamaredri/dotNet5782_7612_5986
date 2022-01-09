@@ -306,8 +306,8 @@ namespace Dal
         public void CreateStation(Station stationToCreate)
         {
             //check if there is a station with the same name and location as the wanted station to add
-            if (GetPartOfStation(x => x.Name == stationToCreate.Name).FirstOrDefault().Equals(default(Station)) ||
-                GetPartOfStation(x => (x.Lattitude == stationToCreate.Lattitude)
+            if (!GetPartOfStation(x => x.Name == stationToCreate.Name).FirstOrDefault().Equals(default(Station)) ||
+                !GetPartOfStation(x => (x.Lattitude == stationToCreate.Lattitude)
                                                    && (x.Longitude == stationToCreate.Longitude)).FirstOrDefault().Equals(default(Station)))
                 throw new AlreadyExistExeption("the station already exist");
 
