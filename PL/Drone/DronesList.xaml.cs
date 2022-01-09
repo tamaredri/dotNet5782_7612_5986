@@ -31,19 +31,13 @@ namespace PL
             InitializeComponent();
             BL = BlAccess;
 
-
-            foreach (var item in BL.GetDroneList())
-            {
-                dronsList.Add(item);
-            }
+            ienumerableToObservable(BL.GetDroneList());
 
             DataContext = dronsList;
-
-
         }
 
-      
-        
+
+
 
         private void ConboboxStatus_open(object sender, EventArgs e)
         {
@@ -64,8 +58,8 @@ namespace PL
             weightCombobox.Items.Clear();
             weightCombobox.Items.Add("");
             IEnumerable<IGrouping<WeightCategories, DroneToList>> grouping = (from drone in BL.GetDroneList()
-                                                                           group drone by drone.Weight into droneInfo
-                                                                           select droneInfo).ToList();
+                                                                              group drone by drone.Weight into droneInfo
+                                                                              select droneInfo).ToList();
             grouping.OrderBy(g => g.Key);
             foreach (var group in grouping)
             {
@@ -78,8 +72,8 @@ namespace PL
             batteryConbobox.Items.Clear();
             batteryConbobox.Items.Add("");
             IEnumerable<IGrouping<int, DroneToList>> grouping = (from drone in BL.GetDroneList()
-                                                                              group drone by drone.Battery into droneInfo
-                                                                              select droneInfo).ToList();
+                                                                 group drone by drone.Battery into droneInfo
+                                                                 select droneInfo).ToList();
             grouping.OrderBy(g => g.Key);
             foreach (var group in grouping)
             {
@@ -89,19 +83,58 @@ namespace PL
 
         private void Status_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //dronsList.Clear();
-            //if (statusCombobox.SelectedItem.ToString() == "")
-            //    DataContext=
-            //else
-            //{
+
+            if (statusCombobox.SelectedItem is DroneStatuses)
+            {
+                ienumerableToObservable(BL.GetPartOfDrone(drone => drone.Status == (DroneStatuses)statusCombobox.SelectedItem));
+            }
+            else if (statusCombobox.SelectedItem is "")
+            {
                 
-            //    //List<DroneToList> dronsFronBl = BL.GetPartOfDrone(drone => drone.Status == (DroneStatuses)statusCombobox.SelectedItem).ToList();
-            //    //foreach (var item in dronsFronBl)
-            //    //{
-            //    //    dronsList.Add(item);
-            //    //}
-            //}
+                ienumerableToObservable(BL.GetDroneList());
+            }
+            weightCombobox.SelectedItem = "";
+            batteryConbobox.SelectedItem = "";
+
         }
+        private void weightCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (weightCombobox.SelectedItem is WeightCategories)
+            {
+                ienumerableToObservable(BL.GetPartOfDrone(drone => drone.Weight == (WeightCategories)weightCombobox.SelectedItem));
+            }
+            else if (weightCombobox.SelectedItem is "")
+            {
+
+                ienumerableToObservable(BL.GetDroneList());
+            }
+            statusCombobox.SelectedItem = "";
+            batteryConbobox.SelectedItem = "";
+        }
+
+        private void batteryConbobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (batteryConbobox.SelectedItem is int)
+            {
+                ienumerableToObservable(BL.GetPartOfDrone(drone => drone.Battery == (int)batteryConbobox.SelectedItem));
+            }
+            else if (batteryConbobox.SelectedItem is "")
+            {
+
+                ienumerableToObservable(BL.GetDroneList());
+            }
+            statusCombobox.SelectedItem = "";
+            weightCombobox.SelectedItem = "";
+        }
+
+        private void ienumerableToObservable(IEnumerable<DroneToList> dronsListToConvert) {
+            dronsList.Clear();
+            foreach (var drone in dronsListToConvert)
+            {
+                dronsList.Add(drone);
+            }
+        }
+
     }
 
 }

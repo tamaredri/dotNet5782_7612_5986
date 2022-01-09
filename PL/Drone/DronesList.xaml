@@ -36,13 +36,18 @@
                     materialDesign:HintAssist.Hint="(status)"
                     Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                     BorderBrush="#89000000" AutomationProperties.ItemType="" 
-                    DropDownOpened="ConboboxStatus_open" SelectionChanged="Status_SelectionChanged"/>
+                    DropDownOpened="ConboboxStatus_open" 
+                          SelectionChanged="Status_SelectionChanged"/>
                 <ComboBox Name="weightCombobox" Margin="10"  Width="150"
                     materialDesign:HintAssist.Hint="(maximum weight)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" DropDownOpened="ConboboxWeight_open"/>
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                          DropDownOpened="ConboboxWeight_open" 
+                          SelectionChanged="weightCombobox_SelectionChanged"
+                          />
                 <ComboBox Name="batteryConbobox" Margin="10"  Width="150"
                     materialDesign:HintAssist.Hint="(battery)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" DropDownOpened="ConboboxBattery_open"/>
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                          DropDownOpened="ConboboxBattery_open" SelectionChanged="batteryConbobox_SelectionChanged"/>
             </StackPanel>
 
 
