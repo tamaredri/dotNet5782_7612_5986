@@ -30,12 +30,14 @@
                           Margin="10"  Width="100"
                           materialDesign:HintAssist.Hint="(available)"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
-                          DropDownOpened="AvailableItems_DropDownOpened"/>
+                          DropDownOpened="AvailableItems_DropDownOpened" 
+                          SelectionChanged="Available_SelectionChanged" />
                 <ComboBox Name="TakenChargeSlotsComboBox"
                           Margin="10"  Width="100"
                           materialDesign:HintAssist.Hint="(taken)"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          DropDownOpened="TakenItems_DropDownOpened"/>
+                          DropDownOpened="TakenItems_DropDownOpened"
+                          SelectionChanged="Taken_SelectionChanged"/>
             </StackPanel>
         </StackPanel>
         <Button Grid.Column="2"

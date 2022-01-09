@@ -30,14 +30,8 @@ namespace PL
         {
             InitializeComponent();
             BL = BLAccess;
-
-            foreach (var item in BL.GetStationList())
-            {
-                stationsList.Add(item);
-            }
-
+            iEnumerableToObservable(BL.GetStationList());
             DataContext = stationsList;
-
         }
 
         #region comboBox
@@ -48,7 +42,7 @@ namespace PL
         {
             TakenChargeSlotsComboBox.Items.Clear();
             TakenChargeSlotsComboBox.Items.Add("");
-            IEnumerable<IGrouping<int, StationToList>> groupings = groupByTakenChargeSlots(stationsList);
+            IEnumerable<IGrouping<int, StationToList>> groupings = groupByTakenChargeSlots(BL.GetStationList());
             groupings = groupings.OrderBy(g => g.Key);
             foreach (var group in groupings)
                 TakenChargeSlotsComboBox.Items.Add(group.Key);
@@ -61,7 +55,7 @@ namespace PL
         {
             AvailableChargeSlotsComboBox.Items.Clear();
             AvailableChargeSlotsComboBox.Items.Add("");
-            IEnumerable<IGrouping<int, StationToList>> groupings = groupByAvailableChargeSlots(stationsList);
+            IEnumerable<IGrouping<int, StationToList>> groupings = groupByAvailableChargeSlots(BL.GetStationList());
             groupings = groupings.OrderBy(g => g.Key);
             foreach (var group in groupings)
                 AvailableChargeSlotsComboBox.Items.Add(group.Key);
@@ -89,5 +83,37 @@ namespace PL
                     group charge by charge.UsedChargeSlots into chargeInfo
                     select chargeInfo).ToList();
         #endregion
+
+        #region selection changed - comboBox
+        private void Taken_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TakenChargeSlotsComboBox.SelectedItem is int)
+                iEnumerableToObservable(BL.GetPartOfStation(station => station.UsedChargeSlots == (int)TakenChargeSlotsComboBox.SelectedItem));
+            else if (TakenChargeSlotsComboBox.SelectedItem is "")
+                iEnumerableToObservable(BL.GetStationList());
+            AvailableChargeSlotsComboBox.SelectedItem = "";
+        }
+
+        private void Available_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AvailableChargeSlotsComboBox.SelectedItem is int)
+                iEnumerableToObservable(BL.GetPartOfStation(station => station.AvailableChargeSlots == (int)AvailableChargeSlotsComboBox.SelectedItem));
+
+            else if (AvailableChargeSlotsComboBox.SelectedItem is "")
+                iEnumerableToObservable(BL.GetStationList());
+            TakenChargeSlotsComboBox.SelectedItem = "";
+        }
+        #endregion
+
+        /// <summary>
+        /// convert from ienumerable to an observable collection
+        /// </summary>
+        /// <param name="listTOConvert">IEnumerable to convert</param>
+        private void iEnumerableToObservable(IEnumerable<StationToList> listTOConvert)
+        {
+            stationsList.Clear();
+            foreach (var station in listTOConvert)
+                stationsList.Add(station);
+        }
     }
 }
