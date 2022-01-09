@@ -43,7 +43,7 @@ namespace PLConverter
             }
         }
 
-       
+
     }
     public class FalseToTrueConverter : IValueConverter
     {
@@ -82,6 +82,23 @@ namespace PLConverter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return "0" + value;
+        }
+
+
+
+        //convert from target property type to source property type
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return int.Parse(value.ToString());
+        }
+    }
+
+    public class DoubleToString : IValueConverter
+    {
+        //convert from source property type to target property type
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((int)value).ToString();
         }
 
 
