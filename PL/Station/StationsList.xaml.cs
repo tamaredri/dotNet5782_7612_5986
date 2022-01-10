@@ -115,5 +115,12 @@ namespace PL
             foreach (var station in listTOConvert)
                 stationsList.Add(station);
         }
+
+        private void AddStation_Click(object sender, RoutedEventArgs e)
+        {
+            AddStation add = new AddStation(BL);
+            add.ShowDialog();
+            iEnumerableToObservable(BL.GetStationList());
+        }
     }
 }
