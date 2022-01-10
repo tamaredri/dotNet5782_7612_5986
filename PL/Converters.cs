@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace PLConverter
@@ -67,11 +68,42 @@ namespace PLConverter
             bool boolValue = (bool)value;
             if (boolValue)
             {
-                return false; //Visibility.Collapsed;
+                return  false; //Visibility.Collapsed;
             }
             else
             {
                 return true;
+            }
+        }
+    }
+
+    public class FalseToTrueConverterDataGrid : IValueConverter
+    {
+        //convert from source property type to target property type
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool boolValue = (bool)value;
+            if (boolValue && parameter is DataGrid && !(parameter as DataGrid).IsGrouping)
+            {
+                return false; 
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        //convert from target property type to source property type
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool boolValue = (bool)value;
+            if (boolValue && parameter is DataGrid && !(parameter as DataGrid).IsGrouping)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

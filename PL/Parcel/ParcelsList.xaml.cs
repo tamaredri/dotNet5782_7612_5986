@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using BO;
 using BlApi;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace PL
 {
@@ -157,7 +158,10 @@ namespace PL
             RemoveGroupings_Click(sender, e);
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(PList.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("SenderName");
+            SortDescription sortDscription = new SortDescription("SenderName", ListSortDirection.Ascending);
             view.GroupDescriptions.Add(groupDescription);
+            view.SortDescriptions.Add(sortDscription);
+            GroupBySenderButton.IsEnabled = false;
         }
 
         private void GroupByTarget_Click(object sender, RoutedEventArgs e)
@@ -165,10 +169,16 @@ namespace PL
             RemoveGroupings_Click(sender, e);
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(PList.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("TargetName");
+            SortDescription sortDscription = new SortDescription("TargetName", ListSortDirection.Ascending);
             view.GroupDescriptions.Add(groupDescription);
+            view.SortDescriptions.Add(sortDscription);
+            GroupByTargetButton.IsEnabled = false;
         }
 
-        private void RemoveGroupings_Click(object sender, RoutedEventArgs e) => PList.ItemsSource = BL.GetParcelList();
+        private void RemoveGroupings_Click(object sender, RoutedEventArgs e)
+        {
+            PList.ItemsSource = BL.GetParcelList();
+        }
         #endregion
     }
 }
