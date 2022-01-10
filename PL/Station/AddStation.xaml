@@ -72,23 +72,23 @@
             </StackPanel>
 
             <TextBox x:Name="NameTextBox"
-
                     Width="140" Height="40"
                     FontSize="14"
                     materialDesign:HintAssist.Hint="Name" 
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     VerticalAlignment="Center" 
                     Margin="0,10,0,0" 
-                    Text="{Binding Path=Name}"/>
+                    Text="{Binding Path=Name, UpdateSourceTrigger=LostFocus}" 
+                     PreviewKeyDown="Name_PreviewKeyDown"/>
             <TextBox x:Name="AvailableChargeSlots"
                     Width="140" Height="40"
                     FontSize="14"
                     materialDesign:HintAssist.Hint="Available Charge Slots" 
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     VerticalAlignment="Center" 
-                     Margin="0,10,0,0" 
-                     Text="{Binding Path=AvailableChargeSlots}"/>
-
+                    Margin="0,10,0,0" 
+                    Text="{Binding Path=AvailableChargeSlots, UpdateSourceTrigger=LostFocus}" 
+                    PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" GotFocus="AvailableChargeSlots_GotFocus"/>
             <TextBox x:Name="LocationTextBox"
                     Width="140" Height="40"
                     FontSize="14"
@@ -107,7 +107,9 @@
                 BorderBrush="#007E8C7F" Width="56" 
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Bottom" 
-                Margin="0,0,20,20" Click="AddStationToBL_Click" Background="#FFB1BFAD">
+                Margin="0,0,20,20" 
+                Click="AddStationToBL_Click" 
+                Background="#FFB1BFAD">
             <materialDesign:PackIcon Kind="Plus" 
                                          Foreground="Black"
                                          Height="30" Width="30"/>
