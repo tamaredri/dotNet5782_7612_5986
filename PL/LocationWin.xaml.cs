@@ -35,6 +35,28 @@ namespace PL
         }
 
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
+
+        private void googleMap_MouseEnter(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("hii");
+        }
+
+        private void googleMap_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("hii");
+
+        }
+
+        private void googleMap_DragEnter(object sender, DragEventArgs e)
+        {
+            MessageBox.Show("hii");
+        }
+
+        private void googleMap_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("hii");
+
+        }
     }
 
 }

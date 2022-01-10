@@ -22,10 +22,11 @@ namespace PL
     public partial class AddDrone : Window
     {
         IBL BL;
-        Drone droneToAdd = new();
+        Drone droneToAdd;
         public AddDrone(IBL BLAcsses)
         {
             InitializeComponent();
+            droneToAdd = new();
             BL = BLAcsses;
             
             droneToAdd.ID = BL.GetDroneRunnindNumber()+1;

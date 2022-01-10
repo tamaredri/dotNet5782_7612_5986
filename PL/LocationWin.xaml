@@ -62,7 +62,7 @@
 
             </StackPanel>
         </Grid>
-        <WebBrowser Name="googleMap" Grid.Row="1" Height="500" Width="650"/>
+        <WebBrowser Name="googleMap" Grid.Row="1" Height="500" Width="650" MouseEnter="googleMap_MouseEnter" MouseDown="googleMap_MouseDown" DragEnter="googleMap_DragEnter" MouseLeftButtonDown="googleMap_MouseLeftButtonDown"/>
 
 
 
