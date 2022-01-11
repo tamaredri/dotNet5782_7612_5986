@@ -23,12 +23,12 @@ namespace PL
     {
         IBL BL;
         Customer customerToCreate;
-        Location customersLocation = new Location();
         public AddCustomer(IBL BLAccess)
         {
             InitializeComponent();
             BL = BLAccess;
             customerToCreate = new();
+            customerToCreate.LocationOfCustomer = new Location();
             DataContext = customerToCreate;
         }
 
@@ -45,10 +45,10 @@ namespace PL
         #endregion
 
 
-        private void idTextBox_TextChanged(object sender, TextChangedEventArgs e) {  }
-        //=> 
-        //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
-        //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
+        private void idTextBox_TextChanged(object sender, TextChangedEventArgs e) 
+        =>
+        addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is ""
+        || PhoneTextBox.Text is "" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
 
         private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
         //=> 

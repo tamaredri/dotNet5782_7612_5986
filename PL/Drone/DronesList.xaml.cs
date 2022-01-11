@@ -140,7 +140,11 @@ namespace PL
             }
         }
 
-        
+        private void dronesListDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DroneSingleView droneSingleView = new(BL, ((sender as DataGrid).SelectedItem as DroneToList).ID);
+            droneSingleView.ShowDialog();
+        }
     }
 
 }

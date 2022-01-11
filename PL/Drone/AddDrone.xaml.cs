@@ -54,9 +54,6 @@ namespace PL
         private void DroneBattery_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             DroneBattery.Value = (int)DroneBattery.Value;
-            if (modelTextBox.Text != "" && weightCombobox.SelectedItem != null && stationCombobox.SelectedItem != null)
-                addDrone.IsEnabled = true;
-            else addDrone.IsEnabled = false;
         }
 
         private void modelTextBox_TextChanged(object sender, TextChangedEventArgs e)

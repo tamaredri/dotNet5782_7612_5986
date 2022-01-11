@@ -70,7 +70,7 @@ namespace PLConverter
             bool boolValue = (bool)value;
             if (boolValue)
             {
-                return  false; //Visibility.Collapsed;
+                return false; //Visibility.Collapsed;
             }
             else
             {
@@ -86,7 +86,7 @@ namespace PLConverter
             bool boolValue = (bool)value;
             if (boolValue && parameter is DataGrid && !(parameter as DataGrid).IsGrouping)
             {
-                return false; 
+                return false;
             }
             else
             {
@@ -108,7 +108,6 @@ namespace PLConverter
             }
         }
     }
-
     public class IntToStringPhoneConverter : IValueConverter
     {
         //convert from source property type to target property type
@@ -125,6 +124,69 @@ namespace PLConverter
             return int.Parse(value.ToString());
         }
     }
+    public class TextToBool : IValueConverter
+    {
+        //convert from source property type to target property type
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.ToString() == "")
+                return false;
+            else return true;
+
+        }
+
+
+
+        //convert from target property type to source property type
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return "";
+        }
+    }
+
+
+    public class StatusToInt : IValueConverter
+    {
+        //convert from source property type to target property type
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (int)value;
+        }
+
+
+
+        //convert from target property type to source property type
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            //never used
+            return DroneStatuses.available;
+        }
+    }
+    #region drne options
+
+    public class SentToChargeOrSchedule : IValueConverter
+    {
+        //convert from source property type to target property type
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((DroneStatuses)parameter == DroneStatuses.available)
+                return true;
+            else return false;
+
+        }
+
+        //convert from target property type to source property type
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            //never used
+            return DroneStatuses.available;
+        }
+    }
+    #endregion
+}
+
+
+
 
     //public class StringToWeight : IValueConverter
     //{
@@ -163,4 +225,4 @@ namespace PLConverter
     //        return new Location() { Lattitude = station.StationLocation.Lattitude, Longitude = station.StationLocation.Longitude };
     //    }
     //}
-}
+

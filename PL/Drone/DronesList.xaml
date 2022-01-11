@@ -78,7 +78,7 @@
                   CanUserResizeRows="False"
                   Foreground="Black"
                   IsReadOnly="true"
-                  ItemsSource="{Binding}"
+                  ItemsSource="{Binding}" MouseDoubleClick="dronesListDataGrid_MouseDoubleClick"
                   >
             <DataGrid.Columns >
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"
