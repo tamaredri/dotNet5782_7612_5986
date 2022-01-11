@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlApi;
 using BO;
+using PO;
 
 namespace PL
 {
@@ -22,20 +23,40 @@ namespace PL
     public partial class CustomerSingleViewWin : Window
     {
         IBL BL;
+        CustomerPO CustomerPO = new CustomerPO();
         Customer CustomerToShow = new Customer();
+
         public CustomerSingleViewWin(IBL BLAccess, int customerID)
         {
             InitializeComponent();
             BL = BLAccess;
-            CustomerToShow = BL.GetCustomer(customerID);
-            DataContext = CustomerToShow;
-            //OnTheWayList.DataContext = CustomerToShow.Recieved;
+            CustomerBOtoPO(ref CustomerPO, BL.GetCustomer(customerID));
+
+            DataContext = CustomerPO;
             OnTheWayList.ItemsSource = CustomerToShow.Recieved;
-            //SentList.ItemsSource = CustomerToShow.Sent;
             SentList.ItemsSource = CustomerToShow.Sent;
 
             OnTheWayList.MouseDoubleClick += ShowParcel_MouseDoubleClick;
         }
+
+        #region copy customer from BL to PO
+        void CustomerBOtoPO(ref CustomerPO customerPO, Customer customerBO)
+        {
+            customerPO = new CustomerPO()
+            {
+                ID = customerBO.ID,
+                Name = customerBO.Name,
+                Phone = customerBO.Phone,
+                LocationOfCustomer = new Location()
+                {
+                    Lattitude = customerBO.LocationOfCustomer.Lattitude,
+                    Longitude = customerBO.LocationOfCustomer.Longitude
+                }, 
+                Recieved = (from customer in customerBO.Recieved select customer).ToList(),
+                Sent = (from customer in customerBO.Sent select customer).ToList()
+            };
+        }
+        #endregion
 
         #region panel header
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
@@ -56,6 +77,7 @@ namespace PL
             parcelSingleView.ShowDialog();
         }
 
+        #region update
         private void Phone_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox phoneTextBox = sender as TextBox;
@@ -67,5 +89,6 @@ namespace PL
             TextBox phoneTextBox = sender as TextBox;
             Update.IsEnabled = !(NameTextBox.Text is "") || !(phoneTextBox.Text.Length != 10);
         }
+        #endregion
     }
 }

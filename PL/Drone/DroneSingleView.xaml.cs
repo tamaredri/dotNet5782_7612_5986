@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
+using PO;
 
 namespace PL
 {
@@ -79,7 +80,7 @@ namespace PL
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
         #endregion
 
-        #region updata
+        #region update
         private void update_Click(object sender, RoutedEventArgs e)
         {
             try

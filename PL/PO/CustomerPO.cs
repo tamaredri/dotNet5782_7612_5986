@@ -1,16 +1,16 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BO;
-using BlApi;
 
 namespace PO
 {
-    public class DronePO: INotifyPropertyChanged
+    class CustomerPO : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private int id;
         public int ID
@@ -27,14 +27,14 @@ namespace PO
             }
         }
 
-        private string model;
-        public string Model
+        private string name;
+        public string Name
         {
             get
-            { return model; }
+            { return name; }
             set
             {
-                model = value;
+                name = value;
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("Model"));
@@ -42,14 +42,14 @@ namespace PO
             }
         }
 
-        private WeightCategories weight;
-        public WeightCategories Weight
+        private int phone;
+        public int Phone
         {
             get
-            { return weight; }
+            { return phone; }
             set
             {
-                weight = value;
+                phone = value;
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("Weight"));
@@ -57,14 +57,14 @@ namespace PO
             }
         }
 
-        private int battery;
-        public int Battery
+        private Location locationOfCustomer;
+        public Location LocationOfCustomer
         {
             get
-            { return battery; }
+            { return locationOfCustomer; }
             set
             {
-                battery = value;
+                locationOfCustomer = value;
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("Battery"));
@@ -72,52 +72,34 @@ namespace PO
             }
         }
 
-        private DroneStatuses status;
-        public DroneStatuses Status
+        private List<ParcelInCustomer> sent;
+        public List<ParcelInCustomer> Sent
         {
             get
-            { return status; }
+            { return sent; }
             set
             {
-                status = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Status"));
-                }
-            }
-        }
-
-        private Location location;
-        public Location Location
-        {
-            get
-            { return location; }
-            set
-            {
-                location = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Location"));
-                }
-            }
-        }
-
-        private ParcelInDelivery parcelInDeliveryByDrone;
-        public ParcelInDelivery ParcelInDeliveryByDrone
-        {
-            get
-            { return parcelInDeliveryByDrone; }
-            set
-            {
-                parcelInDeliveryByDrone = value;
+                sent = value;
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("ParcelInDeliveryByDrone"));
                 }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        
+        private List<ParcelInCustomer> recieved;
+        public List<ParcelInCustomer> Recieved
+        {
+            get
+            { return recieved; }
+            set
+            {
+                recieved = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ParcelInDeliveryByDrone"));
+                }
+            }
+        }
     }
 }

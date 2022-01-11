@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         xmlns:converter="clr-namespace:PLConverter"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.DroneSingleView"
+        xmlns:BO="clr-namespace:BO;assembly=BL" xmlns:PO="clr-namespace:PO" x:Class="PL.DroneSingleView"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -17,15 +17,17 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="500" Width="750"
         WindowStyle="None">
-    
+
     <Window.Resources>
         <converter:TextToBool x:Key="textToBool"/>
         <converter:SentToChargeOrSchedule x:Key="sentToChargeOrSchedule"/>
         <converter:StatusToInt x:Key="statusToInt"/>
     </Window.Resources>
+
     <Window.DataContext>
-        <local:DronePO/>
+        <PO:DronePO/>
     </Window.DataContext>
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -109,36 +111,36 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="-40,5,0,0">
-                    <materialDesign:PackIcon Name="location" Kind="MapMarker" 
+                    <materialDesign:PackIcon x:Name="location" Kind="MapMarker" 
                                      Height="30" Width="30"
                                      HorizontalAlignment="Center"
                                          Foreground="Gray"/>
                     <TextBlock Height="20" Width="100"
                     Text="(Location)" Foreground="Gray" />
-                    </StackPanel>
-
-
                 </StackPanel>
 
-                <Grid Grid.Column="1" Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition Height="170                                    "/>
-                    </Grid.RowDefinitions>
-                    <materialDesign:Card
+
+            </StackPanel>
+
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="170                                    "/>
+                </Grid.RowDefinitions>
+                <materialDesign:Card
                 materialDesign:ShadowAssist.ShadowDepth="Depth2" 
                     Background="#B22B331F" Width="400" Height="1.5" 
                     UniformCornerRadius="2" 
                     VerticalAlignment="Bottom"
                      />
 
-                    <StackPanel Name="updateStack" Orientation="Horizontal" Grid.Row="0" 
+                <StackPanel x:Name="updateStack" Orientation="Horizontal" Grid.Row="0" 
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
 
 
-                        <TextBox
+                    <TextBox
                         x:Name="ModelTextBox" 
                         Width="140" Height="30"
                         Margin="20,0,0,0"
@@ -146,33 +148,33 @@
                         materialDesign:HintAssist.Hint="Model" 
                         HorizontalAlignment="Center"/>
 
-                        <Button Name="update"
+                    <Button x:Name="update"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
                         Content="Update"
                         Width="80" Margin="20,0,0,0"
                         FontSize="12" Foreground="#FFC2C3C9" BorderBrush="#FFC2C3C9"
                         HorizontalAlignment="Center"
-                            IsEnabled="{Binding ElementName=ModelTextBox, Path=Text, Converter={StaticResource textToBool}}" Click="update_Click"/>
+                            IsEnabled="{Binding Text, Converter={StaticResource textToBool}, ElementName=ModelTextBox}" Click="update_Click"/>
 
 
-                    </StackPanel>
+                </StackPanel>
 
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="211*"/>
-                            <ColumnDefinition Width="64*"/>
-                        </Grid.ColumnDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="211*"/>
+                        <ColumnDefinition Width="64*"/>
+                    </Grid.ColumnDefinitions>
 
-                        <materialDesign:Card
+                    <materialDesign:Card
                 materialDesign:ShadowAssist.ShadowDepth="Depth2" 
                     Background="#B22B331F" Width="400" Height="1.5" 
                     UniformCornerRadius="2" 
                     VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="75,0,75,0"
                      />
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="128,0,0,0">
-                            <Button x:Name="sentToCharge"
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="128,0,0,0">
+                        <Button x:Name="sentToCharge"
                             Style="{StaticResource MaterialDesignOutlinedLightButton}"
                             ToolTip="MaterialDesignOutlinedButton"
                             Content="Sent To Charge"
@@ -181,17 +183,17 @@
                             HorizontalAlignment="Center" FontWeight="Normal"
                             />
 
-                            <Button x:Name="schedualToParcel"
+                        <Button x:Name="schedualToParcel"
                             Style="{StaticResource MaterialDesignOutlinedLightButton}"
                             ToolTip="MaterialDesignOutlinedButton"
                             Content="Schedual To Parcel"
                             Width="135" Margin="20,0,0,0"
                             FontSize="12" Foreground="#FFC2C3C9" BorderBrush="#FFC2C3C9"
                             HorizontalAlignment="Center" FontWeight="Normal"/>
-                        </StackPanel>
+                    </StackPanel>
 
 
-                        <Button x:Name="releaseFromCharge"
+                    <Button x:Name="releaseFromCharge"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
                         Content="Release From Charge"
@@ -201,7 +203,7 @@
 
 
 
-                        <Button x:Name="pickUpByParcel"
+                    <Button x:Name="pickUpByParcel"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
                         Content="PickUp By Parcel"
@@ -209,7 +211,7 @@
                         FontSize="12" Foreground="#FFC2C3C9" BorderBrush="#FFC2C3C9"
                         HorizontalAlignment="Center" FontWeight="Normal" d:IsHidden="True"/>
 
-                        <Button x:Name="delivereByParcel"
+                    <Button x:Name="delivereByParcel"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
                         Content="Delivere By Parcel"
@@ -218,10 +220,10 @@
                         HorizontalAlignment="Left" FontWeight="Normal" d:IsHidden="True"/>
 
 
-                    </Grid>
-                    <Grid Grid.Row="2">
-                        <StackPanel Orientation="Vertical">
-                            <materialDesign:Card
+                </Grid>
+                <Grid Grid.Row="2">
+                    <StackPanel Orientation="Vertical">
+                        <materialDesign:Card
                                 Background="#33BBC8BA"
                                 Width="150" Height="30"
                                 Padding="8" FontWeight="Bold" 
@@ -229,79 +231,79 @@
                                 FontStyle="Normal" 
                                 FontStretch="ExtraExpanded" Margin="0,14,0,0"
                                 >
-                                <TextBlock x:Name="parcelInDelivery" 
+                            <TextBlock x:Name="parcelInDelivery" 
                                         Text="Parcel In Delivery:" 
                                         HorizontalAlignment="Center" />
-                            </materialDesign:Card>
-                            <StackPanel DataContext="ParcelInDelivery">
-                                <Grid Width="450" Height="125">
+                        </materialDesign:Card>
+                        <StackPanel DataContext="ParcelInDelivery">
+                            <Grid Width="450" Height="125">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
 
-                                    <StackPanel Grid.Column="0">
-                                        <StackPanel x:Name="parcelID" Orientation="Horizontal" Margin="10,10,10,5">
-                                            <TextBlock Text="ID :" Margin="15,5,0,5"/>
-                                            <TextBlock Text="{Binding ID}" Margin="15,5,0,5"/>
-                                        </StackPanel>
-
-                                        <StackPanel x:Name="parcelWight" Orientation="Horizontal" Margin="10,5,10,5">
-                                            <TextBlock Text="Wight :" Margin="15,5,0,5"/>
-                                            <TextBlock Text="{Binding Wight}" Margin="15,5,0,5"/>
-                                        </StackPanel>
-
-                                        <StackPanel x:Name="parcelPriority" Orientation="Horizontal" Margin="10,5,10,5">
-                                            <TextBlock Text="Priority :" Margin="15,5,0,5"/>
-                                            <TextBlock Text="{Binding Priority}" Margin="15,5,0,5"/>
-                                        </StackPanel>
+                                <StackPanel Grid.Column="0">
+                                    <StackPanel x:Name="parcelID" Orientation="Horizontal" Margin="10,10,10,5">
+                                        <TextBlock Text="ID :" Margin="15,5,0,5"/>
+                                        <TextBlock Text="{Binding ID}" Margin="15,5,0,5"/>
                                     </StackPanel>
 
-                                    <StackPanel x:Name="parcelSender" Grid.Column="1" Orientation="Vertical" DataContext="CustomerForParcel" Margin="0,10,0,0">
-                                        <TextBlock Text="Sender :" HorizontalAlignment="Center"/>
+                                    <StackPanel x:Name="parcelWight" Orientation="Horizontal" Margin="10,5,10,5">
+                                        <TextBlock Text="Wight :" Margin="15,5,0,5"/>
+                                        <TextBlock Text="{Binding Wight}" Margin="15,5,0,5"/>
+                                    </StackPanel>
+
+                                    <StackPanel x:Name="parcelPriority" Orientation="Horizontal" Margin="10,5,10,5">
+                                        <TextBlock Text="Priority :" Margin="15,5,0,5"/>
+                                        <TextBlock Text="{Binding Priority}" Margin="15,5,0,5"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel x:Name="parcelSender" Grid.Column="1" Orientation="Vertical" DataContext="CustomerForParcel" Margin="0,10,0,0">
+                                    <TextBlock Text="Sender :" HorizontalAlignment="Center"/>
 
 
-                                        <StackPanel x:Name="senderName" Orientation="Horizontal" Margin="0,15,0,0" >
-                                            <TextBlock Text="Name :" Margin="5,0,0,0"/>
-                                            <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
-                                        </StackPanel>
+                                    <StackPanel x:Name="senderName" Orientation="Horizontal" Margin="0,15,0,0" >
+                                        <TextBlock Text="Name :" Margin="5,0,0,0"/>
+                                        <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+                                    </StackPanel>
 
-                                        <StackPanel x:Name="senderID" Orientation="Horizontal" Margin="0,10,0,0" >
-                                            <TextBlock Text="ID :" Margin="5,0,0,0"/>
-                                            <TextBlock Text="{Binding ID}" Margin="5,0,0,0"/>
-
-                                        </StackPanel>
-
+                                    <StackPanel x:Name="senderID" Orientation="Horizontal" Margin="0,10,0,0" >
+                                        <TextBlock Text="ID :" Margin="5,0,0,0"/>
+                                        <TextBlock Text="{Binding ID}" Margin="5,0,0,0"/>
 
                                     </StackPanel>
 
 
-                                    <StackPanel x:Name="parcelTarget" Grid.Column="2" Orientation="Vertical" DataContext="CustomerForParcel" Margin="0,10,0,0">
-                                        <TextBlock Text="Target :" HorizontalAlignment="Center"/>
+                                </StackPanel>
 
 
-                                        <StackPanel x:Name="targetName" Orientation="Horizontal" Margin="0,15,0,0" >
-                                            <TextBlock Text="Name :" Margin="5,0,0,0"/>
-                                            <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
-                                        </StackPanel>
+                                <StackPanel x:Name="parcelTarget" Grid.Column="2" Orientation="Vertical" DataContext="CustomerForParcel" Margin="0,10,0,0">
+                                    <TextBlock Text="Target :" HorizontalAlignment="Center"/>
 
-                                        <StackPanel x:Name="targetID" Orientation="Horizontal" Margin="0,10,0,0" >
-                                            <TextBlock Text="ID :" Margin="5,0,0,0"/>
-                                            <TextBlock Text="{Binding ID}" Margin="5,0,0,0"/>
 
-                                        </StackPanel>
+                                    <StackPanel x:Name="targetName" Orientation="Horizontal" Margin="0,15,0,0" >
+                                        <TextBlock Text="Name :" Margin="5,0,0,0"/>
+                                        <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+                                    </StackPanel>
 
+                                    <StackPanel x:Name="targetID" Orientation="Horizontal" Margin="0,10,0,0" >
+                                        <TextBlock Text="ID :" Margin="5,0,0,0"/>
+                                        <TextBlock Text="{Binding ID}" Margin="5,0,0,0"/>
 
                                     </StackPanel>
-                                </Grid>
 
-                            </StackPanel>
+
+                                </StackPanel>
+                            </Grid>
+
                         </StackPanel>
-                    </Grid>
-
+                    </StackPanel>
                 </Grid>
+
+            </Grid>
 
 
         </Grid>
