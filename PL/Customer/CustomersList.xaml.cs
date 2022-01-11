@@ -24,19 +24,33 @@ namespace PL
     public partial class CustomersList : Page
     {
         IBL BL;
-
         ObservableCollection<CustomerToList> CList = new ObservableCollection<CustomerToList>();
         public CustomersList(IBL BLAccess)
         {
             InitializeComponent();
             BL = BLAccess;
 
-            foreach (var customer in BL.GetCustomerList())
+            ienumerableToObservable(BL.GetCustomerList());
+
+            DataContext = CList;
+
+        }
+
+        private void ienumerableToObservable(IEnumerable<CustomerToList> customerListToConvert)
+        {
+            CList.Clear();
+            foreach (var customer in customerListToConvert)
             {
                 CList.Add(customer);
             }
+        }
 
-            DataContext = CList;
+        private void addCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            AddCustomer addCustomer = new(BL);
+            addCustomer.ShowDialog();
+            ienumerableToObservable(BL.GetCustomerList());
+
 
         }
     }

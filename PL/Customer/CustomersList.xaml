@@ -52,12 +52,12 @@
                 </ComboBox>
             </StackPanel>
         </StackPanel>-->
-        <Button Grid.Column="2"
+        <Button Name="addCustomer" Grid.Column="2"
             Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}" 
                 BorderBrush="#007E8C7F" Width="56" 
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Center" 
-                Margin="0,0,10,0">
+                Margin="0,0,10,0" Click="addCustomer_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FFB1BFAD" />
             </Button.Background>

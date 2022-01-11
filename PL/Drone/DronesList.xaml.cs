@@ -36,9 +36,7 @@ namespace PL
             DataContext = dronsList;
         }
 
-
-
-
+        #region comboboxs
         private void ConboboxStatus_open(object sender, EventArgs e)
         {
             statusCombobox.Items.Clear();
@@ -52,7 +50,6 @@ namespace PL
                 statusCombobox.Items.Add(group.Key);
             }
         }
-
         private void ConboboxWeight_open(object sender, EventArgs e)
         {
             weightCombobox.Items.Clear();
@@ -66,7 +63,6 @@ namespace PL
                 weightCombobox.Items.Add(group.Key);
             }
         }
-
         private void ConboboxBattery_open(object sender, EventArgs e)
         {
             batteryConbobox.Items.Clear();
@@ -80,7 +76,6 @@ namespace PL
                 batteryConbobox.Items.Add(group.Key);
             }
         }
-
         private void Status_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -111,7 +106,6 @@ namespace PL
             statusCombobox.SelectedItem = "";
             batteryConbobox.SelectedItem = "";
         }
-
         private void batteryConbobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (batteryConbobox.SelectedItem is int)
@@ -126,6 +120,17 @@ namespace PL
             statusCombobox.SelectedItem = "";
             weightCombobox.SelectedItem = "";
         }
+        #endregion
+
+        private void addDrone_Click(object sender, RoutedEventArgs e)
+        {
+            AddDrone addDrone = new AddDrone(BL);
+            addDrone.ShowDialog();
+            ienumerableToObservable(BL.GetDroneList());
+            weightCombobox.SelectedItem = "";
+            batteryConbobox.SelectedItem = "";
+            statusCombobox.SelectedItem = "";
+        }
 
         private void ienumerableToObservable(IEnumerable<DroneToList> dronsListToConvert) {
             dronsList.Clear();
@@ -135,12 +140,7 @@ namespace PL
             }
         }
 
-        private void addDrone_Click(object sender, RoutedEventArgs e)
-        {
-            AddDrone addDrone = new AddDrone(BL);
-            addDrone.ShowDialog();
-
-        }
+        
     }
 
 }
