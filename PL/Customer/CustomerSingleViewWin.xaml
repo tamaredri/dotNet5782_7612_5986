@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.CustomerSingleViewWin"
+        xmlns:BO="clr-namespace:BO;assembly=BL" 
         xmlns:converter="clr-namespace:PLConverter"
+        xmlns:PO="clr-namespace:PO" x:Class="PL.CustomerSingleViewWin"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -15,14 +16,16 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         Height="500" Width="750"
-        WindowStyle="None" FontFamily="Microsoft YaHei UI">
+        WindowStyle="None" 
+        FontFamily="Microsoft YaHei UI" 
+        WindowStartupLocation="CenterScreen">
 
-    <Window.DataContext>
-        <BO:Customer/>
-    </Window.DataContext>
     <Window.Resources>
         <converter:IntToStringPhoneConverter x:Key="intToStringPhoneConverter"/>
     </Window.Resources>
+    <Window.DataContext>
+        <PO:CustomerPO/>
+    </Window.DataContext>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -112,14 +115,13 @@
                 </Grid.RowDefinitions>
                 <materialDesign:Card
                 materialDesign:ShadowAssist.ShadowDepth="Depth2" 
-                    Background="#B52B331F" Width="550" Height="1.5" 
+                    Background="#B52B331F" 
+                    Width="550" Height="1.5" 
                     UniformCornerRadius="2" 
-                    VerticalAlignment="Bottom"
-                     />
+                    VerticalAlignment="Bottom" />
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-
 
                     <TextBox x:Name="NameTextBox" 
                              Width="140" Height="30"
@@ -137,13 +139,15 @@
                              TextChanged="Phone_TextChanged"/>
 
                     <Button x:Name="Update"
-                        Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                        Content="Update"
-                        Width="80" Margin="20,0,0,0"
-                        FontSize="12" Foreground="#2b331f" BorderBrush="#33BBC8BA"
-                        HorizontalAlignment="Center"/>
-
-
+                            Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                            Content="Update"
+                            Width="80" Margin="20,0,0,0"
+                            FontSize="12" 
+                            BorderBrush="#bbc8ba"
+                            HorizontalAlignment="Center" 
+                            Foreground="#2b331f"
+                            IsEnabled="False"
+                            Click="AddCustmer_Click" FontWeight="Bold"/>
                 </StackPanel>
 
                 <Grid Grid.Row="1">
@@ -164,7 +168,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel>
-                    
+
                         <materialDesign:Card
                             Background="#33BBC8BA"
                             Width="100" Height="30" Margin="0,25,0,0"
@@ -175,8 +179,11 @@
                                        VerticalAlignment="Center" />
 
                         </materialDesign:Card>
-
-                        <ListView x:Name="OnTheWayList" HorizontalAlignment="Stretch" Margin="10,5,10,5">
+                        <ListView x:Name="OnTheWayList" 
+                                  HorizontalAlignment="Stretch" 
+                                  Margin="10,5,10,5" 
+                                  ScrollViewer.HorizontalScrollBarVisibility="Visible" 
+                                  ScrollViewer.CanContentScroll="True">
                             <ListView.DataContext>
                                 <BO:ParcelInCustomer/>
                             </ListView.DataContext>
@@ -184,7 +191,7 @@
                                 <DataTemplate>
                                     <GroupBox BorderThickness="1" Header="{Binding ID}"
                                               Width="230">
-                                        <Grid>
+                                        <Grid >
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>

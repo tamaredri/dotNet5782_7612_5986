@@ -37,7 +37,7 @@ namespace PO
                 name = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Model"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Name"));
                 }
             }
         }
@@ -52,7 +52,7 @@ namespace PO
                 phone = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Weight"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Phone"));
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace PO
                 locationOfCustomer = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Battery"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("LocationOfCustomer"));
                 }
             }
         }
@@ -82,7 +82,7 @@ namespace PO
                 sent = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs("ParcelInDeliveryByDrone"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Sent"));
                 }
             }
         }
@@ -97,7 +97,7 @@ namespace PO
                 recieved = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs("ParcelInDeliveryByDrone"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Recieved"));
                 }
             }
         }
