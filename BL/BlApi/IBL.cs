@@ -100,7 +100,7 @@ namespace BlApi
         /// <param name="timeOfChargeInHours"></param>
         public void ReleaseFromCharge(int id, double timeOfChargeInHours);
         /// <summary>
-        /// 
+        /// get a part of the drones list according to a condition
         /// </summary>
         /// <param name="check"></param>
         /// <returns></returns>
@@ -132,6 +132,12 @@ namespace BlApi
         /// </summary>
         /// <returns>list of BL customer</returns>
         public IEnumerable<CustomerToList> GetCustomerList();
+        /// <summary>
+        /// get a part of the customers list according to a condition
+        /// </summary>
+        /// <param name="check"></param>
+        /// <returns></returns>
+        public IEnumerable<BO.CustomerToList> GetPartOfCustomer(Predicate<CustomerToList> select);
         /// <summary>
         /// update the details of a customer
         /// </summary>

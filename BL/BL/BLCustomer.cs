@@ -111,6 +111,13 @@ namespace BL
                                  }).ToList();
         #endregion
 
+        #region GetPartOfCustomer
+        public IEnumerable<CustomerToList> GetPartOfCustomer(Predicate<CustomerToList> check) =>
+                                (from customer in GetCustomerList()
+                                 where check(customer)
+                                 select customer).ToList();
+        #endregion
+
         #region GetCustomerForParcel
         /// <summary>
         /// get the other side of the delivery sender/target

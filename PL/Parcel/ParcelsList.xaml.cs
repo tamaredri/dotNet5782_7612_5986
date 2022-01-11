@@ -180,5 +180,12 @@ namespace PL
             PList.ItemsSource = BL.GetParcelList();
         }
         #endregion
+
+        private void AddParcel_Click(object sender, RoutedEventArgs e)
+        {
+            AddParcel add = new AddParcel(BL);
+            add.ShowDialog();
+            iEnumerableToObservable(BL.GetParcelList());
+        }
     }
 }

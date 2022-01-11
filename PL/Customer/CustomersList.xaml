@@ -70,10 +70,10 @@
         <DataGrid x:Name="ListOfCustomers"
                   ItemsSource="{Binding}"
                   Grid.Row="1" Grid.ColumnSpan="2"
-                  Cursor="Arrow" Margin="10,10,10,10"
+                  Cursor="Arrow" Margin="10,10,90,10"
                   CanUserAddRows="False"
                   materialDesign:DataGridAssist.CellPadding="10"
-                  materialDesign:DataGridAssist.ColumnHeaderPadding="30" 
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="20" 
                   AutoGenerateColumns="False" 
                   GridLinesVisibility="Vertical"
                   ScrollViewer.VerticalScrollBarVisibility="Visible" 
@@ -92,9 +92,9 @@
                                     MinWidth="10"/>
                 <DataGridTextColumn Header="Sent By Me"  Binding="{Binding Path=SentParcels}"
                                     MinWidth="10"/>
-                <DataGridTextColumn Header="Rcieved By Me" Binding="{Binding Path=ReceivedParcels}"
+                <DataGridTextColumn Header="sent and dlivered" Binding="{Binding Path=DeliveredParcels}"
                                     MinWidth="10"/>
-                <DataGridTextColumn Header="I sent" Binding="{Binding Path=DeliveredParcels}"
+                <DataGridTextColumn Header="Rcieved By Me" Binding="{Binding Path=ReceivedParcels}"
                                     MinWidth="10"/>
                 <DataGridTextColumn Header="On The Way To me" Binding="{Binding Path=OnTheWay}"
                                     MinWidth="10"/>

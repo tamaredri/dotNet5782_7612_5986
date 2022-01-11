@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using BO;
 
 namespace PLConverter
 {
@@ -76,7 +77,6 @@ namespace PLConverter
             }
         }
     }
-
     public class FalseToTrueConverterDataGrid : IValueConverter
     {
         //convert from source property type to target property type

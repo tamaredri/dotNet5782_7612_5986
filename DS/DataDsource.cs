@@ -142,8 +142,6 @@ namespace DS
                 });
             }
 
-            Config.runningPackageNumber++; //increasing the running number before build a new parcel
-
             SuccessfullyDeliveredParcelList.Add(new Parcel
             {
                 ID = Config.runningPackageNumber,

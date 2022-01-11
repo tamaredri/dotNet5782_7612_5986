@@ -134,11 +134,6 @@ namespace BL
         #endregion
 
         #region GetPartOfDrone
-        /// <summary>
-        /// get a part of the drones list according to a condition
-        /// </summary>
-        /// <param name="check"></param>
-        /// <returns></returns>
         public IEnumerable<BO.DroneToList> GetPartOfDrone(Predicate<BO.DroneToList> check)
         {
             return (from drone in dronesList
