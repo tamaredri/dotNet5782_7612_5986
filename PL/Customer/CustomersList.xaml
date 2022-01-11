@@ -62,7 +62,8 @@
                 <SolidColorBrush Color="#FFB1BFAD" />
             </Button.Background>
             <Grid>
-                <Image Source="../Icons/customer.png" Height="35" OpacityMask="Black"/>
+                <Image Source="../Icons/customer.png" 
+                       Height="35"/>
                 <materialDesign:PackIcon Kind="PlusCircle" Margin="27,19,0,0" Foreground="Black"/>
             </Grid>
         </Button>

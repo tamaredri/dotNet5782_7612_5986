@@ -23,6 +23,7 @@ namespace PL
     {
         IBL BL;
         Customer customerToCreate;
+        Location customersLocation = new Location();
         public AddCustomer(IBL BLAccess)
         {
             InitializeComponent();
@@ -31,6 +32,7 @@ namespace PL
             DataContext = customerToCreate;
         }
 
+        #region header paanel
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
 
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
@@ -40,11 +42,13 @@ namespace PL
                 DragMove();
             }
         }
+        #endregion
+
 
         private void idTextBox_TextChanged(object sender, TextChangedEventArgs e) {  }
-            //=> 
-            //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
-            //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
+        //=> 
+        //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
+        //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
 
         private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
         //=> 
@@ -70,6 +74,7 @@ namespace PL
         {
             try
             {
+                
                 BL.CreateCustomer(customerToCreate);
                 this.Close();
             }
