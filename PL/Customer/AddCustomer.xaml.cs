@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlApi;
+using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,14 @@ namespace PL
     /// </summary>
     public partial class AddCustomer : Window
     {
-        public AddCustomer()
+        IBL BL;
+        Customer customerToCreate;
+        public AddCustomer(IBL BLAccess)
         {
             InitializeComponent();
+            BL = BLAccess;
+            customerToCreate = new();
+            DataContext = customerToCreate;
         }
 
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
@@ -32,6 +39,42 @@ namespace PL
             {
                 DragMove();
             }
+        }
+
+        private void idTextBox_TextChanged(object sender, TextChangedEventArgs e) {  }
+            //=> 
+            //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
+            //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
+
+        private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
+        //=> 
+        //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
+        //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
+
+        private void PhoneTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
+        //=> 
+        //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
+        //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
+
+        private void latitudeTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
+        //=> 
+        //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
+        //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
+
+        private void LongitudeTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
+        //=> 
+        //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
+        //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
+
+        private void addButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BL.CreateCustomer(customerToCreate);
+                this.Close();
+            }
+            catch(Exception x) { MessageBox.Show(x.Message); }
+
         }
     }
 }

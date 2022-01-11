@@ -20,8 +20,6 @@
         >
     <Window.Resources>
 
-        <converter:DoubleToString x:Key="doubleToString"/>
-        
         <Style TargetType="{x:Type TextBox}" x:Name="TextBoxStyle">
             <Setter Property="Height" Value="100"/>
         </Style>
@@ -34,6 +32,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
 
         <Grid x:Name="panelHeader" 
               MouseDown="PanelHeader_MouseDown"
@@ -80,8 +79,6 @@
 
             </StackPanel>
 
-
-
             <TextBox x:Name="idTextBox"
                     Width="150" Height="30"
                     FontSize="10"
@@ -96,22 +93,24 @@
                     FontSize="10"
                     materialDesign:HintAssist.Hint="Model" 
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Center" Margin="0,10,0,0" />
+                    VerticalAlignment="Center" Margin="0,10,0,0" 
+                    Text="{Binding Path=Model, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}" 
+                     TextChanged="modelTextBox_TextChanged"/>
 
             <ComboBox x:Name="weightCombobox" Width="150" Height="30"
                     FontSize="10"
                     materialDesign:HintAssist.Hint="(maximum weight)"
                     Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
-                    Margin="0,10,0,10">
-                <ComboBoxItem Content="light"/>
-                <ComboBoxItem Content="middle"/>
-                <ComboBoxItem Content="heavey"/>
+                    Margin="0,10,0,10" SelectionChanged="weightCombobox_SelectionChanged"
+                      ItemsSource="{Binding }">
+
             </ComboBox>
 
             <ComboBox x:Name="stationCombobox" Width="150" Height="30"
                     FontSize="10"
                     materialDesign:HintAssist.Hint="(first station)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="stationCombobox_SelectionChanged"
+                     >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -121,8 +120,6 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-
-
 
             <StackPanel Width="170" Height="60" Margin="15,10,0,5">
                 <Label Content="(battery)"
@@ -134,14 +131,15 @@
                         VerticalAlignment="Center" 
                         Maximum="100" Minimum="0" 
                         Width="120"
-                        Foreground="#bbc8ba" Margin="10,2,0,0" ValueChanged="DroneBattery_ValueChanged"/>
+                        Foreground="#bbc8ba" Margin="10,2,0,0" ValueChanged="DroneBattery_ValueChanged"
+                        Value="{Binding Path=Battery, Mode=OneWayToSource,UpdateSourceTrigger=LostFocus}"/>
                     <TextBox Height="20" Width="30"
                                HorizontalAlignment="Center" 
-                                VerticalAlignment="Center" 
-                               Text="{Binding ElementName=DroneBattery, Path=Value, Mode=TwoWay}" Margin="10,10,0,0"/>
+                               VerticalAlignment="Center" 
+                               Text="{Binding ElementName=DroneBattery, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,0,0"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="-40,5,0,0">
+            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="-40,5,0,0">
                 <materialDesign:PackIcon Name="location" Kind="MapMarker" 
                                      Height="30" Width="30"
                                      HorizontalAlignment="Center"
@@ -149,7 +147,7 @@
                 <TextBlock Height="20" Width="100"
                     Text="(Location)" Foreground="Gray" />
                 
-            </StackPanel>
+            </StackPanel>-->
 
 
 
@@ -188,13 +186,13 @@
             </StackPanel>-->
 
         </StackPanel>
-        <Button Grid.Row="1"
+        <Button Name="addDrone" Grid.Row="1"
             Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}" 
                 BorderBrush="#007E8C7F" Width="56" 
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Bottom" 
                 Margin="0,0,20,20" Background="#FFB1BFAD"
-                IsEnabled="False" Click="Button_Click">
+                IsEnabled="False" Click="addDrone_Click">
             <materialDesign:PackIcon Kind="Plus" 
                                          Foreground="Black"
                                          Height="30" Width="30"/>
