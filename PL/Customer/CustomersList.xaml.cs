@@ -50,8 +50,13 @@ namespace PL
             AddCustomer addCustomer = new(BL);
             addCustomer.ShowDialog();
             ienumerableToObservable(BL.GetCustomerList());
+        }
 
-
+        private void OpenCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            CustomerSingleViewWin customerSingleViewWin = new CustomerSingleViewWin(BL, ((sender as DataGrid).SelectedItem as CustomerToList).ID);
+            customerSingleViewWin.ShowDialog();
+            ienumerableToObservable(BL.GetCustomerList());
         }
     }
 }

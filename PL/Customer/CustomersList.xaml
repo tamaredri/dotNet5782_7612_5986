@@ -83,7 +83,7 @@
                   Foreground="Black"
                   IsReadOnly="True"
                   SelectionUnit="FullRow"
-                  SelectionMode="Single">
+                  SelectionMode="Single" MouseDoubleClick="OpenCustomer_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"
                                     MinWidth="10"/>

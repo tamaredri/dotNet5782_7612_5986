@@ -22,12 +22,12 @@ namespace PL
     public partial class AddCustomer : Window
     {
         IBL BL;
-        Customer customerToCreate;
+        Customer customerToCreate = new Customer();
+        Location customersLocation = new Location();
         public AddCustomer(IBL BLAccess)
         {
             InitializeComponent();
             BL = BLAccess;
-            customerToCreate = new();
             customerToCreate.LocationOfCustomer = new Location();
             DataContext = customerToCreate;
         }

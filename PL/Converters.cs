@@ -119,10 +119,7 @@ namespace PLConverter
 
 
         //convert from target property type to source property type
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return int.Parse(value.ToString());
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => int.Parse(value.ToString());
     }
     public class TextToBool : IValueConverter
     {
