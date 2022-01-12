@@ -72,9 +72,10 @@
         <StackPanel Orientation="Vertical" Grid.Row="1" 
                     Background="Transparent">
             <StackPanel>
-                <Image Source="../Icons/battery.png" 
-                                   Height="120" 
+                <materialDesign:PackIcon Kind="HomeBatteryOutline" 
+                                   Height="130" Width="130"
                                    VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
                        Margin="20"/>
             </StackPanel>
 

@@ -14,7 +14,6 @@
     <None Remove="Customer\client.png" />
     <None Remove="Customer\drone.png" />
     <None Remove="Drone\drone.png" />
-    <None Remove="Icons\drone.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,10 +31,6 @@
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Icons\drone.png" />
   </ItemGroup>
 
 </Project>
