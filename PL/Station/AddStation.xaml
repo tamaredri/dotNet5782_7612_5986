@@ -64,10 +64,8 @@
         </Grid>
 
         <StackPanel Orientation="Vertical" Grid.Row="1" 
-                    DataContext="{Binding}" 
                     Background="Transparent">
             <StackPanel>
-
                 <Image Source="../Icons/battery.png" 
                                    Height="120" 
                                    VerticalAlignment="Center"
@@ -82,7 +80,7 @@
                     VerticalAlignment="Center" 
                     Margin="0,10,0,0" 
                     Text="{Binding Path=Name, UpdateSourceTrigger=LostFocus}" 
-                     PreviewKeyDown="Name_PreviewKeyDown"/>
+                     TextChanged="ValueChanged_TextChanged"/>
             <TextBox x:Name="AvailableChargeSlots"
                     Width="140" Height="40"
                     FontSize="14"
@@ -90,29 +88,40 @@
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     VerticalAlignment="Center" 
                     Margin="0,10,0,0" 
-                    Text="{Binding Path=AvailableChargeSlots, UpdateSourceTrigger=LostFocus}" 
-                    PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" GotFocus="AvailableChargeSlots_GotFocus"/>
-            <TextBox x:Name="LocationTextBox"
-                    Width="140" Height="40"
-                    FontSize="14"
-                    materialDesign:HintAssist.Hint="Location" 
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     Margin="0,10,0,0" />
-            <TextBox x:Name="LocationTextBox_Copy"
-                Width="140" Height="40"
-                FontSize="14"
-                materialDesign:HintAssist.Hint="Location" 
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,10,0,0"
-                     />
+                    Text="{Binding Path=AvailableChargeSlots, UpdateSourceTrigger=LostFocus}"
+                    TextChanged="ValueChanged_TextChanged"/>
+            <TextBox x:Name="LattitudeTextBox"
+                     Width="140" Height="40"
+                     FontSize="14"
+                     materialDesign:HintAssist.Hint="Lattitude" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     Margin="0,10,0,0" 
+                     Text="{Binding Lattitude}" TextChanged="ValueChanged_TextChanged">
+                <TextBox.DataContext>
+                    <BO:Location/>
+                </TextBox.DataContext>
+            </TextBox>
+            <TextBox x:Name="LongitudeTextBox"
+                     Width="140" Height="40"
+                     FontSize="14"
+                     materialDesign:HintAssist.Hint="Longitude" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     Margin="0,10,0,0"
+                     Text="{Binding Longitude}" TextChanged="ValueChanged_TextChanged">
+                <TextBox.DataContext>
+                    <BO:Location/>
+                </TextBox.DataContext>
+            </TextBox>
         </StackPanel>
-        <Button Grid.Row="1"
+        <Button x:Name="AddTheStation" Grid.Row="1"
             Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}" 
                 BorderBrush="#007E8C7F" Width="56" 
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Bottom" 
                 Margin="0,0,20,20" 
                 Click="AddStationToBL_Click" 
-                Background="#FFB1BFAD">
+                Background="#FFB1BFAD"
+                IsEnabled="False">
             <materialDesign:PackIcon Kind="Plus" 
                                          Foreground="Black"
                                          Height="30" Width="30"/>

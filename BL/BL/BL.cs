@@ -202,7 +202,7 @@ namespace BL
                             ID = drone.ID,
                             Model = drone.Model,
                             ParcelId = 0,
-                            Weight = (BO.WeightCategories)rand.Next(0, 4),
+                            Weight = (BO.WeightCategories)rand.Next(0, 3),
                             Status = droneStatus,
                             DroneLocation =
                             new Location()
@@ -222,7 +222,7 @@ namespace BL
                             ID = drone.ID,
                             Model = drone.Model,
                             ParcelId = 0,
-                            Weight = (BO.WeightCategories)rand.Next(0, 4),
+                            Weight = (BO.WeightCategories)rand.Next(0, 3),
                             Status = BO.DroneStatuses.available,
                             DroneLocation = new Location()
                             {

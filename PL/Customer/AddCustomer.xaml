@@ -76,22 +76,22 @@
                        Margin="20"/>
             </StackPanel>
 
-            <TextBox x:Name="idTextBox"
+            <TextBox x:Name="IdTextBox"
                     Width="140" Height="40"
                     FontSize="14"
                     materialDesign:HintAssist.Hint="ID" 
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     VerticalAlignment="Center" 
-                    Text="{Binding ID, UpdateSourceTrigger=LostFocus}" 
-                     TextChanged="idTextBox_TextChanged"/>
+                    Text="{Binding ID}" 
+                    TextChanged="idTextBox_TextChanged"/>
 
-            <TextBox x:Name="nameTextBox"
+            <TextBox x:Name="NameTextBox"
                     Width="140" Height="40"
                     FontSize="14"
                     materialDesign:HintAssist.Hint="Name" 
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     VerticalAlignment="Center" Margin="0,10,0,0" 
-                    Text="{Binding Name, UpdateSourceTrigger=LostFocus}" TextChanged="nameTextBox_TextChanged"/>
+                    Text="{Binding Name}" TextChanged="nameTextBox_TextChanged"/>
 
             <TextBox x:Name="PhoneTextBox"
                      Width="140" Height="30"
@@ -102,7 +102,7 @@
                      HorizontalAlignment="Center" 
                      Text="{Binding Phone, UpdateSourceTrigger=LostFocus}"
                      TextChanged="PhoneTextBox_TextChanged"/>
-            <TextBox x:Name="latitudeTextBox"
+            <TextBox x:Name="LatitudeTextBox"
                     Width="140" Height="40"
                     FontSize="14"
                     materialDesign:HintAssist.Hint="Lattitude" 
