@@ -25,7 +25,7 @@ namespace PL
         IBL BL;
         Customer customerToCreate = new Customer();
         Location customersLocation = new Location();
-        public AddCustomer(IBL BLAccess)
+        public AddCustomer(IBL BLAccess, Customer customer)
         {
             InitializeComponent();
             BL = BLAccess;
@@ -42,8 +42,6 @@ namespace PL
 
             IdTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
             PhoneTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
-            //LatitudeTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
-            //LongitudeTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
             NameTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyLetters_PreviewKeyDown;
         }
 
