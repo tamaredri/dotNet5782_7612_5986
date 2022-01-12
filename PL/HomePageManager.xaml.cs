@@ -68,6 +68,7 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e) => timer.Start();
 
+        #region panel header
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -77,45 +78,50 @@ namespace PL
         }
 
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
+        #endregion
+
 
         private void OpenLists_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            int selectedIndex = ((ListView)sender).SelectedIndex;
-
-            switch (selectedIndex)
+            switch (((ListView)sender).SelectedIndex)
             {
                 case 0:
                     {
                         ListFrame.Content = new DronesList(BL);
-
                         break;
                     }
                 case 1:
                     {
                         ListFrame.Content = new StationsList(BL);
-
                         break;
                     }
                 case 2:
                     {
                         ListFrame.Content = new CustomersList(BL);
-
                         break;
                     }
                 case 3:
                     {
                         ListFrame.Content = new ParcelsList(BL);
-
                         break;
                     }
                 case 4:
                     {
                         ListFrame.Content = new HomeListPageManager();
-
                         break;
                     }
                 default:
                     break;
+            }
+        }
+
+        private void SidePanel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (sidePanel.Width > 60)
+            {
+                ToggleButton.IsChecked = false;
+                hidden = false;
+                timer.Start();
             }
         }
     }

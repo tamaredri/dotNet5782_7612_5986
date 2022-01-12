@@ -62,13 +62,17 @@
 
         <Grid x:Name="sidePanel" 
               HorizontalAlignment="Left" Width="200" Height="550"
-              VerticalAlignment="Bottom">
-            <StackPanel Background="#bbc8ba">
-                <Grid  Height="80" 
-                        VerticalAlignment="Top" Background="#FFFAFAFA">
-                    <ToggleButton
-                            Style="{DynamicResource MaterialDesignHamburgerToggleButton}" HorizontalAlignment="Right"
-                            Height="40" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Click="Button_Click" Margin="0,0,10,0"/>
+              VerticalAlignment="Bottom" >
+            <StackPanel Background="#bbc8ba" 
+                        MouseLeave="SidePanel_MouseLeave">
+                <Grid Height="80" 
+                      VerticalAlignment="Top" Background="#FFFAFAFA">
+                    <ToggleButton Name="ToggleButton"
+                                  Style="{DynamicResource MaterialDesignHamburgerToggleButton}" HorizontalAlignment="Right"
+                                  Height="40" VerticalAlignment="Top" 
+                                  Background="Transparent" 
+                                  BorderBrush="Transparent" 
+                                  Click="Button_Click" Margin="0,0,10,0"/>
                 </Grid>
                 <Rectangle Height="50" Fill="#FFBBC8BA"/>
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
@@ -93,9 +97,9 @@
                     <ListViewItem Height="80"
                                   Background="Transparent">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Icons/battery.png"
-                                   Width="40" Height="40"
-                                   VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Kind="HomeBatteryOutline" 
+                                                      Width="40" Height="40"
+                                                     VerticalAlignment="Center"/>
                             <TextBlock Text="Stations" 
                                        HorizontalAlignment="Center" 
                                        Margin="20,5,0,0"/>
@@ -105,7 +109,7 @@
                     <ListViewItem Height="80"
                                   Background="Transparent">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Icons/customer.png"
+                            <materialDesign:PackIcon Kind="Account" 
                                    Width="40" Height="40"
                                    VerticalAlignment="Center"/>
                             <TextBlock Text="Customers" 
@@ -117,7 +121,7 @@
                     <ListViewItem Height="80"
                                   Background="Transparent">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Icons/box.png"
+                            <materialDesign:PackIcon Kind="PackageVariant"
                                    Width="40" Height="40"
                                    VerticalAlignment="Center"/>
                             <TextBlock Text="Parcels" 
