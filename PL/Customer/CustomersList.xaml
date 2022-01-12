@@ -24,34 +24,15 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Height="30"  HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="CUSTOMERS" FontSize="30" 
+                       FontFamily="Candara" 
+                       FontWeight="Bold" Foreground="Black" Margin="20,0,20,0"
+                       />
+        </StackPanel>
 
-        <!--<Label Grid.Row="0">
-            <ProgressBar Value="25"  Height="10" 
-                         Width="83" Background="#FF19364E" 
-                         Foreground="#FFBACDE0"  />
-        </Label>-->
-        <!--<StackPanel VerticalAlignment="Center" 
-                    Margin="10,0,0,0" 
-                    Grid.ColumnSpan="2">
-            <StackPanel Orientation="Horizontal">
-                <ComboBox Margin="10"  Width="170"
-                    materialDesign:HintAssist.Hint="(sent by the customer)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                </ComboBox>
-                <ComboBox Margin="10"  Width="170"
-                    materialDesign:HintAssist.Hint="(recieved)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                </ComboBox>
-                <ComboBox Margin="10"  Width="170"
-                    materialDesign:HintAssist.Hint="(sent to the customer)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                </ComboBox>
-                <ComboBox Margin="10"  Width="170"
-                    materialDesign:HintAssist.Hint="(delivered packeges)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                </ComboBox>
-            </StackPanel>
-        </StackPanel>-->
         <Button Name="addCustomer" Grid.Column="2"
             Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}" 
                 BorderBrush="#007E8C7F" Width="56" 

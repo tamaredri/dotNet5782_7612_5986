@@ -38,6 +38,13 @@
               VerticalAlignment="Top" Height="50" 
               Background="#2b331f">
 
+
+            <TextBlock Height="30" Width="200" HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="PARCEL" FontSize="20" 
+                       FontFamily="Candara" 
+                       FontWeight="Bold" Foreground="#FFFDDCA5" Margin="20,0,0,0"
+                       />
             <StackPanel Orientation="Horizontal"
                 HorizontalAlignment="Right">
                 <materialDesign:PackIcon Kind="WindowMinimize"
