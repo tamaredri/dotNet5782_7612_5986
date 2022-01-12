@@ -82,8 +82,9 @@
             <StackPanel x:Name="detailsStation" Orientation="Vertical" Grid.Row="1" 
                     Background="#FFE8E5E5">
                 <StackPanel x:Name="stationIcone">
-                    <Image Source="../Icons/battery.png" 
-                            Height="120" 
+                    <materialDesign:PackIcon Kind="HomeBatteryOutline"
+                            Height="120" Width="120"
+                            HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Margin="20"/>
                 </StackPanel>
