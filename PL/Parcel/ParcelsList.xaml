@@ -133,10 +133,12 @@
                                     MinWidth="10">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button IsEnabled="{Binding Status}"
-                                    Background="Transparent"
-                                    Width="30" Click="DeletParcel_Click">
-                                <materialDesign:PackIcon Kind="Trash" OpacityMask="Black" Background="Black" />
+                            <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                    Height="30" Width="30"
+                                    HorizontalAlignment="Center"
+                                    IsEnabled="{Binding Status, Converter={StaticResource canDeleteParcelStatusConverter}}"
+                                    Click="DeletParcel_Click">
+                                <materialDesign:PackIcon Kind="Trash"/>
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

@@ -200,11 +200,20 @@ namespace PL
 
         private void DeletParcel_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("success");
-            //if((sender is Button) )
-            //{
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you shur you want to delete the package?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
 
-            //}
+            if(messageBoxResult is (MessageBoxResult.Yes))
+            {
+                try
+                {
+                    BL.DeleteParcel((PList.SelectedItem as ParcelToList).ID);
+                    IEnumerableToObservable(BL.GetParcelList());
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message);
+                }
+            }
         }
     }
 }
