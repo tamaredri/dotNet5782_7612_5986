@@ -11,6 +11,7 @@ namespace BO
 
         public int ID { set; get; }
         public int Battery { set; get; }
+       
 
         public override string ToString()
         {

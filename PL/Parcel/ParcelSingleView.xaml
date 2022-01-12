@@ -97,8 +97,8 @@
                 <StackPanel Orientation="Horizontal"  Margin="15,5,15,5">
                     <TextBlock Text="Target:"/>
                     <StackPanel Orientation="Vertical" Margin="10,5,0,5">
-                        <TextBlock Text="{Binding Sender.ID}" Margin="0,0,0,5"  />
-                        <TextBlock Text="{Binding Sender.Name}" Margin="0,5,0,0" />
+                        <TextBlock Text="{Binding Target.ID}" Margin="0,0,0,5"  />
+                        <TextBlock Text="{Binding Target.Name}" Margin="0,5,0,0" />
                     </StackPanel>
                 </StackPanel>
 
