@@ -128,6 +128,7 @@ namespace BL
                     {
                         ID = charge.Droneld,
                         Battery = dronesList.Find(x => x.ID == charge.Droneld).Battery
+                        
                     }).ToList();
            
         }
@@ -288,11 +289,14 @@ namespace BL
             
             try
             {
+                DroneCharge droneCharge = DalAccess.GetPartOfDroneCharge(x => x.Droneld == id).FirstOrDefault();
                 DalAccess.ReleaseFromCharge(id);
 
                 dronesList.Remove(droneToRelease);
 
+
                 //update
+                //droneToRelease.Battery += (int)(timeOfChargeInHours * ChargePrecentagePerHoure); //increase the battery according to the time the drone was charging
                 droneToRelease.Battery += (int)(timeOfChargeInHours * ChargePrecentagePerHoure); //increase the battery according to the time the drone was charging
                 if(droneToRelease.Battery > 100) droneToRelease.Battery = 100; //round the result to fit in the max value of charge = 100%
                 droneToRelease.Status = BO.DroneStatuses.available;

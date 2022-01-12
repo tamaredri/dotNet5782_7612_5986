@@ -191,25 +191,9 @@ namespace PLConverter
         }
     }
 
-    //public class StatusToInt : IValueConverter
-    //{
-    //    //convert from source property type to target property type
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        return (int)value;
-    //    }
-
-
-
-    //    //convert from target property type to source property type
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        //never used
-    //        return DroneStatuses.available;
-    //    }
-    //}
-
     #region drne options
+
+    #region SentToCharge
     public class SentToChargeOrSchedule : IValueConverter
     {
         //convert from source property type to target property type
@@ -230,7 +214,6 @@ namespace PLConverter
 
 
     }
-
     public class SentToChargeOrScheduleVisability : IValueConverter
     {
         //convert from source property type to target property type
@@ -251,7 +234,8 @@ namespace PLConverter
 
 
     }
-
+    #endregion
+    #region ReleseFromCharge
     public class ReleseFromChargeConverter : IValueConverter
     {
         //convert from source property type to target property type
@@ -272,7 +256,6 @@ namespace PLConverter
 
 
     }
-
     public class ReleseFromChargeVisabilityConverter : IValueConverter
     {
         //convert from source property type to target property type
@@ -293,45 +276,14 @@ namespace PLConverter
 
 
     }
-
-    public class BoolToVisibilityConverterOpside : IValueConverter
+    #endregion
+    #region Delivery
+    public class DeliveryConverter : IValueConverter
     {
         //convert from source property type to target property type
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool boolValue = (bool)value;
-            if (boolValue)
-            {
-                return Visibility.Hidden; //Visibility.Collapsed;
-            }
-            else
-            {
-                return Visibility.Visible;
-            }
-        }
-
-
-        //convert from target property type to source property type
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            Visibility visibilityValue = (Visibility)value;
-            if (visibilityValue is Visibility.Visible)
-            {
-                return false; //Visibility.Collapsed;
-            }
-            else
-            {
-                return true;
-            }
-        }
-    }
-
-    public class IsDeliveryConverter : IValueConverter
-    {
-        //convert from source property type to target property type
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if ((DroneStatuses)value == DroneStatuses.delivery)
+            if ((ParcelInDelivery)value != null && (value as ParcelInDelivery).InDelivery)
                 return true;
             else return false;
 
@@ -346,14 +298,12 @@ namespace PLConverter
 
 
     }
-
-
-    public class IsDeliveryVisabilityConverter : IValueConverter
+    public class DeliveryVisivilityConverter : IValueConverter
     {
         //convert from source property type to target property type
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((DroneStatuses)value == DroneStatuses.delivery)
+            if ((ParcelInDelivery)value != null && (value as ParcelInDelivery).InDelivery)
                 return Visibility.Visible;
             else return Visibility.Hidden;
 
@@ -368,13 +318,14 @@ namespace PLConverter
 
 
     }
-
+    #endregion
+    #region Pickup
     public class PickupConverter : IValueConverter
     {
         //convert from source property type to target property type
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((ParcelInDelivery)value !=null && !(value as ParcelInDelivery).InDelivery )
+            if ((ParcelInDelivery)value != null && !(value as ParcelInDelivery).InDelivery)
                 return true;
             else return false;
 
@@ -410,13 +361,14 @@ namespace PLConverter
 
 
     }
-
-    public class DeliveryConverter : IValueConverter
+    #endregion
+    #region iS Delivery
+    public class IsDeliveryConverter : IValueConverter
     {
         //convert from source property type to target property type
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((ParcelInDelivery)value != null && (value as ParcelInDelivery).InDelivery)
+            if ((DroneStatuses)value == DroneStatuses.delivery)
                 return true;
             else return false;
 
@@ -431,13 +383,12 @@ namespace PLConverter
 
 
     }
-
-    public class DeliveryVisivilityConverter : IValueConverter
+    public class IsDeliveryVisabilityConverter : IValueConverter
     {
         //convert from source property type to target property type
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((ParcelInDelivery)value != null && (value as ParcelInDelivery).InDelivery)
+            if ((DroneStatuses)value == DroneStatuses.delivery)
                 return Visibility.Visible;
             else return Visibility.Hidden;
 
@@ -452,28 +403,30 @@ namespace PLConverter
 
 
     }
+    #endregion
 
-    //public class PickupVisabilityConverter : IValueConverter
+
+    #endregion
+
+    //public class StatusToInt : IValueConverter
     //{
     //    //convert from source property type to target property type
     //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     //    {
-    //        if ((DroneStatuses)value == DroneStatuses.maintenance)
-    //            return Visibility.Visible;
-    //        else return Visibility.Hidden;
-
+    //        return (int)value;
     //    }
+
+
 
     //    //convert from target property type to source property type
     //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     //    {
     //        //never used
-    //        return DroneStatuses.maintenance;
+    //        return DroneStatuses.available;
     //    }
-
-
     //}
-    #endregion
+
+
 }
 
 
