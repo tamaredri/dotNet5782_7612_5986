@@ -302,11 +302,12 @@ namespace BL
             List<DO.Parcel> doParcelsRecievedOrSent = DalAccess.GetPartOfParcel(chek).ToList();
 
             //create a list of all the parcels the customer recieved
-            BO.ParcelInCustomer parcelRecievedOrSent = new();
+            
 
             //save the parcels recived in the customer's list
             foreach (var item in doParcelsRecievedOrSent)
             {
+                BO.ParcelInCustomer parcelRecievedOrSent = new();
                 parcelRecievedOrSent.ID = item.ID;
                 parcelRecievedOrSent.Weight = (BO.WeightCategories)item.Weight;
                 parcelRecievedOrSent.Priority = (BO.Priorities)item.Priority;
@@ -403,6 +404,17 @@ namespace BL
         #endregion
 
         #region delete
+        public void DeleteParcel(int IDParcelToDelete)
+        {
+            try
+            {
+                DalAccess.DeleteParcel(IDParcelToDelete);
+            }
+            catch (Exception x)
+            {
+                throw new BO.InvalidInputExeption(x.Message);
+            }
+        }
         #endregion
     }
 

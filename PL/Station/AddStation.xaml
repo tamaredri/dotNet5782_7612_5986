@@ -102,22 +102,14 @@
                      materialDesign:HintAssist.Hint="Lattitude" 
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      Margin="0,10,0,0" 
-                     Text="{Binding Lattitude}" TextChanged="ValueChanged_TextChanged">
-                <TextBox.DataContext>
-                    <BO:Location/>
-                </TextBox.DataContext>
-            </TextBox>
+                     Text="{Binding StationLocation.Lattitude}" TextChanged="ValueChanged_TextChanged"/>
             <TextBox x:Name="LongitudeTextBox"
                      Width="140" Height="40"
                      FontSize="14"
                      materialDesign:HintAssist.Hint="Longitude" 
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      Margin="0,10,0,0"
-                     Text="{Binding Longitude}" TextChanged="ValueChanged_TextChanged">
-                <TextBox.DataContext>
-                    <BO:Location/>
-                </TextBox.DataContext>
-            </TextBox>
+                     Text="{Binding StationLocation.Longitude}" TextChanged="ValueChanged_TextChanged"/>
         </StackPanel>
         <Button x:Name="AddTheStation" Grid.Row="1"
             Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}" 

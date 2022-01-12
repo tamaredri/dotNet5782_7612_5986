@@ -162,7 +162,7 @@ namespace BL
                 DO.Customer customerToUpdate = DalAccess.GetCustomer(customreID);
 
                 //if one of the details is correct -> then the user wanted to update at least one detail -> send to update
-                if (newPhone != 0 || newName != null)
+                if (newPhone != 0 || (newName is not null && newName is not ""))
                 {
                     if (newPhone != 0)
                     {

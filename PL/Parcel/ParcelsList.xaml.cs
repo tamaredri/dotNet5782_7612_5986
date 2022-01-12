@@ -29,11 +29,11 @@ namespace PL
 
         public ParcelsList(IBL BLAccess)
         {
+            //parcelsList = new(BL.GetParcelList());
             InitializeComponent();
             BL = BLAccess;
             IEnumerableToObservable(BL.GetParcelList());
             DataContext = parcelsList;
-
         }
 
         #region comboBox initializetion
@@ -190,9 +190,30 @@ namespace PL
 
         private void OpenParcel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ParcelSingleView parcelSingleView = new ParcelSingleView(BL, ((sender as DataGrid).SelectedItem as ParcelToList).ID);
-            parcelSingleView.ShowDialog();
-            IEnumerableToObservable(BL.GetParcelList());
+            if (((sender as DataGrid).SelectedItem is ParcelToList))
+            {
+                ParcelSingleView parcelSingleView = new ParcelSingleView(BL, ((sender as DataGrid).SelectedItem as ParcelToList).ID);
+                parcelSingleView.ShowDialog();
+                IEnumerableToObservable(BL.GetParcelList());
+            }
+        }
+
+        private void DeletParcel_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you shur you want to delete the package?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+
+            if(messageBoxResult is (MessageBoxResult.Yes))
+            {
+                try
+                {
+                    BL.DeleteParcel((PList.SelectedItem as ParcelToList).ID);
+                    IEnumerableToObservable(BL.GetParcelList());
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message);
+                }
+            }
         }
     }
 }

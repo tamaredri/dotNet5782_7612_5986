@@ -35,7 +35,8 @@ namespace PL
             OnTheWayList.ItemsSource = CustomerPO.Recieved;
             SentList.ItemsSource = CustomerPO.Sent;
 
-            OnTheWayList.MouseDoubleClick += ShowParcel_MouseDoubleClick;
+            NameTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyLetters_PreviewKeyDown;
+            PhoneTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
         }
 
         #region copy customer from BL to PO
@@ -79,13 +80,7 @@ namespace PL
         #endregion
 
         #region update
-        private void Phone_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox phoneTextBox = sender as TextBox;
-            Update.IsEnabled = !(NameTextBox.Text is "") || !(phoneTextBox.Text.Length != 10);
-        }
-
-        private void Name_TextChanged(object sender, TextChangedEventArgs e)
+        private void ValueChanged_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox phoneTextBox = sender as TextBox;
             Update.IsEnabled = !(NameTextBox.Text is "") || !(phoneTextBox.Text.Length != 10);

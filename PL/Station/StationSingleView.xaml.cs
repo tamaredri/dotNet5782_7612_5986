@@ -47,6 +47,7 @@ namespace PL
         }
         #endregion
 
+        #region panel header
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -56,11 +57,9 @@ namespace PL
         }
 
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
+        #endregion
 
-        private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
-            update.IsEnabled = NameTextBox.Text != "" || chargeTextBox.Text != "";
-
-        private void chargeTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
+        private void ValueChanged_TextChanged(object sender, TextChangedEventArgs e) =>
             update.IsEnabled = NameTextBox.Text != "" || chargeTextBox.Text != "";
 
         private void update_Click(object sender, RoutedEventArgs e)
@@ -70,8 +69,8 @@ namespace PL
                 BL.UpdateStation(stationToShow.ID, (chargeTextBox.Text is not "")? int.Parse(chargeTextBox.Text):0, NameTextBox.Text);
             }
             catch (Exception x) { MessageBox.Show(x.Message); }
-            if (NameTextBox.Text is not "") { stationToShow.Name = NameTextBox.Text; NameTextBox.Text = ""; }
-            if (chargeTextBox.Text is not "") { stationToShow.AvailableChargeSlots = int.Parse(chargeTextBox.Text); chargeTextBox.Text = ""; }
+            if (NameTextBox.Text is not "") { stationToShow.Name = NameTextBox.Text; NameTextBox.Clear(); }
+            if (chargeTextBox.Text is not "") { stationToShow.AvailableChargeSlots = int.Parse(chargeTextBox.Text); chargeTextBox.Clear(); }
         }
 
         private void droneInCharge_MouseDoubleClick(object sender, MouseButtonEventArgs e)

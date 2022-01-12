@@ -24,7 +24,7 @@ namespace Dal
         {
             DataSource.Config.runningCustomerNumber++;
 
-            if (DataSource.CustomersList.Find(x => x.ID == customerToCreate.ID).Equals(default(Customer)))
+            if (!DataSource.CustomersList.Select(x => x.ID == customerToCreate.ID).FirstOrDefault().Equals(default(Customer)))
                 throw new AlreadyExistExeption("the customer already exit");
 
             DataSource.CustomersList.Add(customerToCreate);
@@ -58,7 +58,7 @@ namespace Dal
             DataSource.CustomersList.Remove(customerToUpdate);
             if (newPhone >= 100000000 && newPhone <= 999999999)
                 customerToUpdate.Phone = "0" + newPhone.ToString();
-            if (newName != null)
+            if (newName is not null && newName is not "")
                 customerToUpdate.Name = newName;
             DataSource.CustomersList.Add(customerToUpdate);
         }
@@ -299,6 +299,14 @@ namespace Dal
         }
         #endregion
         #region DeleteParcel
+        public void DeleteParcel(int IDToDelete)
+        {
+            Parcel parcel = GetParcel(IDToDelete);
+
+            if (parcel.Scheduled is not null)
+                throw new InvalidInputExeption("the parcel is already paired to a drone. too late to delete");
+            DataSource.ParcelsList.Remove(parcel);
+        }
         #endregion
 
         //-----------------station-----------------

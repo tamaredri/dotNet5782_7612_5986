@@ -18,7 +18,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="500" Width="750"
         WindowStyle="None"
-    xmlns:System="clr-namespace:System;assembly=System.Runtime">
+    xmlns:System="clr-namespace:System;assembly=System.Runtime" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <PO:ParcelPO/>
     </Window.DataContext>
@@ -162,7 +162,7 @@
                                     Cursor="Hand" 
                                     IsEnabled="False" 
                                     IsDropDownOpen="True"
-                                    AllowDrop="True"/>
+                                    AllowDrop="True" SelectedDateFormat="Long"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"

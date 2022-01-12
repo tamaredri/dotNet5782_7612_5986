@@ -16,7 +16,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="500" Width="750"
-        WindowStyle="None">
+        WindowStyle="None" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <converter:FalseToTrueUpdateConverter x:Key="falseToTrueUpdateConverter"/>
@@ -139,17 +139,19 @@
                             HorizontalAlignment="Center">
 
                     <TextBox x:Name="NameTextBox" 
-                        Width="140" Height="30"
-                        Margin="20,0,0,0"
-                        FontSize="14"
-                        materialDesign:HintAssist.Hint="Name" 
-                        HorizontalAlignment="Center" TextChanged="NameTextBox_TextChanged"/>
+                             Width="140" Height="30"
+                             Margin="20,0,0,0"
+                             FontSize="14"
+                             materialDesign:HintAssist.Hint="Name" 
+                             HorizontalAlignment="Center" 
+                             TextChanged="ValueChanged_TextChanged"/>
 
                     <TextBox x:Name="chargeTextBox"
-                        Width="140" Height="30"
-                        Margin="20,0,0,0"
-                        materialDesign:HintAssist.Hint="Available Charge Slots"
-                        HorizontalAlignment="Center" TextChanged="chargeTextBox_TextChanged"/>
+                             Width="140" Height="30"
+                             Margin="20,0,0,0"
+                             materialDesign:HintAssist.Hint="Available Charge Slots"
+                             HorizontalAlignment="Center" 
+                             TextChanged="ValueChanged_TextChanged"/>
 
                     <Button x:Name="update"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
@@ -174,12 +176,10 @@
                             Padding="8" FontWeight="Bold" 
                             FontSize="14" 
                             FontStyle="Normal" 
-                            FontStretch="ExtraExpanded"
-                            >
+                            FontStretch="ExtraExpanded">
                             <TextBlock x:Name="chargedDrones" 
                                     Text="charged drones:" 
                                     HorizontalAlignment="Center" />
-
                         </materialDesign:Card>
 
                        
@@ -188,7 +188,8 @@
 
                         <ListBox x:Name="droneInCharge" 
                                  Margin="15" Width="350" 
-                                 MouseDoubleClick="droneInCharge_MouseDoubleClick">
+                                 MouseDoubleClick="droneInCharge_MouseDoubleClick"
+                                 BorderBrush="DarkGray">
                             
                             <ListBox.DataContext>
                                 <BO:DroneInCharge/>

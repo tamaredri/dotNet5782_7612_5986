@@ -204,6 +204,14 @@ namespace BlApi
         /// <exception cref="ContradictoryDataExeption"></exception>
         /// <param name="droneID"></param>
         public void DeliverParcel(int droneID);
+        /// <summary>
+        /// delete a parcel
+        /// </summary>
+        /// <remarks>throw an exception if the parcel is paired to a drone</remarks>
+        /// <exception cref="InvalidInputExeption"></exception>
+        /// <param name="IDParcelToDelete"></param>
+        public void DeleteParcel(int IDParcelToDelete);
+
         #endregion
     }
 }

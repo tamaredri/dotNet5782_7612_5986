@@ -134,7 +134,8 @@
                              Margin="20,0,0,0"
                              FontSize="14"
                              materialDesign:HintAssist.Hint="Name" 
-                             HorizontalAlignment="Center" TextChanged="Name_TextChanged"/>
+                             HorizontalAlignment="Center" 
+                             TextChanged="ValueChanged_TextChanged"/>
                     <TextBox x:Name="PhoneTextBox"
                              Width="140" Height="30"
                              Margin="20,0,0,0"
@@ -142,7 +143,7 @@
                              materialDesign:HintAssist.Hint="Phone"
                              materialDesign:TransitionAssist.DisableTransitions="True"
                              HorizontalAlignment="Center" 
-                             TextChanged="Phone_TextChanged"/>
+                             TextChanged="ValueChanged_TextChanged"/>
 
                     <Button x:Name="Update"
                             Style="{StaticResource MaterialDesignOutlinedLightButton}"
@@ -174,30 +175,33 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel>
-
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
                         <materialDesign:Card
                             Background="#33BBC8BA"
-                            Width="100" Height="30" Margin="0,25,0,0"
-                          FontWeight="Bold" 
+                            Width="100" Height="30" Margin="0,25,0,7"
+                            FontWeight="Bold" 
                             FontSize="11">
                             <TextBlock Text="On The Way:" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center" />
-
                         </materialDesign:Card>
+
                         <ListView x:Name="OnTheWayList" 
-                                  HorizontalAlignment="Stretch" 
+                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                  Grid.Row="1"
                                   Margin="10,5,10,5" 
-                                  ScrollViewer.HorizontalScrollBarVisibility="Visible" 
-                                  ScrollViewer.CanContentScroll="True">
+                                  MouseDoubleClick="ShowParcel_MouseDoubleClick">
                             <ListView.DataContext>
                                 <BO:ParcelInCustomer/>
                             </ListView.DataContext>
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <GroupBox BorderThickness="1" Header="{Binding ID}"
-                                              Width="230">
+                                              Width="220">
                                         <Grid >
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
@@ -221,10 +225,13 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                    </StackPanel>
+                    </Grid>
 
-                    <StackPanel Grid.Column="1">
-
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
                         <materialDesign:Card
                             Background="#33BBC8BA"
                             Width="100" Height="30" Margin="0,25,0,0"
@@ -236,15 +243,17 @@
                                            VerticalAlignment="Center" />
                         </materialDesign:Card>
 
-                        <ListView x:Name="SentList" HorizontalAlignment="Stretch" 
-                                  MouseDoubleClick="ShowParcel_MouseDoubleClick" Margin="10,5,10,5">
+                        <ListView Grid.Row="1" x:Name="SentList" HorizontalAlignment="Stretch" 
+                                  MouseDoubleClick="ShowParcel_MouseDoubleClick" 
+                                  Margin="10,5,10,5"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
                             <ListView.DataContext>
                                 <BO:ParcelInCustomer/>
                             </ListView.DataContext>
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <GroupBox BorderThickness="1" Header="{Binding ID}"
-                                              Width="230">
+                                              Width="220">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
@@ -268,8 +277,7 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                    </StackPanel>
-
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
