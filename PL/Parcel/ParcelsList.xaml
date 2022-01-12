@@ -38,15 +38,18 @@
             <RowDefinition Height="100"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+       
 
         <StackPanel VerticalAlignment="Center" 
                     Margin="10,0,0,0" 
                     Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
+                <TextBlock Height="30"  HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="PARCELS" FontSize="30" 
+                       FontFamily="Candara" 
+                       FontWeight="Bold" Foreground="Black" Margin="20,0,20,0"
+                       />
                 <ComboBox Name="StatusComboBox" Margin="10"  Width="100"
                           materialDesign:HintAssist.Hint="(status)"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
@@ -62,30 +65,40 @@
                           materialDesign:HintAssist.Hint="(weight)"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                           DropDownOpened="Weight_DropDownOpened" SelectionChanged="Weight_SelectionChanged"/>
+               
+            </StackPanel>
+        </StackPanel>
+        <Button Grid.Column="2"
+            Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}" 
+                BorderBrush="#007E8C7F" Width="56" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Center" 
+                Margin="0,0,10,0" Background="#FFB1BFAD" Click="AddParcel_Click">
+            <Grid>
+                <Image Source="../Images/package.png" Height="35" OpacityMask="Black"/>
+                <materialDesign:PackIcon Kind="PlusCircle" Margin="27,19,0,0" Foreground="Black"/>
+            </Grid>
+        </Button>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
                 <Button Name="GroupBySenderButton"
                         Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                         Content="Group By Sender" 
-                        Margin="10,0,10,0" 
+                        Margin="10,40,10,0" 
                         Click="GroupBySender_Click"
                         IsEnabled="{Binding ElementName=GroupByTargetButton, 
                                             Path=IsEnabled, 
                                             Mode=TwoWay, 
                                             Converter={StaticResource falseToTrueConverterDataGrid}}"/>
-                <!--IsEnabled="{Binding ElementName=GroupByTargetButton, 
-                                            Path=IsEnabled, 
-                                            Mode=TwoWay, 
-                                            Converter={StaticResource falseToTrueConverterDataGrid}, 
-                                            ConverterParameter=PList}"-->
                 <Button Name="GroupByTargetButton"
                         Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                         Content="Group By Target" 
-                        Margin="10,0,10,0" 
+                        Margin="10,20,10,0" 
                         Click="GroupByTarget_Click"/>
-                <Button Name="RemoveGroup"
-                        Width="125"
+                <Button Name="RemoveGroup" Height="32"
                         Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                         Content="Remove Groups" 
-                        Margin="10,0,10,0" 
+                        Margin="10,20,10,0" 
                         Click="RemoveGroupings_Click" />
             </StackPanel>
         </StackPanel>
@@ -145,18 +158,20 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"
                                     MinWidth="10"/>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}"
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}"
                                     MinWidth="10"/>
-                <DataGridTextColumn Header="Priority" Binding="{Binding Priority}"
+                    <DataGridTextColumn Header="Priority" Binding="{Binding Priority}"
                                     MinWidth="10"/>
-                <DataGridTextColumn Header="Weight"  Binding="{Binding Weight}"
+                    <DataGridTextColumn Header="Weight"  Binding="{Binding Weight}"
                                     MinWidth="10"/>
-                <DataGridTextColumn Header="sender" Binding="{Binding SenderName}"
+                    <DataGridTextColumn Header="sender" Binding="{Binding SenderName}"
                                     MinWidth="10"/>
-                <DataGridTextColumn Header="target" Binding="{Binding TargetName}"
+                    <DataGridTextColumn Header="target" Binding="{Binding TargetName}"
                                     MinWidth="10"/>
 
-            </DataGrid.Columns>
-        </DataGrid>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+       
     </Grid>
 </Page>

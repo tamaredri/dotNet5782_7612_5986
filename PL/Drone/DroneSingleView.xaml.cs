@@ -143,6 +143,11 @@ namespace PL
             DataContext = droneToShow;
         }
 
+        private void automaticState_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         //private void releaseFromCharge_Click(object sender, RoutedEventArgs e)
         //{
         //    try
