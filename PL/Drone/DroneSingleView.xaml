@@ -16,7 +16,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="500" Width="750"
-        WindowStyle="None">
+        WindowStyle="None" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <converter:TextToBool x:Key="textToBool"/>

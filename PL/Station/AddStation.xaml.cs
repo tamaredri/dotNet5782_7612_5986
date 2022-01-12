@@ -29,9 +29,8 @@ namespace PL
         {
             InitializeComponent();
             BL = BLAccess;
+            stationToCreate.StationLocation = new Location();
             DataContext = stationToCreate;
-            LongitudeTextBox.DataContext = location;
-            LattitudeTextBox.DataContext = location;
 
             #region clear controllers value
             AvailableChargeSlots.Clear();
@@ -42,8 +41,8 @@ namespace PL
             #region register to events
             NameTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyLetters_PreviewKeyDown;
             AvailableChargeSlots.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
-            LongitudeTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
-            LattitudeTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
+            //LattitudeTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
+            //LongitudeTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
             #endregion
         }
 
@@ -63,7 +62,7 @@ namespace PL
         {
             try 
             {
-                stationToCreate.StationLocation = location;
+                //stationToCreate.StationLocation = location;
                 BL.CreateStation(stationToCreate);
                 this.Close();
             }
@@ -75,7 +74,8 @@ namespace PL
 
         private void ValueChanged_TextChanged(object sender, TextChangedEventArgs e)
         {
-            AddTheStation.IsEnabled = (NameTextBox.Text is not "" && AvailableChargeSlots.Text is not ""
+            if (((sender is TextBox) && (sender as TextBox).IsInitialized ))
+                AddTheStation.IsEnabled = (NameTextBox.Text is not "" && AvailableChargeSlots.Text is not ""
                 && LongitudeTextBox.Text is not "" && LattitudeTextBox.Text is not "");
         }
     }

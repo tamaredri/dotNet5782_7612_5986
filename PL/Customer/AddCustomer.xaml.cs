@@ -32,10 +32,18 @@ namespace PL
             customerToCreate.LocationOfCustomer = new Location();
             DataContext = customerToCreate;
 
+            #region reset values
+            //IdTextBox.Clear();
+            //NameTextBox.Clear();
+            //PhoneTextBox.Clear();
+            //LatitudeTextBox.Clear();
+            //LongitudeTextBox.Clear();
+            #endregion
+
             IdTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
             PhoneTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
-            LatitudeTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
-            LongitudeTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
+            //LatitudeTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
+            //LongitudeTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyNumbers_PreviewKeyDown;
             NameTextBox.PreviewKeyDown += BlockValuesClass.TextBox_OnlyLetters_PreviewKeyDown;
         }
 
@@ -51,31 +59,12 @@ namespace PL
         }
         #endregion
 
-
-        private void idTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
-        //=>
-        //addButton.IsEnabled = !(IdTextBox.Text is "" || NameTextBox.Text is ""
-        //|| PhoneTextBox.Text is "" || LatitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
-
-        private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
-        //=> 
-        //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
-        //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
-
-        private void PhoneTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
-        //=> 
-        //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
-        //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
-
-        private void latitudeTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
-        //=> 
-        //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
-        //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
-
-        private void LongitudeTextBox_TextChanged(object sender, TextChangedEventArgs e) { }
-        //=> 
-        //addButton.IsEnabled = !(idTextBox.Text is "" || nameTextBox.Text is "" 
-        //|| PhoneTextBox.Text is"" || latitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
+        private void ValueChanged_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((sender is TextBox) && (sender as TextBox).IsInitialized)
+                addButton.IsEnabled = !(IdTextBox.Text is "" || NameTextBox.Text is ""
+                                        || PhoneTextBox.Text is"" || LatitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
+        }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {

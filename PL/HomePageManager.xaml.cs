@@ -26,8 +26,8 @@ namespace PL
 
         IBL BL = BlFactory.GetBl();
 
-        double panelWidth;
-        bool hidden = true;
+        readonly double panelWidth;
+        private bool hidden = true;
         public HomePageManager()
         {
             InitializeComponent();
