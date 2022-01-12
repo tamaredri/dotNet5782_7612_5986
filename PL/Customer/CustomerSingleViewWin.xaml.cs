@@ -24,7 +24,6 @@ namespace PL
     {
         IBL BL;
         CustomerPO CustomerPO = new CustomerPO();
-        //Customer CustomerToShow = new Customer();
 
         public CustomerSingleViewWin(IBL BLAccess, int customerID)
         {
@@ -71,11 +70,13 @@ namespace PL
 
         #endregion
 
+        #region open the parcel a customer ent / recived
         private void ShowParcel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ParcelSingleView parcelSingleView = new ParcelSingleView(BL, ((sender as ListView).SelectedItem as ParcelInCustomer).ID);
             parcelSingleView.ShowDialog();
         }
+        #endregion
 
         #region update
         private void Phone_TextChanged(object sender, TextChangedEventArgs e)
@@ -89,9 +90,8 @@ namespace PL
             TextBox phoneTextBox = sender as TextBox;
             Update.IsEnabled = !(NameTextBox.Text is "") || !(phoneTextBox.Text.Length != 10);
         }
-        #endregion
 
-        private void AddCustmer_Click(object sender, RoutedEventArgs e)
+        private void UpdateCustmer_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -99,9 +99,12 @@ namespace PL
                 //CustomerBOtoPO(ref CustomerPO, BL.GetCustomer(CustomerPO.ID));
                 if (NameTextBox.Text is not "") CustomerPO.Name = NameTextBox.Text;
                 if(PhoneTextBox.Text is not "") CustomerPO.Phone = int.Parse(PhoneTextBox.Text);
+
+                NameTextBox.Text = PhoneTextBox.Text = "";
             }
             catch(Exception x)
             { MessageBox.Show(x.Message, "EXCEPTION", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
+        #endregion
     }
 }

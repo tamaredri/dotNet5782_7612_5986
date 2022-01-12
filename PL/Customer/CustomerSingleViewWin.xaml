@@ -147,7 +147,8 @@
                             HorizontalAlignment="Center" 
                             Foreground="#2b331f"
                             IsEnabled="False"
-                            Click="AddCustmer_Click" FontWeight="Bold"/>
+                            Click="UpdateCustmer_Click" 
+                            FontWeight="Bold"/>
                 </StackPanel>
 
                 <Grid Grid.Row="1">

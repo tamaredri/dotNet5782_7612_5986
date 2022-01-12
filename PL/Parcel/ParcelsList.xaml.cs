@@ -31,7 +31,7 @@ namespace PL
         {
             InitializeComponent();
             BL = BLAccess;
-            iEnumerableToObservable(BL.GetParcelList());
+            IEnumerableToObservable(BL.GetParcelList());
             DataContext = parcelsList;
 
         }
@@ -113,9 +113,9 @@ namespace PL
         private void Status_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (StatusComboBox.SelectedItem is ParcelStatuse)
-                iEnumerableToObservable(BL.GetPartOfParcel(parcel => parcel.Status == (ParcelStatuse)StatusComboBox.SelectedItem));
+                IEnumerableToObservable(BL.GetPartOfParcel(parcel => parcel.Status == (ParcelStatuse)StatusComboBox.SelectedItem));
             else if (StatusComboBox.SelectedItem is "")
-                iEnumerableToObservable(BL.GetParcelList());
+                IEnumerableToObservable(BL.GetParcelList());
             WeightComboBox.SelectedItem = "";
             PriorityComboBox.SelectedItem = "";
         }
@@ -123,9 +123,9 @@ namespace PL
         private void Priority_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (PriorityComboBox.SelectedItem is Priorities)
-                iEnumerableToObservable(BL.GetPartOfParcel(parcel => parcel.Priority == (Priorities)PriorityComboBox.SelectedItem));
+                IEnumerableToObservable(BL.GetPartOfParcel(parcel => parcel.Priority == (Priorities)PriorityComboBox.SelectedItem));
             else if (PriorityComboBox.SelectedItem is "")
-                iEnumerableToObservable(BL.GetParcelList());
+                IEnumerableToObservable(BL.GetParcelList());
             WeightComboBox.SelectedItem = "";
             StatusComboBox.SelectedItem = "";
         }
@@ -133,9 +133,9 @@ namespace PL
         private void Weight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (WeightComboBox.SelectedItem is WeightCategories)
-                iEnumerableToObservable(BL.GetPartOfParcel(parcel => parcel.Weight == (WeightCategories)WeightComboBox.SelectedItem));
+                IEnumerableToObservable(BL.GetPartOfParcel(parcel => parcel.Weight == (WeightCategories)WeightComboBox.SelectedItem));
             else if (WeightComboBox.SelectedItem is "")
-                iEnumerableToObservable(BL.GetParcelList());
+                IEnumerableToObservable(BL.GetParcelList());
             PriorityComboBox.SelectedItem = "";
             StatusComboBox.SelectedItem = "";
         }
@@ -145,7 +145,7 @@ namespace PL
         /// convert from ienumerable to an observable collection
         /// </summary>
         /// <param name="listTOConvert">IEnumerable to convert</param>
-        private void iEnumerableToObservable(IEnumerable<ParcelToList> listTOConvert)
+        private void IEnumerableToObservable(IEnumerable<ParcelToList> listTOConvert)
         {
             parcelsList.Clear();
             foreach (var station in listTOConvert)
@@ -185,7 +185,14 @@ namespace PL
         {
             AddParcel add = new AddParcel(BL);
             add.ShowDialog();
-            iEnumerableToObservable(BL.GetParcelList());
+            IEnumerableToObservable(BL.GetParcelList());
+        }
+
+        private void OpenParcel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ParcelSingleView parcelSingleView = new ParcelSingleView(BL, ((sender as DataGrid).SelectedItem as ParcelToList).ID);
+            parcelSingleView.ShowDialog();
+            IEnumerableToObservable(BL.GetParcelList());
         }
     }
 }
