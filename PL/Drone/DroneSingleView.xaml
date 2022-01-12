@@ -20,7 +20,7 @@
 
     <Window.Resources>
         <converter:TextToBool x:Key="textToBool"/>
-        
+
         <converter:SentToChargeOrSchedule x:Key="sentToChargeOrSchedule"/>
         <converter:SentToChargeOrScheduleVisability x:Key="sentToChargeOrScheduleVisability"/>
 
@@ -35,7 +35,7 @@
 
         <converter:IsDeliveryVisabilityConverter x:Key="isDeliveryVisabilityConverter"/>
         <converter:IsDeliveryConverter x:Key="isDeliveryConverter"/>
-        
+
     </Window.Resources>
 
     <Window.DataContext>
@@ -54,6 +54,12 @@
               VerticalAlignment="Top" Height="50" 
               Background="#2b331f">
 
+            <TextBlock Height="30" Width="200" HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="DRONE" FontSize="20" 
+                       FontFamily="Candara" 
+                       FontWeight="Bold" Foreground="#FFFDDCA5" Margin="20,0,0,0"
+                       />
             <StackPanel Orientation="Horizontal"
                 HorizontalAlignment="Right">
                 <materialDesign:PackIcon Kind="WindowMinimize"
@@ -99,7 +105,7 @@
                                    VerticalAlignment="Center"
                        Margin="20"/>
                 </StackPanel>
-                
+
                 <StackPanel Orientation="Horizontal" Margin="10,0,10,10" >
                     <TextBlock Text="ID :" Margin="15,5,0,5"/>
                     <TextBlock VerticalAlignment="Center" Text="{Binding ID}" Margin="15,0,0,0"/>
@@ -187,6 +193,11 @@
                     UniformCornerRadius="2" 
                     VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="75,0,75,0"
                      />
+                    <Button Name="automaticState" Width="60" Height="60" HorizontalAlignment="Right" Click="automaticState_Click" >
+                        <Image Source="../Icons/automatic.png"/>
+
+                    </Button>
+
 
                     <StackPanel Name="chargeOrSceduleStack" 
                                 IsEnabled="{Binding Path=Status, Converter={StaticResource sentToChargeOrSchedule}}" 
@@ -230,7 +241,7 @@
                         HorizontalAlignment="Center" FontWeight="Normal" FontFamily="Microsoft YaHei UI" d:IsHidden="True"
                             IsEnabled="{Binding Path=ParcelInDeliveryByDrone,  Converter={StaticResource pickupConverter }}"
                             Visibility="{Binding Path=ParcelInDeliveryByDrone, Converter={StaticResource pickupVisivilityConverter}}" Click="pickUpByParcel_Click"/>
-                       
+
                     <Button x:Name="delivereByParcel"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
@@ -243,7 +254,7 @@
 
 
                 </Grid>
-                
+
                 <Grid Grid.Row="2">
                     <StackPanel Orientation="Horizontal"
                                 IsEnabled="{Binding Status, Converter={StaticResource isDeliveryConverter }}"
@@ -313,7 +324,7 @@
 
                         </materialDesign:Card>
                     </StackPanel>
-   
+
                 </Grid>
 
             </Grid>
