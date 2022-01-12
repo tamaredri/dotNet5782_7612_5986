@@ -340,13 +340,14 @@ namespace Dal
         {
             Station stationToUpdate = GetStation(stationIDToUpdate);
 
-            if (newChargeSlots >= 0)
+            if (newChargeSlots > 0)
             {
                 int usedChargeSlots = getAmountOfUsedChargeSlots(stationIDToUpdate);
                 updateChargeSlots(stationIDToUpdate, x => x = newChargeSlots - usedChargeSlots); //check
+                stationToUpdate.ChargeSlots = newChargeSlots - usedChargeSlots;
             }
 
-            if (newName != null)
+            if (newName != "")
             {
                 DataSource.StationsList.Remove(stationToUpdate);
                 stationToUpdate.Name = newName;

@@ -851,11 +851,12 @@ namespace Dal
 
             Station stationToUpdate = GetStation(stationIDToUpdate);
 
-            if (newChargeSlots >= 0)
+            if (newChargeSlots > 0)
             {
                 int usedChargeSlots = getAmountOfUsedChargeSlots(stationIDToUpdate);
                 updateChargeSlots(stationIDToUpdate, x => x = newChargeSlots - usedChargeSlots); //check
-                stationsList = GetStationList().ToList(); //reread the updated file
+                //stationsList = GetStationList().ToList(); //reread the updated file
+                stationToUpdate.ChargeSlots = newChargeSlots - usedChargeSlots;
             }
 
 
