@@ -404,6 +404,17 @@ namespace BL
         #endregion
 
         #region delete
+        public void DeleteParcel(int IDParcelToDelete)
+        {
+            try
+            {
+                DalAccess.DeleteParcel(IDParcelToDelete);
+            }
+            catch (Exception x)
+            {
+                throw new BO.InvalidInputExeption(x.Message);
+            }
+        }
         #endregion
     }
 

@@ -190,9 +190,21 @@ namespace PL
 
         private void OpenParcel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ParcelSingleView parcelSingleView = new ParcelSingleView(BL, ((sender as DataGrid).SelectedItem as ParcelToList).ID);
-            parcelSingleView.ShowDialog();
-            IEnumerableToObservable(BL.GetParcelList());
+            if (((sender as DataGrid).SelectedItem is ParcelToList))
+            {
+                ParcelSingleView parcelSingleView = new ParcelSingleView(BL, ((sender as DataGrid).SelectedItem as ParcelToList).ID);
+                parcelSingleView.ShowDialog();
+                IEnumerableToObservable(BL.GetParcelList());
+            }
+        }
+
+        private void DeletParcel_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("success");
+            //if((sender is Button) )
+            //{
+
+            //}
         }
     }
 }

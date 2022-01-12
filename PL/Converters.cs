@@ -9,6 +9,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using BlApi;
+using MaterialDesignThemes.Wpf;
+using System.Windows.Media;
 
 namespace PLConverter
 {
@@ -442,7 +444,35 @@ namespace PLConverter
     //    }
     //}
 
+    public class CanDeleteParcelStatusConverter : IValueConverter
+    {
 
+        //convert from source property type to target property type
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ( (value is ParcelStatuse) && (ParcelStatuse)value is ParcelStatuse.created)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //convert from target property type to source property type
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if((value is Button) && (value as Button).IsEnabled is true)
+            {
+                return ParcelStatuse.created;
+            }
+            else
+            {
+                return ParcelStatuse.delivered;
+            }
+        }
+    }
 }
 
 

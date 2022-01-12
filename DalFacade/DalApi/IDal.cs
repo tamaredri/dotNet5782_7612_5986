@@ -204,6 +204,13 @@ namespace DalApi
         /// <exception cref="DoesntExistExeption"></exception>
         /// <param name="idParcelToDelivere"></param>
         public void DelivereParcel(int idParcelToDelivere);
+        /// <summary>
+        /// delete a parcel
+        /// </summary>
+        /// <remarks> throws an exception is the parcel is already paired to a drone</remarks>
+        /// <exception cref="InvalidInputExeption"></exception>
+        /// <param name="IDToDelete"></param>
+        public void DeleteParcel(int IDToDelete);
 
         #endregion
     }

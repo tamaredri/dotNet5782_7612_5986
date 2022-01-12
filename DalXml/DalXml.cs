@@ -672,7 +672,7 @@ namespace Dal
                                   select parcel).FirstOrDefault();
 
             if (parcelToGet.Equals(default(Parcel)))
-            {   
+            {
                 //the parcel is not in the existing parcels, look for it in the delivered parcels
                 parcelToGet = (from parcel in SuccessfullyParcelList
                                where parcel.ID == idToGet
@@ -772,9 +772,21 @@ namespace Dal
         #endregion
 
         #region DeleteParcel
+        public void DeleteParcel(int IDToDelete)
+        {
+            List<Parcel> parcelList = GetParcelList().ToList();
+            Parcel parcel = GetParcel(IDToDelete);
+
+            if (parcel.Scheduled is not null)
+                throw new InvalidInputExeption("the parcel is already paired to a drone. too late to delete");
+            
+            parcelList.Remove(parcel);
+            XmlTools.SaveListToXMLSerializer(parcelList, parcelPath);
+        }
         #endregion
 
         #endregion
+
 
         //-----------------station-----------------
         #region station XmlSerializer

@@ -299,6 +299,14 @@ namespace Dal
         }
         #endregion
         #region DeleteParcel
+        public void DeleteParcel(int IDToDelete)
+        {
+            Parcel parcel = GetParcel(IDToDelete);
+
+            if (parcel.Scheduled is not null)
+                throw new InvalidInputExeption("the parcel is already paired to a drone. too late to delete");
+            DataSource.ParcelsList.Remove(parcel);
+        }
         #endregion
 
         //-----------------station-----------------
