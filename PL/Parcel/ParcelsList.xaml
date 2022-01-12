@@ -96,7 +96,7 @@
                 VerticalAlignment="Center" 
                 Margin="0,0,10,0" Background="#FFB1BFAD" Click="AddParcel_Click">
             <Grid>
-                <Image Source="../Images/package.png" Height="35" OpacityMask="Black"/>
+                <Image Source="../Images/package.png" Height="35" OpacityMask="Black" RenderTransformOrigin="0.593,0.5"/>
                 <materialDesign:PackIcon Kind="PlusCircle" Margin="27,19,0,0" Foreground="Black"/>
             </Grid>
         </Button>
@@ -133,10 +133,12 @@
                                     MinWidth="10">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button IsEnabled="{Binding Status}"
-                                    Background="Transparent"
-                                    Width="30" Click="DeletParcel_Click">
-                                <materialDesign:PackIcon Kind="Trash" OpacityMask="Black" Background="Black" />
+                            <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                    Height="30" Width="30"
+                                    HorizontalAlignment="Center"
+                                    IsEnabled="{Binding Status, Converter={StaticResource canDeleteParcelStatusConverter}}"
+                                    Click="DeletParcel_Click">
+                                <materialDesign:PackIcon Kind="Trash"/>
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
