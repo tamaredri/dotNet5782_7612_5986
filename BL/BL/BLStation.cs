@@ -97,7 +97,7 @@ namespace BL
             try
             {
                 //if one of the details is correct -> then the user wanted to update at least one detail -> send to update
-                if (newChargeSlots >= 0 || newName != null)
+                if (newChargeSlots > 0 || newName != "")
                 {
                     /*
                      *find the amount of drones that are charging in the station that is wanted for update
@@ -105,12 +105,15 @@ namespace BL
                      *-> throw an exception ?
                      *-> or update the other details anyway (reseting the newChrge value to default)?
                      */ //                                                 the station location
-                    if (newChargeSlots - amountOfDronesInChargeInTheStation(new Location()
+                    if (newChargeSlots > 0)
                     {
-                        Lattitude = stationToUpdate.Lattitude,
-                        Longitude = stationToUpdate.Longitude
-                    }) < 0)
-                        newChargeSlots = -1;
+                        if (newChargeSlots - amountOfDronesInChargeInTheStation(new Location()
+                        {
+                            Lattitude = stationToUpdate.Lattitude,
+                            Longitude = stationToUpdate.Longitude
+                        }) < 0)
+                            newChargeSlots = -1;
+                    }
 
                     DalAccess.UpdateStation(stationID, newChargeSlots, newName);
                     if (newChargeSlots == -1)

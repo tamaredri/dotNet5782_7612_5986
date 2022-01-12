@@ -166,6 +166,31 @@ namespace PLConverter
             return "";
         }
     }
+
+    public class FalseToTrueUpdateConverter : IValueConverter
+    {
+        //convert from source property type to target property type
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            if (value.ToString() == "" && parameter.ToString() == "") 
+            {
+                return false; //Visibility.Collapsed;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        //convert from target property type to source property type
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            //never used
+            return "";
+        }
+    }
+
     public class StatusToInt : IValueConverter
     {
         //convert from source property type to target property type

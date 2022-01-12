@@ -122,5 +122,12 @@ namespace PL
             add.ShowDialog();
             iEnumerableToObservable(BL.GetStationList());
         }
+
+        private void SList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            StationSingleView stationSingleView = new(BL, ((SList as DataGrid).SelectedItem as StationToList).ID);
+            stationSingleView.ShowDialog();
+            iEnumerableToObservable(BL.GetStationList());
+        }
     }
 }

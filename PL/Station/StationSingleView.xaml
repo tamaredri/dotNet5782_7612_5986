@@ -1,11 +1,13 @@
-﻿<Window x:Class="PL.StationSingleView"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
+        xmlns:converter="clr-namespace:PLConverter"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:BO="clr-namespace:BO;assembly=BL" xmlns:PO="clr-namespace:PO" x:Class="PL.StationSingleView"
+        mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -15,6 +17,13 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="500" Width="750"
         WindowStyle="None">
+
+    <Window.Resources>
+        <converter:FalseToTrueUpdateConverter x:Key="falseToTrueUpdateConverter"/>
+    </Window.Resources>
+    <Window.DataContext>
+        <PO:StationPO/>
+    </Window.DataContext>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -35,8 +44,7 @@
                                          BorderBrush="#bbc8ba" 
                                          VerticalAlignment="Center"
                                          Margin="3,5,5,3" 
-                                         Foreground="#fddca5
-"/>
+                                         Foreground="#fddca5 "/>
                 <materialDesign:PackIcon Kind="WindowMaximize"
                                          Width="20" Height="20" 
                                          Background="Transparent"
@@ -65,34 +73,43 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Vertical" Grid.Row="1" 
-                    DataContext="{Binding Source=Station}" 
+            <StackPanel x:Name="detailsStation" Orientation="Vertical" Grid.Row="1" 
                     Background="#FFE8E5E5">
-                <StackPanel>
-
+                <StackPanel x:Name="stationIcone">
                     <Image Source="../Icons/battery.png" 
-                                   Height="120" 
-                                   VerticalAlignment="Center"
-                       Margin="20"/>
+                            Height="120" 
+                            VerticalAlignment="Center"
+                            Margin="20"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10,20,20,20">
+
+                <StackPanel x:Name="idStack" 
+                            Orientation="Horizontal" Margin="10,10,20,20">
                     <TextBlock Text="ID :" Margin="15,5,0,5"/>
-                    <TextBlock Text="{Binding Path=ID}" Margin="15,0,0,0"/>
+                    <TextBlock Text="{Binding ID}" Margin="15,0,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="10,20,20,20">
+                <StackPanel x:Name="nameStack" 
+                            Orientation="Horizontal" Margin="10,10,20,20">
                     <TextBlock Text="Name :" Margin="15,5,0,5"/>
-                    <TextBlock Text="{Binding Path=Name}" Margin="15,5,0,5"/>
+                    <TextBlock Text="{Binding Name}" Margin="15,5,0,5"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="10,20,20,20">
-                    <TextBlock Text="Location :" Margin="15,5,0,5"/>
-                    <TextBlock Text="{Binding Path=StationLocation}" Margin="15,5,0,5"/>
+                <StackPanel x:Name="lattitudeStack"
+                    Orientation="Horizontal" Margin="10,10,20,20">
+                    <TextBlock Text="Lattitude :" Margin="15,5,0,5"/>
+                    <TextBlock Text="{Binding StationLocation.Lattitude}" Margin="15,5,0,5"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="10,20,20,20">
+                <StackPanel x:Name="longitudeStack"
+                    Orientation="Horizontal" Margin="10,10,20,20">
+                    <TextBlock Text="Longitude :" Margin="15,5,0,5"/>
+                    <TextBlock Text="{Binding StationLocation.Longitude}" Margin="15,5,0,5"/>
+                </StackPanel>
+
+                <StackPanel x:Name="chargeStack" 
+                            Orientation="Horizontal" Margin="10,10,20,20">
                     <TextBlock Text="Available Charge Slots :" Margin="15,5,0,5"/>
-                    <TextBlock Text="{Binding Path=AvailableChargeSlots}" Margin="15,5,0,5"/>
+                    <TextBlock Text="{Binding AvailableChargeSlots}" Margin="5,5,0,5"/>
                 </StackPanel>
 
             </StackPanel>
@@ -103,6 +120,7 @@
                     <RowDefinition Height="100" />
                     <RowDefinition/>
                 </Grid.RowDefinitions>
+
                 <materialDesign:Card
                 materialDesign:ShadowAssist.ShadowDepth="Depth2" 
                     Background="#B22B331F" Width="500" Height="1.5" 
@@ -110,33 +128,32 @@
                     VerticalAlignment="Bottom"
                      />
 
-                <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center"
+                <StackPanel x:Name="updateStation"
+                    Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center"
                             HorizontalAlignment="Center">
 
-
-                    <TextBox
-                        x:Name="NameTextBox" 
+                    <TextBox x:Name="NameTextBox" 
                         Width="140" Height="30"
                         Margin="20,0,0,0"
                         FontSize="14"
                         materialDesign:HintAssist.Hint="Name" 
-                        HorizontalAlignment="Center">
-                    </TextBox>
-                    <TextBox
-                        x:Name="PhoneTextBox"
+                        HorizontalAlignment="Center" TextChanged="NameTextBox_TextChanged"/>
+
+                    <TextBox x:Name="chargeTextBox"
                         Width="140" Height="30"
                         Margin="20,0,0,0"
                         materialDesign:HintAssist.Hint="Available Charge Slots"
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Center" TextChanged="chargeTextBox_TextChanged"/>
 
-                    <Button
+                    <Button x:Name="update"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
                         Content="Update"
                         Width="80" Margin="20,0,0,0"
-                        FontSize="12" Foreground="#FFC2C3C9" BorderBrush="#FFC2C3C9"
-                        HorizontalAlignment="Center"/>
-
+                        FontSize="12" Foreground="#2b331f" BorderBrush="#33BBC8BA"
+                        HorizontalAlignment="Center" Click="update_Click"
+                            IsEnabled="False"
+                        />
 
                 </StackPanel>
 
@@ -147,20 +164,56 @@
 
                         <materialDesign:Card
                             Background="#33546747"
-                            Width="150" Height="30" Margin="0,25,0,0"
+                            Width="150" Height="33" Margin="0,25,0,0"
                             Padding="8" FontWeight="Bold" 
                             FontSize="14" 
                             FontStyle="Normal" 
                             FontStretch="ExtraExpanded"
                             >
-                            <TextBlock Name="chargedDrones" 
+                            <TextBlock x:Name="chargedDrones" 
                                     Text="charged drones:" 
                                     HorizontalAlignment="Center" />
 
                         </materialDesign:Card>
 
-                        <ListBox Name="droneInCharge" Margin="15" Width="350"
-                             DataContext="{Binding Source=DroneInCharge}"/>
+                       
+                        
+
+
+                        <ListBox x:Name="droneInCharge" 
+                                 Margin="15" Width="350" 
+                                 MouseDoubleClick="droneInCharge_MouseDoubleClick">
+                            
+                            <ListBox.DataContext>
+                                <BO:DroneInCharge/>
+                            </ListBox.DataContext>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Label  Width="300">
+
+                                        <Grid Width="300">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+
+                                            </Grid.ColumnDefinitions>
+
+
+                                            <StackPanel Name="idDrone" Orientation="Horizontal"  Grid.Column="0">
+                                                <Label Content="ID:"/>
+                                                <Label Content="{Binding ID}"/>
+                                            </StackPanel>
+                                            <StackPanel Name="batteryDrone" Orientation="Horizontal"  Grid.Column="1">
+                                                <Label Content="Battery:"/>
+                                                <Label Content="{Binding Battery}"   HorizontalAlignment="Left"/>
+                                            </StackPanel>
+
+                                        </Grid>
+                                    </Label>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </StackPanel>
 
                 </Grid>

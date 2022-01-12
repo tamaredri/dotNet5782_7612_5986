@@ -30,12 +30,13 @@ namespace PL
         {
             InitializeComponent();
             BL = BLAccess;
-            DroneBOToPO(ref droneToShow, BL.GetDrone(droneID));
+            droneBOToPO(ref droneToShow, BL.GetDrone(droneID));
             DataContext = droneToShow;
+            droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
         }
 
         #region copy droneBO to dronePO
-        public void DroneBOToPO(ref DronePO dronePO, Drone droneBO)
+        private void droneBOToPO(ref DronePO dronePO, Drone droneBO)
         {
 
             dronePO = new()
@@ -90,8 +91,13 @@ namespace PL
             droneToShow.Model = ModelTextBox.Text;
         }
 
+
         #endregion
 
-
+        private void parcel_Click(object sender, RoutedEventArgs e)
+        {
+            ParcelSingleView parcelSingleView = new(BL,droneToShow.ParcelInDeliveryByDrone.ID);
+            parcelSingleView.ShowDialog();
+        }
     }
 }
