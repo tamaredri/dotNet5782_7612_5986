@@ -236,6 +236,7 @@ namespace BL
                 else if (parcel.PickedUp != null) //the parcel was picked up
                 {
                     Location customersLocation = GetCustomer(parcel.SenderID).LocationOfCustomer;
+                    
                     DroneToBL = new DroneToList()
                     {
                         ID = drone.ID,

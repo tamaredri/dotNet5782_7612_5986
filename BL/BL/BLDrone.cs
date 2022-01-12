@@ -126,8 +126,8 @@ namespace BL
             return (from charge in DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true))
                     select new BO.DroneInCharge()
                     {
-                        ID = charge.ID,
-                        Battery = dronesList.Find(x => x.ID == charge.ID).Battery
+                        ID = charge.Droneld,
+                        Battery = dronesList.Find(x => x.ID == charge.Droneld).Battery
                     }).ToList();
            
         }

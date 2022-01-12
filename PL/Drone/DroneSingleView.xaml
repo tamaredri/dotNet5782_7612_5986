@@ -20,8 +20,22 @@
 
     <Window.Resources>
         <converter:TextToBool x:Key="textToBool"/>
+        
         <converter:SentToChargeOrSchedule x:Key="sentToChargeOrSchedule"/>
-        <converter:StatusToInt x:Key="statusToInt"/>
+        <converter:SentToChargeOrScheduleVisability x:Key="sentToChargeOrScheduleVisability"/>
+
+        <converter:ReleseFromChargeConverter x:Key="releseFromChargeConverter"/>
+        <converter:ReleseFromChargeVisabilityConverter x:Key="releseFromChargeVisabilityConverter"/>
+
+        <converter:PickupConverter x:Key="pickupConverter"/>
+        <converter:PickupVisivilityConverter x:Key="pickupVisivilityConverter"/>
+
+        <converter:DeliveryConverter x:Key="deliveryConverter"/>
+        <converter:DeliveryVisivilityConverter x:Key="deliveryVisivilityConverter"/>
+
+        <converter:IsDeliveryVisabilityConverter x:Key="isDeliveryVisabilityConverter"/>
+        <converter:IsDeliveryConverter x:Key="isDeliveryConverter"/>
+        
     </Window.Resources>
 
     <Window.DataContext>
@@ -174,17 +188,18 @@
                     VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="75,0,75,0"
                      />
 
-
                     <StackPanel Name="chargeOrSceduleStack" 
+                                IsEnabled="{Binding Path=Status, Converter={StaticResource sentToChargeOrSchedule}}" 
+                                Visibility="{Binding Path=Status, Converter={StaticResource sentToChargeOrScheduleVisability}}"
                                 Orientation="Horizontal" 
-                                HorizontalAlignment="Left" Margin="128,0,0,0">
+                                HorizontalAlignment="Left" Margin="128,0,0,0" d:IsHidden="True">
                         <Button x:Name="sentToCharge"
                             Style="{StaticResource MaterialDesignOutlinedLightButton}"
                             ToolTip="MaterialDesignOutlinedButton"
                             Content="Sent To Charge"
                             Width="120" Margin="20,0,0,0"
                             FontSize="11" Foreground="#2b331f" BorderBrush="#33BBC8BA"
-                            HorizontalAlignment="Center" FontWeight="Normal" FontFamily="Microsoft YaHei UI" d:IsHidden="True"
+                            HorizontalAlignment="Center" FontWeight="Normal" FontFamily="Microsoft YaHei UI" d:IsHidden="True" Click="sentToCharge_Click"
                             />
                         <Button x:Name="schedualToParcel"
                             Style="{StaticResource MaterialDesignOutlinedLightButton}"
@@ -192,16 +207,19 @@
                             Content="Schedual To Parcel"
                             Width="135" Margin="20,0,0,0"
                             FontSize="11" Foreground="#2b331f" BorderBrush="#33BBC8BA"
-                            HorizontalAlignment="Center" FontWeight="Normal" FontFamily="Microsoft YaHei UI" d:IsHidden="True"/>
+                            HorizontalAlignment="Center" FontWeight="Normal" FontFamily="Microsoft YaHei UI" d:IsHidden="True" Click="schedualToParcel_Click"/>
                     </StackPanel>
 
                     <Button x:Name="releaseFromCharge"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
                         Content="Release From Charge"
-                        Width="150" Margin="215,54,0,54"
+                        Width="150" Height="35" Margin="215,54,0,54"
                         FontSize="11" Foreground="#2b331f" BorderBrush="#33BBC8BA"
-                        HorizontalAlignment="Left" FontWeight="Normal" FontFamily="Microsoft YaHei UI" d:IsHidden="True"/>
+                        HorizontalAlignment="Left" FontWeight="Normal" FontFamily="Microsoft YaHei UI"
+                        IsEnabled="{Binding Path=Status, Converter={StaticResource releseFromChargeConverter}}"
+                        Visibility="{Binding Path=Status, Converter={StaticResource releseFromChargeVisabilityConverter}}" />
+                    <!--Click="releaseFromCharge_Click"-->
 
                     <Button x:Name="pickUpByParcel"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
@@ -209,21 +227,27 @@
                         Content="PickUp By Parcel"
                         Width="126" Margin="0,54,0,54"
                         FontSize="11" Foreground="#2b331f" BorderBrush="#33BBC8BA"
-                        HorizontalAlignment="Center" FontWeight="Normal" FontFamily="Microsoft YaHei UI" d:IsHidden="True"/>
-
+                        HorizontalAlignment="Center" FontWeight="Normal" FontFamily="Microsoft YaHei UI" d:IsHidden="True"
+                            IsEnabled="{Binding Path=ParcelInDeliveryByDrone,  Converter={StaticResource pickupConverter }}"
+                            Visibility="{Binding Path=ParcelInDeliveryByDrone, Converter={StaticResource pickupVisivilityConverter}}" Click="pickUpByParcel_Click"/>
+                       
                     <Button x:Name="delivereByParcel"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
                         Content="Delivere By Parcel"
                         Width="130" Margin="220,54,0,54"
                         FontSize="11" Foreground="#2b331f" BorderBrush="#33BBC8BA"
-                        HorizontalAlignment="Left" FontWeight="Normal" FontFamily="Microsoft YaHei UI"/>
+                        HorizontalAlignment="Left" FontWeight="Normal" FontFamily="Microsoft YaHei UI"
+                        IsEnabled="{Binding Path=ParcelInDeliveryByDrone,  Converter={StaticResource deliveryConverter }}"
+                        Visibility="{Binding Path=ParcelInDeliveryByDrone, Converter={StaticResource deliveryVisivilityConverter}}" Click="delivereByParcel_Click"/>
 
 
                 </Grid>
                 
                 <Grid Grid.Row="2">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"
+                                IsEnabled="{Binding Status, Converter={StaticResource isDeliveryConverter }}"
+                                Visibility="{Binding Status, Converter={StaticResource isDeliveryVisabilityConverter }}">
                         <materialDesign:Card
                                 Background="#33BBC8BA"
                                 Width="150" Height="30"

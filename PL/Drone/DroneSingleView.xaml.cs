@@ -47,7 +47,7 @@ namespace PL
                 Status = droneBO.Status,
                 Weight = droneBO.MaxWeight,
                 Location = new() { Lattitude = droneBO.DroneLocation.Lattitude, Longitude = droneBO.DroneLocation.Longitude },
-                ParcelInDeliveryByDrone = new()
+                ParcelInDeliveryByDrone = (droneBO.ParcelInDeliveryByDrone != null) ? new()
                 {
                     ID = droneBO.ParcelInDeliveryByDrone.ID,
                     Weight = droneBO.ParcelInDeliveryByDrone.Weight,
@@ -62,7 +62,7 @@ namespace PL
                     },
                     Sender = new() { ID = droneBO.ParcelInDeliveryByDrone.Sender.ID, Name = droneBO.ParcelInDeliveryByDrone.Sender.Name },
                     Target = new() { ID = droneBO.ParcelInDeliveryByDrone.Target.ID, Name = droneBO.ParcelInDeliveryByDrone.Target.Name }
-                }
+                }:null
             };
             
 
@@ -99,5 +99,61 @@ namespace PL
             ParcelSingleView parcelSingleView = new(BL,droneToShow.ParcelInDeliveryByDrone.ID);
             parcelSingleView.ShowDialog();
         }
+
+        private void sentToCharge_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BL.SendToCharge(droneToShow.ID);
+            }catch(Exception x) { MessageBox.Show(x.Message); }
+            droneBOToPO (ref droneToShow, BL.GetDrone(droneToShow.ID));
+            DataContext = droneToShow;
+        }
+
+        private void schedualToParcel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BL.PairDroneParcel(droneToShow.ID);
+            }
+            catch (Exception x) { MessageBox.Show(x.Message); }
+            droneBOToPO(ref droneToShow, BL.GetDrone(droneToShow.ID));
+            DataContext = droneToShow;
+        }
+
+        private void pickUpByParcel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BL.PickUpParcelByDrone(droneToShow.ID);
+            }
+            catch (Exception x) { MessageBox.Show(x.Message); }
+            droneBOToPO(ref droneToShow, BL.GetDrone(droneToShow.ID));
+            DataContext = droneToShow;
+        }
+
+        private void delivereByParcel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BL.DeliverParcel(droneToShow.ID);
+            }
+            catch (Exception x) { MessageBox.Show(x.Message); }
+            droneBOToPO(ref droneToShow, BL.GetDrone(droneToShow.ID));
+            DataContext = droneToShow;
+        }
+
+        //private void releaseFromCharge_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        BL.ReleaseFromCharge(droneToShow.ID, );
+        //    }
+        //    catch (Exception x) { MessageBox.Show(x.Message); }
+        //    droneBOToPO(ref droneToShow, BL.GetDrone(droneToShow.ID));
+        //    DataContext = droneToShow;
+        //}
+
+
     }
 }
