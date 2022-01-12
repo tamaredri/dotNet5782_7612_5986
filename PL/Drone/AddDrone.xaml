@@ -88,29 +88,25 @@
                     Text="{Binding ID}"
                     IsReadOnly="True"/>
 
-            <TextBox x:Name="modelTextBox"
-                    Width="150" Height="30"
-                    FontSize="10"
-                    materialDesign:HintAssist.Hint="Model" 
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Center" Margin="0,10,0,0" 
-                    Text="{Binding Path=Model, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}" 
-                     TextChanged="modelTextBox_TextChanged"/>
-
+            <TextBox x:Name="ModelTextBox"
+                     Width="150" Height="30"
+                     FontSize="10"
+                     materialDesign:HintAssist.Hint="Model" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     VerticalAlignment="Center" Margin="0,10,0,0" 
+                     Text="{Binding Path=Model, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}" TextChanged="TextBox_TextChanged" />
             <ComboBox x:Name="weightCombobox" Width="150" Height="30"
-                    FontSize="10"
-                    materialDesign:HintAssist.Hint="(maximum weight)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
-                    Margin="0,10,0,10" SelectionChanged="weightCombobox_SelectionChanged"
-                      ItemsSource="{Binding }">
-
-            </ComboBox>
-
+                      FontSize="10"
+                      materialDesign:HintAssist.Hint="(maximum weight)"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                      Margin="0,10,0,10" 
+                      ItemsSource="{Binding }" 
+                      SelectionChanged="ComboBox_SelectionChanged"/>
             <ComboBox x:Name="stationCombobox" Width="150" Height="30"
                     FontSize="10"
                     materialDesign:HintAssist.Hint="(first station)"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="stationCombobox_SelectionChanged"
-                     >
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                      SelectionChanged="ComboBox_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -125,19 +121,23 @@
                 <Label Content="(battery)"
                     FontSize="10" Foreground="#DD8E8E8E"
                      Margin="-3,0,0,2"  />
-                <StackPanel Orientation="Horizontal" Width="180" Height="30" Margin="-10,0,0,0" >
+                <StackPanel Orientation="Horizontal" 
+                            Width="180" Height="30" 
+                            Margin="-10,0,0,0">
                     <Slider x:Name="DroneBattery" 
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Center" 
                         Maximum="100" Minimum="0" 
-                        Width="120"
-                        Foreground="#bbc8ba" Margin="10,2,0,0" ValueChanged="DroneBattery_ValueChanged"
-                        Value="{Binding Path=Battery, Mode=OneWayToSource,UpdateSourceTrigger=LostFocus}"/>
-                    <TextBox Height="20" Width="30"
-                               HorizontalAlignment="Center" 
-                               VerticalAlignment="Center" 
-                               Text="{Binding ElementName=DroneBattery, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,0,0"
-                             IsReadOnly="True"/>
+                        Width="110"
+                        Foreground="#bbc8ba" Margin="10,2,0,0"
+                        Value="{Binding Path=Battery, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="BatterySellector"
+                             Height="20" Width="35"
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center" 
+                             Background="Transparent"
+                             Text="{Binding ElementName=DroneBattery, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                             Margin="5,0,0,0" />
                 </StackPanel>
             </StackPanel>
             <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="-40,5,0,0">

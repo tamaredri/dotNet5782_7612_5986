@@ -70,7 +70,7 @@ namespace PL
 
         #endregion
 
-        #region open the parcel a customer ent / recived
+        #region open the parcel a customer sent / recived
         private void ShowParcel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ParcelSingleView parcelSingleView = new ParcelSingleView(BL, ((sender as ListView).SelectedItem as ParcelInCustomer).ID);
