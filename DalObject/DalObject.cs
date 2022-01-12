@@ -56,7 +56,7 @@ namespace Dal
             Customer customerToUpdate = GetCustomer(customerID);
 
             DataSource.CustomersList.Remove(customerToUpdate);
-            if (newPhone >= 100000000 || newPhone <= 999999999)
+            if (newPhone >= 100000000 && newPhone <= 999999999)
                 customerToUpdate.Phone = "0" + newPhone.ToString();
             if (newName != null)
                 customerToUpdate.Name = newName;

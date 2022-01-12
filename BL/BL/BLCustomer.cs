@@ -80,7 +80,7 @@ namespace BL
 
             #region sent parcels
 
-            try { boCustomerToShow.Sent = GetListRecivedOrSentParcels(x => x.SenderID == boCustomerToShow.ID, "SenderID").ToList(); } catch { throw; }
+            try { boCustomerToShow.Sent = GetListRecivedOrSentParcels(x => x.SenderID == boCustomerToShow.ID, "TargetID").ToList(); } catch { throw; }
 
             #endregion
 
@@ -164,11 +164,14 @@ namespace BL
                 //if one of the details is correct -> then the user wanted to update at least one detail -> send to update
                 if (newPhone != 0 || newName != null)
                 {
-                    try { newPhone.checkPhone(); }
-                    catch (BO.InvalidInputExeption) { newPhone = 0; }
+                    if (newPhone != 0)
+                    {
+                        try { newPhone.checkPhone(); }
+                        catch (BO.InvalidInputExeption) { newPhone = -1; }
+                    }
 
                     DalAccess.UpdateCustomer(customreID, newPhone, newName);
-                    if (newPhone == 0) throw new BO.InvalidInputExeption("the new phone is in incorrect format");
+                    if (newPhone == -1) throw new BO.InvalidInputExeption("the new phone is in incorrect format");
                 }
             }
             catch (DO.DoesntExistExeption e)

@@ -4,8 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:PO="clr-namespace:PO" 
+        xmlns:BO="clr-namespace:BO;assembly=BL"
+        xmlns:converter="clr-namespace:PLConverter"
+        mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -14,7 +17,15 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="500" Width="750"
-        WindowStyle="None">
+        WindowStyle="None"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime">
+    <Window.DataContext>
+        <PO:ParcelPO/>
+    </Window.DataContext>
+    <Window.Resources>
+        <converter:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+        <System:Boolean x:Key="DatePickerAllowDrop">True</System:Boolean>
+    </Window.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -35,8 +46,7 @@
                                          BorderBrush="#bbc8ba" 
                                          VerticalAlignment="Center"
                                          Margin="3,5,5,3" 
-                                         Foreground="#fddca5
-"/>
+                                         Foreground="#fddca5 "/>
                 <materialDesign:PackIcon Kind="WindowMaximize"
                                          Width="20" Height="20" 
                                          Background="Transparent"
@@ -65,44 +75,42 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Vertical" Grid.Row="1" 
-                    DataContext="{Binding Source=Parcel}" 
                     Background="#FFE8E5E5">
-                <StackPanel>
+                <Image Source="../Icons/box.png" 
+                       Height="120" 
+                       VerticalAlignment="Center"
+                       Margin="20,20,20,20"/>
 
-                    <Image Source="../Icons/box.png" 
-                                   Height="120" 
-                                   VerticalAlignment="Center"
-                       Margin="20,20,20,10"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10,7,10,7" >
-                    <TextBlock Text="ID :" Margin="15,5,0,5"/>
-                    <TextBlock Text="{Binding Path=ID}" Margin="15,0,0,0"/>
+                <StackPanel Orientation="Horizontal" Margin="15,5,15,5">
+                    <TextBlock Text="ID:" Margin="0,5,0,5" />
+                    <TextBlock Text="{Binding ID}" Margin="45,5,0,5" />
                 </StackPanel>
 
-                <StackPanel Orientation="Vertical" Margin="10,6,10,6" DataContext="CustomerForParcel">
-                    <TextBlock Text="sender :" Margin="15,5,0,5"/>
-                    <TextBlock Text="{Binding Path=ID}" Margin="15,5,0,2"/>
-                    <TextBlock Text="{Binding Path=Name}" Margin="15,2,0,5"/>
+                <StackPanel Orientation="Horizontal"  Margin="15,5,15,5">
+                    <TextBlock Text="Sender:"  Margin="0,5,0,5"/>
+                    <StackPanel Orientation="Vertical" Margin="10,5,0,5">
+                        <TextBlock Text="{Binding Sender.ID}" Margin="0,0,0,5"  />
+                        <TextBlock Text="{Binding Sender.Name}" Margin="0,5,0,0" />
+                    </StackPanel>
                 </StackPanel>
 
-                <StackPanel Orientation="Vertical" Margin="10,6,10,6" DataContext="CustomerForParcel">
-                    <TextBlock Text="target :" Margin="15,5,0,5"/>
-                    <TextBlock Text="{Binding Path=ID}" Margin="15,5,0,2"/>
-                    <TextBlock Text="{Binding Path=Name}" Margin="15,2,0,5"/>
+                <StackPanel Orientation="Horizontal"  Margin="15,5,15,5">
+                    <TextBlock Text="Target:"/>
+                    <StackPanel Orientation="Vertical" Margin="10,5,0,5">
+                        <TextBlock Text="{Binding Sender.ID}" Margin="0,0,0,5"  />
+                        <TextBlock Text="{Binding Sender.Name}" Margin="0,5,0,0" />
+                    </StackPanel>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="10,6,10,6">
-                    <TextBlock Text="Priorities :" Margin="15,5,0,5"/>
-                    <TextBlock Text="{Binding Path=ParcelPriorities}" Margin="15,5,0,5"/>
+                <StackPanel Orientation="Horizontal"  Margin="15,5,15,5">
+                    <TextBlock Text="Priorities:"  Margin="0,5,0,5"/>
+                    <TextBlock Text="{Binding ParcelPriorities}" Margin="10,5,0,5"/>
                 </StackPanel>
 
-
-
-                <StackPanel Orientation="Horizontal" Margin="10,6,10,6">
-                    <TextBlock Text="Weight :" Margin="15,5,0,5"/>
-                    <TextBlock Text="{Binding Path=Weight}" Margin="15,5,0,5"/>
+                <StackPanel Orientation="Horizontal" Margin="15,5,15,5">
+                    <TextBlock Text="Weight:"  Margin="0,5,0,5"/>
+                    <TextBlock Text="{Binding Weight}" Margin="10,5,0,5"/>
                 </StackPanel>
-
             </StackPanel>
 
             <Grid Grid.Column="1" Grid.Row="1">
@@ -114,141 +122,146 @@
                 materialDesign:ShadowAssist.ShadowDepth="Depth2" 
                     Background="#B22B331F" Width="400" Height="1.5" 
                     UniformCornerRadius="2" 
-                    VerticalAlignment="Bottom"
-                     />
+                    VerticalAlignment="Bottom"/>
 
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,50,0">
-                    <StackPanel  Name="created" Orientation="Horizontal" Grid.Row="0" 
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center" Margin="0,10,0,10">
+                <StackPanel Orientation="Vertical" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            Margin="0,0,50,0">
 
-                        <materialDesign:Card
-                                Background="#33BBC8BA"
-                                Width="150" Height="30"
-                                Padding="8" FontWeight="Bold" 
-                                FontSize="14" 
-                                FontStyle="Normal" 
-                                FontStretch="ExtraExpanded"
-                                >
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" 
+                                Margin="0,10,0,10">
+                        <materialDesign:Card  Background="#33BBC8BA"
+                                              Width="150" 
+                                              Height="30"
+                                              FontWeight="Bold" 
+                                              FontSize="14"  >
                             <TextBlock x:Name="createdCard" 
-                                        Text="created:" 
-                                        VerticalAlignment="Center" 
+                                       Text="created:" 
+                                       VerticalAlignment="Center" 
                                        HorizontalAlignment="Center" />
                         </materialDesign:Card>
 
-                        <DatePicker Name="createTime"
-                        Width="160" Height="30"
-                        Margin="20,0,0,0"
-                        FontSize="14"
-                        HorizontalAlignment="Center"
-                        Text="{Binding CreateTime}"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                                    />
-
+                        <DatePicker x:Name="createTime"
+                                    Width="160" Height="40"
+                                    Margin="20,0,0,0"
+                                    FontSize="14"
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    SelectedDate="{Binding CreateTime}" 
+                                    Padding="0,0,0,4" 
+                                    Cursor="Hand" 
+                                    IsEnabled="False" 
+                                    IsDropDownOpen="True"
+                                    AllowDrop="True"/>
                     </StackPanel>
 
-                    <StackPanel  Name="schedule" Grid.Row="0" Orientation="Horizontal"  
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center" Margin="0,10,0,10">
-
-                        <materialDesign:Card
-                                Background="#33BBC8BA"
-                                Width="150" Height="30"
-                                Padding="8" FontWeight="Bold" 
-                                FontSize="14" 
-                                FontStyle="Normal" 
-                                FontStretch="Normal"
-                                >
-                            <TextBlock x:Name="scheduleCard" 
-                                        Text="Schedule Time:" 
-                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" 
+                                Margin="0,10,0,10">
+                        <materialDesign:Card  Background="#33BBC8BA"
+                                              Width="150" 
+                                              Height="30"
+                                              FontWeight="Bold" 
+                                              FontSize="14"  >
+                            <TextBlock Text="Scheduled:" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" />
                         </materialDesign:Card>
 
-                        <DatePicker Name="scheduleTime"
-                        Width="160" Height="30"
-                        Margin="20,0,0,0"
-                        FontSize="14"
-                        HorizontalAlignment="Center"
-                        Text="{Binding ScheduleTime}"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                                    />
-
+                        <DatePicker
+                                    Width="160" Height="40"
+                                    Margin="20,0,0,0"
+                                    FontSize="14"
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    SelectedDate="{Binding ScheduleTime}" 
+                                    Padding="0,0,0,4" 
+                                    Cursor="Hand" 
+                                    IsEnabled="False" 
+                                    IsDropDownOpen="True"
+                                    AllowDrop="True"/>
                     </StackPanel>
 
-                    <StackPanel  Name="pickUp" Grid.Row="0" Orientation="Horizontal"  
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center" Margin="0,10,0,10">
-
-                        <materialDesign:Card
-                                Background="#33BBC8BA"
-                                Width="150" Height="30"
-                                Padding="8" FontWeight="Bold" 
-                                FontSize="14" 
-                                FontStyle="Normal" 
-                                FontStretch="Normal"
-                                >
-                            <TextBlock x:Name="pickUpCard" 
-                                        Text="pickUp Time:" 
-                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" 
+                                Margin="0,10,0,10">
+                        <materialDesign:Card  Background="#33BBC8BA"
+                                              Width="150" 
+                                              Height="30"
+                                              FontWeight="Bold" 
+                                              FontSize="14"  >
+                            <TextBlock Text="Picked-Up:" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" />
                         </materialDesign:Card>
 
-                        <DatePicker Name="pickUpTime"
-                        Width="160" Height="30"
-                        Margin="20,0,0,0"
-                        FontSize="14"
-                        HorizontalAlignment="Center"
-                        Text="{Binding PickUpTime}"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                                    />
-
-                      
+                        <DatePicker
+                                    Width="160" Height="40"
+                                    Margin="20,0,0,0"
+                                    FontSize="14"
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    SelectedDate="{Binding PickUpTime}" 
+                                    Padding="0,0,0,4" 
+                                    Cursor="Hand" 
+                                    IsEnabled="False" 
+                                    IsDropDownOpen="True"
+                                    AllowDrop="True"/>
                     </StackPanel>
 
-                    <StackPanel  Name="delivere" Grid.Row="0" Orientation="Horizontal"  
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center" Margin="0,10,0,10">
-
-                        <materialDesign:Card
-                                Background="#33BBC8BA"
-                                Width="150" Height="30"
-                                Padding="8" FontWeight="Bold" 
-                                FontSize="14" 
-                                FontStyle="Normal" 
-                                FontStretch="Normal"
-                                >
-                            <TextBlock x:Name="delivereTimeCard" 
-                                        Text="Delivere Time:" 
-                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" 
+                                Margin="0,10,0,10">
+                        <materialDesign:Card  Background="#33BBC8BA"
+                                              Width="150" 
+                                              Height="30"
+                                              FontWeight="Bold" 
+                                              FontSize="14"  >
+                            <TextBlock Text="Delivered:" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" />
                         </materialDesign:Card>
 
-                        <DatePicker Name="delivereTime"
-                        Width="160" Height="30"
-                        Margin="20,0,0,0"
-                        FontSize="14"
-                        HorizontalAlignment="Center"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                        Text="{Binding PickUpTime}" />
-
+                        <DatePicker
+                                    Width="160" Height="40"
+                                    Margin="20,0,0,0"
+                                    FontSize="14"
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    SelectedDate="{Binding DelivereTime}" 
+                                    Padding="0,0,0,4" 
+                                    Cursor="Hand" 
+                                    IsEnabled="False" 
+                                    IsDropDownOpen="True"
+                                    AllowDrop="True"/>
                     </StackPanel>
+
+
                 </StackPanel>
 
 
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Visibility="{Binding IsPaired, Converter={StaticResource boolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
-                            <materialDesign:Card 
-                                Background="#33BBC8BA"
-                                Width="150" Height="30"
-                                Padding="8" FontWeight="Bold" 
-                                FontSize="14" 
-                                FontStyle="Normal" 
-                                FontStretch="ExtraExpanded" Margin="80,0,20,0"
-                                >
-                            <TextBlock Name="droneDetails" 
+                        <materialDesign:Card Background="#33BBC8BA"
+                                             Width="150" Height="30"
+                                             Padding="8" FontWeight="Bold" 
+                                             FontSize="14" 
+                                             FontStyle="Normal" 
+                                             FontStretch="ExtraExpanded"
+                                             VerticalAlignment="Top"
+                                             Margin="83,25,20,0">
+                            <TextBlock x:Name="droneDetails" 
                                         Text="Drone Details:" 
                                         HorizontalAlignment="Right" Margin="0,0,23,0" />
                         </materialDesign:Card>
-                        
-                            <materialDesign:Card 
+
+                        <materialDesign:Card 
  
                                 Width="250" Height="100"
                                 Padding="8"
@@ -256,47 +269,60 @@
                                 Background="#FFE8E5E5" 
                                 BorderBrush="Black" 
                                 OpacityMask="Black" Margin="20,0,0,0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="2*"/>
-                                    </Grid.ColumnDefinitions>
+                            <Grid x:Name="DroneConnectedToTheParcel">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="49*"/>
+                                    <ColumnDefinition Width="125*"/>
+                                </Grid.ColumnDefinitions>
 
-                                    <Image Source="../Icons/drone.png" Height="70" Width="70"/>
+                                <Grid.DataContext>
+                                    <BO:DroneForParcel/>
+                                </Grid.DataContext>
 
-                                    <StackPanel Name="droneInParcel" 
-                                        DataContext="ParcelInDelivery"
-                                        VerticalAlignment="Center"
-                                        Grid.Column="1">
-                                            <StackPanel Name="droneID" Orientation="Horizontal" 
-                                                 Margin="0,10,0,8" >
-                                                 <TextBlock Text="ID :" Margin="5,0,0,0"/>
-                                                 <TextBlock Text="{Binding ID}" Margin="5,0,0,0"/>
-                                            </StackPanel>
-
-                                            <StackPanel Name="droneBattery" Orientation="Horizontal" 
-                                                 Margin="0,8,0,8" >
-                                                <TextBlock Text="Battery :" Margin="5,0,0,0"/>
-                                                <TextBlock Text="{Binding Battery}" Margin="5,0,0,0"/>
-                                            </StackPanel>
-
-                                            <StackPanel Name="droneLocation" Orientation="Horizontal" 
-                                                Margin="0,8,0,8" >
-                                                <TextBlock Text="Location :" Margin="5,0,0,0"/>
-                                                <TextBlock Text="{Binding DroneToParcelLocation}" Margin="5,0,0,0"/>
-                                            </StackPanel>
+                                <Button Height="60"  Width="60"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        VerticalAlignment="Center" Click="OpenDroneFromParcel_Click">
+                                    <Image Source="../Icons/drone.png"
+                                           Height="40" Width="40"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                                </Button>
+                                <StackPanel VerticalAlignment="Center"
+                                            Grid.Column="1" Margin="5,0,0,0" Grid.ColumnSpan="2">
+                                    <StackPanel Orientation="Horizontal" 
+                                                 Margin="0,4,0,4" >
+                                        <TextBlock Text="ID:" Margin="5,0,0,0"/>
+                                        <TextBlock Text="{Binding ID}" Margin="5,0,0,0"/>
                                     </StackPanel>
-                                </Grid>
 
-                             
+                                    <StackPanel Orientation="Horizontal" 
+                                                 Margin="0,4,0,4" >
+                                        <TextBlock Text="Battery :" Margin="5,0,0,0"/>
+                                        <TextBlock Text="{Binding Battery}" Margin="5,0,0,0"/>
+                                    </StackPanel>
 
-                            </materialDesign:Card>
+                                    <StackPanel Orientation="Horizontal" 
+                                                Margin="0,4,0,4" >
+                                        <TextBlock Text="Location :" Margin="5,0,0,0"/>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding DroneToParcelLocation.Lattitude}" Margin="5,0,0,0"/>
+                                            <TextBlock Text="{Binding DroneToParcelLocation.Longitude}" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+
+
+
+                        </materialDesign:Card>
 
                     </StackPanel>
 
-                    
-                    
-                    
+
+
+
                 </Grid>
 
             </Grid>

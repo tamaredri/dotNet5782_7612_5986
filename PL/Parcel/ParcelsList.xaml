@@ -108,13 +108,16 @@
                   materialDesign:DataGridAssist.ColumnHeaderPadding="30" 
                   IsTextSearchEnabled="True" 
                   AutoGenerateColumns="False" 
-                  GridLinesVisibility="Vertical" 
+                  GridLinesVisibility="Horizontal" 
+                  AreRowDetailsFrozen="True"
+                  HorizontalGridLinesBrush="Transparent"
                   ScrollViewer.VerticalScrollBarVisibility="Visible" 
                   CanUserDeleteRows="False" 
                   CanUserResizeRows="False"
                   Foreground="Black"
                   IsReadOnly="True"
-                  ItemsSource="{Binding}">
+                  ItemsSource="{Binding}" 
+                  MouseDoubleClick="OpenParcel_MouseDoubleClick">
             <DataGrid.GroupStyle>
                 <GroupStyle ContainerStyle="{StaticResource ResourceKey=GroupHeaderStyle}">
                     <GroupStyle.Panel>

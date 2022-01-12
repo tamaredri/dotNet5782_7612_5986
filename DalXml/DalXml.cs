@@ -377,7 +377,7 @@ namespace Dal
 
             Customer customerToUpdate = GetCustomer(customerID);
 
-            if (newPhone >= 100000000 || newPhone <= 999999999)
+            if (newPhone >= 100000000 && newPhone <= 999999999)
                 customerFromFile.Element("Phone").Value = "0" + newPhone;
             if (newName != null)
                 customerFromFile.Element("Name").Value = newName;
