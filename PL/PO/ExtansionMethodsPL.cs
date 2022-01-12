@@ -12,7 +12,7 @@ namespace PO
     //{
     //    public static void DroneBOToPO(this  DronePO dronePO,  Drone droneBO)
     //    {
-            
+
     //        DronePO d = new()
     //        {
     //            ID = droneBO.ID,
@@ -39,7 +39,9 @@ namespace PO
     //            }
     //        };
     //        dronePO = d;
-            
+
     //    }
     //}
+
+   
 }
