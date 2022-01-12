@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using BO;
 using BlApi;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace PL
 {
@@ -23,17 +24,29 @@ namespace PL
     /// </summary>
     public partial class CustomersList : Page
     {
-        IBL BL;
-        ObservableCollection<CustomerToList> CList = new ObservableCollection<CustomerToList>();
+        private IBL BL;
+        public event PropertyChangedEventHandler PropertyChanged;
+        private ObservableCollection<CustomerToList> cList;
+        public ObservableCollection<CustomerToList> CList
+        {
+            get { return cList; }
+            set 
+            {
+                cList = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("CList"));
+                }
+            }
+        }
+
+
         public CustomersList(IBL BLAccess)
         {
             InitializeComponent();
             BL = BLAccess;
-
-            ienumerableToObservable(BL.GetCustomerList());
-
+            CList = new ObservableCollection<CustomerToList>(BL.GetCustomerList());
             DataContext = CList;
-
         }
 
         private void ienumerableToObservable(IEnumerable<CustomerToList> customerListToConvert)
@@ -45,11 +58,14 @@ namespace PL
             }
         }
 
-        private void addCustomer_Click(object sender, RoutedEventArgs e)
+        private void AddCustomer_Click(object sender, RoutedEventArgs e)
         {
-            AddCustomer addCustomer = new(BL);
+            Customer customerToCreate = new();
+            AddCustomer addCustomer = new(BL, customerToCreate);
             addCustomer.ShowDialog();
-            ienumerableToObservable(BL.GetCustomerList());
+
+            CustomerToList customerToList = BL.GetPartOfCustomer(x => customerToCreate.ID == x.ID).FirstOrDefault();
+            if (customerToList is not default(CustomerToList)) CList.Add(customerToList);
         }
 
         private void OpenCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
