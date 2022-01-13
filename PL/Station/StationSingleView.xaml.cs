@@ -75,7 +75,7 @@ namespace PL
 
         private void droneInCharge_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DroneSingleView droneSingleView = new(BL, ((sender as ListBox).SelectedItem as DroneInCharge).ID);
+            DroneSingleView droneSingleView = new(BL, ((sender as ListBox).SelectedItem as DronePO));
             droneSingleView.ShowDialog();
         }
     }

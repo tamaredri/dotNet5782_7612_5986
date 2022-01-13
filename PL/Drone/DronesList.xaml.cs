@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BlApi;
 using BO;
+using PO;
 
 namespace PL
 {
@@ -24,16 +25,19 @@ namespace PL
     public partial class DronesList : Page
     {
         IBL BL;
-        ObservableCollection<DroneToList> dronsList = new();
-
+        //ObservableCollection<DroneToList> dronsList = new();
+        ObservableCollection<DronePO> droneListPO=new();
         public DronesList(IBL BlAccess)
         {
             InitializeComponent();
             BL = BlAccess;
 
-            ienumerableToObservable(BL.GetDroneList());
+            //ienumerableToObservable(BL.GetDroneList());
 
-            DataContext = dronsList;
+            //DataContext = dronsList;
+            DroneBOListToPOList(BL.GetDroneList());
+
+            DataContext = droneListPO;
         }
 
         #region comboboxs
@@ -41,8 +45,8 @@ namespace PL
         {
             statusCombobox.Items.Clear();
             statusCombobox.Items.Add("");
-            IEnumerable<IGrouping<DroneStatuses, DroneToList>> grouping = (from drone in BL.GetDroneList()
-                                                                           group drone by drone.Status into droneInfo
+            IEnumerable<IGrouping<DroneStatuses, DronePO>> grouping = (from drone in droneListPO
+                                                                       group drone by drone.Status into droneInfo
                                                                            select droneInfo).ToList();
             grouping.OrderBy(g => g.Key);
             foreach (var group in grouping)
@@ -54,8 +58,8 @@ namespace PL
         {
             weightCombobox.Items.Clear();
             weightCombobox.Items.Add("");
-            IEnumerable<IGrouping<WeightCategories, DroneToList>> grouping = (from drone in BL.GetDroneList()
-                                                                              group drone by drone.Weight into droneInfo
+            IEnumerable<IGrouping<WeightCategories, DronePO>> grouping = (from drone in droneListPO
+                                                                        group drone by drone.Weight into droneInfo
                                                                               select droneInfo).ToList();
             grouping.OrderBy(g => g.Key);
             foreach (var group in grouping)
@@ -67,8 +71,8 @@ namespace PL
         {
             batteryConbobox.Items.Clear();
             batteryConbobox.Items.Add("");
-            IEnumerable<IGrouping<int, DroneToList>> grouping = (from drone in BL.GetDroneList()
-                                                                 group drone by drone.Battery into droneInfo
+            IEnumerable<IGrouping<int, DronePO>> grouping = (from drone in droneListPO
+                                                             group drone by drone.Battery into droneInfo
                                                                  select droneInfo).ToList();
             grouping.OrderBy(g => g.Key);
             foreach (var group in grouping)
@@ -81,12 +85,12 @@ namespace PL
 
             if (statusCombobox.SelectedItem is DroneStatuses)
             {
-                ienumerableToObservable(BL.GetPartOfDrone(drone => drone.Status == (DroneStatuses)statusCombobox.SelectedItem));
+                DroneBOListToPOList(BL.GetPartOfDrone(drone => drone.Status == (DroneStatuses)statusCombobox.SelectedItem));
             }
             else if (statusCombobox.SelectedItem is "")
             {
-                
-                ienumerableToObservable(BL.GetDroneList());
+
+                DroneBOListToPOList(BL.GetDroneList());
             }
             weightCombobox.SelectedItem = "";
             batteryConbobox.SelectedItem = "";
@@ -96,12 +100,12 @@ namespace PL
         {
             if (weightCombobox.SelectedItem is WeightCategories)
             {
-                ienumerableToObservable(BL.GetPartOfDrone(drone => drone.Weight == (WeightCategories)weightCombobox.SelectedItem));
+                DroneBOListToPOList(BL.GetPartOfDrone(drone => drone.Weight == (WeightCategories)weightCombobox.SelectedItem));
             }
             else if (weightCombobox.SelectedItem is "")
             {
 
-                ienumerableToObservable(BL.GetDroneList());
+                DroneBOListToPOList(BL.GetDroneList());
             }
             statusCombobox.SelectedItem = "";
             batteryConbobox.SelectedItem = "";
@@ -110,12 +114,12 @@ namespace PL
         {
             if (batteryConbobox.SelectedItem is int)
             {
-                ienumerableToObservable(BL.GetPartOfDrone(drone => drone.Battery == (int)batteryConbobox.SelectedItem));
+                DroneBOListToPOList(BL.GetPartOfDrone(drone => drone.Battery == (int)batteryConbobox.SelectedItem));
             }
             else if (batteryConbobox.SelectedItem is "")
             {
 
-                ienumerableToObservable(BL.GetDroneList());
+                DroneBOListToPOList(BL.GetDroneList());
             }
             statusCombobox.SelectedItem = "";
             weightCombobox.SelectedItem = "";
@@ -126,28 +130,47 @@ namespace PL
         {
             AddDrone addDrone = new AddDrone(BL);
             addDrone.ShowDialog();
-            ienumerableToObservable(BL.GetDroneList());
+            DroneBOListToPOList(BL.GetDroneList());
             weightCombobox.SelectedItem = "";
             batteryConbobox.SelectedItem = "";
             statusCombobox.SelectedItem = "";
         }
 
-        private void ienumerableToObservable(IEnumerable<DroneToList> dronsListToConvert) {
-            dronsList.Clear();
-            foreach (var drone in dronsListToConvert)
-            {
-                dronsList.Add(drone);
-            }
+        #region copy droneBO to dronePO
+        public void DroneBOListToPOList(IEnumerable<DroneToList> dronsList)
+        {
+            droneListPO = new((from droneBOList in dronsList
+                               select new DronePO()
+                               {
+                                   ID = droneBOList.ID,
+                                   Model = droneBOList.Model,
+                                   Battery = droneBOList.Battery,
+                                   Status = droneBOList.Status,
+                                   Weight = droneBOList.Weight,
+                                   Location = new() { Lattitude = droneBOList.DroneLocation.Lattitude, Longitude = droneBOList.DroneLocation.Longitude }
+                                   , ParcelId=droneBOList.ParcelId
+                               }).ToList());
         }
+            
+            
+            
+            
+        
+        #endregion
+        //private void ienumerableToObservable(IEnumerable<DroneToList> dronsListToConvert) {
+        //    dronsList.Clear();
+        //    foreach (var drone in dronsListToConvert)
+        //    {
+        //        dronsList.Add(drone);
+        //    }
+        //}
 
         private void dronesListDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DroneSingleView droneSingleView = new(BL, ((sender as DataGrid).SelectedItem as DroneToList).ID);
+            DroneSingleView droneSingleView = new(BL, ((sender as DataGrid).SelectedItem as DronePO));
             droneSingleView.ShowDialog();
-            ienumerableToObservable(BL.GetDroneList());
-            weightCombobox.SelectedItem = "";
-            batteryConbobox.SelectedItem = "";
-            statusCombobox.SelectedItem = "";
+            //ienumerableToObservable(BL.GetDroneList());
+           
         }
     }
 

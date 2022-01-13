@@ -26,45 +26,60 @@ namespace PL
         IBL BL;
         DronePO droneToShow = new();
 
-        public DroneSingleView(IBL BLAccess, int droneID)
+        public DroneSingleView(IBL BLAccess, DronePO dronePO)
         {
             InitializeComponent();
             BL = BLAccess;
-            droneBOToPO(ref droneToShow, BL.GetDrone(droneID));
+            droneToShow = dronePO;
+            Drone droneBO = BL.GetDrone(droneToShow.ID);
+            //update droneindelivery
+            droneToShow.ParcelInDeliveryByDrone = (droneBO.ParcelInDeliveryByDrone != null) ? new()
+            {
+                ID = droneBO.ParcelInDeliveryByDrone.ID,
+                Weight = droneBO.ParcelInDeliveryByDrone.Weight,
+                Distance = droneBO.ParcelInDeliveryByDrone.Distance,
+                PickUp = droneBO.ParcelInDeliveryByDrone.PickUp,
+                InDelivery = droneBO.ParcelInDeliveryByDrone.InDelivery,
+                Priority = droneBO.ParcelInDeliveryByDrone.Priority,
+                Destination = new()
+                {
+                    Lattitude = droneBO.ParcelInDeliveryByDrone.Destination.Lattitude,
+                    Longitude = droneBO.ParcelInDeliveryByDrone.Destination.Longitude
+                },
+                Sender = new() { ID = droneBO.ParcelInDeliveryByDrone.Sender.ID, Name = droneBO.ParcelInDeliveryByDrone.Sender.Name },
+                Target = new() { ID = droneBO.ParcelInDeliveryByDrone.Target.ID, Name = droneBO.ParcelInDeliveryByDrone.Target.Name }
+            } : null;
             DataContext = droneToShow;
             droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
         }
 
         #region copy droneBO to dronePO
-        private void droneBOToPO(ref DronePO dronePO, Drone droneBO)
+        private void updateDroneToShow(Drone droneBO)
         {
 
-            dronePO = new()
+            droneToShow.ID = droneBO.ID;
+            droneToShow.Model = droneBO.Model;
+            droneToShow.Battery = droneBO.Battery;
+            droneToShow.Status = droneBO.Status;
+            droneToShow.Weight = droneBO.MaxWeight;
+            droneToShow.Location = new() { Lattitude = droneBO.DroneLocation.Lattitude, Longitude = droneBO.DroneLocation.Longitude };
+            droneToShow.ParcelInDeliveryByDrone = (droneBO.ParcelInDeliveryByDrone != null) ? new()
             {
-                ID = droneBO.ID,
-                Model = droneBO.Model,
-                Battery = droneBO.Battery,
-                Status = droneBO.Status,
-                Weight = droneBO.MaxWeight,
-                Location = new() { Lattitude = droneBO.DroneLocation.Lattitude, Longitude = droneBO.DroneLocation.Longitude },
-                ParcelInDeliveryByDrone = (droneBO.ParcelInDeliveryByDrone != null) ? new()
+                ID = droneBO.ParcelInDeliveryByDrone.ID,
+                Weight = droneBO.ParcelInDeliveryByDrone.Weight,
+                Distance = droneBO.ParcelInDeliveryByDrone.Distance,
+                PickUp = droneBO.ParcelInDeliveryByDrone.PickUp,
+                InDelivery = droneBO.ParcelInDeliveryByDrone.InDelivery,
+                Priority = droneBO.ParcelInDeliveryByDrone.Priority, 
+                Destination = new()
                 {
-                    ID = droneBO.ParcelInDeliveryByDrone.ID,
-                    Weight = droneBO.ParcelInDeliveryByDrone.Weight,
-                    Distance = droneBO.ParcelInDeliveryByDrone.Distance,
-                    PickUp = droneBO.ParcelInDeliveryByDrone.PickUp,
-                    InDelivery = droneBO.ParcelInDeliveryByDrone.InDelivery,
-                    Priority = droneBO.ParcelInDeliveryByDrone.Priority,
-                    Destination = new()
-                    {
-                        Lattitude = droneBO.ParcelInDeliveryByDrone.Destination.Lattitude,
-                        Longitude = droneBO.ParcelInDeliveryByDrone.Destination.Longitude
-                    },
-                    Sender = new() { ID = droneBO.ParcelInDeliveryByDrone.Sender.ID, Name = droneBO.ParcelInDeliveryByDrone.Sender.Name },
-                    Target = new() { ID = droneBO.ParcelInDeliveryByDrone.Target.ID, Name = droneBO.ParcelInDeliveryByDrone.Target.Name }
-                }:null
-            };
-            
+                    Lattitude = droneBO.ParcelInDeliveryByDrone.Destination.Lattitude,
+                    Longitude = droneBO.ParcelInDeliveryByDrone.Destination.Longitude
+                },
+                Sender = new() { ID = droneBO.ParcelInDeliveryByDrone.Sender.ID, Name = droneBO.ParcelInDeliveryByDrone.Sender.Name },
+                Target = new() { ID = droneBO.ParcelInDeliveryByDrone.Target.ID, Name = droneBO.ParcelInDeliveryByDrone.Target.Name }
+            } : null;
+            droneToShow.ParcelId = (droneBO.ParcelInDeliveryByDrone != null) ? droneToShow.ParcelInDeliveryByDrone.ID : 0;
 
         }
         #endregion
@@ -106,8 +121,12 @@ namespace PL
             {
                 BL.SendToCharge(droneToShow.ID);
             }catch(Exception x) { MessageBox.Show(x.Message); }
-            droneBOToPO (ref droneToShow, BL.GetDrone(droneToShow.ID));
-            DataContext = droneToShow;
+            Drone updateDrone = BL.GetDrone(droneToShow.ID);
+            updateDroneToShow(BL.GetDrone(droneToShow.ID));
+            //droneBOToPO (ref droneToShow, BL.GetDrone(droneToShow.ID));
+            //DataContext = droneToShow;
+            droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
+
         }
 
         private void schedualToParcel_Click(object sender, RoutedEventArgs e)
@@ -117,8 +136,10 @@ namespace PL
                 BL.PairDroneParcel(droneToShow.ID);
             }
             catch (Exception x) { MessageBox.Show(x.Message); }
-            droneBOToPO(ref droneToShow, BL.GetDrone(droneToShow.ID));
-            DataContext = droneToShow;
+            updateDroneToShow(BL.GetDrone(droneToShow.ID));
+            droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
+
+
         }
 
         private void pickUpByParcel_Click(object sender, RoutedEventArgs e)
@@ -128,19 +149,21 @@ namespace PL
                 BL.PickUpParcelByDrone(droneToShow.ID);
             }
             catch (Exception x) { MessageBox.Show(x.Message); }
-            droneBOToPO(ref droneToShow, BL.GetDrone(droneToShow.ID));
-            DataContext = droneToShow;
+            updateDroneToShow(BL.GetDrone(droneToShow.ID));
+            droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
+
         }
 
         private void delivereByParcel_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
+            { 
                 BL.DeliverParcel(droneToShow.ID);
             }
             catch (Exception x) { MessageBox.Show(x.Message); }
-            droneBOToPO(ref droneToShow, BL.GetDrone(droneToShow.ID));
-            DataContext = droneToShow;
+            updateDroneToShow(BL.GetDrone(droneToShow.ID));
+            droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
+
         }
 
         private void automaticState_Click(object sender, RoutedEventArgs e)
@@ -155,8 +178,9 @@ namespace PL
                 BL.ReleaseFromCharge(droneToShow.ID);
             }
             catch (Exception x) { MessageBox.Show(x.Message); }
-            droneBOToPO(ref droneToShow, BL.GetDrone(droneToShow.ID));
-            DataContext = droneToShow;
+            updateDroneToShow(BL.GetDrone(droneToShow.ID));
+            droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
+
         }
 
 

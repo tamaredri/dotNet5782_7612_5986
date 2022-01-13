@@ -117,6 +117,21 @@ namespace PO
             }
         }
 
+        private int parcelId;
+        public int ParcelId
+        {
+            get
+            { return parcelId; }
+            set
+            {
+                parcelId = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ParcelId"));
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
     }

@@ -68,7 +68,7 @@ namespace PL
 
         private void OpenDroneFromParcel_Click(object sender, RoutedEventArgs e)
         {
-            DroneSingleView droneSingleView = new DroneSingleView(BL, (DroneConnectedToTheParcel.DataContext as DroneForParcel).ID);
+            DroneSingleView droneSingleView = new DroneSingleView(BL, (DroneConnectedToTheParcel.DataContext as DronePO));
             droneSingleView.ShowDialog();
 
         }
