@@ -47,7 +47,7 @@ namespace PL
         #endregion
 
 
-        #region copy droneBO to dronePO
+        #region copy BO to PO
         void ParcelBOToPO(ref ParcelPO parcelPO, Parcel parcelBO)
         {
             parcelPO = new() 
@@ -64,13 +64,48 @@ namespace PL
                 IsPaired = parcelBO.ScheduleTime is not null
             };
         }
+        public DronePO DroneBOToPOList(Drone droneBO)
+        {
+            DronePO dronePO = new DronePO()
+            {
+                ID = droneBO.ID,
+                Model = droneBO.Model,
+                Battery = droneBO.Battery,
+                Status = droneBO.Status,
+                Weight = droneBO.MaxWeight,
+                Location = new() { Lattitude = droneBO.DroneLocation.Lattitude, Longitude = droneBO.DroneLocation.Longitude },
+                ParcelInDeliveryByDrone = droneBO.ParcelInDeliveryByDrone = (droneBO.ParcelInDeliveryByDrone != null) ? new()
+                {
+                    ID = droneBO.ParcelInDeliveryByDrone.ID,
+                    Weight = droneBO.ParcelInDeliveryByDrone.Weight,
+                    Distance = droneBO.ParcelInDeliveryByDrone.Distance,
+                    PickUp = droneBO.ParcelInDeliveryByDrone.PickUp,
+                    InDelivery = droneBO.ParcelInDeliveryByDrone.InDelivery,
+                    Priority = droneBO.ParcelInDeliveryByDrone.Priority,
+                    Destination = new()
+                    {
+                        Lattitude = droneBO.ParcelInDeliveryByDrone.Destination.Lattitude,
+                        Longitude = droneBO.ParcelInDeliveryByDrone.Destination.Longitude
+                    },
+                    Sender = new() { ID = droneBO.ParcelInDeliveryByDrone.Sender.ID, Name = droneBO.ParcelInDeliveryByDrone.Sender.Name },
+                    Target = new() { ID = droneBO.ParcelInDeliveryByDrone.Target.ID, Name = droneBO.ParcelInDeliveryByDrone.Target.Name }
+                } : null,
+
+            };
+            dronePO.ParcelId = (droneBO.ParcelInDeliveryByDrone != null) ? droneBO.ParcelInDeliveryByDrone.ID : 0;
+            return dronePO;
+        }
         #endregion
 
         private void OpenDroneFromParcel_Click(object sender, RoutedEventArgs e)
         {
-            DroneSingleView droneSingleView = new DroneSingleView(BL, (DroneConnectedToTheParcel.DataContext as DronePO));
-            droneSingleView.ShowDialog();
-
+            try
+            {
+                DronePO dronePO = DroneBOToPOList(BL.GetDrone(parcelPO.DroneToDeliverParcel.ID));
+                DroneSingleView droneSingleView = new DroneSingleView(BL,dronePO);
+                droneSingleView.ShowDialog();
+            }
+            catch (Exception x) { MessageBox.Show(x.Message); }
         }
     }
 }

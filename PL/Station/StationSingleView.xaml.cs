@@ -33,7 +33,39 @@ namespace PL
             droneInCharge.ItemsSource = stationToShow.ChargedDrones;
         }
 
-        #region copy station BO to PO
+        #region copy BO to PO
+
+        public DronePO DroneBOToPOList(Drone droneBO)
+        {
+            DronePO dronePO = new DronePO()
+            {
+                ID = droneBO.ID,
+                Model = droneBO.Model,
+                Battery = droneBO.Battery,
+                Status = droneBO.Status,
+                Weight = droneBO.MaxWeight,
+                Location = new() { Lattitude = droneBO.DroneLocation.Lattitude, Longitude = droneBO.DroneLocation.Longitude },
+                ParcelInDeliveryByDrone = droneBO.ParcelInDeliveryByDrone = (droneBO.ParcelInDeliveryByDrone != null) ? new()
+                {
+                    ID = droneBO.ParcelInDeliveryByDrone.ID,
+                    Weight = droneBO.ParcelInDeliveryByDrone.Weight,
+                    Distance = droneBO.ParcelInDeliveryByDrone.Distance,
+                    PickUp = droneBO.ParcelInDeliveryByDrone.PickUp,
+                    InDelivery = droneBO.ParcelInDeliveryByDrone.InDelivery,
+                    Priority = droneBO.ParcelInDeliveryByDrone.Priority,
+                    Destination = new()
+                    {
+                        Lattitude = droneBO.ParcelInDeliveryByDrone.Destination.Lattitude,
+                        Longitude = droneBO.ParcelInDeliveryByDrone.Destination.Longitude
+                    },
+                    Sender = new() { ID = droneBO.ParcelInDeliveryByDrone.Sender.ID, Name = droneBO.ParcelInDeliveryByDrone.Sender.Name },
+                    Target = new() { ID = droneBO.ParcelInDeliveryByDrone.Target.ID, Name = droneBO.ParcelInDeliveryByDrone.Target.Name }
+                } : null,
+
+            };
+            dronePO.ParcelId = (droneBO.ParcelInDeliveryByDrone != null) ? droneBO.ParcelInDeliveryByDrone.ID : 0;
+            return dronePO;
+        }
         private void stationBOToPO(ref StationPO stationPO, Station stationBO)
         {
             stationPO = new()
@@ -73,10 +105,17 @@ namespace PL
             if (chargeTextBox.Text is not "") { stationToShow.AvailableChargeSlots = int.Parse(chargeTextBox.Text); chargeTextBox.Clear(); }
         }
 
+        
+
         private void droneInCharge_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DroneSingleView droneSingleView = new(BL, ((sender as ListBox).SelectedItem as DronePO));
-            droneSingleView.ShowDialog();
+            try
+            {
+
+                DronePO dronePO = DroneBOToPOList(BL.GetDrone(((sender as ListBox).SelectedItem as DroneInCharge).ID));
+                DroneSingleView droneSingleView = new(BL, dronePO);
+                droneSingleView.ShowDialog();
+            }catch(Exception x) { MessageBox.Show(x.Message); }
         }
     }
 }
