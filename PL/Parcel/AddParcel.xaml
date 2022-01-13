@@ -16,7 +16,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="550" Width="400"
         WindowStyle="None" 
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" FontWeight="Bold" FontSize="18">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -67,19 +67,18 @@
         <!--<Image Grid.Row="1" Source="../Icons/customer.png"/>-->
 
         <StackPanel Orientation="Vertical" Grid.Row="1" 
-                    Background="Transparent">
+                    Background="Transparent" >
             <StackPanel>
 
                 <materialDesign:PackIcon Kind="PackageVariant"
-                                   Height="160" Width="160"
+                                   Height="80" Width="80"
                                          HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                       Margin="20"/>
+                                         Margin="20"/>
             </StackPanel>
 
             <ComboBox   Name="SenderComboBox"
-                        Width="150" Height="30"
-                        FontSize="10"
+                        Width="150" Height="50"
                         materialDesign:HintAssist.Hint="(sender)"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                         Margin="0,10,0,10" 
@@ -88,17 +87,18 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="../Icons/customer.png"
+                            <materialDesign:PackIcon Kind="Account"
                                    Height="20" Width="20"/>
-                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Name}" 
+                                       VerticalAlignment="Center"
+                                       Margin="5,0,0,0"/>
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
             <ComboBox   Name="TargetComboBox"
-                        Width="150" Height="30"
-                        FontSize="10"
+                        Width="150" Height="50"
                         materialDesign:HintAssist.Hint="(target)"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                         Margin="0,10,0,10" 
@@ -107,22 +107,22 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="../Icons/customer.png"
+                             <materialDesign:PackIcon Kind="Account"
                                    Height="20" Width="20"/>
-                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Name}" 
+                                       VerticalAlignment="Center" 
+                                       Margin="5,0,0,0"/>
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Name="WeightSelectorComboBox" Width="150" Height="30"
-                      FontSize="10"
+            <ComboBox Name="WeightSelectorComboBox" Width="150" Height="50"
                       materialDesign:HintAssist.Hint="(weight)"
                       Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,10,0,10"
                       SelectedItem="{Binding Weight}"/>
 
-            <ComboBox Name="PrioritySelectorComboBx" Width="150" Height="30"
-                    FontSize="10"
+            <ComboBox Name="PrioritySelectorComboBx" Width="150" Height="50"
                     materialDesign:HintAssist.Hint="(priority)"
                     Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,10,0,10"
                     SelectedItem="{Binding ParcelPriorities}"/>
