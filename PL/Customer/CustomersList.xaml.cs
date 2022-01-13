@@ -65,14 +65,13 @@ namespace PL
             addCustomer.ShowDialog();
 
             CustomerToList customerToList = BL.GetPartOfCustomer(x => customerToCreate.ID == x.ID).FirstOrDefault();
-            if (customerToList is not default(CustomerToList)) CList.Add(customerToList);
+            if (customerToList is not default(CustomerToList)) CList.Add(customerToList); //the customer was added to the list
         }
 
         private void OpenCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            CustomerSingleViewWin customerSingleViewWin = new CustomerSingleViewWin(BL, ((sender as DataGrid).SelectedItem as CustomerToList).ID);
+            CustomerSingleViewWin customerSingleViewWin = new CustomerSingleViewWin(BL, ((sender as DataGrid).SelectedItem as CustomerToList));
             customerSingleViewWin.ShowDialog();
-            ienumerableToObservable(BL.GetCustomerList());
         }
     }
 }

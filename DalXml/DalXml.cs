@@ -22,26 +22,56 @@ namespace Dal
         public static IDal Instance { get => instance; }
         DalXml()
         {
-            //List<ImportentNumbers> helpList = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
-            //ImportentNumbers newImp = helpList.Find(x => x.typeOfnumber == "Parcel Running Number");
-            //helpList.Remove(newImp);
+            #region update the files
 
-            //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Drone Running Number" });
-            //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Station Running Number" });
-            //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Parcel Running Number" });
-            //helpList.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Charge Running Number" });
+            //delete the charging details
+            XmlTools.SaveListToXMLSerializer<DroneCharge>(new List<DroneCharge>(), droneChargePath);
 
-            //helpList.Add(new ImportentNumbers() { numberSaved = 10, typeOfnumber = "Minimum If Available" });
-            //helpList.Add(new ImportentNumbers() { numberSaved = 20, typeOfnumber = "Minimum If Carry Light Weigh" });
-            //helpList.Add(new ImportentNumbers() { numberSaved = 30, typeOfnumber = "Minimum If Carry Middle Weight" });
-            //helpList.Add(new ImportentNumbers() { numberSaved = 40, typeOfnumber = "Minimum If Carry Heavy Weight" });
-            //helpList.Add(new ImportentNumbers() { numberSaved = 50, typeOfnumber = "Charging Precentage Per Hour" });
+            //drone charge running number
+            List<ImportentNumbers> helpListCharge = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
+            ImportentNumbers newImp = helpListCharge.Find(x => x.typeOfnumber == "Charge Running Number");
+            helpListCharge.Remove(newImp);
+            newImp.numberSaved = 0;
+            helpListCharge.Add(newImp);
+            //newImp = helpListCharge.Find(x => x.typeOfnumber == "Parcel Running Number");
+            //helpListCharge.Remove(newImp);
+            //newImp.numberSaved = 10;
+            //helpListCharge.Add(newImp);
+            XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpListCharge, configPath);
 
-            //newImp.numberSaved = 0;
-            //helpList.Add(newImp);
-            //XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpList, configPath);
+            //reset the charging slots in all the stations
+            List<Station> helpListStation = XmlTools.LoadListFromXMLSerializer<Station>(stationPath);
+            helpListStation = (from station in helpListStation
+                               select new Station()
+                               {
+                                   ID = station.ID,
+                                   Lattitude = station.Lattitude,
+                                   Longitude = station.Longitude,
+                                   Name = station.Name,
+                                   ChargeSlots = 10
+                               }).ToList();
+            XmlTools.SaveListToXMLSerializer(helpListStation, stationPath);
+            #endregion
+
+
+
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Drone Running Number" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Station Running Number" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Parcel Running Number" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Charge Running Number" });
+
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 10, typeOfnumber = "Minimum If Available" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 20, typeOfnumber = "Minimum If Carry Light Weigh" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 30, typeOfnumber = "Minimum If Carry Middle Weight" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 40, typeOfnumber = "Minimum If Carry Heavy Weight" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 50, typeOfnumber = "Charging Precentage Per Hour" });
+
+            ////newImp.numberSaved = 0;
+            ////helpList.Add(newImp);
+
+            //XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpListCharge, configPath);
+
             ////initialize
-            //Random rand = new Random();
             #region initializing customer list:
             ////first customer
             //CreateCustomer(new Customer()
@@ -49,8 +79,8 @@ namespace Dal
             //    ID = 322637596,
             //    Name = "Tamar",
             //    Phone = "0" + rand.Next(0580000000, 0590000000),
-            //    Lattitude = 31.713620,
-            //    Longitude = 34.997140 //Beit Shemesh
+            //    Lattitude = 34.997140,
+            //    Longitude = 31.713620 //Beit Shemesh
             //});
 
             ////second customer
@@ -59,9 +89,8 @@ namespace Dal
             //    ID = 323805695,
             //    Name = "Reut",
             //    Phone = "0" + rand.Next(0580000000, 0590000000),
-            //    Lattitude = 32.982125,
-            //    Longitude = 35.810217 //jerusalem
-
+            //    Lattitude = 35.810217,
+            //    Longitude = 32.982125 //jerusalem
             //});
 
             ////third customer
@@ -70,8 +99,8 @@ namespace Dal
             //    ID = 225658541,
             //    Name = "Avraham",
             //    Phone = "0" + rand.Next(0580000000, 0590000000),
-            //    Lattitude = 32.795501,
-            //    Longitude = 35.531364 //tveria
+            //    Lattitude = 35.531364,
+            //    Longitude = 32.795501 //tveria
             //});
 
             ////forth customer
@@ -80,8 +109,8 @@ namespace Dal
             //    ID = 033584722,
             //    Name = "Moshe",
             //    Phone = "0" + rand.Next(0580000000, 0590000000),
-            //    Lattitude = 31.604789,
-            //    Longitude = 34.767405 //kiryat gat
+            //    Lattitude = 34.767405,
+            //    Longitude = 31.604789 //kiryat gat
             //});
 
             ////fifth customer
@@ -90,8 +119,8 @@ namespace Dal
             //    ID = 221156457,
             //    Name = "Ayala",
             //    Phone = "0" + rand.Next(0580000000, 0590000000),
-            //    Lattitude = 31.560358,
-            //    Longitude = 34.843347 //lachish
+            //    Lattitude = 34.843347,
+            //    Longitude = 31.560358 //lachish
             //});
             #endregion
 
@@ -101,8 +130,8 @@ namespace Dal
             //CreateStation(new Station
             //{
             //    ChargeSlots = 3,
-            //    Lattitude = 31.767827, //jerusalem
-            //    Longitude = 35.177496,
+            //    Lattitude = 35.177496, //jerusalem
+            //    Longitude = 31.767827,
             //    Name = "Drones - Kiryat Yovel"
             //});
 
@@ -110,8 +139,8 @@ namespace Dal
             //CreateStation(new Station
             //{
             //    ChargeSlots = 3,
-            //    Lattitude = 31.799753,
-            //    Longitude = 34.646484, //ashdod
+            //    Lattitude = 34.646484,
+            //    Longitude = 31.799753, //ashdod
             //    Name = "Ashdo-D-rones"
             //});
 
@@ -154,12 +183,15 @@ namespace Dal
 
             //CreateParcel(new Parcel
             //{
-            //    SenderID = 322637596 ,
-            //    TargetID = 323805695 ,
+            //    SenderID = 322637596,
+            //    TargetID = 323805695,
             //    Weight = WeightCategories.light,
             //    Priority = Prioritie.emergency,
             //    Requested = DateTime.Now,
-            //    DroneID = 0
+            //    Scheduled = DateTime.Now,
+            //    PickedUp = DateTime.Now,
+            //    Delivered = DateTime.Now,
+            //    DroneID = 2
             //});
 
             //CreateParcel(new Parcel
@@ -169,7 +201,9 @@ namespace Dal
             //    Weight = WeightCategories.light,
             //    Priority = Prioritie.fast,
             //    Requested = DateTime.Now,
-            //    DroneID = 0
+            //    Scheduled = DateTime.Now,
+            //    PickedUp = DateTime.Now,
+            //    DroneID = 2
             //});
 
             //CreateParcel(new Parcel
@@ -189,7 +223,8 @@ namespace Dal
             //    Weight = WeightCategories.heavey,
             //    Priority = Prioritie.regular,
             //    Requested = DateTime.Now,
-            //    DroneID = 0
+            //    Scheduled = DateTime.Now,
+            //    DroneID = 4
             //});
 
             //CreateParcel(new Parcel
@@ -263,7 +298,7 @@ namespace Dal
         string droneChargePath = @"droneChargeXml.xml";
         string customerPath = @"customerXml.xml";
         string parcelPath = @"parcelXml.xml";
-        string successfullyParcelPath = @"successfullyParcelXml.xml";
+        //string successfullyParcelPath = @"successfullyParcelXml.xml";
         string stationPath = @"stationXml.xml";
         string configPath = @"config.xml";
 
@@ -316,12 +351,13 @@ namespace Dal
 
             return new Customer()
             {
-                ID = int.Parse(customerFromFile.Element("ID").Value),
+                ID = idToGet,
                 Name = customerFromFile.Element("Name").Value,
-                Phone = customerFromFile.Element("Name").Value,
-                Longitude = int.Parse(customerFromFile.Element("Longitude").Value),
-                Lattitude = int.Parse(customerFromFile.Element("Lattitude").Value),
+                Phone = customerFromFile.Element("Phone").Value,
+                Longitude = double.Parse(customerFromFile.Element("Longitude").Value),
+                Lattitude = double.Parse(customerFromFile.Element("Lattitude").Value),
             };
+            
         }
         #endregion
 
@@ -335,9 +371,9 @@ namespace Dal
                     {
                         ID = int.Parse(customer.Element("ID").Value),
                         Name = customer.Element("Name").Value,
-                        Phone = customer.Element("Name").Value,
-                        Longitude = int.Parse(customer.Element("Longitude").Value),
-                        Lattitude = int.Parse(customer.Element("Lattitude").Value),
+                        Phone = customer.Element("Phone").Value,
+                        Longitude = double.Parse(customer.Element("Longitude").Value),
+                        Lattitude = double.Parse(customer.Element("Lattitude").Value),
                     }).ToList();
         }
         #endregion
@@ -352,7 +388,7 @@ namespace Dal
                     {
                         ID = int.Parse(customer.Element("ID").Value),
                         Name = customer.Element("Name").Value,
-                        Phone = customer.Element("Name").Value,
+                        Phone = customer.Element("Phone").Value,
                         Longitude = int.Parse(customer.Element("Longitude").Value),
                         Lattitude = int.Parse(customer.Element("Lattitude").Value),
                     }
@@ -665,7 +701,7 @@ namespace Dal
         public Parcel GetParcel(int idToGet)
         {
             List<Parcel> parcelsList = GetParcelList().ToList();
-            List<Parcel> SuccessfullyParcelList = XmlTools.LoadListFromXMLSerializer<Parcel>(successfullyParcelPath);
+            //List<Parcel> SuccessfullyParcelList = XmlTools.LoadListFromXMLSerializer<Parcel>(successfullyParcelPath);
 
             Parcel parcelToGet = (from parcel in parcelsList
                                   where parcel.ID == idToGet
@@ -673,10 +709,10 @@ namespace Dal
 
             if (parcelToGet.Equals(default(Parcel)))
             {
-                //the parcel is not in the existing parcels, look for it in the delivered parcels
-                parcelToGet = (from parcel in SuccessfullyParcelList
-                               where parcel.ID == idToGet
-                               select parcel).FirstOrDefault();
+                ////the parcel is not in the existing parcels, look for it in the delivered parcels
+                //parcelToGet = (from parcel in parcelsList
+                //               where parcel.ID == idToGet
+                //               select parcel).FirstOrDefault();
 
                 if (parcelToGet.Equals(default(Parcel)))
                     throw new DoesntExistExeption("the parcel dosen't exited");
@@ -696,7 +732,7 @@ namespace Dal
         #region GetsuccessfullyDeliveredParcelList
         public IEnumerable<Parcel> GetsuccessfullyDeliveredParcelList()
         {
-            return  XmlTools.LoadListFromXMLSerializer<Parcel>(successfullyParcelPath);
+            return  (from parcel in GetParcelList() where parcel.Delivered is not null select parcel).ToList();
         }
         #endregion
 
@@ -704,18 +740,18 @@ namespace Dal
         public IEnumerable<Parcel> GetPartOfParcel(Predicate<Parcel> check)
         {
             List<Parcel> parcelsList = GetParcelList().ToList();
-            List<Parcel> SuccessfullyParcelList = GetsuccessfullyDeliveredParcelList().ToList();
+            //List<Parcel> SuccessfullyParcelList = GetsuccessfullyDeliveredParcelList().ToList();
 
 
             List<Parcel> parcelListToReturn= (from parcel in parcelsList
                     where check(parcel)
                     select parcel).ToList<Parcel>();
 
-            List<Parcel> parcelListToReturn2 = (from parcel in SuccessfullyParcelList
-                                               where check(parcel)
-                                               select parcel).ToList<Parcel>();
+            //List<Parcel> parcelListToReturn2 = (from parcel in SuccessfullyParcelList
+            //                                   where check(parcel)
+            //                                   select parcel).ToList<Parcel>();
 
-            parcelListToReturn.AddRange(parcelListToReturn2);
+            //parcelListToReturn.AddRange(parcelListToReturn2);
             return parcelListToReturn;
         }
         #endregion
@@ -757,17 +793,17 @@ namespace Dal
         public void DelivereParcel(int idParcelToDelivere)
         {
             List<Parcel> parcelList = GetParcelList().ToList();
-            List<Parcel> successfullyDeliveredParcelList = GetsuccessfullyDeliveredParcelList().ToList();
+            //List<Parcel> successfullyDeliveredParcelList = GetsuccessfullyDeliveredParcelList().ToList();
             
 
             Parcel parcelToDeliver = GetParcel(idParcelToDelivere);//doesnt exist exception
 
             parcelList.Remove(parcelToDeliver);
             parcelToDeliver.Delivered = DateTime.Now;
-            successfullyDeliveredParcelList.Add(parcelToDeliver);
+            parcelList.Add(parcelToDeliver);
 
             XmlTools.SaveListToXMLSerializer(parcelList, parcelPath);
-            XmlTools.SaveListToXMLSerializer(successfullyDeliveredParcelList, successfullyParcelPath);
+            //XmlTools.SaveListToXMLSerializer(successfullyDeliveredParcelList, successfullyParcelPath);
         }
         #endregion
 

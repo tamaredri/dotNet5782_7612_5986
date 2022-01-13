@@ -25,4 +25,9 @@
     <Model>dr258</Model>
     <MaxWeight>middle</MaxWeight>
   </Drone>
+  <Drone>
+    <ID>6</ID>
+    <Model>Sky-fly-55</Model>
+    <MaxWeight>middle</MaxWeight>
+  </Drone>
 </ArrayOfDrone>

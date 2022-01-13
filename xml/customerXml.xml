@@ -3,36 +3,36 @@
   <customer>
     <ID>322637596</ID>
     <Name>Tamar</Name>
-    <Phone>0580610638</Phone>
-    <Lattitude>31.71362</Lattitude>
-    <Longitude>34.99714</Longitude>
+    <Phone>0580019189</Phone>
+    <Lattitude>34.99714</Lattitude>
+    <Longitude>31.71362</Longitude>
   </customer>
   <customer>
     <ID>323805695</ID>
     <Name>Reut</Name>
-    <Phone>0588607765</Phone>
-    <Lattitude>32.982125</Lattitude>
-    <Longitude>35.810217</Longitude>
+    <Phone>0580236725</Phone>
+    <Lattitude>35.810217</Lattitude>
+    <Longitude>32.982125</Longitude>
   </customer>
   <customer>
     <ID>225658541</ID>
     <Name>Avraham</Name>
-    <Phone>0587829579</Phone>
-    <Lattitude>32.795501</Lattitude>
-    <Longitude>35.531364</Longitude>
+    <Phone>0584988353</Phone>
+    <Lattitude>35.531364</Lattitude>
+    <Longitude>32.795501</Longitude>
   </customer>
   <customer>
     <ID>33584722</ID>
     <Name>Moshe</Name>
-    <Phone>0587800337</Phone>
-    <Lattitude>31.604789</Lattitude>
-    <Longitude>34.767405</Longitude>
+    <Phone>0587455645</Phone>
+    <Lattitude>34.767405</Lattitude>
+    <Longitude>31.604789</Longitude>
   </customer>
   <customer>
     <ID>221156457</ID>
     <Name>Ayala</Name>
-    <Phone>0589814005</Phone>
-    <Lattitude>31.560358</Lattitude>
-    <Longitude>34.843347</Longitude>
+    <Phone>0587564350</Phone>
+    <Lattitude>34.843347</Lattitude>
+    <Longitude>31.560358</Longitude>
   </customer>
 </customerXml.xml>

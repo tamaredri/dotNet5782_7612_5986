@@ -21,10 +21,6 @@
     <typeOfnumber>Charging Precentage Per Hour</typeOfnumber>
   </ImportentNumbers>
   <ImportentNumbers>
-    <numberSaved>5</numberSaved>
-    <typeOfnumber>Drone Running Number</typeOfnumber>
-  </ImportentNumbers>
-  <ImportentNumbers>
     <numberSaved>2</numberSaved>
     <typeOfnumber>Station Running Number</typeOfnumber>
   </ImportentNumbers>
@@ -33,7 +29,11 @@
     <typeOfnumber>Parcel Running Number</typeOfnumber>
   </ImportentNumbers>
   <ImportentNumbers>
-    <numberSaved>1</numberSaved>
+    <numberSaved>6</numberSaved>
+    <typeOfnumber>Drone Running Number</typeOfnumber>
+  </ImportentNumbers>
+  <ImportentNumbers>
+    <numberSaved>4</numberSaved>
     <typeOfnumber>Charge Running Number</typeOfnumber>
   </ImportentNumbers>
 </ArrayOfImportentNumbers>

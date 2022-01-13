@@ -23,13 +23,14 @@ namespace PL
     public partial class CustomerSingleViewWin : Window
     {
         IBL BL;
-        CustomerPO CustomerPO = new CustomerPO();
-
-        public CustomerSingleViewWin(IBL BLAccess, int customerID)
+        CustomerPO CustomerPO;
+        CustomerToList CustomerFromListWin;
+        public CustomerSingleViewWin(IBL BLAccess, CustomerToList customer)
         {
             InitializeComponent();
             BL = BLAccess;
-            CustomerBOtoPO(ref CustomerPO, BL.GetCustomer(customerID));
+            CustomerFromListWin = customer;
+            CustomerBOtoPO(ref CustomerPO, BL.GetCustomer(customer.ID));
 
             DataContext = CustomerPO;
             OnTheWayList.ItemsSource = CustomerPO.Recieved;
@@ -80,20 +81,19 @@ namespace PL
         #endregion
 
         #region update
-        private void ValueChanged_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox phoneTextBox = sender as TextBox;
-            Update.IsEnabled = !(NameTextBox.Text is "") || !(phoneTextBox.Text.Length != 10);
-        }
+        private void ValueChanged_TextChanged(object sender, TextChangedEventArgs e) =>
+            Update.IsEnabled = !(NameTextBox.Text is "") || !((sender as TextBox).Text.Length != 10);
 
         private void UpdateCustmer_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 BL.UpdateCustomer(CustomerPO.ID, PhoneTextBox.Text is not "" ? int.Parse(PhoneTextBox.Text) : 0, NameTextBox.Text);
-                //CustomerBOtoPO(ref CustomerPO, BL.GetCustomer(CustomerPO.ID));
-                if (NameTextBox.Text is not "") CustomerPO.Name = NameTextBox.Text;
-                if(PhoneTextBox.Text is not "") CustomerPO.Phone = int.Parse(PhoneTextBox.Text);
+
+                if (NameTextBox.Text is not "")
+                    CustomerPO.Name = CustomerFromListWin.Name = NameTextBox.Text;
+                if (PhoneTextBox.Text is not "")
+                    CustomerPO.Phone = CustomerFromListWin.Phone = int.Parse(PhoneTextBox.Text);
 
                 NameTextBox.Text = PhoneTextBox.Text = "";
             }
