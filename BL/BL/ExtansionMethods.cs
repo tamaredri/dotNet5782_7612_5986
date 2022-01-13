@@ -10,19 +10,6 @@ namespace BL
 {
     public static class ExtansionMethods
     {
-        #region to string for a list
-        public static string ToString<T>(List<T> set)
-        {
-            string sb = "";
-
-            // Do some modifications on sb
-            foreach (var item in set)
-            {
-                sb += "\n" + item.ToStringProperty();
-            }
-            return sb;
-        }
-        #endregion
         //------------------------------------Location------------------------------------
         #region check correctness of the location. inside israel teritory
         public static void checkLongitudeLatitude(this Location location)
@@ -144,8 +131,8 @@ namespace BL
         }
             #endregion
             //------------------------------------input-check---------------------------------
-            #region check phone number
-            public static void checkPhone(this int phone)
+        #region check phone number
+        public static void checkPhone(this int phone)
         {
             if (phone < 100000000 || phone > 999999999)
                 throw new BO.InvalidInputExeption("wrong phone");

@@ -244,13 +244,12 @@ namespace Dal
                                   where parcel.ID == idToGet
                                   select parcel).FirstOrDefault();
             if (parcelToGet.Equals(default(Parcel)))
-            {   //the parcel is not in the existing parcels, look for it in the delivered parcels
-                parcelToGet = (from parcel in DataSource.SuccessfullyDeliveredParcelList
-                               where parcel.ID == idToGet
-                               select parcel).FirstOrDefault();
-                if (parcelToGet.Equals(default(Parcel)))
                     throw new DoesntExistExeption("the parcel dosen't exited");
-            }
+            //the parcel is not in the existing parcels, look for it in the delivered parcels
+                //parcelToGet = (from parcel in DataSource.SuccessfullyDeliveredParcelList
+                //               where parcel.ID == idToGet
+                //               select parcel).FirstOrDefault();
+                
             return parcelToGet;
         }
         #endregion
@@ -258,7 +257,7 @@ namespace Dal
         public IEnumerable<Parcel> GetParcelList() => (from p in DataSource.ParcelsList select p).ToList();
         #endregion
         #region GetsuccessfullyDeliveredParcelList
-        public IEnumerable<Parcel> GetsuccessfullyDeliveredParcelList() => (from s in DataSource.SuccessfullyDeliveredParcelList select s).ToList();
+        public IEnumerable<Parcel> GetsuccessfullyDeliveredParcelList() => (from s in DataSource.ParcelsList where(s.Delivered is not null) select s).ToList();
         #endregion
         #region GetPartOfParcel
         public IEnumerable<Parcel> GetPartOfParcel(Predicate<Parcel> check) => (from parcel in DataSource.ParcelsList
@@ -295,7 +294,7 @@ namespace Dal
 
             DataSource.ParcelsList.Remove(parcelToDeliver);
             parcelToDeliver.Delivered = DateTime.Now;
-            DataSource.SuccessfullyDeliveredParcelList.Add(parcelToDeliver);
+            DataSource.ParcelsList.Add(parcelToDeliver);
         }
         #endregion
         #region DeleteParcel

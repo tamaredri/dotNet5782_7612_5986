@@ -160,9 +160,7 @@
                                     SelectedDate="{Binding CreateTime}" 
                                     Padding="0,0,0,4" 
                                     Cursor="Hand" 
-                                    IsEnabled="False" 
-                                    IsDropDownOpen="True"
-                                    AllowDrop="True" SelectedDateFormat="Long"/>
+                                    IsEnabled="False"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"

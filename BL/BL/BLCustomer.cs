@@ -61,17 +61,21 @@ namespace BL
             try { doCustomerToShow = DalAccess.GetCustomer(customerID); }
             catch (DO.DoesntExistExeption x) { throw new BO.DoesntExistExeption(x.Message, x); }
 
-            //create a new customer to return
-            BO.Customer boCustomerToShow = new()
+            BO.Customer boCustomerToShow;
+            try
             {
-                ID = doCustomerToShow.ID,
-                LocationOfCustomer = new Location { Lattitude = doCustomerToShow.Lattitude, Longitude = doCustomerToShow.Longitude },
-                Name = doCustomerToShow.Name,
-                Phone = int.Parse(doCustomerToShow.Phone),
-                Recieved = new(),
-                Sent = new()
-            };
-
+                //create a new customer to return
+                boCustomerToShow = new()
+                {
+                    ID = doCustomerToShow.ID,
+                    LocationOfCustomer = new Location { Lattitude = doCustomerToShow.Lattitude, Longitude = doCustomerToShow.Longitude },
+                    Name = doCustomerToShow.Name,
+                    Phone = Convert.ToInt32(doCustomerToShow.Phone),
+                    Recieved = new(),
+                    Sent = new()
+                };
+            }
+            catch (Exception x) { throw new Exception(x.Message); }
             #region recived parcels
 
             try { boCustomerToShow.Recieved = GetListRecivedOrSentParcels(x => x.TargetID == boCustomerToShow.ID, "SenderID").ToList(); } catch { throw; }

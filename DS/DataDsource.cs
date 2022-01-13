@@ -13,7 +13,7 @@ namespace DS
         public static List<Customer> CustomersList = new List<Customer>();
         public static List<Drone> DronesList = new List<Drone>();
         public static List<Parcel> ParcelsList = new List<Parcel>();
-        public static List<Parcel> SuccessfullyDeliveredParcelList = new List<Parcel>();
+        //public static List<Parcel> SuccessfullyDeliveredParcelList = new List<Parcel>();
         public static List<Station> StationsList = new List<Station>();
         public static List<DroneCharge> ChargesList = new List<DroneCharge>();
         #endregion
@@ -141,8 +141,8 @@ namespace DS
                     DroneID = i-4
                 });
             }
-
-            SuccessfullyDeliveredParcelList.Add(new Parcel
+            Config.runningPackageNumber++;
+            ParcelsList.Add(new Parcel
             {
                 ID = Config.runningPackageNumber,
                 SenderID = 100000000 + 10,

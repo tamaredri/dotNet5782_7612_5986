@@ -87,7 +87,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Icons/drone.png"
                                    Width="40" Height="40"
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Stretch"/>
                             <TextBlock Text="Drones" 
                                        HorizontalAlignment="Center" 
                                        Margin="20,5,0,0"/>
