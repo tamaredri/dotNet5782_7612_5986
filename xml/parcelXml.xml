@@ -25,18 +25,6 @@
     <Delivered xsi:nil="true" />
   </Parcel>
   <Parcel>
-    <ID>3</ID>
-    <SenderID>221156457</SenderID>
-    <TargetID>225658541</TargetID>
-    <Weight>light</Weight>
-    <DroneID>0</DroneID>
-    <Priority>regular</Priority>
-    <Requested>2022-01-13T03:16:27.0924699+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
     <ID>5</ID>
     <SenderID>323805695</SenderID>
     <TargetID>221156457</TargetID>

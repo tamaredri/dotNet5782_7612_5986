@@ -30,4 +30,14 @@
     <Model>kaya-56</Model>
     <MaxWeight>light</MaxWeight>
   </Drone>
+  <Drone>
+    <ID>7</ID>
+    <Model>m</Model>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
+  <Drone>
+    <ID>8</ID>
+    <Model>redmi-5684_bilpor</Model>
+    <MaxWeight>heavey</MaxWeight>
+  </Drone>
 </ArrayOfDrone>
