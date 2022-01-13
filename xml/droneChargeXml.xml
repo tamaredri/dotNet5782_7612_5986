@@ -1,11 +1,19 @@
 <?xml version="1.0"?>
 <ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DroneCharge>
-    <Droneld>5</Droneld>
+    <Droneld>3</Droneld>
     <Stationld>1</Stationld>
     <IsInCharge>true</IsInCharge>
-    <TimeStart>2022-01-13T12:37:24.3596147+02:00</TimeStart>
+    <TimeStart>2022-01-13T13:25:53.1968191+02:00</TimeStart>
     <TimeFinish xsi:nil="true" />
     <ID>1</ID>
+  </DroneCharge>
+  <DroneCharge>
+    <Droneld>6</Droneld>
+    <Stationld>2</Stationld>
+    <IsInCharge>true</IsInCharge>
+    <TimeStart>2022-01-13T13:25:53.2362362+02:00</TimeStart>
+    <TimeFinish xsi:nil="true" />
+    <ID>2</ID>
   </DroneCharge>
 </ArrayOfDroneCharge>

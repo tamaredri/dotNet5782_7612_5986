@@ -43,9 +43,8 @@
                 <SolidColorBrush Color="#FFB1BFAD" />
             </Button.Background>
             <Grid>
-                <Image Source="../Icons/customer.png" 
-                       Height="35"/>
-                <materialDesign:PackIcon Kind="PlusCircle" Margin="27,19,0,0" Foreground="Black"/>
+                <materialDesign:PackIcon Kind="AccountAdd"
+                       Height="35" Width="35" HorizontalAlignment="Center"/>
             </Grid>
         </Button>
 

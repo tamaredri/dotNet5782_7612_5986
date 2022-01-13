@@ -177,7 +177,8 @@ namespace PL
 
         private void RemoveGroupings_Click(object sender, RoutedEventArgs e)
         {
-            PList.ItemsSource = BL.GetParcelList();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(PList.ItemsSource);
+            view.GroupDescriptions.Clear();
         }
         #endregion
 
