@@ -186,6 +186,9 @@ namespace PL
             AddParcel add = new AddParcel(BL);
             add.ShowDialog();
             IEnumerableToObservable(BL.GetParcelList());
+            StatusComboBox.SelectedItem = "";
+            PriorityComboBox.SelectedItem = "";
+            WeightComboBox.SelectedItem = "";
         }
 
         private void OpenParcel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -195,6 +198,9 @@ namespace PL
                 ParcelSingleView parcelSingleView = new ParcelSingleView(BL, ((sender as DataGrid).SelectedItem as ParcelToList).ID);
                 parcelSingleView.ShowDialog();
                 IEnumerableToObservable(BL.GetParcelList());
+                StatusComboBox.SelectedItem = "";
+                PriorityComboBox.SelectedItem = "";
+                WeightComboBox.SelectedItem = "";
             }
         }
 
@@ -208,11 +214,15 @@ namespace PL
                 {
                     BL.DeleteParcel((PList.SelectedItem as ParcelToList).ID);
                     IEnumerableToObservable(BL.GetParcelList());
+                    StatusComboBox.SelectedItem = "";
+                    PriorityComboBox.SelectedItem = "";
+                    WeightComboBox.SelectedItem = "";
                 }
                 catch (Exception x)
                 {
                     MessageBox.Show(x.Message);
                 }
+
             }
         }
     }

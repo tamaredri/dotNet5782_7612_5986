@@ -166,7 +166,11 @@
                 VerticalAlignment="Center" 
                 Margin="0,0,10,0" Background="#FFB1BFAD" Click="AddParcel_Click">
             <Grid>
-                <Image Source="../Images/package.png" Height="35" OpacityMask="Black" RenderTransformOrigin="0.593,0.5"/>
+                <materialDesign:PackIcon Kind="PackageVariant" 
+                                         Height="40" Width="40" 
+                                         OpacityMask="Black" 
+                                         RenderTransformOrigin="0.593,0.5"/>
+                <Ellipse Fill="#FFB1BFAD" Width="12" Height="12" Margin="27,15,0,0"/>
                 <materialDesign:PackIcon Kind="PlusCircle" Margin="27,19,0,0" Foreground="Black"/>
             </Grid>
         </Button>

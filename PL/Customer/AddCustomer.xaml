@@ -116,8 +116,9 @@
                      materialDesign:HintAssist.Hint="Lattitude" 
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      VerticalAlignment="Center" Margin="0,10,0,0" 
-                     Text="{Binding LocationOfCustomer.Lattitude, Converter={StaticResource intToStringConverter}}" 
                      TextChanged="ValueChanged_TextChanged"/>
+                     <!--Text="{Binding LocationOfCustomer.Lattitude, Converter={StaticResource intToStringConverter}}"--> 
+                     
 
             <TextBox x:Name="LongitudeTextBox"
                      Width="140" Height="40"
@@ -125,8 +126,9 @@
                      materialDesign:HintAssist.Hint="Longitude" 
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      VerticalAlignment="Center" Margin="0,10,0,0"
-                     Text="{Binding LocationOfCustomer.Longitude, Converter={StaticResource intToStringConverter}}"
                      TextChanged="ValueChanged_TextChanged"/>
+                     <!--Text="{Binding LocationOfCustomer.Longitude, Converter={StaticResource intToStringConverter}}"-->
+                     
         </StackPanel>
 
         <Button Name="addButton" Grid.Row="1"

@@ -79,5 +79,10 @@ namespace PL
             catch (Exception x) { MessageBox.Show(x.Message); }
 
         }
+
+        private void DroneBattery_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            DroneBattery.Value = ((int)DroneBattery.Value);
+        }
     }
 }

@@ -70,8 +70,9 @@
                     Background="Transparent">
             <StackPanel>
 
-                <Image Source="../Icons/box.png" 
-                                   Height="120" 
+                <materialDesign:PackIcon Kind="PackageVariant"
+                                   Height="160" Width="160"
+                                         HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                        Margin="20"/>
             </StackPanel>

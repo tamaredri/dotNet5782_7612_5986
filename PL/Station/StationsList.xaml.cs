@@ -121,6 +121,8 @@ namespace PL
             AddStation add = new AddStation(BL);
             add.ShowDialog();
             iEnumerableToObservable(BL.GetStationList());
+            AvailableChargeSlotsComboBox.SelectedItem = "";
+            TakenChargeSlotsComboBox.SelectedItem = "";
         }
 
         private void SList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -128,6 +130,8 @@ namespace PL
             StationSingleView stationSingleView = new(BL, ((SList as DataGrid).SelectedItem as StationToList).ID);
             stationSingleView.ShowDialog();
             iEnumerableToObservable(BL.GetStationList());
+            AvailableChargeSlotsComboBox.SelectedItem = "";
+            TakenChargeSlotsComboBox.SelectedItem = "";
         }
     }
 }

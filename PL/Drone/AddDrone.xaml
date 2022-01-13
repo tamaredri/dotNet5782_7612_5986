@@ -17,9 +17,10 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="550" Width="400"
         WindowStyle="None"
+    
         >
     <Window.Resources>
-
+        <converter:StringConverterToIntBattery x:Key="stringConverterToIntBattery"/>
         <Style TargetType="{x:Type TextBox}" x:Name="TextBoxStyle">
             <Setter Property="Height" Value="100"/>
         </Style>
@@ -118,8 +119,8 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="../Icons/Battery.png" Height="10" Width="10" Margin="0,0,5,0" />
-                            <TextBlock Text="{Binding Name}"/>
+                            <materialDesign:PackIcon Kind="HomeBatteryOutline"  Height="16" Width="16" Margin="0,0,5,0" />
+                            <TextBlock Text="{Binding Name}" FontSize="13"/>
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -138,13 +139,14 @@
                         Maximum="100" Minimum="0" 
                         Width="110"
                         Foreground="#bbc8ba" Margin="10,2,0,0"
-                        Value="{Binding Path=Battery, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                        Value="{Binding Path=Battery, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
+                            ValueChanged="DroneBattery_ValueChanged"/>
                     <TextBox x:Name="BatterySellector"
                              Height="20" Width="35"
                              HorizontalAlignment="Center" 
                              VerticalAlignment="Center" 
                              Background="Transparent"
-                             Text="{Binding ElementName=DroneBattery, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                             Text="{Binding ElementName=DroneBattery, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource stringConverterToIntBattery}}" 
                              Margin="5,0,0,0" />
                 </StackPanel>
             </StackPanel>

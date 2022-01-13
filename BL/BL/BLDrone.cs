@@ -280,7 +280,7 @@ namespace BL
         #endregion
 
         #region ReleaseFromCharge
-        public void ReleaseFromCharge(int id, double timeOfChargeInHours)
+        public void ReleaseFromCharge(int id)
         {
             //the time should be a DataTime type????????????
             BO.DroneToList droneToRelease = dronesList.Find(x => x.ID == id);
@@ -289,15 +289,20 @@ namespace BL
             
             try
             {
+                //check if the drone have enough nattery to relese 
+                //timeFinish didnt used because dronecharge update after..
                 DroneCharge droneCharge = DalAccess.GetPartOfDroneCharge(x => x.Droneld == id).FirstOrDefault();
+                TimeSpan timeSpan = DateTime.Now - droneCharge.TimeStart.GetValueOrDefault();
+                if (droneToRelease.Battery + timeSpan.Minutes* ChargePrecentagePerHoure < powerMinimumIfAvailable)
+                    throw new BO.InvalidInputExeption("the drone doesn't have enoug battery to relese from charge");
+
                 DalAccess.ReleaseFromCharge(id);
-
+                
                 dronesList.Remove(droneToRelease);
-
-
+                
                 //update
                 //droneToRelease.Battery += (int)(timeOfChargeInHours * ChargePrecentagePerHoure); //increase the battery according to the time the drone was charging
-                droneToRelease.Battery += (int)(timeOfChargeInHours * ChargePrecentagePerHoure); //increase the battery according to the time the drone was charging
+                droneToRelease.Battery += (int)(timeSpan.Minutes * ChargePrecentagePerHoure); //increase the battery according to the time the drone was charging
                 if(droneToRelease.Battery > 100) droneToRelease.Battery = 100; //round the result to fit in the max value of charge = 100%
                 droneToRelease.Status = BO.DroneStatuses.available;
 

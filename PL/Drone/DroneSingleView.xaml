@@ -229,8 +229,8 @@
                         FontSize="11" Foreground="#2b331f" BorderBrush="#33BBC8BA"
                         HorizontalAlignment="Left" FontWeight="Normal" FontFamily="Microsoft YaHei UI"
                         IsEnabled="{Binding Path=Status, Converter={StaticResource releseFromChargeConverter}}"
-                        Visibility="{Binding Path=Status, Converter={StaticResource releseFromChargeVisabilityConverter}}" />
-                    <!--Click="releaseFromCharge_Click"-->
+                        Visibility="{Binding Path=Status, Converter={StaticResource releseFromChargeVisabilityConverter}}" 
+                        Click="releaseFromCharge_Click"/>
 
                     <Button x:Name="pickUpByParcel"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
@@ -286,7 +286,7 @@
                                     <ColumnDefinition Width="1.6*"/>
                                 </Grid.ColumnDefinitions>
                                 <Button Name="parcel" Height="100" Width="90" HorizontalAlignment="Left" Background="#009E9E9E" BorderBrush="#009E9E9E" Click="parcel_Click">
-                                    <Image Source="../Icons/parcelInDelivery.png" 
+                                    <materialDesign:PackIcon Kind="PackageVariant"
                                            Height="67" Width="67" 
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>

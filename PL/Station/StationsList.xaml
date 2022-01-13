@@ -59,9 +59,9 @@
                 <materialDesign:PackIcon Kind="HomeBatteryOutline"
                             Height="35" Width="35"
                             HorizontalAlignment="Center"  OpacityMask="Black" />
-                <Ellipse Width="13" Height="13" Fill="#FFB1BFAD" Margin="27,19,0,0" />
+                <Ellipse Width="12" Height="12" Fill="#FFB1BFAD" Margin="-18,19,0,0" />
                 <materialDesign:PackIcon Kind="PlusCircle" 
-                                         Margin="27,19,0,0" 
+                                         Margin="0,19,0,0" 
                                          Foreground="Black" Height="16"/>
                 
             </Grid>

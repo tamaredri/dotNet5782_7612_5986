@@ -165,6 +165,24 @@ namespace PLConverter
             else return null;
         }
     }
+
+    public class StringConverterToIntBattery : IValueConverter
+    {
+        //convert from source property type to target property type
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (int.Parse(value.ToString()) > 100)
+                return 100;
+            else return int.Parse(value.ToString());
+        }
+
+        //convert from target property type to source property type
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            return value.ToString();
+        }
+    }
     public class TextToBool : IValueConverter
     {
         //convert from source property type to target property type

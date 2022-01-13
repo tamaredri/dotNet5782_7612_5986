@@ -148,16 +148,16 @@ namespace PL
 
         }
 
-        //private void releaseFromCharge_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        BL.ReleaseFromCharge(droneToShow.ID, );
-        //    }
-        //    catch (Exception x) { MessageBox.Show(x.Message); }
-        //    droneBOToPO(ref droneToShow, BL.GetDrone(droneToShow.ID));
-        //    DataContext = droneToShow;
-        //}
+        private void releaseFromCharge_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BL.ReleaseFromCharge(droneToShow.ID);
+            }
+            catch (Exception x) { MessageBox.Show(x.Message); }
+            droneBOToPO(ref droneToShow, BL.GetDrone(droneToShow.ID));
+            DataContext = droneToShow;
+        }
 
 
     }

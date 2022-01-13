@@ -223,7 +223,7 @@ namespace PL
         {
             try
             {
-                BLAccess.ReleaseFromCharge(droneToUpDate.ID, double.Parse(TimeChargeValue.Text));
+                BLAccess.ReleaseFromCharge(droneToUpDate.ID);
                
                 DroneBattery.Value = BLAccess.GetDrone(droneToUpDate.ID).Battery;
                 //change options for the drone

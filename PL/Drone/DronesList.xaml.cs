@@ -144,6 +144,10 @@ namespace PL
         {
             DroneSingleView droneSingleView = new(BL, ((sender as DataGrid).SelectedItem as DroneToList).ID);
             droneSingleView.ShowDialog();
+            ienumerableToObservable(BL.GetDroneList());
+            weightCombobox.SelectedItem = "";
+            batteryConbobox.SelectedItem = "";
+            statusCombobox.SelectedItem = "";
         }
     }
 

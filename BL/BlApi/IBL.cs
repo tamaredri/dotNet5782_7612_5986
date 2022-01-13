@@ -98,7 +98,7 @@ namespace BlApi
         /// <exception cref="AlreadyExistExeption"></exception>"
         /// <param name="id"></param>
         /// <param name="timeOfChargeInHours"></param>
-        public void ReleaseFromCharge(int id, double timeOfChargeInHours);
+        public void ReleaseFromCharge(int id);
         /// <summary>
         /// get a part of the drones list according to a condition
         /// </summary>

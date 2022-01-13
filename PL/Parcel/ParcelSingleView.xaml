@@ -83,8 +83,9 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="1" 
                     Background="#FFE8E5E5">
-                <Image Source="../Icons/box.png" 
-                       Height="120" 
+                <materialDesign:PackIcon Kind="PackageVariant"
+                       Height="160" Width="160"
+                       HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Margin="20,20,20,20"/>
 
