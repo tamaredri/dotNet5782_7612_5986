@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PO
 {
-    class CustomerPO : INotifyPropertyChanged
+    public class CustomerPO : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
