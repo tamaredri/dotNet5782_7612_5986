@@ -115,7 +115,7 @@ namespace BL
                         ID = drone.ID,
                         Model = drone.Model,
                         ParcelId = parcel.ID,
-                        Weight = (BO.WeightCategories)(parcel.Weight),
+                        Weight = (BO.WeightCategories)drone.MaxWeight,
                         Status = BO.DroneStatuses.delivery,
                         DroneLocation =
                         new Location()
@@ -134,7 +134,7 @@ namespace BL
                         ID = drone.ID,
                         Model = drone.Model,
                         ParcelId = parcel.ID,
-                        Weight = (BO.WeightCategories)(parcel.Weight),
+                        Weight = (BO.WeightCategories)drone.MaxWeight,
                         Status = BO.DroneStatuses.delivery,
                         DroneLocation =
                         new Location()

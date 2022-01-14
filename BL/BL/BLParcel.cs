@@ -189,14 +189,14 @@ namespace BL
 
                 droneToDeliver.Battery -= ((int)droneToDeliver.DroneLocation.
                     distanceLongitudeLatitude((GetCustomer(parcelToDeliver.Sender.ID)).LocationOfCustomer))
-                    % (droneToDeliver.Battery - 40);
+                    % (100);
                 droneToDeliver.DroneLocation = new()
                 {
                     Lattitude = (GetCustomer(parcelToDeliver.Target.ID)).LocationOfCustomer.Lattitude,
                     Longitude = (GetCustomer(parcelToDeliver.Target.ID)).LocationOfCustomer.Longitude
                 }; //take the sender's coordinates
                 droneToDeliver.Status = BO.DroneStatuses.available;
-
+                droneToDeliver.ParcelId = 0;
                 dronesList.Add(droneToDeliver);
             }
             catch (DO.DoesntExistExeption x)
