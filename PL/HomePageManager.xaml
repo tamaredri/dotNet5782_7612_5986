@@ -110,7 +110,7 @@
                     <ListViewItem Height="80"
                                   Background="Transparent">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Account" 
+                            <materialDesign:PackIcon Kind="AccountOutline" 
                                    Width="40" Height="40"
                                    VerticalAlignment="Center"/>
                             <TextBlock Text="Customers" 
