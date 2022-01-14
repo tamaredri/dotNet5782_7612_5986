@@ -61,8 +61,9 @@ namespace PL
         private void ValueChanged_TextChanged(object sender, TextChangedEventArgs e)
         {
             if ((sender is TextBox) && (sender as TextBox).IsInitialized)
-                addButton.IsEnabled = !(IdTextBox.Text is "" || NameTextBox.Text is ""
-                                        || PhoneTextBox.Text is"" || LatitudeTextBox.Text is "" || LongitudeTextBox.Text is "");
+                addButton.IsEnabled = !(IdTextBox.Text is "" || IdTextBox.Text is "0" || NameTextBox.Text is ""
+                                        || PhoneTextBox.Text is"" || PhoneTextBox.Text is "0" || LatitudeTextBox.Text is ""
+                                        || LatitudeTextBox.Text is "0" || LongitudeTextBox.Text is ""|| LongitudeTextBox.Text is "");
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
@@ -74,6 +75,12 @@ namespace PL
             }
             catch(Exception x) { MessageBox.Show(x.Message); }
 
+        }
+
+        private void locationMap_Click(object sender, RoutedEventArgs e)
+        {
+            LocationWin locationWin = new();
+            locationWin.ShowDialog();
         }
     }
 }

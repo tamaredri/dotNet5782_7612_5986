@@ -205,6 +205,7 @@ namespace PL
             if (auto is false)
             {
                 startAutomatic.Visibility = Visibility.Hidden;
+                startAutomatic.IsEnabled = false;
                 auto = true;
                 worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
                 worker.DoWork += Worker_DoWork;
@@ -216,6 +217,7 @@ namespace PL
             else
             {
                 startAutomatic.Visibility = Visibility.Visible;
+                startAutomatic.IsEnabled = true;
                 worker.CancelAsync();
             }
 

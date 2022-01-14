@@ -107,7 +107,7 @@
                        Margin="20"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="10,0,10,10" >
+                <StackPanel Orientation="Horizontal" Margin="10,0,10,5" >
                     <TextBlock Text="ID :" Margin="15,5,0,5"/>
                     <TextBlock VerticalAlignment="Center" Text="{Binding ID}" Margin="15,0,0,0"/>
                 </StackPanel>
@@ -117,7 +117,7 @@
                     <TextBlock Text="{Binding Model, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="15,5,0,5"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,5">
                     <TextBlock Text="Status :" Margin="15,5,0,5"/>
                     <TextBlock Text="{Binding Status}" Margin="15,5,0,5"/>
                 </StackPanel>
@@ -127,18 +127,21 @@
                     <TextBlock Text="{Binding Battery}" Margin="15,5,0,5"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,5">
                     <TextBlock Text="Weight :" Margin="15,5,0,5"/>
                     <TextBlock Text="{Binding Weight}" Margin="15,5,0,5"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="-40,5,0,0">
-                    <materialDesign:PackIcon x:Name="location" Kind="MapMarker" 
-                                     Height="30" Width="30"
-                                     HorizontalAlignment="Center"
-                                         Foreground="Gray"/>
-                    <TextBlock Height="20" Width="100"
-                    Text="(Location)" Foreground="Gray" />
+                <StackPanel x:Name="lattitudeStack"
+                    Orientation="Horizontal" Margin="10,5,20,5" Width="180">
+                    <TextBlock Text="Lattitude :" Margin="15,5,0,5"/>
+                    <TextBlock Text="{Binding Location.Lattitude}" Margin="15,5,0,5"/>
+                </StackPanel>
+
+                <StackPanel x:Name="longitudeStack"
+                    Orientation="Horizontal" Margin="10,5,20,10" Width="180">
+                    <TextBlock Text="Longitude :" Margin="15,5,0,5"/>
+                    <TextBlock Text="{Binding Location.Longitude}" Margin="15,5,0,5"/>
                 </StackPanel>
 
 
@@ -202,7 +205,7 @@
                                 <materialDesign:PackIcon Name="startAutomatic" 
                                     Kind="CogPlayOutline" 
                                     Width="40" Height="40" 
-                                    HorizontalAlignment="Center" Visibility="Visible"/>
+                                    HorizontalAlignment="Center" Visibility="Visible" IsEnabled="true"/>
                                 <materialDesign:PackIcon Name="stopAutomatic" 
                                     Kind="CogPauseOutline" 
                                     Width="40" Height="40" 
@@ -213,13 +216,14 @@
                         </StackPanel>
                     </Button>
 
-
-                    <StackPanel Name="chargeOrSceduleStack" 
+                    <Grid Name="regularState"
+                                IsEnabled="{Binding ElementName=startAutomatic, Path=IsEnabled}">
+                        <StackPanel Name="chargeOrSceduleStack" 
                                 IsEnabled="{Binding Path=Status, Converter={StaticResource sentToChargeOrSchedule}}" 
                                 Visibility="{Binding Path=Status, Converter={StaticResource sentToChargeOrScheduleVisability}}"
                                 Orientation="Horizontal" 
                                 HorizontalAlignment="Left" Margin="128,0,0,0" d:IsHidden="True">
-                        <Button x:Name="sentToCharge"
+                            <Button x:Name="sentToCharge"
                             Style="{StaticResource MaterialDesignOutlinedLightButton}"
                             ToolTip="MaterialDesignOutlinedButton"
                             Content="Sent To Charge"
@@ -227,16 +231,17 @@
                             FontSize="11" Foreground="#2b331f" BorderBrush="#33BBC8BA"
                             HorizontalAlignment="Center" FontWeight="Normal" FontFamily="Microsoft YaHei UI" d:IsHidden="True" Click="sentToCharge_Click"
                             />
-                        <Button x:Name="schedualToParcel"
+                            <Button x:Name="schedualToParcel"
                             Style="{StaticResource MaterialDesignOutlinedLightButton}"
                             ToolTip="MaterialDesignOutlinedButton"
                             Content="Schedual To Parcel"
                             Width="135" Margin="20,0,0,0"
                             FontSize="11" Foreground="#2b331f" BorderBrush="#33BBC8BA"
                             HorizontalAlignment="Center" FontWeight="Normal" FontFamily="Microsoft YaHei UI" d:IsHidden="True" Click="schedualToParcel_Click"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <Button x:Name="releaseFromCharge"
+
+                        <Button x:Name="releaseFromCharge"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
                         Content="Release From Charge"
@@ -247,7 +252,7 @@
                         Visibility="{Binding Path=Status, Converter={StaticResource releseFromChargeVisabilityConverter}}" 
                         Click="releaseFromCharge_Click"/>
 
-                    <Button x:Name="pickUpByParcel"
+                        <Button x:Name="pickUpByParcel"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
                         Content="PickUp By Parcel"
@@ -257,7 +262,7 @@
                             IsEnabled="{Binding Path=ParcelInDeliveryByDrone,  Converter={StaticResource pickupConverter }}"
                             Visibility="{Binding Path=ParcelInDeliveryByDrone, Converter={StaticResource pickupVisivilityConverter}}" Click="pickUpByParcel_Click"/>
 
-                    <Button x:Name="delivereByParcel"
+                        <Button x:Name="delivereByParcel"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignOutlinedButton"
                         Content="Delivere By Parcel"
@@ -266,6 +271,7 @@
                         HorizontalAlignment="Left" FontWeight="Normal" FontFamily="Microsoft YaHei UI"
                         IsEnabled="{Binding Path=ParcelInDeliveryByDrone,  Converter={StaticResource deliveryConverter }}"
                         Visibility="{Binding Path=ParcelInDeliveryByDrone, Converter={StaticResource deliveryVisivilityConverter}}" Click="delivereByParcel_Click"/>
+                    </Grid>
 
 
                 </Grid>

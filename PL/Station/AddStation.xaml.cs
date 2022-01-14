@@ -78,5 +78,13 @@ namespace PL
                 AddTheStation.IsEnabled = (NameTextBox.Text is not "" && AvailableChargeSlots.Text is not ""
                 && LongitudeTextBox.Text is not "" && LattitudeTextBox.Text is not "");
         }
+
+       
+
+        private void locationMap_Click(object sender, RoutedEventArgs e)
+        {
+            LocationWin locationWin = new();
+            locationWin.ShowDialog();
+        }
     }
 }

@@ -19,11 +19,11 @@ namespace PL
     /// </summary>
     public partial class LocationWin : Window
     {
-        public LocationWin()
+        public LocationWin(string lon ="32.3382113", string lat= "33.2820225")
         {
             InitializeComponent();
-            
-            googleMap.Source = new Uri("https://www.google.com/maps/@32.3382113,33.2820225,7.35z?hl=iw");
+            string link = "https://www.google.com/maps/@"+ lon+","+ lat + ",7.35z?hl=iw";
+            googleMap.Source = new Uri(link);
         }
 
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
