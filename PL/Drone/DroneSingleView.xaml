@@ -345,6 +345,37 @@
 
                         </materialDesign:Card>
                     </StackPanel>
+                    <Grid Name="chargeStation" IsEnabled="{Binding Status, Converter={StaticResource releseFromChargeConverter}}"
+                          Visibility="{Binding Status, Converter={StaticResource releseFromChargeVisabilityConverter}}">
+
+                        <!--<TextBlock Text="{Binding} " 
+                                           Foreground="Black" 
+                                   Panel.ZIndex="1" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" Margin="0,110,0,0" 
+                                   FontWeight="Bold" FontStyle="Normal" FontSize="13" />-->
+
+                        <materialDesign:Card  
+ 
+                                Width="130" Height="130"
+                                UniformCornerRadius="6" 
+                                Background="#FFE8E5E5" 
+                                BorderBrush="Black" 
+                                OpacityMask="Black" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            >
+
+                            <materialDesign:PackIcon Kind="HomeBatteryOutline" 
+                                         Height="100" Width="100"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Margin="20"/>
+
+
+
+                        </materialDesign:Card>
+
+
+
+                    </Grid>
 
                 </Grid>
 
