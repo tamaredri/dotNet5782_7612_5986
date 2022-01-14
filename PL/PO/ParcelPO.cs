@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PO
 {
-    public class ParcelPO : INotifyPropertyChanged
+    class ParcelPO : INotifyPropertyChanged
     {
         private int id;
         public int ID

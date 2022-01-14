@@ -23,10 +23,9 @@ namespace PL
         {
             InitializeComponent();
             
-            googleMap.Source = new Uri("https://www.google.co.il/maps/@31.3067114,35.1402927,7.7z");
+            googleMap.Source = new Uri("https://www.google.com/maps/@32.3382113,33.2820225,7.35z?hl=iw");
         }
 
-        #region header panel
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -36,8 +35,6 @@ namespace PL
         }
 
         private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
-        #endregion
-
 
         private void googleMap_MouseEnter(object sender, MouseEventArgs e)
         {
