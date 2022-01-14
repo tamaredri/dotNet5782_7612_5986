@@ -90,7 +90,7 @@ namespace BL
         #endregion
 
         #region UpdateStation
-        public void UpdateStation(int stationID, int newChargeSlots, string newName)
+        public void UpdateStation(int stationID, int newChargeSlots=0, string newName = "")
         {
                 //find the station to update
                 DO.Station stationToUpdate = DalAccess.GetStation(stationID);
@@ -189,9 +189,9 @@ namespace BL
             }
 
             //if the closest station doesn't apply the condition -> throw an exception
-            if (isItOk== false)
-                throw new BO.DoesntExistExeption("the closest station doesnt apply the condition requested");
-
+            if (isItOk == false) {
+                UpdateStation(closestStatioID, amountOfDronesInChargeInTheStation(GetStation(closestStatioID).StationLocation)+5);
+            }
             //if the closest station applies the codition -> return the location
             return closestStatioID;
         }

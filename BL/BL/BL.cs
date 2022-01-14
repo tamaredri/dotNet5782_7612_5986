@@ -159,7 +159,6 @@ namespace BL
             }
         }
         
-
         public int GetDroneRunnindNumber() { return DalAccess.GetDroneRunningNumber(); }
     }
 }

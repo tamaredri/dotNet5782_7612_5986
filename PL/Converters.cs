@@ -229,7 +229,7 @@ namespace PLConverter
 
     #region drne options
 
-    #region SentToCharge
+    #region SentToCharge or schedule
     public class SentToChargeOrSchedule : IValueConverter
     {
         //convert from source property type to target property type

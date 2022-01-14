@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
 using PO;
+using System.ComponentModel;
+using System.Threading;
 
 namespace PL
 {
@@ -21,8 +23,19 @@ namespace PL
     /// Interaction logic for DroneSingleView.xaml
     /// </summary>
     
-    public partial class DroneSingleView : Window
+    public partial class DroneSingleView : Window, INotifyPropertyChange
     {
+        #region automatic 
+        BackgroundWorker worker;
+        private void updateDrone() => worker.ReportProgress(0);
+        private bool checkStop() => worker.CancellationPending;
+
+        bool auto = false;
+        public bool Charge;
+        
+        bool closing=false;
+
+        #endregion
         IBL BL;
         DronePO droneToShow = new();
 
@@ -84,7 +97,6 @@ namespace PL
         }
         #endregion
 
-
         #region panel events
         private void PanelHeader_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -93,7 +105,13 @@ namespace PL
                 DragMove();
             }
         }
-        private void Close_MouseDown(object sender, MouseButtonEventArgs e) => this.Close();
+        private void Close_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (auto is true)
+                closing = true;
+            else
+                this.Close();
+        }
         #endregion
 
         #region update
@@ -109,6 +127,7 @@ namespace PL
 
         #endregion
 
+        #region option drone
         private void parcel_Click(object sender, RoutedEventArgs e)
         {
             ParcelSingleView parcelSingleView = new(BL,droneToShow.ParcelInDeliveryByDrone.ID);
@@ -165,12 +184,6 @@ namespace PL
             droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
 
         }
-
-        private void automaticState_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void releaseFromCharge_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -183,6 +196,44 @@ namespace PL
 
         }
 
+        #endregion
 
+
+        #region simulator
+        private void automaticState_Click(object sender, RoutedEventArgs e)
+        {
+            if (auto is false)
+            {
+                startAutomatic.Visibility = Visibility.Hidden;
+                auto = true;
+                worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
+                worker.DoWork += Worker_DoWork;
+                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                worker.ProgressChanged += Worker_ProgressChanged;
+                worker.RunWorkerAsync(droneToShow.ID);
+                
+            }
+            else
+            {
+                startAutomatic.Visibility = Visibility.Visible;
+                worker.CancelAsync();
+            }
+
+        }
+
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e) =>
+            updateDroneToShow(BL.GetDrone(droneToShow.ID));
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            auto = false;
+            worker = null;
+            if (closing) Close();
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e) =>
+            BL.StartSimulator((int)e.Argument, updateDrone, checkStop);
+
+        #endregion
     }
 }

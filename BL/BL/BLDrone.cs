@@ -238,6 +238,18 @@ namespace BL
             catch (DO.DoesntExistExeption e)
             { throw new BO.DoesntExistExeption(e.Message, e); }
         }
+
+        internal void updateBatteryThred(int droneID)
+        {
+
+            //if the drone found-> update BL droneList
+            BO.DroneToList droneToUpdate = dronesList.Find(x => x.ID == droneID);
+            
+            //update
+            dronesList.Remove(droneToUpdate);
+            droneToUpdate.Battery += 1;
+            dronesList.Add(droneToUpdate);
+        }
         #endregion
 
         #region SendToCharge
@@ -256,7 +268,10 @@ namespace BL
             {
                 //find the closest station
                 //if the chargeslot >0!!!!!!!!!!!!!!!!
-                int closestStatioID = findClosestStation(droneToCharge.DroneLocation, x => x.ChargeSlots > 0);
+                int closestStatioID;
+
+                closestStatioID = findClosestStation(droneToCharge.DroneLocation, x => x.ChargeSlots > 0);
+                
                 DalAccess.SendToCharge(id, closestStatioID);
 
 
@@ -277,6 +292,7 @@ namespace BL
             catch (BO.DoesntExistExeption e) { throw new BO.DoesntExistExeption("the close station doesnt have available charge slots", e); }
             catch(BO.InvalidInputExeption) { throw new BO.ContradictoryDataExeption("the location of the station wasn't supposed to throw an exception"); }
         }
+
         #endregion
 
         #region ReleaseFromCharge
@@ -293,7 +309,7 @@ namespace BL
                 //timeFinish didnt used because dronecharge update after..
                 DroneCharge droneCharge = DalAccess.GetPartOfDroneCharge(x => x.Droneld == id).FirstOrDefault();
                 TimeSpan timeSpan = DateTime.Now - droneCharge.TimeStart.GetValueOrDefault();
-                if (droneToRelease.Battery + timeSpan.Minutes* ChargePrecentagePerHoure < powerMinimumIfAvailable)
+                if (droneToRelease.Battery + (timeSpan.Hours + timeSpan.Minutes / 60 + timeSpan.Seconds / 120) * ChargePrecentagePerHoure < powerMinimumIfAvailable)
                     throw new BO.InvalidInputExeption("the drone doesn't have enoug battery to relese from charge");
 
                 DalAccess.ReleaseFromCharge(id);
@@ -302,7 +318,7 @@ namespace BL
                 
                 //update
                 //droneToRelease.Battery += (int)(timeOfChargeInHours * ChargePrecentagePerHoure); //increase the battery according to the time the drone was charging
-                droneToRelease.Battery += (int)(timeSpan.Minutes * ChargePrecentagePerHoure); //increase the battery according to the time the drone was charging
+                droneToRelease.Battery += (int)((timeSpan.Hours+ timeSpan.Minutes/60 + timeSpan.Seconds/120)* ChargePrecentagePerHoure); //increase the battery according to the time the drone was charging
                 if(droneToRelease.Battery > 100) droneToRelease.Battery = 100; //round the result to fit in the max value of charge = 100%
                 droneToRelease.Status = BO.DroneStatuses.available;
 
@@ -314,7 +330,16 @@ namespace BL
         }
         #endregion
 
+        #region simulator
+        public void StartSimulator(int droneID, Action UpdatePresentation, Func<bool> CancllationCheck)
+        {
+            DroneSimulator droneSimulator = new DroneSimulator(this, droneID, UpdatePresentation, CancllationCheck);
+        }
+        #endregion
+
         #region delete
         #endregion
+
+
     }
 }

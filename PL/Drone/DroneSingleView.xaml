@@ -20,6 +20,7 @@
 
     <Window.Resources>
         <converter:TextToBool x:Key="textToBool"/>
+        <converter:NotVisibilityToVisibilityConverter x:Key="notVisibilityToVisibilityConverter"/>
 
         <converter:SentToChargeOrSchedule x:Key="sentToChargeOrSchedule"/>
         <converter:SentToChargeOrScheduleVisability x:Key="sentToChargeOrScheduleVisability"/>
@@ -193,9 +194,23 @@
                     UniformCornerRadius="2" 
                     VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="75,0,75,0"
                      />
-                    <Button Name="automaticState" Width="60" Height="60" HorizontalAlignment="Right" Click="automaticState_Click" >
-                        <Image Source="../Icons/automatic.png"/>
-
+                    <Button Name="automaticState" Grid.Column="1"
+                            Width="60" Height="60" 
+                            HorizontalAlignment="Center" Click="automaticState_Click" Padding="0,0,0,0" Background="#00000000" BorderBrush="Black" >
+                        <StackPanel Orientation="Vertical">
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <materialDesign:PackIcon Name="startAutomatic" 
+                                    Kind="CogPlayOutline" 
+                                    Width="40" Height="40" 
+                                    HorizontalAlignment="Center" Visibility="Visible"/>
+                                <materialDesign:PackIcon Name="stopAutomatic" 
+                                    Kind="CogPauseOutline" 
+                                    Width="40" Height="40" 
+                                    HorizontalAlignment="Center"
+                                    Visibility="{Binding ElementName=startAutomatic, Path=Visibility, Converter={StaticResource notVisibilityToVisibilityConverter}}"/>
+                            </Grid>
+                            <TextBlock Text="AUTOMATIC" Width="50" Height="15" FontSize="9"/>
+                        </StackPanel>
                     </Button>
 
 

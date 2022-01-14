@@ -110,6 +110,8 @@ namespace BlApi
 
         public string GetTheStationCharge(int droneInChargeID);
 
+        public void StartSimulator(int droneID, Action UpdatePresentation, Func<bool> CancllationCheck);
+
         #endregion
 
         //--------------------------------------customer-------------------------------------
