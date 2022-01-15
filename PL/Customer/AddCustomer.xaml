@@ -15,7 +15,8 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         Height="550" Width="400"
-        WindowStyle="None" FontSize="16" FontWeight="Normal" FontFamily="Comic Sans MS">
+        WindowStyle="None" FontSize="16" 
+        FontWeight="Normal" FontFamily="Bahnschrift SemiLight">
     <Window.DataContext>
         <BO:Customer/>
     </Window.DataContext>

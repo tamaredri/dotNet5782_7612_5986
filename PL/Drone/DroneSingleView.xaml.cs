@@ -23,19 +23,17 @@ namespace PL
     /// Interaction logic for DroneSingleView.xaml
     /// </summary>
     
-    public partial class DroneSingleView : Window, INotifyPropertyChange
+    public partial class DroneSingleView : Window
     {
-        #region automatic 
+        #region automatic simulator  
+
         BackgroundWorker worker;
-        private void updateDrone() => worker.ReportProgress(0);
-        private bool checkStop() => worker.CancellationPending;
-
+        private void updateDrone() => worker.ReportProgress(0); //update the presentation
+        private bool checkStop() => worker.CancellationPending; //check if the 
         bool auto = false;
-        public bool Charge;
-        
-        bool closing=false;
-
+        bool closing = false;
         #endregion
+
         IBL BL;
         DronePO droneToShow = new();
 
@@ -45,6 +43,7 @@ namespace PL
             BL = BLAccess;
             droneToShow = dronePO;
             Drone droneBO = BL.GetDrone(droneToShow.ID);
+
             //update droneindelivery
             droneToShow.ParcelInDeliveryByDrone = (droneBO.ParcelInDeliveryByDrone != null) ? new()
             {
@@ -69,7 +68,6 @@ namespace PL
         #region copy droneBO to dronePO
         private void updateDroneToShow(Drone droneBO)
         {
-
             droneToShow.ID = droneBO.ID;
             droneToShow.Model = droneBO.Model;
             droneToShow.Battery = droneBO.Battery;
@@ -93,7 +91,6 @@ namespace PL
                 Target = new() { ID = droneBO.ParcelInDeliveryByDrone.Target.ID, Name = droneBO.ParcelInDeliveryByDrone.Target.Name }
             } : null;
             droneToShow.ParcelId = (droneBO.ParcelInDeliveryByDrone != null) ? droneToShow.ParcelInDeliveryByDrone.ID : 0;
-
         }
         #endregion
 
@@ -127,7 +124,7 @@ namespace PL
 
         #endregion
 
-        #region option drone
+        #region drone actions
         private void parcel_Click(object sender, RoutedEventArgs e)
         {
             ParcelSingleView parcelSingleView = new(BL,droneToShow.ParcelInDeliveryByDrone.ID);
@@ -142,10 +139,7 @@ namespace PL
             }catch(Exception x) { MessageBox.Show(x.Message); }
             Drone updateDrone = BL.GetDrone(droneToShow.ID);
             updateDroneToShow(BL.GetDrone(droneToShow.ID));
-            //droneBOToPO (ref droneToShow, BL.GetDrone(droneToShow.ID));
-            //DataContext = droneToShow;
             droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
-
         }
 
         private void schedualToParcel_Click(object sender, RoutedEventArgs e)
@@ -157,8 +151,6 @@ namespace PL
             catch (Exception x) { MessageBox.Show(x.Message); }
             updateDroneToShow(BL.GetDrone(droneToShow.ID));
             droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
-
-
         }
 
         private void pickUpByParcel_Click(object sender, RoutedEventArgs e)
@@ -170,7 +162,6 @@ namespace PL
             catch (Exception x) { MessageBox.Show(x.Message); }
             updateDroneToShow(BL.GetDrone(droneToShow.ID));
             droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
-
         }
 
         private void delivereByParcel_Click(object sender, RoutedEventArgs e)
@@ -184,6 +175,7 @@ namespace PL
             droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
 
         }
+
         private void releaseFromCharge_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -193,11 +185,8 @@ namespace PL
             catch (Exception x) { MessageBox.Show(x.Message); }
             updateDroneToShow(BL.GetDrone(droneToShow.ID));
             droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
-
         }
-
         #endregion
-
 
         #region simulator
         private void automaticState_Click(object sender, RoutedEventArgs e)
@@ -212,15 +201,13 @@ namespace PL
                 worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
                 worker.ProgressChanged += Worker_ProgressChanged;
                 worker.RunWorkerAsync(droneToShow.ID);
-                
             }
             else
             {
                 startAutomatic.Visibility = Visibility.Visible;
                 startAutomatic.IsEnabled = true;
-                worker.CancelAsync();
+                worker.CancelAsync(); //pend the cancelletion
             }
-
         }
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e) =>

@@ -16,7 +16,7 @@
         Height="550" Width="400"
         WindowStyle="None" 
         WindowStartupLocation="CenterScreen"
-        FontSize="16" FontWeight="Normal" FontFamily="Comic Sans MS">
+        FontSize="16" FontWeight="Normal" FontFamily="Bahnschrift SemiLight">
     
     <Window.DataContext>
         <BO:Station/>

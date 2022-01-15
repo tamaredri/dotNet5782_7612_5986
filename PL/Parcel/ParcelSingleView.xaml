@@ -15,7 +15,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
+        FontFamily="Bahnschrift SemiLight"
         Height="500" Width="750"
         WindowStyle="None"
     xmlns:System="clr-namespace:System;assembly=System.Runtime" WindowStartupLocation="CenterScreen">

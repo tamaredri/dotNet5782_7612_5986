@@ -13,7 +13,39 @@ namespace BO
         public double Longitude { set; get; }
         public override string ToString()
         {
-            return this.ToStringProperty();
+            double _latitude = Lattitude;
+            double _longitude = Longitude;
+            string lat()
+            {
+                string ch = "N";
+                if (_latitude < 0)
+                {
+                    ch = "S";
+                    _latitude = -_latitude;
+                }
+                int deg = (int)_latitude;
+                int min = (int)(60 * (_latitude - deg));
+                double sec = (_latitude - deg) * 3600 - min * 60;
+
+                return $"{deg}° {min}' {sec}'' {ch}";
+            }
+
+            string log()
+            {
+                string ch = "E";
+                if (_longitude < 0)
+                {
+                    ch = "W";
+                    _longitude = -_longitude;
+                }
+                int deg = (int)_longitude;
+                int min = (int)(60 * (_longitude - deg));
+                double sec = (_longitude - deg) * 3600 - min * 60;
+
+                return $"{deg}° {min}' {sec}'' {ch}";
+            }
+
+            return log() + "+" + lat();
         }
     }
 }

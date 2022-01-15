@@ -21,12 +21,11 @@ namespace BL
             BL = BLAccess;
 
             Drone drone = BL.GetDrone(droneID);
+
             while (!CancllationCheck())
             {
-
                 switch (drone.Status)
                 {
-
                     case DroneStatuses.available:
                         //אם הבטריה מספיקה
                         lock (BL)
@@ -44,9 +43,7 @@ namespace BL
                                 if (drone.Battery < 100)
                                     BL.SendToCharge(drone.ID);
                                 else
-                                {
                                     Thread.Sleep(TimeSleep * 2);
-                                }
                             }
                         }
                         Thread.Sleep(TimeSleep);
@@ -64,8 +61,6 @@ namespace BL
                             }
                             Thread.Sleep(TimeSleep / 2);
                         }
-
-
                         break;
                     case DroneStatuses.delivery:
                         lock (BL)
@@ -76,7 +71,6 @@ namespace BL
                                 Thread.Sleep((int)drone.ParcelInDeliveryByDrone.Distance * ValocityDrone);
 
                             }
-
                             else if (drone.ParcelInDeliveryByDrone != null && drone.ParcelInDeliveryByDrone.InDelivery)
                             {
                                 BL.DeliverParcel(drone.ID);
@@ -84,17 +78,13 @@ namespace BL
                             }
                             Thread.Sleep(TimeSleep * 2);
                         }
-                        Thread.Sleep(TimeSleep);
                         break;
-
                     default:
                         break;
                 }
                 UpdatePresentation();
                 drone = BL.GetDrone(droneID);
-
             }
         }
-
     }
 }

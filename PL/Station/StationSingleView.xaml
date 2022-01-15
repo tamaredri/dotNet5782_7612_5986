@@ -14,9 +14,9 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
+        FontFamily="Bahnschrift SemiLight"
         Height="500" Width="750"
-        WindowStyle="None" WindowStartupLocation="CenterScreen">
+        WindowStyle="None" WindowStartupLocation="CenterScreen" FontStyle="Italic">
 
     <Window.Resources>
         <converter:FalseToTrueUpdateConverter x:Key="falseToTrueUpdateConverter"/>
