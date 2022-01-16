@@ -21,23 +21,23 @@
     <MaxWeight>middle</MaxWeight>
   </Drone>
   <Drone>
-    <ID>1</ID>
-    <Model>dfghj</Model>
-    <MaxWeight>heavey</MaxWeight>
-  </Drone>
-  <Drone>
     <ID>2</ID>
     <Model>kaya-56</Model>
-    <MaxWeight>light</MaxWeight>
-  </Drone>
-  <Drone>
-    <ID>7</ID>
-    <Model>m</Model>
     <MaxWeight>light</MaxWeight>
   </Drone>
   <Drone>
     <ID>8</ID>
     <Model>redmi-5684_bilpor</Model>
     <MaxWeight>heavey</MaxWeight>
+  </Drone>
+  <Drone>
+    <ID>1</ID>
+    <Model>d-fly</Model>
+    <MaxWeight>heavey</MaxWeight>
+  </Drone>
+  <Drone>
+    <ID>7</ID>
+    <Model>m-555</Model>
+    <MaxWeight>light</MaxWeight>
   </Drone>
 </ArrayOfDrone>

@@ -91,6 +91,12 @@ namespace PL
                 Target = new() { ID = droneBO.ParcelInDeliveryByDrone.Target.ID, Name = droneBO.ParcelInDeliveryByDrone.Target.Name }
             } : null;
             droneToShow.ParcelId = (droneBO.ParcelInDeliveryByDrone != null) ? droneToShow.ParcelInDeliveryByDrone.ID : 0;
+            if (droneBO.ParcelInDeliveryByDrone != null)
+            {
+                senderName.Text = droneBO.ParcelInDeliveryByDrone.Sender.Name;
+                targeName.Text = droneBO.ParcelInDeliveryByDrone.Target.Name;
+                weight.Text = droneBO.ParcelInDeliveryByDrone.Weight.ToString();
+            }
         }
         #endregion
 

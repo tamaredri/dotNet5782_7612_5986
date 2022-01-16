@@ -72,6 +72,7 @@ namespace PL
         {
             CustomerSingleViewWin customerSingleViewWin = new CustomerSingleViewWin(BL, ((sender as DataGrid).SelectedItem as CustomerToList));
             customerSingleViewWin.ShowDialog();
+            ienumerableToObservable(BL.GetCustomerList());
         }
     }
 }

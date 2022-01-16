@@ -203,10 +203,9 @@ namespace Dal
         #region GetPartOfDroneCharge
         public IEnumerable<DroneCharge> GetPartOfDroneCharge(Predicate<DroneCharge> check)
         {
-            var help= (from droneCharge in DataSource.ChargesList
+            return (from droneCharge in DataSource.ChargesList
                     where check(droneCharge)
                     select droneCharge).ToList();
-            return help;
         }
         #endregion
         #region private drone-charge functions

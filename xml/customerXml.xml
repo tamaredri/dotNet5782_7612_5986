@@ -35,4 +35,11 @@
     <Lattitude>34.843347</Lattitude>
     <Longitude>31.560358</Longitude>
   </customer>
+  <customer>
+    <ID>322987899</ID>
+    <Name>Nurit</Name>
+    <Phone>0586984567</Phone>
+    <Lattitude>35.190897</Lattitude>
+    <Longitude>31.786344</Longitude>
+  </customer>
 </customerXml.xml>

@@ -290,7 +290,7 @@
                                         Background="Transparent"
                                         BorderBrush="Transparent"
                                         VerticalAlignment="Center" Click="OpenDroneFromParcel_Click">
-                                    <Image Source="../Icons/drone.png"
+                                    <Image Source="/Drone/drone.png"
                                            Height="40" Width="40"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"/>

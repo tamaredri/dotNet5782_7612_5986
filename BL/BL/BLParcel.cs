@@ -53,7 +53,6 @@ namespace BL
 
             if (droneToPair == null) throw new BO.DoesntExistExeption("the drone doesn't exist");
             if (droneToPair.Status != BO.DroneStatuses.available) throw new BO.DoesntExistExeption("the drone is not available to do a delivery");
-            if (droneToPair.Battery < powerMinimumIfAvailable) throw new BO.BattaryExeption("there is not enough battery to make a delivery.\nit is recommended to send the drone to charge as soon as possible");
 
             //take all the parcels that was created but not paired
             List<BO.ParcelToList> parcelsList = GetPartOfParcel(x => x.Status == BO.ParcelStatuse.created).ToList();
@@ -67,12 +66,10 @@ namespace BL
                 //for each wight category, in a decsending order
                 for (BO.WeightCategories weight = droneToPair.Weight; weight >= BO.WeightCategories.light; weight--)
                 {
-                    /*the drone doesn't have enough battery to carry the parcel*/
-                    if (droneToPair.Battery < DalAccess.GetPowerConsumptionByDrone()[(int)weight + 1])
-                        continue;
-
                     //find all the parcels that are in the specific weight category
-                    filteredParcelsList = parcelsList.FindAll(x => x.Priority == priority && x.Weight == weight);
+                    filteredParcelsList = parcelsList.FindAll(x => x.Priority == priority 
+                                                                && x.Weight == weight 
+                                                                && getDroneCapabilityToCarry(GetDrone(droneID), GetParcel(x.ID)) < droneToPair.Battery);
 
                     //no parcel was found
                     if (filteredParcelsList.Count == 0)
@@ -89,10 +86,10 @@ namespace BL
 
                             //the distance between the drone location and the location of the sender of the parcel since the parsel is located in the sender's location
                             //                                                      the sender -  the id of the sender -  the location of the wanted customer
-                            if (droneToPair.DroneLocation.distanceLongitudeLatitude((GetCustomer(closestParcel.Sender.ID)).LocationOfCustomer)
+                            if (droneToPair.DroneLocation.DistanceBetweenPlaces((GetCustomer(closestParcel.Sender.ID)).LocationOfCustomer)
                                 >
                                 //                                                  the sender -  the id of the sender -  the location of the wanted customer
-                                droneToPair.DroneLocation.distanceLongitudeLatitude((GetCustomer(parcelToCompare.Sender.ID)).LocationOfCustomer))
+                                droneToPair.DroneLocation.DistanceBetweenPlaces((GetCustomer(parcelToCompare.Sender.ID)).LocationOfCustomer))
                             { closestParcel = parcelToCompare; }
 
                         }//end of for-each to find the closest
@@ -104,7 +101,6 @@ namespace BL
                 }//end of for loop according to weight category
                 if (closestParcel != null)
                     break;
-
             }//end of for loop according to priority
 
 
@@ -132,29 +128,9 @@ namespace BL
         #region PickUpParcelByDrone
         public void PickUpParcelByDrone(int droneID)
         {
-            //find the drone
-            BO.Drone droneFromBL = GetDrone(droneID); //throw DoesntExist
-
-            if (droneFromBL.Status != BO.DroneStatuses.delivery)  throw new BO.InvalidInputExeption("the drone is not paired to any parcel");
-            if (droneFromBL.Battery < powerMinimumIfAvailable) throw new BO.ContradictoryDataExeption("the battery is incorrect");
-            if (droneFromBL.ParcelInDeliveryByDrone.InDelivery) throw new BO.ContradictoryDataExeption("the parcel is already in delivery although the drone haven't picked it up yet");
-            //^the parcel status 'inDelivery' is incorrect. it is true eventhogh the drone didnt pick him up yet!!!!!!!!!!!
-            //check this exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //if (droneFromBL.ParcelInDeliveryByDrone.PickUp != null) throw new IBL.BO.ContradictoryDataExeption("the parcel pick-up location is already set");
-
-            DroneToList dtoneFromDronesList = dronesList.Find(x => x.ID == droneID);
-
             try
             { 
                 pickUpDrone(droneID);
-
-                /*update the drone's properties*/
-                dronesList.Remove(dtoneFromDronesList);
-
-                //take the location of the parcel and the location of the drone and update the battery according to it
-                dtoneFromDronesList.Battery -= ((int)droneFromBL.ParcelInDeliveryByDrone.PickUp.distanceLongitudeLatitude(dtoneFromDronesList.DroneLocation)) % 10;
-
-                dronesList.Add(dtoneFromDronesList);
             }
             catch (DO.DoesntExistExeption x)
             { throw new BO.DoesntExistExeption(x.Message, x); }
@@ -166,12 +142,11 @@ namespace BL
         {
             //find the drone
             BO.DroneToList droneToDeliver = GetDroneList().ToList<BO.DroneToList>().Find(x => x.ID == droneID);
+            //get the parcel the drone need to pick-up
+            BO.Parcel parcelToDeliver = GetParcel(droneToDeliver.ParcelId);
 
             if (droneToDeliver.Status != BO.DroneStatuses.delivery) throw new BO.DoesntExistExeption("the drone is not paired to any parcel");
             if (droneToDeliver.Battery < powerMinimumIfAvailable) throw new BO.ContradictoryDataExeption("the battery is incorrect");
-
-            //get the parcel the drone need to pick-up
-            BO.Parcel parcelToDeliver = GetParcel(droneToDeliver.ParcelId);
 
             if (GetParcelList().ToList().Find(x => x.ID == droneToDeliver.ParcelId).Status != BO.ParcelStatuse.pickedUp)
                 throw new BO.ContradictoryDataExeption("the parcel wasn't picked-up by the drone");
@@ -183,9 +158,9 @@ namespace BL
 
                 dronesList.Remove(droneToDeliver);
 
-                droneToDeliver.Battery -= ((int)droneToDeliver.DroneLocation.
-                    distanceLongitudeLatitude((GetCustomer(parcelToDeliver.Sender.ID)).LocationOfCustomer))
-                    % (100);
+                droneToDeliver.Battery -= (int)((GetCustomer(parcelToDeliver.Target.ID).LocationOfCustomer.
+                                                      DistanceBetweenPlaces(GetCustomer(parcelToDeliver.Sender.ID).LocationOfCustomer))
+                                                      * getPowerConsumption(parcelToDeliver.Weight));
                 droneToDeliver.DroneLocation = new()
                 {
                     Lattitude = (GetCustomer(parcelToDeliver.Target.ID)).LocationOfCustomer.Lattitude,
@@ -331,7 +306,7 @@ namespace BL
         /// </summary>
         /// <param name="parcelID"></param>
         /// <returns></returns>
-        private ParcelInDelivery GetParcelInDelivery(int parcelID)
+        private ParcelInDelivery GetParcelInDelivery(int parcelID, Location droneLocation)
         {
             //find the parcel that is in delivery by the drone
             DO.Parcel doParcel = DalAccess.GetParcel(parcelID);
@@ -341,7 +316,7 @@ namespace BL
             DO.Customer doSenderThisParcel = DalAccess.GetCustomer(doParcel.SenderID);
             DO.Customer doTargetThisParcel = DalAccess.GetCustomer(doParcel.TargetID);
             //build the ParcelInDeliveryByDrone
-            ParcelInDelivery parcelInDeLInDeliveryToReturn = new()
+            return new ParcelInDelivery()
             {
                 ID = doParcel.ID,
                 Priority = (BO.Priorities)doParcel.Priority,
@@ -366,55 +341,32 @@ namespace BL
                 {
                     ID = doTargetThisParcel.ID,
                     Name = doTargetThisParcel.Name
-                }
+                },
+                //find distance between sender and drone or between sender and target
+                Distance = (doParcel.PickedUp is not null) ?
+                         new Location()
+                          {
+                             Lattitude = droneLocation.Lattitude,
+                             Longitude = droneLocation.Longitude
+                         }
+                         .DistanceBetweenPlaces
+                         (new Location()
+                         {
+                             Lattitude = doTargetThisParcel.Lattitude,
+                             Longitude = doTargetThisParcel.Longitude
+                         }) : // else
+                         new Location()
+                         {
+                             Lattitude = doSenderThisParcel.Lattitude,
+                             Longitude = doSenderThisParcel.Longitude
+                         }
+                         .DistanceBetweenPlaces
+                         (new Location()
+                         {
+                             Lattitude = droneLocation.Lattitude,
+                             Longitude = droneLocation.Longitude
+                         })
             };
-
-            //find distance between sender and drone or between sender and target
-            //Location droneLocation = GetDrone(doParcel.DroneID).DroneLocation;
-            //if (doParcel.PickedUp is not null)
-            //{
-            //    parcelInDeLInDeliveryToReturn.Distance =
-            //            new Location()
-            //            {
-            //                Lattitude = droneLocation.Lattitude,
-            //                Longitude = droneLocation.Longitude
-            //            }
-            //            .distanceLongitudeLatitude
-            //            (new Location()
-            //            {
-            //                Lattitude = doSenderThisParcel.Lattitude,
-            //                Longitude = doSenderThisParcel.Longitude
-            //            });
-            //}
-            //else
-            //{
-            //    parcelInDeLInDeliveryToReturn.Distance =
-            //            new Location()
-            //            {
-            //                Lattitude = doSenderThisParcel.Lattitude,
-            //                Longitude = doSenderThisParcel.Longitude
-            //            }
-            //            .distanceLongitudeLatitude
-            //            (new Location()
-            //            {
-            //                Lattitude = droneLocation.Lattitude,
-            //                Longitude = droneLocation.Longitude
-            //            });
-            //}
-            //find distance between sender and target
-            parcelInDeLInDeliveryToReturn.Distance =
-                    new Location()
-                    {
-                        Lattitude = doSenderThisParcel.Lattitude,
-                        Longitude = doSenderThisParcel.Longitude
-                    }
-                    .distanceLongitudeLatitude
-                    (new Location()
-                    {
-                        Lattitude = doTargetThisParcel.Lattitude,
-                        Longitude = doTargetThisParcel.Longitude
-                    });
-            return parcelInDeLInDeliveryToReturn;
         }
         #endregion
 
@@ -432,9 +384,6 @@ namespace BL
         }
         #endregion
     }
-
-
-
 }
 
 

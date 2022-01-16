@@ -62,7 +62,7 @@
                 Background="#FFC7D9C2" 
                 Click="addDrone_Click">
             <Grid>
-                <Image Source="../Icons/drone.png" Height="35" OpacityMask="Black"/>
+                <Image Source="/Drone/drone.png" Height="35" OpacityMask="Black"/>
                 <materialDesign:PackIcon Kind="PlusCircle" Margin="27,19,0,0" Foreground="Black"/>
             </Grid>
         </Button>

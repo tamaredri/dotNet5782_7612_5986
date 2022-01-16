@@ -11,7 +11,7 @@ namespace Dal
 {
     public struct ImportentNumbers
     {
-        public int numberSaved { get; set; }
+        public double numberSaved { get; set; }
         public string typeOfnumber { get; set; }
     }
 
@@ -23,19 +23,20 @@ namespace Dal
         DalXml()
         {
             #region update the files
-
             //delete the charging details
             XmlTools.SaveListToXMLSerializer<DroneCharge>(new List<DroneCharge>(), droneChargePath);
 
             //drone charge running number
             List<ImportentNumbers> helpListCharge = XmlTools.LoadListFromXMLSerializer<ImportentNumbers>(configPath);
+
             ImportentNumbers newImp = helpListCharge.Find(x => x.typeOfnumber == "Charge Running Number");
             helpListCharge.Remove(newImp);
             newImp.numberSaved = 0;
             helpListCharge.Add(newImp);
-            //newImp = helpListCharge.Find(x => x.typeOfnumber == "Parcel Running Number");
+
+            //newImp = helpListCharge.Find(x => x.typeOfnumber == "Station Running Number");
             //helpListCharge.Remove(newImp);
-            //newImp.numberSaved = 10;
+            //newImp.numberSaved = 0;
             //helpListCharge.Add(newImp);
             XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpListCharge, configPath);
 
@@ -55,21 +56,17 @@ namespace Dal
 
 
 
-            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Drone Running Number" });
-            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Station Running Number" });
-            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Parcel Running Number" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 8, typeOfnumber = "Drone Running Number" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 2, typeOfnumber = "Station Running Number" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 14, typeOfnumber = "Parcel Running Number" });
             //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0, typeOfnumber = "Charge Running Number" });
 
-            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 10, typeOfnumber = "Minimum If Available" });
-            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 20, typeOfnumber = "Minimum If Carry Light Weigh" });
-            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 30, typeOfnumber = "Minimum If Carry Middle Weight" });
-            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 40, typeOfnumber = "Minimum If Carry Heavy Weight" });
-            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 50, typeOfnumber = "Charging Precentage Per Hour" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0.05, typeOfnumber = "Minimum If Available" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0.1, typeOfnumber = "Minimum If Carry Light Weigh" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0.15, typeOfnumber = "Minimum If Carry Middle Weight" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 0.2, typeOfnumber = "Minimum If Carry Heavy Weight" });
+            //helpListCharge.Add(new ImportentNumbers() { numberSaved = 45, typeOfnumber = "Charging Precentage Per Hour" });
 
-            ////newImp.numberSaved = 0;
-            ////helpList.Add(newImp);
-
-            //XmlTools.SaveListToXMLSerializer<ImportentNumbers>(helpListCharge, configPath);
 
             ////initialize
             #region initializing customer list:
@@ -129,7 +126,7 @@ namespace Dal
             ////first station
             //CreateStation(new Station
             //{
-            //    ChargeSlots = 3,
+            //    ChargeSlots = 10,
             //    Lattitude = 35.177496, //jerusalem
             //    Longitude = 31.767827,
             //    Name = "Drones - Kiryat Yovel"
@@ -440,7 +437,7 @@ namespace Dal
             runningList.Remove(runningNum);
 
             runningNum.numberSaved++;
-            droneToCreate.ID = runningNum.numberSaved;
+            droneToCreate.ID = (int)runningNum.numberSaved;
 
             runningList.Add(runningNum);
             dronesList.Add(droneToCreate);
@@ -448,7 +445,7 @@ namespace Dal
             XmlTools.SaveListToXMLSerializer(runningList, configPath);
             XmlTools.SaveListToXMLSerializer(dronesList, dronePath);
 
-            return runningNum.numberSaved;
+            return (int)runningNum.numberSaved;
         }
         #endregion
 
@@ -596,7 +593,7 @@ namespace Dal
 
             chargeList.Add(new DroneCharge()
             {
-                ID = runningNum.numberSaved,
+                ID = (int)runningNum.numberSaved,
                 Droneld = droneIDToCharge,
                 IsInCharge = true,
                 Stationld = stationIDToCharge,
@@ -665,7 +662,7 @@ namespace Dal
             GetStation(stationID);
 
             return (from charge in GetPartOfDroneCharge(x => x.IsInCharge == true)
-                    where charge.ID == stationID
+                    where charge.Stationld == stationID
                     select charge).ToList().Count();
         }
         #endregion
@@ -688,7 +685,7 @@ namespace Dal
             runningList.Remove(runningNum);
             runningNum.numberSaved++;
             runningList.Add(runningNum);
-            parcelToCreate.ID = runningNum.numberSaved;
+            parcelToCreate.ID = (int)runningNum.numberSaved;
             parcelsList.Add(parcelToCreate);
 
             XmlTools.SaveListToXMLSerializer(parcelsList, parcelPath);
@@ -845,7 +842,7 @@ namespace Dal
 
             runningList.Remove(runningNum);
             runningNum.numberSaved++;
-            stationToCreate.ID = runningNum.numberSaved;
+            stationToCreate.ID = (int)runningNum.numberSaved;
 
             runningList.Add(runningNum);
             stationsList.Add(stationToCreate);
@@ -904,11 +901,11 @@ namespace Dal
                 int usedChargeSlots = getAmountOfUsedChargeSlots(stationIDToUpdate);
                 updateChargeSlots(stationIDToUpdate, x => x = newChargeSlots - usedChargeSlots); //check
                 //stationsList = GetStationList().ToList(); //reread the updated file
-                stationToUpdate.ChargeSlots = newChargeSlots - usedChargeSlots;
+                //stationToUpdate.ChargeSlots = newChargeSlots - usedChargeSlots;
             }
 
-
-            if (newName != null)
+            stationToUpdate = GetStation(stationIDToUpdate);
+            if (newName != "")
             {
                 stationsList.Remove(stationToUpdate);
                 stationToUpdate.Name = newName;

@@ -85,7 +85,7 @@
                                   Background="Transparent">
                         
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Icons/drone.png"
+                            <Image Source="/Drone/drone.png"
                                    Width="40" Height="40"
                                    VerticalAlignment="Top"
                                    HorizontalAlignment="Left"/>

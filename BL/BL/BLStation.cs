@@ -55,7 +55,6 @@ namespace BL
             //create a list of all the drones that are charging in the station
             boStationToShow.ChargedDrones = GetDroneInCharge(doStationToShow.ID).ToList();
 
-
             return boStationToShow;
         }
         #endregion
@@ -66,12 +65,12 @@ namespace BL
             List<DO.Station> doStationList = DalAccess.GetStationList().ToList();
 
             return (from station in doStationList
-                    let stationFromBl = GetStation(station.ID)
+                    let stationFromBl = DalAccess.GetStation(station.ID)
                     select new StationToList()
                     {
                         ID = stationFromBl.ID,
                         Name = stationFromBl.Name,
-                        AvailableChargeSlots = stationFromBl.AvailableChargeSlots,
+                        AvailableChargeSlots = stationFromBl.ChargeSlots,
                         UsedChargeSlots = DalAccess.GetPartOfDroneCharge(x =>
                      (x.Stationld == stationFromBl.ID) && (x.IsInCharge == true))
                     .Count()
@@ -148,9 +147,9 @@ namespace BL
             foreach (var station in allTheStations)
             {
                 //find the closest station. in the first iteration -> the closest station contains the first station's location
-                if (locationToCompare.distanceLongitudeLatitude(closestLocation)
+                if (locationToCompare.DistanceBetweenPlaces(closestLocation)
                     >
-                    locationToCompare.distanceLongitudeLatitude(new Location()
+                    locationToCompare.DistanceBetweenPlaces(new Location()
                     {
                         Lattitude = station.Lattitude,
                         Longitude = station.Longitude
@@ -167,9 +166,9 @@ namespace BL
                 }
                 else
                 {
-                    if (locationToCompare.distanceLongitudeLatitude(closestLocation)
+                    if (locationToCompare.DistanceBetweenPlaces(closestLocation)
                   ==
-                  locationToCompare.distanceLongitudeLatitude(new Location()
+                  locationToCompare.DistanceBetweenPlaces(new Location()
                   {
                       Lattitude = station.Lattitude,
                       Longitude = station.Longitude

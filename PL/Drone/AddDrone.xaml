@@ -80,7 +80,7 @@
         <StackPanel Orientation="Vertical" Grid.Row="1" 
                     Background="Transparent">
             <StackPanel>
-                <Image Source="../Icons/drone.png" 
+                <Image Source="/Drone/drone.png" 
                        Height="120" 
                        VerticalAlignment="Center"
                        Margin="20"/>

@@ -217,7 +217,7 @@
 
                                             <Label Content="Status:"/>
                                             <Label Content="{Binding Status}" Grid.Column="1"/>
-                                            <Label Content="Target:" Grid.Row="1"/>
+                                            <Label Content="Sender:" Grid.Row="1"/>
                                             <Label Content="{Binding EndCustomer.Name}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"/>
                                         </Grid>
                                     </GroupBox>
@@ -270,7 +270,7 @@
 
                                             <Label Content="Status:"/>
                                             <Label Content="{Binding Status}" Grid.Column="1"/>
-                                            <Label Content="Sender:" Grid.Row="1"/>
+                                            <Label Content="Target:" Grid.Row="1"/>
                                             <Label Content="{Binding EndCustomer.Name}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"/>
                                         </Grid>
                                     </GroupBox>

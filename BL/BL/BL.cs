@@ -38,13 +38,13 @@ namespace BL
             rand = new Random();
 
             #region save the charging details
-                //save the charging details
-                double[] powerConsumption = DalAccess.GetPowerConsumptionByDrone();
-                powerMinimumIfAvailable = powerConsumption[0];
-                powerMinimumIfCarryLightWeight = powerConsumption[1];
-                powerMinimumIfCarryMiddleWeight = powerConsumption[2];
-                powerMinimumIfCarryHeavyWeight = powerConsumption[3];
-                ChargePrecentagePerHoure = powerConsumption[4];
+            //save the charging details
+            double[] powerConsumption = DalAccess.GetPowerConsumptionByDrone();
+            powerMinimumIfAvailable = powerConsumption[0];
+            powerMinimumIfCarryLightWeight = powerConsumption[1];
+            powerMinimumIfCarryMiddleWeight = powerConsumption[2];
+            powerMinimumIfCarryHeavyWeight = powerConsumption[3];
+            ChargePrecentagePerHoure = powerConsumption[4];
 
             #endregion
 
@@ -83,7 +83,7 @@ namespace BL
                                 Longitude = customerLocation.Longitude,
                                 Lattitude = customerLocation.Lattitude
                             },
-                            Battery = rand.Next((int)powerConsumption[0], 101)
+                            Battery = rand.Next(50, 101)
                         };
                     }
                     else if (droneStatus == BO.DroneStatuses.maintenance)
@@ -123,12 +123,13 @@ namespace BL
                             Longitude = customersLocation.Longitude,
                             Lattitude = customersLocation.Lattitude
                         },
-                        Battery = rand.Next((int)powerConsumption[(int)(parcel.Weight) + 1], 101)
+                        Battery = rand.Next(80, 101)
                     };
                 }
                 else if (parcel.Scheduled != null) //scheduled but not pickud up
                 {
-                    Location stationLocation = GetStation(findClosestStation(GetCustomer(parcel.SenderID).LocationOfCustomer, x => true)).StationLocation;
+                    DO.Station station = DalAccess.GetStation(findClosestStation(GetCustomer(parcel.SenderID).LocationOfCustomer, x => true));
+                    Location stationLocation = new() { Lattitude = station.Lattitude, Longitude = station.Longitude };
                     DroneToBL = new DroneToList()
                     {
                         ID = drone.ID,
@@ -142,7 +143,7 @@ namespace BL
                             Longitude = stationLocation.Longitude,
                             Lattitude = stationLocation.Lattitude
                         },
-                        Battery = rand.Next((int)powerConsumption[(int)(parcel.Weight) + 1], 101)
+                        Battery = rand.Next(90, 101)
                     };
                 }
 
@@ -160,5 +161,12 @@ namespace BL
         }
         
         public int GetDroneRunnindNumber() { return DalAccess.GetDroneRunningNumber(); }
+
+        double getPowerConsumption(BO.WeightCategories weight)
+        {
+            return (weight == BO.WeightCategories.heavey) ? powerMinimumIfCarryHeavyWeight :
+                   (weight == BO.WeightCategories.middle) ? powerMinimumIfCarryMiddleWeight :
+                                                            powerMinimumIfCarryLightWeight;
+        }
     }
 }

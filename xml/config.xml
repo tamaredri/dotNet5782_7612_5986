@@ -1,39 +1,39 @@
 <?xml version="1.0"?>
 <ArrayOfImportentNumbers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ImportentNumbers>
-    <numberSaved>10</numberSaved>
+    <numberSaved>8</numberSaved>
+    <typeOfnumber>Drone Running Number</typeOfnumber>
+  </ImportentNumbers>
+  <ImportentNumbers>
+    <numberSaved>0.05</numberSaved>
     <typeOfnumber>Minimum If Available</typeOfnumber>
   </ImportentNumbers>
   <ImportentNumbers>
-    <numberSaved>20</numberSaved>
+    <numberSaved>0.1</numberSaved>
     <typeOfnumber>Minimum If Carry Light Weigh</typeOfnumber>
   </ImportentNumbers>
   <ImportentNumbers>
-    <numberSaved>30</numberSaved>
+    <numberSaved>0.15</numberSaved>
     <typeOfnumber>Minimum If Carry Middle Weight</typeOfnumber>
   </ImportentNumbers>
   <ImportentNumbers>
-    <numberSaved>40</numberSaved>
+    <numberSaved>0.2</numberSaved>
     <typeOfnumber>Minimum If Carry Heavy Weight</typeOfnumber>
   </ImportentNumbers>
   <ImportentNumbers>
-    <numberSaved>50</numberSaved>
+    <numberSaved>45</numberSaved>
     <typeOfnumber>Charging Precentage Per Hour</typeOfnumber>
+  </ImportentNumbers>
+  <ImportentNumbers>
+    <numberSaved>28</numberSaved>
+    <typeOfnumber>Parcel Running Number</typeOfnumber>
   </ImportentNumbers>
   <ImportentNumbers>
     <numberSaved>2</numberSaved>
     <typeOfnumber>Station Running Number</typeOfnumber>
   </ImportentNumbers>
   <ImportentNumbers>
-    <numberSaved>11</numberSaved>
-    <typeOfnumber>Parcel Running Number</typeOfnumber>
-  </ImportentNumbers>
-  <ImportentNumbers>
-    <numberSaved>8</numberSaved>
-    <typeOfnumber>Drone Running Number</typeOfnumber>
-  </ImportentNumbers>
-  <ImportentNumbers>
-    <numberSaved>4</numberSaved>
+    <numberSaved>3</numberSaved>
     <typeOfnumber>Charge Running Number</typeOfnumber>
   </ImportentNumbers>
 </ArrayOfImportentNumbers>

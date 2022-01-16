@@ -28,13 +28,13 @@ namespace BL
                 switch (drone.Status)
                 {
                     case DroneStatuses.available:
-                        //אם הבטריה מספיקה
+                        //enough battery
                         lock (BL)
                         {
                             try
                             {
                                 BL.PairDroneParcel(drone.ID);
-                                Thread.Sleep(TimeSleep * 2);
+                                Thread.Sleep(TimeSleep);
                             }
                             catch (BattaryExeption)
                             {
@@ -45,7 +45,8 @@ namespace BL
                                 if (drone.Battery < 100)
                                     BL.SendToCharge(drone.ID);
                                 else
-                                {//there isnt parsel to schedule
+                                {
+                                    //there isnt parsel to schedule
                                     finushSimulator = true;
                                 }
                             }
@@ -71,15 +72,14 @@ namespace BL
                             if (drone.ParcelInDeliveryByDrone != null && !drone.ParcelInDeliveryByDrone.InDelivery)
                             {
                                 BL.PickUpParcelByDrone(drone.ID);
-                                Thread.Sleep((int)drone.ParcelInDeliveryByDrone.Distance * ValocityDrone);
+                                //Thread.Sleep((int)drone.ParcelInDeliveryByDrone.Distance * ValocityDrone);
 
                             }
                             else if (drone.ParcelInDeliveryByDrone != null && drone.ParcelInDeliveryByDrone.InDelivery)
                             {
                                 BL.DeliverParcel(drone.ID);
-                                Thread.Sleep(TimeSleep);
+                                Thread.Sleep(TimeSleep * 2);
                             }
-                            Thread.Sleep(TimeSleep * 2);
                         }
                         break;
                     default:

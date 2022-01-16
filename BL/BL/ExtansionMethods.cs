@@ -22,6 +22,7 @@ namespace BL
 
         }
         #endregion
+
         #region distance between 2 locations
 
         private const double PIx = Math.PI; 
@@ -40,11 +41,6 @@ namespace BL
         /// <summary>
         /// Calculate the distance between two places.
         /// </summary>
-        /// <param name="lon1"></param>
-        /// <param name="lat1"></param>
-        /// <param name="lon2"></param>
-        /// <param name="lat2"></param>
-        /// <returns></returns>
         public static double DistanceBetweenPlaces(this Location loc1, Location loc2)
         {
             double dlon = Radians(loc2.Longitude - loc1.Longitude);
@@ -58,13 +54,8 @@ namespace BL
 
             return angle * RADIUS;
         }
-        static public double distanceLongitudeLatitude(this Location first, Location second)
-        {
-            //check the math..
-            double distance = Math.Abs(Math.Sqrt(Math.Pow(first.Longitude - second.Longitude, 2) + Math.Pow(first.Lattitude - second.Lattitude, 2)));
-            return distance;
-        }
         #endregion
+
         #region find city
         static public string findCity(this Location location)
         {
@@ -151,6 +142,7 @@ namespace BL
 
         }
         #endregion
+
         #region compare locations
         public static bool IsEquel(this Location firstLoc, Location secondLoc)
         {
@@ -160,6 +152,7 @@ namespace BL
             return (firstLoc.Lattitude == secondLoc.Lattitude) && (firstLoc.Longitude == secondLoc.Longitude);
         }
         #endregion
+
         #region copyLocation
         public static Location CopyLocation(this Location location)
         {
@@ -174,6 +167,7 @@ namespace BL
                 throw new BO.InvalidInputExeption("wrong phone");
         }
         #endregion
+
         #region check id
         public static void checkID(this int id)
         {
@@ -181,6 +175,7 @@ namespace BL
                 throw new BO.InvalidInputExeption("wrong id");
         }
         #endregion
+
         #region check charge slots
         public static void checkChargeSlote(this int chargeSlots)
         {
@@ -188,7 +183,5 @@ namespace BL
                 throw new BO.InvalidInputExeption("wrong chargeSlote");
         }
         #endregion
-
-        //-------------------------------------operator overloading-----------------------
     }
 }

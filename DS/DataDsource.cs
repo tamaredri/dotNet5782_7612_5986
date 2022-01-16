@@ -30,10 +30,10 @@ namespace DS
             public static int runningCustomerNumber = 0;
             public static int runningChargeNumber = 0;
 
-            public static double powerMinimumIfAvailable = 20;
-            public static double powerMinimumIfCarryLightWeight = 50;
-            public static double powerMinimumIfCarryMiddleWeight = 65;
-            public static double powerMinimumIfCarryHeavyWeight = 75;
+            public static double powerMinimumIfAvailable = 0.05;
+            public static double powerMinimumIfCarryLightWeight = 0.1;
+            public static double powerMinimumIfCarryMiddleWeight = 0.15;
+            public static double powerMinimumIfCarryHeavyWeight = 0.2;
             public static double ChargePrecentagePerHoure = 45;
         }
         #endregion
