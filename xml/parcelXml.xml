@@ -241,30 +241,6 @@
     <Delivered>2022-01-16T21:47:02.9399264+02:00</Delivered>
   </Parcel>
   <Parcel>
-    <ID>24</ID>
-    <SenderID>225658541</SenderID>
-    <TargetID>33584722</TargetID>
-    <Weight>light</Weight>
-    <DroneID>0</DroneID>
-    <Priority>regular</Priority>
-    <Requested>2022-01-16T21:47:47.1203273+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
-    <ID>28</ID>
-    <SenderID>323805695</SenderID>
-    <TargetID>221156457</TargetID>
-    <Weight>light</Weight>
-    <DroneID>0</DroneID>
-    <Priority>regular</Priority>
-    <Requested>2022-01-16T21:48:02.7448325+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
     <ID>25</ID>
     <SenderID>323805695</SenderID>
     <TargetID>221156457</TargetID>
@@ -311,5 +287,29 @@
     <Scheduled>2022-01-16T21:48:49.9500885+02:00</Scheduled>
     <PickedUp>2022-01-16T21:48:53.954392+02:00</PickedUp>
     <Delivered>2022-01-16T21:48:55.9855439+02:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <ID>28</ID>
+    <SenderID>323805695</SenderID>
+    <TargetID>221156457</TargetID>
+    <Weight>light</Weight>
+    <DroneID>8</DroneID>
+    <Priority>regular</Priority>
+    <Requested>2022-01-16T21:48:02.7448325+02:00</Requested>
+    <Scheduled>2022-01-16T22:12:45.2142163+02:00</Scheduled>
+    <PickedUp>2022-01-16T22:12:49.2377978+02:00</PickedUp>
+    <Delivered>2022-01-16T22:12:51.4184665+02:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <ID>24</ID>
+    <SenderID>225658541</SenderID>
+    <TargetID>33584722</TargetID>
+    <Weight>light</Weight>
+    <DroneID>8</DroneID>
+    <Priority>regular</Priority>
+    <Requested>2022-01-16T21:47:47.1203273+02:00</Requested>
+    <Scheduled>2022-01-16T22:12:55.6161395+02:00</Scheduled>
+    <PickedUp>2022-01-16T22:12:59.6371729+02:00</PickedUp>
+    <Delivered>2022-01-16T22:13:01.8022037+02:00</Delivered>
   </Parcel>
 </ArrayOfParcel>

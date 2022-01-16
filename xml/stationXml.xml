@@ -5,7 +5,7 @@
     <Name>Drones - Kiryat Yovel</Name>
     <Longitude>31.767827</Longitude>
     <Lattitude>35.177496</Lattitude>
-    <ChargeSlots>9</ChargeSlots>
+    <ChargeSlots>8</ChargeSlots>
   </Station>
   <Station>
     <ID>2</ID>
