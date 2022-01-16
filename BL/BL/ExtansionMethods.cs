@@ -23,6 +23,41 @@ namespace BL
         }
         #endregion
         #region distance between 2 locations
+
+        private const double PIx = Math.PI; 
+        private const double RADIUS = 6378.16;
+
+        /// <summary>
+        /// Convert degrees to Radians
+        /// </summary>
+        /// <param name="x">Degrees</param>
+        /// <returns>The equivalent in radians</returns>
+        public static double Radians(double x)
+        {
+            return x * PIx / 180;
+        }
+
+        /// <summary>
+        /// Calculate the distance between two places.
+        /// </summary>
+        /// <param name="lon1"></param>
+        /// <param name="lat1"></param>
+        /// <param name="lon2"></param>
+        /// <param name="lat2"></param>
+        /// <returns></returns>
+        public static double DistanceBetweenPlaces(this Location loc1, Location loc2)
+        {
+            double dlon = Radians(loc2.Longitude - loc1.Longitude);
+            double dlat = Radians(loc2.Lattitude - loc1.Lattitude);
+
+            double a = (Math.Sin(dlat / 2) * Math.Sin(dlat / 2)) +
+                        (Math.Cos(Radians(loc1.Lattitude)) * Math.Cos(Radians(loc2.Lattitude)) *
+                        (Math.Sin(dlon / 2) * Math.Sin(dlon / 2)));
+            
+            double angle = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+            return angle * RADIUS;
+        }
         static public double distanceLongitudeLatitude(this Location first, Location second)
         {
             //check the math..

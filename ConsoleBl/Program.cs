@@ -1,5 +1,6 @@
 ﻿using System;
-using BlApi;
+using BO;
+using BL;
 
 namespace ConsoleBl
 {
@@ -7,11 +8,14 @@ namespace ConsoleBl
     {
         static void Main(string[] args)
         {
-            IBL blaccess = BlFactory.GetBl();
+            Location loc1 = new Location() { Lattitude = 35.64174312417117, Longitude = 33.2420881975982 };
+            Location loc2 = new Location() { Lattitude = 34.90282992324121, Longitude = 29.5203758726536 };
 
-            blaccess.GetCustomerList();
+            loc1.checkLongitudeLatitude();
+            loc2.checkLongitudeLatitude();
 
-            Console.WriteLine("Hello World!");
+            double d = loc1.DistanceBetweenPlaces(loc2);
+            Console.WriteLine(d.ToString());
         }
     }
 }

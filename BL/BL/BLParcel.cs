@@ -59,18 +59,12 @@ namespace BL
             List<BO.ParcelToList> parcelsList = GetPartOfParcel(x => x.Status == BO.ParcelStatuse.created).ToList();
 
             BO.Parcel closestParcel = null;
+            List<BO.ParcelToList> filteredParcelsList = new();
 
             //find a parcel that the drone can carry
             //for each priority type, in a decsending order
             for (BO.Priorities priority = BO.Priorities.emergency; priority >= BO.Priorities.regular; priority--)
             {
-                //find all the parcels that are in the specific priority category
-                List<BO.ParcelToList> filteredParcelsList = parcelsList.FindAll(x => x.Priority == priority);
-
-                //no parcel was found
-                if (filteredParcelsList.Count == 0)
-                    continue;
-
                 //for each wight category, in a decsending order
                 for (BO.WeightCategories weight = droneToPair.Weight; weight >= BO.WeightCategories.light; weight--)
                 {
@@ -79,7 +73,7 @@ namespace BL
                         continue;
 
                     //find all the parcels that are in the specific weight category
-                    filteredParcelsList = filteredParcelsList.FindAll(x => x.Weight == weight);
+                    filteredParcelsList = parcelsList.FindAll(x => x.Priority == priority && x.Weight == weight);
 
                     //no parcel was found
                     if (filteredParcelsList.Count == 0)
@@ -103,11 +97,14 @@ namespace BL
                             { closestParcel = parcelToCompare; }
 
                         }//end of for-each to find the closest
+                        break;
                     }
                     catch (BO.DoesntExistExeption x)
                     { throw new BO.ContradictoryDataExeption(x.Message + " this error is not suppose to happend. parcel/customer error", x); }
 
                 }//end of for loop according to weight category
+                if(closestParcel != null)
+                    break;
 
             }//end of for loop according to priority
 
