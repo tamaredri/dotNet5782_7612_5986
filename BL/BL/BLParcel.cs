@@ -57,20 +57,14 @@ namespace BL
 
             //take all the parcels that was created but not paired
             List<BO.ParcelToList> parcelsList = GetPartOfParcel(x => x.Status == BO.ParcelStatuse.created).ToList();
-
+            List<BO.ParcelToList> filteredParcelsList = new();
             BO.Parcel closestParcel = null;
 
             //find a parcel that the drone can carry
             //for each priority type, in a decsending order
             for (BO.Priorities priority = BO.Priorities.emergency; priority >= BO.Priorities.regular; priority--)
             {
-                //find all the parcels that are in the specific priority category
-                List<BO.ParcelToList> filteredParcelsList = parcelsList.FindAll(x => x.Priority == priority);
-
-                //no parcel was found
-                if (filteredParcelsList.Count == 0)
-                    continue;
-
+              
                 //for each wight category, in a decsending order
                 for (BO.WeightCategories weight = droneToPair.Weight; weight >= BO.WeightCategories.light; weight--)
                 {

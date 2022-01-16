@@ -87,6 +87,7 @@ namespace BL
                         break;
                 }
                 UpdatePresentation();
+                Thread.Sleep(TimeSleep * 3);
                 drone = BL.GetDrone(droneID);
                 if (finushSimulator == true) { break; }
             }
