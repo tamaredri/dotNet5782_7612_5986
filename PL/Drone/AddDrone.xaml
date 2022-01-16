@@ -14,11 +14,9 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
+        FontFamily="Bahnschrift SemiLight"
         Height="550" Width="400"
-        WindowStyle="None"
-    
-        >
+        WindowStyle="None">
     <Window.Resources>
         <converter:StringConverterToIntBattery x:Key="stringConverterToIntBattery"/>
         <Style TargetType="{x:Type TextBox}" x:Name="TextBoxStyle">
@@ -42,10 +40,11 @@
 
             <TextBlock Height="30" Width="200" HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       Text="NEW DRONE" FontSize="20" 
-                       FontFamily="Candara" 
-                       FontWeight="Bold" Foreground="#FFFDDCA5" Margin="20,0,0,0"
-                       />
+                       Text="NEW DRONE" 
+                       FontSize="20" 
+                       FontWeight="Bold" 
+                       Foreground="#FFFDDCA5"
+                       Margin="20,0,0,0"/>
 
             <StackPanel Orientation="Horizontal"
                 HorizontalAlignment="Right">
@@ -85,7 +84,6 @@
                        Height="120" 
                        VerticalAlignment="Center"
                        Margin="20"/>
-
             </StackPanel>
 
             <TextBox x:Name="idTextBox"

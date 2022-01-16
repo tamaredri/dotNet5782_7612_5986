@@ -7,7 +7,8 @@
       xmlns:converter="clr-namespace:PLConverter"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:BO="clr-namespace:BO;assembly=BL"
-      Style="{StaticResource PageStyle}">
+      Style="{StaticResource PageStyle}"
+      FontFamily="Bahnschrift SemiLight">
     <Page.DataContext>
         <BO:CustomerToList/>
     </Page.DataContext>
@@ -43,7 +44,7 @@
                 <SolidColorBrush Color="#FFB1BFAD" />
             </Button.Background>
             <Grid>
-                <materialDesign:PackIcon Kind="AccountAdd"
+                <materialDesign:PackIcon Kind="AccountAddOutline"
                        Height="35" Width="35" HorizontalAlignment="Center"/>
             </Grid>
         </Button>
@@ -63,7 +64,8 @@
                   Foreground="Black"
                   IsReadOnly="True"
                   SelectionUnit="FullRow"
-                  SelectionMode="Single" MouseDoubleClick="OpenCustomer_MouseDoubleClick">
+                  SelectionMode="Single" 
+                  MouseDoubleClick="OpenCustomer_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"
                                     MinWidth="10"/>

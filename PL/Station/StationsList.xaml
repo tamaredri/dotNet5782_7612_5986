@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:PL"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:BO="clr-namespace:BO;assembly=BL"
-      Style="{StaticResource PageStyle}">
+      Style="{StaticResource PageStyle}"
+      FontFamily="Bahnschrift SemiLight">
 
     <Page.DataContext>
         <BO:StationToList/>
