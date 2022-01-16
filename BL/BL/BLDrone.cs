@@ -247,7 +247,7 @@ namespace BL
             
             //update
             dronesList.Remove(droneToUpdate);
-            droneToUpdate.Battery += 1;
+            droneToUpdate.Battery = (droneToUpdate.Battery + 3 > 100)? 100 : droneToUpdate.Battery + 3;
             dronesList.Add(droneToUpdate);
         }
         #endregion

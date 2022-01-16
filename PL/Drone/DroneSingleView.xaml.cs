@@ -218,6 +218,9 @@ namespace PL
             auto = false;
             worker = null;
             if (closing) Close();
+            startAutomatic.Visibility = Visibility.Visible;
+            startAutomatic.IsEnabled = true;
+            MessageBox.Show("the simulator stoped!\none of the following might have happend:\n1) stopped by force\n2) no parcels left for the drone to carry", "Simulator", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e) =>

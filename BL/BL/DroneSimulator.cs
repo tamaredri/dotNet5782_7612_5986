@@ -63,7 +63,6 @@ namespace BL
                             {
                                 BL.updateBatteryThred(drone.ID);
                             }
-                            Thread.Sleep(TimeSleep / 2);
                         }
                         break;
                     case DroneStatuses.delivery:
@@ -87,7 +86,7 @@ namespace BL
                         break;
                 }
                 UpdatePresentation();
-                Thread.Sleep(TimeSleep * 3);
+                Thread.Sleep(TimeSleep * 2);
                 drone = BL.GetDrone(droneID);
                 if (finushSimulator == true) { break; }
             }
