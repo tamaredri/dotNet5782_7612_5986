@@ -79,7 +79,7 @@ namespace BL
                         continue;
 
                     //find all the parcels that are in the specific weight category
-                    filteredParcelsList = filteredParcelsList.FindAll(x => x.Weight == weight);
+                    filteredParcelsList = parcelsList.FindAll(x => x.Weight == weight && x.Priority == priority);
 
                     //no parcel was found
                     if (filteredParcelsList.Count == 0)
@@ -103,12 +103,13 @@ namespace BL
                             { closestParcel = parcelToCompare; }
 
                         }//end of for-each to find the closest
+                        
                     }
                     catch (BO.DoesntExistExeption x)
                     { throw new BO.ContradictoryDataExeption(x.Message + " this error is not suppose to happend. parcel/customer error", x); }
-
+                    break;
                 }//end of for loop according to weight category
-
+                if (!(closestParcel==null)) break;
             }//end of for loop according to priority
 
 
