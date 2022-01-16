@@ -13,12 +13,13 @@ namespace BL
     internal class DroneSimulator
     {
         BL BL;
-
+        bool finushSimulator=false;
         public const int TimeSleep = 1000;
         const int ValocityDrone = 200;
         public DroneSimulator(BL BLAccess, int droneID, Action UpdatePresentation, Func<bool> CancllationCheck)
         {
             BL = BLAccess;
+
 
             Drone drone = BL.GetDrone(droneID);
 
@@ -33,6 +34,7 @@ namespace BL
                             try
                             {
                                 BL.PairDroneParcel(drone.ID);
+                                Thread.Sleep(TimeSleep * 2);
                             }
                             catch (BattaryExeption)
                             {
@@ -43,7 +45,9 @@ namespace BL
                                 if (drone.Battery < 100)
                                     BL.SendToCharge(drone.ID);
                                 else
-                                    Thread.Sleep(TimeSleep * 2);
+                                {//there isnt parsel to schedule
+                                    finushSimulator = true;
+                                }
                             }
                         }
                         Thread.Sleep(TimeSleep);
@@ -83,8 +87,9 @@ namespace BL
                         break;
                 }
                 UpdatePresentation();
-                drone = BL.GetDrone(droneID);
                 Thread.Sleep(TimeSleep * 3);
+                drone = BL.GetDrone(droneID);
+                if (finushSimulator == true) { break; }
             }
         }
     }

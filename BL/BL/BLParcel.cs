@@ -57,9 +57,8 @@ namespace BL
 
             //take all the parcels that was created but not paired
             List<BO.ParcelToList> parcelsList = GetPartOfParcel(x => x.Status == BO.ParcelStatuse.created).ToList();
-
-            BO.Parcel closestParcel = null;
             List<BO.ParcelToList> filteredParcelsList = new();
+            BO.Parcel closestParcel = null;
 
             //find a parcel that the drone can carry
             //for each priority type, in a decsending order
@@ -103,7 +102,7 @@ namespace BL
                     { throw new BO.ContradictoryDataExeption(x.Message + " this error is not suppose to happend. parcel/customer error", x); }
 
                 }//end of for loop according to weight category
-                if(closestParcel != null)
+                if (closestParcel != null)
                     break;
 
             }//end of for loop according to priority
