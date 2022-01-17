@@ -118,10 +118,14 @@ namespace PL
             }catch(Exception x) { MessageBox.Show(x.Message); }
         }
 
-        //private void locationMap_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //LocationWin locationWin = new(stationToShow.StationLocation.Longitude.ToString(), stationToShow.StationLocation.Lattitude.ToString());
-        //    //locationWin.ShowDialog();
-        //}
+        private void locationMap_Click(object sender, RoutedEventArgs e)
+        {
+            double myLon = stationToShow.StationLocation.Longitude;
+            double myLat = stationToShow.StationLocation.Lattitude;
+            LocationWin locationWin = new(myLon, myLat);
+            locationWin.ShowDialog();
+        }
+
+        
     }
 }

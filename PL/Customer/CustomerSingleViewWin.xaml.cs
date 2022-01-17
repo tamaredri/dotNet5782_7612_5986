@@ -101,5 +101,13 @@ namespace PL
             { MessageBox.Show(x.Message, "EXCEPTION", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
         #endregion
+
+        private void locationMap_Click(object sender, RoutedEventArgs e)
+        {
+            double myLon = CustomerPO.LocationOfCustomer.Longitude;
+            double myLat = CustomerPO.LocationOfCustomer.Lattitude;
+            LocationWin locationWin = new(myLon, myLat);
+            locationWin.ShowDialog();
+        }
     }
 }
