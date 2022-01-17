@@ -903,7 +903,7 @@ namespace Dal
                 //stationsList = GetStationList().ToList(); //reread the updated file
                 //stationToUpdate.ChargeSlots = newChargeSlots - usedChargeSlots;
             }
-
+            stationsList = GetStationList().ToList();
             stationToUpdate = GetStation(stationIDToUpdate);
             if (newName != "")
             {

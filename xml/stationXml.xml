@@ -5,13 +5,13 @@
     <Name>Drones - Kiryat Yovel</Name>
     <Longitude>31.767827</Longitude>
     <Lattitude>35.177496</Lattitude>
-    <ChargeSlots>9</ChargeSlots>
+    <ChargeSlots>8</ChargeSlots>
   </Station>
   <Station>
     <ID>2</ID>
     <Name>Ashdo-D-rones</Name>
     <Longitude>31.799753</Longitude>
     <Lattitude>34.646484</Lattitude>
-    <ChargeSlots>8</ChargeSlots>
+    <ChargeSlots>3</ChargeSlots>
   </Station>
 </ArrayOfStation>

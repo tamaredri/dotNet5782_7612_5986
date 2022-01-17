@@ -4,24 +4,32 @@
     <Droneld>3</Droneld>
     <Stationld>2</Stationld>
     <IsInCharge>true</IsInCharge>
-    <TimeStart>2022-01-16T22:02:49.775813+02:00</TimeStart>
+    <TimeStart>2022-01-16T22:17:25.0058924+02:00</TimeStart>
     <TimeFinish xsi:nil="true" />
     <ID>1</ID>
   </DroneCharge>
   <DroneCharge>
-    <Droneld>4</Droneld>
+    <Droneld>2</Droneld>
     <Stationld>1</Stationld>
     <IsInCharge>true</IsInCharge>
-    <TimeStart>2022-01-16T22:02:50.4167293+02:00</TimeStart>
+    <TimeStart>2022-01-16T22:17:25.0620268+02:00</TimeStart>
     <TimeFinish xsi:nil="true" />
     <ID>2</ID>
   </DroneCharge>
   <DroneCharge>
-    <Droneld>1</Droneld>
+    <Droneld>8</Droneld>
     <Stationld>2</Stationld>
     <IsInCharge>true</IsInCharge>
-    <TimeStart>2022-01-16T22:02:51.0170724+02:00</TimeStart>
+    <TimeStart>2022-01-16T22:17:25.0694471+02:00</TimeStart>
     <TimeFinish xsi:nil="true" />
     <ID>3</ID>
+  </DroneCharge>
+  <DroneCharge>
+    <Droneld>7</Droneld>
+    <Stationld>1</Stationld>
+    <IsInCharge>true</IsInCharge>
+    <TimeStart>2022-01-16T22:17:25.099002+02:00</TimeStart>
+    <TimeFinish xsi:nil="true" />
+    <ID>4</ID>
   </DroneCharge>
 </ArrayOfDroneCharge>

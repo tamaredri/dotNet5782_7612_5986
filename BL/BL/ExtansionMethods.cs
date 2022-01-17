@@ -146,20 +146,15 @@ namespace BL
         #region compare locations
         public static bool IsEquel(this Location firstLoc, Location secondLoc)
         {
-            firstLoc.checkLongitudeLatitude();      //validate first location
-            secondLoc.checkLongitudeLatitude();     //validate second location
-                                                    //check the coordinates:
+            firstLoc.checkLongitudeLatitude();      
+            secondLoc.checkLongitudeLatitude();     
+                                                    
             return (firstLoc.Lattitude == secondLoc.Lattitude) && (firstLoc.Longitude == secondLoc.Longitude);
         }
         #endregion
 
-        #region copyLocation
-        public static Location CopyLocation(this Location location)
-        {
-            return new Location() { Lattitude = location.Lattitude, Longitude = location.Longitude };
-        }
-            #endregion
-            //------------------------------------input-check---------------------------------
+        //------------------------------------input-check---------------------------------
+
         #region check phone number
         public static void checkPhone(this int phone)
         {

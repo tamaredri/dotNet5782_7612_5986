@@ -40,7 +40,7 @@ namespace BL
                 BO.DroneToList newDrone = new()
                 {
                     ID = DroneID,
-                    Battery = droneToCreate.Battery,//rand.Next(20, 41),
+                    Battery = droneToCreate.Battery,
                     DroneLocation = new()
                     {
                         Lattitude = stationToCharge.Lattitude,
@@ -49,14 +49,9 @@ namespace BL
                     Model = doDronelToCreate.Model,
                     ParcelId = 0,
                     Status = BO.DroneStatuses.maintenance,
-                    Weight = (BO.WeightCategories)doDronelToCreate.MaxWeight
+                    Weight = droneToCreate.MaxWeight
                 };
 
-
-                if (dronesList.Find(x => x.ID == newDrone.ID) != null)
-                {
-                    throw new BO.ContradictoryDataExeption("the drone already exist - the drone list in the BL is wrong"); 
-                }
                 dronesList.Add(newDrone);
             }
             catch (DO.AlreadyExistExeption x)
@@ -77,37 +72,25 @@ namespace BL
             try { doDroneToShow = DalAccess.GetDrone(droneID); }
             catch (DO.DoesntExistExeption x) { throw new BO.DoesntExistExeption(x.Message, x); }
 
-            //build the drone to return
-            /*BO.Drone boDroneToShow = new BO.Drone()*/
+            //find the drone from the drones list
+            DroneToList droneFromList = dronesList.Find(x => x.ID == doDroneToShow.ID);
 
-            //doDroneToShow.CopyPropertiesTo(boDroneToShow);
-            BO.Drone boDroneToShow = new BO.Drone()
+            return new BO.Drone()
             {
                 ID = doDroneToShow.ID,
                 Model = doDroneToShow.Model,
-                MaxWeight = (BO.WeightCategories)doDroneToShow.MaxWeight
+                MaxWeight = (BO.WeightCategories)doDroneToShow.MaxWeight,
+                Battery = droneFromList.Battery,
+                DroneLocation = new()
+                {
+                    Lattitude = droneFromList.DroneLocation.Lattitude,
+                    Longitude = droneFromList.DroneLocation.Longitude
+                },
+                Status = droneFromList.Status,
+                ParcelInDeliveryByDrone=(droneFromList.Status == BO.DroneStatuses.delivery)?
+                GetParcelInDelivery(droneFromList.ParcelId, droneFromList.DroneLocation):null
             };
 
-            //find the drone from the drones list
-            DroneToList droneFromList = dronesList.Find(x => x.ID == doDroneToShow.ID);
-            if (droneFromList.ID == 0) //this check should be correct because the get function from dal
-            {
-                throw new BO.ContradictoryDataExeption("drone found in DALdronList but doesnt exist in BLDroneList");
-            }
-
-            boDroneToShow.Battery = droneFromList.Battery;
-            boDroneToShow.DroneLocation = new()
-            {
-                Lattitude = droneFromList.DroneLocation.Lattitude,
-                Longitude = droneFromList.DroneLocation.Longitude
-            };
-            boDroneToShow.Status = droneFromList.Status;
-
-            //check if there is ParcelInDeliveryByDrone
-            if (droneFromList.Status == BO.DroneStatuses.delivery/*droneFromList.ParcelId!=0*/)
-            {try { boDroneToShow.ParcelInDeliveryByDrone = GetParcelInDelivery(droneFromList.ParcelId, droneFromList.DroneLocation); } catch { throw; }}
-
-            return boDroneToShow;
         }
         #endregion
 
@@ -116,7 +99,11 @@ namespace BL
         #endregion
 
         #region GetDroneInCharge
-        //create a list of all the drones that are charging in the station
+        /// <summary>
+        /// get the drones that are charging in a station
+        /// </summary>
+        /// <param name="stationID"></param>
+        /// <returns>IEnumerable with all the drone that charge in this station</returns>
         private IEnumerable<BO.DroneInCharge> GetDroneInCharge(int stationID)
         {
             return (from charge in DalAccess.GetPartOfDroneCharge(x => (x.Stationld == stationID) && (x.IsInCharge == true))
@@ -168,9 +155,8 @@ namespace BL
         /// <param name="droneID"></param>
         void pickUpDrone(int droneID)
         {
-            //validation of the drone
             BO.DroneToList droneToPickUP = getDroneFromList(x => x.ID == droneID);
-            BO.Drone droneFromBL = GetDrone(droneID); //throw DoesntExist
+            BO.Drone droneFromBL = GetDrone(droneID); 
 
             DalAccess.PickUpByDrone(droneToPickUP.ParcelId); //send to dal to pick-up
 
@@ -198,11 +184,7 @@ namespace BL
         #endregion
 
         #region GetTheStationCharge
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="model"></param>
+        
         public string GetTheStationCharge(int droneInChargeID)
         {
             DO.DroneCharge droneInCharge = DalAccess.GetPartOfDroneCharge(x => x.Droneld == droneInChargeID && x.IsInCharge == true).FirstOrDefault();
@@ -296,26 +278,20 @@ namespace BL
         #region ReleaseFromCharge
         public void ReleaseFromCharge(int id)
         {
-            //the time should be a DataTime type????????????
             BO.DroneToList droneToRelease = dronesList.Find(x => x.ID == id);
             if (droneToRelease == null) throw new BO.DoesntExistExeption("the drone doesn't exist");
             if (droneToRelease.Status != BO.DroneStatuses.maintenance)  throw new BO.AlreadyExistExeption("the drone isn't charging");
             
             try
             {
-                //check if the drone have enough nattery to relese 
-                //timeFinish didnt used because dronecharge update after..
                 DroneCharge droneCharge = DalAccess.GetPartOfDroneCharge(x => x.Droneld == id).FirstOrDefault();
                 TimeSpan timeSpan = DateTime.Now - droneCharge.TimeStart.GetValueOrDefault();
-                //if (droneToRelease.Battery + (timeSpan.Hours + timeSpan.Minutes / 60 + timeSpan.Seconds / 120) * ChargePrecentagePerHoure < powerMinimumIfAvailable)
-                //    throw new BO.InvalidInputExeption("the drone doesn't have enoug battery to relese from charge");
-
+               
                 DalAccess.ReleaseFromCharge(id);
                 
                 dronesList.Remove(droneToRelease);
 
                 //update
-                //droneToRelease.Battery += (int)(timeOfChargeInHours * ChargePrecentagePerHoure); //increase the battery according to the time the drone was charging
                 droneToRelease.Battery += (int)((timeSpan.Hours + ((double)timeSpan.Minutes / 60) + ((double)timeSpan.Seconds / 120)) * ChargePrecentagePerHoure); //increase the battery according to the time the drone was charging
                 if (droneToRelease.Battery > 100) droneToRelease.Battery = 100; //round the result to fit in the max value of charge = 100%
                 droneToRelease.Status = BO.DroneStatuses.available;
@@ -335,10 +311,7 @@ namespace BL
         }
         #endregion
 
-        #region delete
-        #endregion
-
-        #region 
+        #region getDroneCapabilityToCarry
         int getDroneCapabilityToCarry(BO.Drone drone, BO.Parcel parcel)
         {
             BO.Customer sender = GetCustomer(parcel.Sender.ID);
@@ -348,7 +321,7 @@ namespace BL
             double distenceSender = drone.DroneLocation.DistanceBetweenPlaces(sender.LocationOfCustomer);
             double distenceTarget = sender.LocationOfCustomer.DistanceBetweenPlaces(target.LocationOfCustomer);
             double distenceClosestStation = target.LocationOfCustomer.DistanceBetweenPlaces(station.StationLocation);
-            
+
             return (int)((distenceClosestStation + distenceSender) * powerMinimumIfAvailable + distenceTarget * getPowerConsumption(parcel.Weight));
         }
         #endregion

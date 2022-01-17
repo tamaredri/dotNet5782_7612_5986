@@ -48,30 +48,24 @@ namespace BL
         #region PairDroneParcel
         public void PairDroneParcel(int droneID)
         {
-            //get the drone
             BO.DroneToList droneToPair = GetDroneList().ToList<BO.DroneToList>().Find(x => x.ID == droneID);
 
             if (droneToPair == null) throw new BO.DoesntExistExeption("the drone doesn't exist");
             if (droneToPair.Status != BO.DroneStatuses.available) throw new BO.DoesntExistExeption("the drone is not available to do a delivery");
 
-            //take all the parcels that was created but not paired
             List<BO.ParcelToList> parcelsList = GetPartOfParcel(x => x.Status == BO.ParcelStatuse.created).ToList();
             List<BO.ParcelToList> filteredParcelsList = new();
             BO.Parcel closestParcel = null;
 
-            //find a parcel that the drone can carry
-            //for each priority type, in a decsending order
             for (BO.Priorities priority = BO.Priorities.emergency; priority >= BO.Priorities.regular; priority--)
             {
-                //for each wight category, in a decsending order
                 for (BO.WeightCategories weight = droneToPair.Weight; weight >= BO.WeightCategories.light; weight--)
                 {
-                    //find all the parcels that are in the specific weight category
+                    //all the parcels that are in the specific weight category, priority and the drone has enough battery to carry the parcel 
                     filteredParcelsList = parcelsList.FindAll(x => x.Priority == priority 
                                                                 && x.Weight == weight 
                                                                 && getDroneCapabilityToCarry(GetDrone(droneID), GetParcel(x.ID)) < droneToPair.Battery);
 
-                    //no parcel was found
                     if (filteredParcelsList.Count == 0)
                         continue;
                     try
@@ -84,12 +78,9 @@ namespace BL
                         {
                             BO.Parcel parcelToCompare = GetParcel(parcel.ID);
 
-                            //the distance between the drone location and the location of the sender of the parcel since the parsel is located in the sender's location
-                            //                                                      the sender -  the id of the sender -  the location of the wanted customer
-                            if (droneToPair.DroneLocation.DistanceBetweenPlaces((GetCustomer(closestParcel.Sender.ID)).LocationOfCustomer)
+                            if (droneToPair.DroneLocation.DistanceBetweenPlaces(GetCustomer(closestParcel.Sender.ID).LocationOfCustomer)
                                 >
-                                //                                                  the sender -  the id of the sender -  the location of the wanted customer
-                                droneToPair.DroneLocation.DistanceBetweenPlaces((GetCustomer(parcelToCompare.Sender.ID)).LocationOfCustomer))
+                                droneToPair.DroneLocation.DistanceBetweenPlaces(GetCustomer(parcelToCompare.Sender.ID).LocationOfCustomer))
                             { closestParcel = parcelToCompare; }
 
                         }//end of for-each to find the closest
@@ -140,32 +131,38 @@ namespace BL
         #region DeliverParcel
         public void DeliverParcel(int droneID)
         {
-            //find the drone
             BO.DroneToList droneToDeliver = GetDroneList().ToList<BO.DroneToList>().Find(x => x.ID == droneID);
-            //get the parcel the drone need to pick-up
             BO.Parcel parcelToDeliver = GetParcel(droneToDeliver.ParcelId);
 
-            if (droneToDeliver.Status != BO.DroneStatuses.delivery) throw new BO.DoesntExistExeption("the drone is not paired to any parcel");
-            if (droneToDeliver.Battery < powerMinimumIfAvailable) throw new BO.ContradictoryDataExeption("the battery is incorrect");
+            if (droneToDeliver.Status != BO.DroneStatuses.delivery)
+            {
+                throw new BO.DoesntExistExeption("the drone is not paired to any parcel");
+            }
+
+            if (droneToDeliver.Battery < powerMinimumIfAvailable)
+            {
+                throw new BO.ContradictoryDataExeption("the battery is incorrect");
+            }
 
             if (GetParcelList().ToList().Find(x => x.ID == droneToDeliver.ParcelId).Status != BO.ParcelStatuse.pickedUp)
+            {
                 throw new BO.ContradictoryDataExeption("the parcel wasn't picked-up by the drone");
+            }
 
             try
             {
-                //deliver in the dal layer
                 DalAccess.DelivereParcel(droneToDeliver.ParcelId);
 
                 dronesList.Remove(droneToDeliver);
 
-                droneToDeliver.Battery -= (int)((GetCustomer(parcelToDeliver.Target.ID).LocationOfCustomer.
-                                                      DistanceBetweenPlaces(GetCustomer(parcelToDeliver.Sender.ID).LocationOfCustomer))
+                droneToDeliver.Battery -= (int)(GetCustomer(parcelToDeliver.Target.ID).LocationOfCustomer.
+                                                      DistanceBetweenPlaces(GetCustomer(parcelToDeliver.Sender.ID).LocationOfCustomer)
                                                       * getPowerConsumption(parcelToDeliver.Weight));
                 droneToDeliver.DroneLocation = new()
                 {
-                    Lattitude = (GetCustomer(parcelToDeliver.Target.ID)).LocationOfCustomer.Lattitude,
-                    Longitude = (GetCustomer(parcelToDeliver.Target.ID)).LocationOfCustomer.Longitude
-                }; //take the sender's coordinates
+                    Lattitude = GetCustomer(parcelToDeliver.Target.ID).LocationOfCustomer.Lattitude,
+                    Longitude = GetCustomer(parcelToDeliver.Target.ID).LocationOfCustomer.Longitude
+                }; 
                 droneToDeliver.Status = BO.DroneStatuses.available;
                 droneToDeliver.ParcelId = 0;
                 dronesList.Add(droneToDeliver);
@@ -186,7 +183,6 @@ namespace BL
             BO.Parcel boParcelToShow = new()
             {
                 ID = doParcelToShow.ID,
-                //chek if the sender exist????????? func GetCustomerForParcel check
                 Sender = GetCustomerForParcel(doParcelToShow, "SenderID"),
                 Target = GetCustomerForParcel(doParcelToShow, "TargetID"),
                 Weight = (BO.WeightCategories)doParcelToShow.Weight,
@@ -240,16 +236,6 @@ namespace BL
                         ParcelStatuse.pairedToDrone : ((parcelFromBl.DelivereTime == null) ?
                         ParcelStatuse.pickedUp : ParcelStatuse.delivered)))
                     }).ToList();
-            
-                //check if there was an error in the deais of the parcel
-                //find sender name
-                //try { DalAccess.GetCustomer(item.SenderID); }
-                //catch (DO.DoesntExistExeption x) { throw new ContradictoryDataExeption("the sender customer not found but he sent parcel", x); }
-                ////find target name
-                //try { DalAccess.GetCustomer(item.TargetID); }
-                //catch (DO.DoesntExistExeption x) { throw new ContradictoryDataExeption("the target customer not found but there is a parcel that sent to him", x); }
-
-              
         }
         #endregion
 
@@ -266,16 +252,10 @@ namespace BL
         #region GetListRecivedOrSentParcels
         private IEnumerable<ParcelInCustomer> GetListRecivedOrSentParcels(Predicate<DO.Parcel> chek, string endCustomer)
         {
-            //list to return
             List<ParcelInCustomer> ParcelInCustomerToReturn = new();
 
-            //get dal list of all parcel that recieved or sent to the customer 
             List<DO.Parcel> doParcelsRecievedOrSent = DalAccess.GetPartOfParcel(chek).ToList();
 
-            //create a list of all the parcels the customer recieved
-            
-
-            //save the parcels recived in the customer's list
             foreach (var item in doParcelsRecievedOrSent)
             {
                 BO.ParcelInCustomer parcelRecievedOrSent = new();
@@ -302,20 +282,20 @@ namespace BL
 
         #region GetParcelInDelivery
         /// <summary>
-        /// 
+        /// get the parcel that in delivery by drone
         /// </summary>
         /// <param name="parcelID"></param>
         /// <returns></returns>
         private ParcelInDelivery GetParcelInDelivery(int parcelID, Location droneLocation)
         {
-            //find the parcel that is in delivery by the drone
             DO.Parcel doParcel = DalAccess.GetParcel(parcelID);
+
             if (doParcel.ID == 0 || doParcel.Scheduled == null || doParcel.DroneID == 0)
                 throw new ContradictoryDataExeption("parcel id/schedual/droneID are incorrect");
-            //find the location of the sender:
+
             DO.Customer doSenderThisParcel = DalAccess.GetCustomer(doParcel.SenderID);
             DO.Customer doTargetThisParcel = DalAccess.GetCustomer(doParcel.TargetID);
-            //build the ParcelInDeliveryByDrone
+
             return new ParcelInDelivery()
             {
                 ID = doParcel.ID,

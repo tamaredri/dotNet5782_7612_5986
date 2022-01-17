@@ -14,11 +14,9 @@ namespace BL
         #region CreateStation
         public void CreateStation(BO.Station stationToCreate)
         {
-            //chek data
             stationToCreate.StationLocation.checkLongitudeLatitude();
             stationToCreate.AvailableChargeSlots.checkChargeSlote();
-           
-            //BO station-> DO station
+
             DO.Station doStationToCreate = new()
             {
                 ID = stationToCreate.ID,
@@ -26,12 +24,12 @@ namespace BL
                 Longitude = stationToCreate.StationLocation.Longitude,
                 Name = stationToCreate.Name,
                 ChargeSlots = stationToCreate.AvailableChargeSlots
-                
+
             };
 
             try
             { DalAccess.CreateStation(doStationToCreate); }
-            catch(DO.AlreadyExistExeption x)
+            catch (DO.AlreadyExistExeption x)
             { throw new BO.AlreadyExistExeption(x.Message, x); }
         }
         #endregion
@@ -41,18 +39,16 @@ namespace BL
         {
             DO.Station doStationToShow = new();
             try { doStationToShow = DalAccess.GetStation(stationID); }
-            catch(DO.DoesntExistExeption x) { throw new BO.DoesntExistExeption(x.Message, x); }
+            catch (DO.DoesntExistExeption x) { throw new BO.DoesntExistExeption(x.Message, x); }
 
-            //create a BL station
             BO.Station boStationToShow = new()
             {
                 ID = doStationToShow.ID,
-                AvailableChargeSlots = doStationToShow.ChargeSlots/*chargeslote= avalable chargeslote*/,
+                AvailableChargeSlots = doStationToShow.ChargeSlots,
                 Name = doStationToShow.Name,
                 StationLocation = new() { Lattitude = doStationToShow.Lattitude, Longitude = doStationToShow.Longitude }
             };
-            
-            //create a list of all the drones that are charging in the station
+
             boStationToShow.ChargedDrones = GetDroneInCharge(doStationToShow.ID).ToList();
 
             return boStationToShow;
@@ -89,21 +85,14 @@ namespace BL
         #endregion
 
         #region UpdateStation
-        public void UpdateStation(int stationID, int newChargeSlots=0, string newName = "")
+        public void UpdateStation(int stationID, int newChargeSlots = 0, string newName = "")
         {
-                //find the station to update
-                DO.Station stationToUpdate = DalAccess.GetStation(stationID);
+            DO.Station stationToUpdate = DalAccess.GetStation(stationID);
             try
             {
-                //if one of the details is correct -> then the user wanted to update at least one detail -> send to update
                 if (newChargeSlots > 0 || newName != "")
                 {
-                    /*
-                     *find the amount of drones that are charging in the station that is wanted for update
-                     *if the new charge slots are not enough for the drones that are charging
-                     *-> throw an exception ?
-                     *-> or update the other details anyway (reseting the newChrge value to default)?
-                     */ //                                                 the station location
+
                     if (newChargeSlots > 0)
                     {
                         if (newChargeSlots - amountOfDronesInChargeInTheStation(new Location()
@@ -117,12 +106,12 @@ namespace BL
                     DalAccess.UpdateStation(stationID, newChargeSlots, newName);
                     if (newChargeSlots == -1)
                         throw new BO.InvalidInputExeption("there are more drone in charge then the new number of charge slote");
-                    
+
 
                 }
             }
-            catch(DO.DoesntExistExeption x)
-            {throw new BO.DoesntExistExeption(x.Message, x);}
+            catch (DO.DoesntExistExeption x)
+            { throw new BO.DoesntExistExeption(x.Message, x); }
         }
         #endregion
 
@@ -136,7 +125,6 @@ namespace BL
         /// <returns>the id of the closest station location the aplly the codition</returns>
         int findClosestStation(Location locationToCompare, Predicate<DO.Station> chose)
         {
-            //all the stations
             List<DO.Station> allTheStations = (List<DO.Station>)DalAccess.GetStationList();
             int closestStatioID = 0;
 
@@ -159,22 +147,20 @@ namespace BL
                     closestStatioID = station.ID;
                     closestLocation.Lattitude = station.Lattitude;
                     closestLocation.Longitude = station.Longitude;
-                    if (!chose(DalAccess.GetStation(closestStatioID)))
-                    { isItOk = false; }
-                    else { isItOk = true; }
 
+                    isItOk = chose(DalAccess.GetStation(closestStatioID));
                 }
                 else
                 {
                     if (locationToCompare.DistanceBetweenPlaces(closestLocation)
-                  ==
+                    ==
                   locationToCompare.DistanceBetweenPlaces(new Location()
                   {
-                      Lattitude = station.Lattitude,
-                      Longitude = station.Longitude
+                        Lattitude = station.Lattitude,
+                        Longitude = station.Longitude
                   }))
-                    {   //if check(closeLocation)== false
-                        if (isItOk==false/*!chose(DalAccess.GetStation(closestStatioID))*/)
+                    {
+                        if (isItOk == false)
                         { //update the closest location + the station ID
                             closestStatioID = station.ID;
                             closestLocation.Lattitude = station.Lattitude;
@@ -183,20 +169,16 @@ namespace BL
                             { isItOk = false; }
                             else { isItOk = true; }
                         }
-                    } 
+                    }
                 }
             }
 
-            //if the closest station doesn't apply the condition -> throw an exception
-            if (isItOk == false) {
-                UpdateStation(closestStatioID, amountOfDronesInChargeInTheStation(GetStation(closestStatioID).StationLocation)+5);
+            if (isItOk == false)
+            {
+                UpdateStation(closestStatioID, amountOfDronesInChargeInTheStation(GetStation(closestStatioID).StationLocation) + 5);
             }
-            //if the closest station applies the codition -> return the location
             return closestStatioID;
         }
-        #endregion
-
-        #region delete
         #endregion
     }
 }
