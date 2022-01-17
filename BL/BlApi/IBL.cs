@@ -107,7 +107,11 @@ namespace BlApi
         public IEnumerable<DroneToList> GetPartOfDrone(Predicate<DroneToList> check);
 
         public int GetDroneRunnindNumber();
-
+        /// <summary>
+        /// get the name of the station that the drone is charging in
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
         public string GetTheStationCharge(int droneInChargeID);
 
         public void StartSimulator(int droneID, Action UpdatePresentation, Func<bool> CancllationCheck);

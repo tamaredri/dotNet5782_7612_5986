@@ -7,20 +7,7 @@ using DalApi;
 using BO;
 using DO;
 
-#region 
-#endregion
-#region 
-#endregion
-#region 
-#endregion
-#region 
-#endregion
-#region 
-#endregion
-#region 
-#endregion
-#region 
-#endregion
+
 
 namespace BL
 {
@@ -61,34 +48,16 @@ namespace BL
             try { doCustomerToShow = DalAccess.GetCustomer(customerID); }
             catch (DO.DoesntExistExeption x) { throw new BO.DoesntExistExeption(x.Message, x); }
 
-            BO.Customer boCustomerToShow;
-            try
+            //create a new customer to return
+            return new BO.Customer()
             {
-                //create a new customer to return
-                boCustomerToShow = new()
-                {
-                    ID = doCustomerToShow.ID,
-                    LocationOfCustomer = new Location { Lattitude = doCustomerToShow.Lattitude, Longitude = doCustomerToShow.Longitude },
-                    Name = doCustomerToShow.Name,
-                    Phone = Convert.ToInt32(doCustomerToShow.Phone),
-                    Recieved = new(),
-                    Sent = new()
-                };
-            }
-            catch (Exception x) { throw new Exception(x.Message); }
-            #region recived parcels
-
-            try { boCustomerToShow.Recieved = GetListRecivedOrSentParcels(x => x.TargetID == boCustomerToShow.ID, "SenderID").ToList(); } catch { throw; }
-
-            #endregion
-
-            #region sent parcels
-
-            try { boCustomerToShow.Sent = GetListRecivedOrSentParcels(x => x.SenderID == boCustomerToShow.ID, "TargetID").ToList(); } catch { throw; }
-
-            #endregion
-
-            return boCustomerToShow;
+                ID = doCustomerToShow.ID,
+                LocationOfCustomer = new Location { Lattitude = doCustomerToShow.Lattitude, Longitude = doCustomerToShow.Longitude },
+                Name = doCustomerToShow.Name,
+                Phone = Convert.ToInt32(doCustomerToShow.Phone),
+                Recieved = GetListRecivedOrSentParcels(x => x.TargetID == doCustomerToShow.ID, "SenderID").ToList(),
+                Sent = GetListRecivedOrSentParcels(x => x.SenderID == doCustomerToShow.ID, "TargetID").ToList()
+            };
         }
         #endregion
 

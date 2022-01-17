@@ -13,7 +13,7 @@ namespace BL
     internal class DroneSimulator
     {
         BL BL;
-        bool finushSimulator=false;
+        bool finushSimulator = false;
         public const int TimeSleep = 1000;
         const int ValocityDrone = 200;
         public DroneSimulator(BL BLAccess, int droneID, Action UpdatePresentation, Func<bool> CancllationCheck)
@@ -29,28 +29,33 @@ namespace BL
                 {
                     case DroneStatuses.available:
                         //enough battery
-                        lock (BL)
+
+                        try
                         {
-                            try
+                            lock (BL)
                             {
                                 BL.PairDroneParcel(drone.ID);
-                                Thread.Sleep(TimeSleep);
                             }
-                            catch (BattaryExeption)
+                            Thread.Sleep(TimeSleep);
+                        }
+                        catch (BattaryExeption)
+                        {
+                            lock (BL)
                             {
                                 BL.SendToCharge(drone.ID);
                             }
-                            catch (DoesntExistExeption)
+                        }
+                        catch (DoesntExistExeption)
+                        {
+                            if (drone.Battery < 100)
+                                BL.SendToCharge(drone.ID);
+                            else
                             {
-                                if (drone.Battery < 100)
-                                    BL.SendToCharge(drone.ID);
-                                else
-                                {
-                                    //there isnt parsel to schedule
-                                    finushSimulator = true;
-                                }
+                                //there isnt parsel to schedule
+                                finushSimulator = true;
                             }
                         }
+
                         Thread.Sleep(TimeSleep);
                         break;
                     case DroneStatuses.maintenance:

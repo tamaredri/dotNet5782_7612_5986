@@ -8,7 +8,7 @@ using BO;
 
 namespace BL
 {
-    public static class OperatorOverloading
+    public static class CopyProperties
     {
         #region copy properties
         public static void CopyPropertiesTo<T, S>(this S from, T to)
