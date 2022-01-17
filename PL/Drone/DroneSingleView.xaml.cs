@@ -61,6 +61,12 @@ namespace PL
                 Sender = new() { ID = droneBO.ParcelInDeliveryByDrone.Sender.ID, Name = droneBO.ParcelInDeliveryByDrone.Sender.Name },
                 Target = new() { ID = droneBO.ParcelInDeliveryByDrone.Target.ID, Name = droneBO.ParcelInDeliveryByDrone.Target.Name }
             } : null;
+            if (droneBO.ParcelInDeliveryByDrone != null)
+            {
+                senderName.Text = droneBO.ParcelInDeliveryByDrone.Sender.Name;
+                targeName.Text = droneBO.ParcelInDeliveryByDrone.Target.Name;
+                weight.Text = droneBO.ParcelInDeliveryByDrone.Weight.ToString();
+            }
             DataContext = droneToShow;
             droneInParcel.DataContext = droneToShow.ParcelInDeliveryByDrone;
         }
