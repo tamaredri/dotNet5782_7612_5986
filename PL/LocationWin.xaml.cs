@@ -19,10 +19,10 @@ namespace PL
     /// </summary>
     public partial class LocationWin : Window
     {
-        public LocationWin(string lon ="32.3382113", string lat= "33.2820225")
+        public LocationWin(double myLon = 32.3382113, double myLat = 33.2820225)
         {
             InitializeComponent();
-            string link = "https://www.google.com/maps/@"+ lon+","+ lat + ",7.35z?hl=iw";
+            string link = "https://www.google.com/maps/place/" + myLon + "," + myLat;
             googleMap.Source = new Uri(link);
         }
 

@@ -233,5 +233,13 @@ namespace PL
             BL.StartSimulator((int)e.Argument, updateDrone, checkStop);
 
         #endregion
+
+        private void locationMap_Click(object sender, RoutedEventArgs e)
+        {
+            double myLon = droneToShow.Location.Longitude;
+            double myLat = droneToShow.Location.Lattitude;
+            LocationWin locationWin = new(myLon,myLat);
+            locationWin.ShowDialog();
+        }
     }
 }
