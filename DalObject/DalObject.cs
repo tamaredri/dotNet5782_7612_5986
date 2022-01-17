@@ -22,17 +22,13 @@ namespace Dal
         #region AddCustomer
         public void CreateCustomer(Customer customerToCreate)
         {
-            DataSource.Config.runningCustomerNumber++;
-
             if (!DataSource.CustomersList.Find(x => x.ID == customerToCreate.ID).Equals(default(Customer)))
-            {
-                DataSource.Config.runningCustomerNumber--;
                 throw new AlreadyExistExeption("the customer already exit");
-            }
 
             DataSource.CustomersList.Add(customerToCreate);
         }
         #endregion
+
         #region GetCustomer
         public Customer GetCustomer(int idToGet)
         {
@@ -44,15 +40,18 @@ namespace Dal
             return customerToGet;
         }
         #endregion
+
         #region GetCustomersList
         public IEnumerable<Customer> GetCustomersList() => (from customer in DataSource.CustomersList
                                                             select customer).ToList();
         #endregion
+
         #region GetPartOfCustomer
         public IEnumerable<Customer> GetPartOfCustomer(Predicate<Customer> check) => (from customer in DataSource.CustomersList
                                                                                       where check(customer)
                                                                                       select customer).ToList<Customer>();
         #endregion
+
         #region UpdateCustomer
         public void UpdateCustomer(int customerID, int newPhone = 0, string newName = null)
         {
@@ -66,6 +65,7 @@ namespace Dal
             DataSource.CustomersList.Add(customerToUpdate);
         }
         #endregion
+
         #region DeleteCustomer
         #endregion
 
@@ -80,6 +80,7 @@ namespace Dal
             return DataSource.Config.runningDroneNumber; //the drone's ID
         }
         #endregion
+
         #region GetDrone
         public Drone GetDrone(int idToGet)
         {
@@ -91,14 +92,17 @@ namespace Dal
             return droneToGet;
         }
         #endregion
+
         #region GetDroneList
         public IEnumerable<Drone> GetDroneList() => (from drone in DataSource.DronesList select drone).ToList();
         #endregion
+
         #region GetPartOfDrone
         public IEnumerable<Drone> GetPartOfDrone(Predicate<Drone> check) => (from drone in DataSource.DronesList
                                                                              where check(drone)
                                                                              select drone).ToList<Drone>();
         #endregion
+
         #region GetPowerConsumptionByDrone
         public double[] GetPowerConsumptionByDrone()
         {
@@ -112,9 +116,11 @@ namespace Dal
             };
         }
         #endregion
+
         #region GetDroneRunningNumber
         public int GetDroneRunningNumber() => DataSource.Config.runningDroneNumber; 
         #endregion
+
         #region UpdateDrone
         public void UpdateDrone(int id, string newModel)
         {
@@ -125,6 +131,7 @@ namespace Dal
             DataSource.DronesList.Add(droneToUpdate);
         }
         #endregion
+
         #region SendToCharge
         public void SendToCharge(int droneIDToCharge, int stationIDToCharge)
         {
@@ -142,6 +149,7 @@ namespace Dal
             createChargeEntity(droneIDToCharge, stationIDToCharge);
         }
         #endregion
+
         #region ReleaseFromCharge
         public void ReleaseFromCharge(int droneIDToRelease)
         {
@@ -150,6 +158,7 @@ namespace Dal
             deleteChargeEntity(droneIDToRelease); //release
         }
         #endregion
+
         #region DeleteDrone
         #endregion
 
@@ -177,9 +186,11 @@ namespace Dal
             });
         }
         #endregion
+
         #region GetDroneCharge
 
         #endregion
+
         #region deleteChargeEntity
         /// <summary>
         /// the function removes a drone-charge entity
@@ -203,6 +214,7 @@ namespace Dal
             DataSource.ChargesList.Add(chargeToUpdate);
         }
         #endregion
+
         #region GetPartOfDroneCharge
         public IEnumerable<DroneCharge> GetPartOfDroneCharge(Predicate<DroneCharge> check)
         {
@@ -211,6 +223,7 @@ namespace Dal
                     select droneCharge).ToList();
         }
         #endregion
+
         #region private drone-charge functions
         #region getAmountOfUsedChargeSlots
         /// <summary>
@@ -239,6 +252,7 @@ namespace Dal
             DataSource.ParcelsList.Add(parcelToCreate);
         }
         #endregion
+
         #region GetParcel
         public Parcel GetParcel(int idToGet)
         {
@@ -255,17 +269,21 @@ namespace Dal
             return parcelToGet;
         }
         #endregion
+
         #region GetParcelList
         public IEnumerable<Parcel> GetParcelList() => (from p in DataSource.ParcelsList select p).ToList();
         #endregion
+
         #region GetsuccessfullyDeliveredParcelList
         public IEnumerable<Parcel> GetsuccessfullyDeliveredParcelList() => (from s in DataSource.ParcelsList where(s.Delivered is not null) select s).ToList();
         #endregion
+
         #region GetPartOfParcel
         public IEnumerable<Parcel> GetPartOfParcel(Predicate<Parcel> check) => (from parcel in DataSource.ParcelsList
                                                                                 where check(parcel)
                                                                                 select parcel).ToList<Parcel>();
         #endregion
+
         #region ScheduleDroneParcel
         public void ScheduleDroneParcel(int idParcelToSchedule, int idDroneToSchedule)
         {
@@ -279,6 +297,7 @@ namespace Dal
             DataSource.ParcelsList.Add(parcelToSchedule);
         }
         #endregion
+
         #region PickUpByDrone
         public void PickUpByDrone(int idParcelToPickUp)
         {
@@ -289,6 +308,7 @@ namespace Dal
             DataSource.ParcelsList.Add(parcelToPickUp);
         }
         #endregion
+
         #region DelivereParcel
         public void DelivereParcel(int idParcelToDelivere)
         {
@@ -299,6 +319,7 @@ namespace Dal
             DataSource.ParcelsList.Add(parcelToDeliver);
         }
         #endregion
+
         #region DeleteParcel
         public void DeleteParcel(int IDToDelete)
         {
@@ -325,6 +346,7 @@ namespace Dal
             DataSource.StationsList.Add(stationToCreate);
         }
         #endregion
+
         #region GetStation
         public Station GetStation(int idToGet)
         {
@@ -336,14 +358,17 @@ namespace Dal
             return stationToGet;
         }
         #endregion
+
         #region GetStationList
         public IEnumerable<Station> GetStationList() => (from s in DataSource.StationsList select s).ToList();
         #endregion
+
         #region GetPartOfStation
         public IEnumerable<Station> GetPartOfStation(Predicate<Station> check) => (from station in DataSource.StationsList
                                                                                    where check(station)
                                                                                    select station).ToList<Station>();
         #endregion
+
         #region UpdateStation
         public void UpdateStation(int stationIDToUpdate, int newChargeSlots, string newName)
         {
@@ -364,8 +389,10 @@ namespace Dal
             }
         }
         #endregion
+
         #region DeleteStation
         #endregion
+
         #region private station functions
         #region updateChargeSlots
         /// <summary>

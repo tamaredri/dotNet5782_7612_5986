@@ -27,7 +27,6 @@ namespace DS
             public static int runningPackageNumber = 0;
             public static int runningStationNumber = 0;
             public static int runningDroneNumber = 0;
-            public static int runningCustomerNumber = 0;
             public static int runningChargeNumber = 0;
 
             public static double powerMinimumIfAvailable = 0.05;
@@ -41,10 +40,8 @@ namespace DS
         public static void Initialize()
         {
             #region initializing customer list:
-            for (int i = 0; i < 10; i++)//איתחול 10 לקוחות
+            for (int i = 0; i < 10; i++)
             {
-                Config.runningCustomerNumber++;// לפני הוספת לקוח- נעלה את המונ
-
                 CustomersList.Add(new Customer
                 {
                     ID = 100000000 + i + 1,
@@ -59,7 +56,7 @@ namespace DS
             #region initializing base station list:
             for (int i = 0; i < 2; i++)
             {
-                Config.runningStationNumber++;// add a station to the count
+                Config.runningStationNumber++;
 
                 StationsList.Add(new Station
                 {
@@ -75,7 +72,7 @@ namespace DS
             #region initializing drones list:
             for (int i = 0; i < 5; i++)
             {
-                Config.runningDroneNumber++;// לפני שנוסיף רחפן נעדכן שיש לנו רחפן נוסף
+                Config.runningDroneNumber++;
 
                 DronesList.Add(new Drone
                 {
@@ -108,7 +105,7 @@ namespace DS
             //scheduled
             for (int i = 5; i < 6; i++)
             {
-                Config.runningPackageNumber++; //increasing the running number before build a new parcel
+                Config.runningPackageNumber++;
 
                 ParcelsList.Add(new Parcel
                 {
@@ -126,7 +123,7 @@ namespace DS
             //picked-up
             for (int i = 6; i < 9; i++)
             {
-                Config.runningPackageNumber++; //increasing the running number before build a new parcel
+                Config.runningPackageNumber++;
 
                 ParcelsList.Add(new Parcel
                 {
