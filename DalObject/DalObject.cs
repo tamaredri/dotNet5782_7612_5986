@@ -25,7 +25,10 @@ namespace Dal
             DataSource.Config.runningCustomerNumber++;
 
             if (!DataSource.CustomersList.Find(x => x.ID == customerToCreate.ID).Equals(default(Customer)))
+            {
+                DataSource.Config.runningCustomerNumber--;
                 throw new AlreadyExistExeption("the customer already exit");
+            }
 
             DataSource.CustomersList.Add(customerToCreate);
         }

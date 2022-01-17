@@ -35,8 +35,8 @@ namespace BL
 
             try
             { DalAccess.CreateCustomer(doCustomerToCreate); }
-            catch (DO.DoesntExistExeption x)
-            { throw new BO.DoesntExistExeption(x.Message, x); }
+            catch (DO.AlreadyExistExeption x)
+            { throw new BO.AlreadyExistExeption(x.Message, x); }
         }
         #endregion
 

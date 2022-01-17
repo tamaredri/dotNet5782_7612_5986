@@ -40,4 +40,9 @@
     <Model>m-555</Model>
     <MaxWeight>light</MaxWeight>
   </Drone>
+  <Drone>
+    <ID>9</ID>
+    <Model>k-777</Model>
+    <MaxWeight>heavey</MaxWeight>
+  </Drone>
 </ArrayOfDrone>
