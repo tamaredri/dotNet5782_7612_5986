@@ -25,7 +25,7 @@ namespace BO
                 }
                 int deg = (int)_latitude;
                 int min = (int)(60 * (_latitude - deg));
-                double sec = (_latitude - deg) * 3600 - min * 60;
+                float sec = (float)(_latitude - deg) * 3600 - min * 60;
 
                 return $"{deg}° {min}' {sec}'' {ch}";
             }
@@ -40,7 +40,7 @@ namespace BO
                 }
                 int deg = (int)_longitude;
                 int min = (int)(60 * (_longitude - deg));
-                double sec = (_longitude - deg) * 3600 - min * 60;
+                float sec = (float)(_longitude - deg) * 3600 - min * 60;
 
                 return $"{deg}° {min}' {sec}'' {ch}";
             }

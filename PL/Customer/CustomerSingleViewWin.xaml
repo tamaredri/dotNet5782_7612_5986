@@ -89,25 +89,27 @@
                                              HorizontalAlignment="Center"
                                    Margin="20"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" >
+                <StackPanel Orientation="Horizontal" Margin="10,10,20,10" >
                     <TextBlock Text="ID:"/>
                     <TextBlock Text="{Binding ID}" Margin="48,0,0,0"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal"  Margin="20,10,20,10">
+                <StackPanel Orientation="Horizontal"  Margin="10,10,20,10">
                     <TextBlock Text="Name :"/>
                     <TextBlock Text="{Binding Name}" Margin="25,0,0,0"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
+                <StackPanel Orientation="Horizontal" Margin="10,10,20,10">
                     <TextBlock Text="Phone :"/>
                     <TextBlock Text="{Binding Phone, Converter={StaticResource intToStringPhoneConverter}}" Margin="20,0,0,0"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Vertical" Margin="20,10,20,10">
+                <StackPanel Orientation="Vertical" Margin="10,10,20,10">
                     <TextBlock Text="Location :"/>
                     <StackPanel>
-                        <TextBlock Text="{Binding LocationOfCustomer}" Margin="5,2,0,0"/>
+                        <TextBlock Text="{Binding LocationOfCustomer}" 
+                                   Margin="0,2,0,0"
+                                   FontSize="9"/>
                     </StackPanel>
                 </StackPanel>
 

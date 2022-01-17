@@ -166,24 +166,10 @@
 
                     <TextBlock Text="{Binding Location}" 
                                Grid.Row="6" Grid.ColumnSpan="2"
+                               FontSize="10"
                                Margin="10,5,10,5"/>
 
                 </Grid>
-                <StackPanel Name="detailsDrone"
-                            Grid.Row="1"
-                            Orientation="Vertical">
-
-                    <StackPanel x:Name="lattitudeStack"
-                    Orientation="Horizontal" Margin="10,5,10,5" Width="180">
-                    </StackPanel>
-
-                    <StackPanel x:Name="longitudeStack"
-                    Orientation="Horizontal" Margin="10,5,20,10" Width="180">
-                    </StackPanel>
-
-
-                </StackPanel>
-
             </Grid>
 
 
