@@ -252,30 +252,20 @@ namespace BL
         #region GetListRecivedOrSentParcels
         private IEnumerable<ParcelInCustomer> GetListRecivedOrSentParcels(Predicate<DO.Parcel> chek, string endCustomer)
         {
-            List<ParcelInCustomer> ParcelInCustomerToReturn = new();
-
             List<DO.Parcel> doParcelsRecievedOrSent = DalAccess.GetPartOfParcel(chek).ToList();
+            List<ParcelInCustomer> ParcelInCustomerToReturn = (from item in doParcelsRecievedOrSent
+                                        select new BO.ParcelInCustomer()
+                                        {
+                                            ID = item.ID,
+                                            Weight = (BO.WeightCategories)item.Weight,
+                                            Priority = (BO.Priorities)item.Priority,
+                                            EndCustomer = GetCustomerForParcel(item, endCustomer),
+                                            Status = (item.Scheduled == null) ? ParcelStatuse.created :
+                                            ((item.PickedUp == null) ? ParcelStatuse.pairedToDrone :
+                                            ((item.Delivered == null) ? ParcelStatuse.pickedUp :
+                                            ParcelStatuse.delivered))
+                                        }).ToList();
 
-            foreach (var item in doParcelsRecievedOrSent)
-            {
-                BO.ParcelInCustomer parcelRecievedOrSent = new();
-                parcelRecievedOrSent.ID = item.ID;
-                parcelRecievedOrSent.Weight = (BO.WeightCategories)item.Weight;
-                parcelRecievedOrSent.Priority = (BO.Priorities)item.Priority;
-
-                try { parcelRecievedOrSent.EndCustomer = GetCustomerForParcel(item, endCustomer); } catch { throw; }
-
-                //change the status according to the time
-                if (item.Scheduled == null)
-                    parcelRecievedOrSent.Status = ParcelStatuse.created;
-                else if (item.PickedUp == null)
-                    parcelRecievedOrSent.Status = ParcelStatuse.pairedToDrone;
-                else if (item.Delivered == null)
-                    parcelRecievedOrSent.Status = ParcelStatuse.pickedUp;
-                else parcelRecievedOrSent.Status = ParcelStatuse.delivered;
-
-                ParcelInCustomerToReturn.Add(parcelRecievedOrSent);
-            }
             return ParcelInCustomerToReturn;
         }
         #endregion
