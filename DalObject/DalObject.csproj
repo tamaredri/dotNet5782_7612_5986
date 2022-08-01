@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
-    <ProjectReference Include="..\DS\DS.csproj" />
   </ItemGroup>
 
 </Project>
