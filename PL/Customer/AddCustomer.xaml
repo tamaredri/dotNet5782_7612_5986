@@ -71,8 +71,7 @@
             </StackPanel>
         </Grid>
 
-        <!--<Image Grid.Row="1" Source="../Icons/customer.png"/>-->
-
+     
         <StackPanel Orientation="Vertical" Grid.Row="1" 
                     Background="Transparent">
             <StackPanel>

@@ -160,7 +160,7 @@ namespace PLConverter
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             //try { int.Parse(value.ToString()); }
-            if (value is not default(string)) { return int.Parse(value.ToString()); }
+            if (value is not "") { return int.Parse(value.ToString()); }
 
             else return null;
         }

@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <ID>3</ID>
-    <Name>kiryatMoshe</Name>
-    <Longitude>31.794653</Longitude>
-    <Lattitude>35.149075</Lattitude>
-    <ChargeSlots>9</ChargeSlots>
-  </Station>
-  <Station>
     <ID>2</ID>
     <Name>Ashdo-D-rones</Name>
     <Longitude>31.799753</Longitude>
@@ -20,5 +13,12 @@
     <Longitude>31.767827</Longitude>
     <Lattitude>35.177496</Lattitude>
     <ChargeSlots>9</ChargeSlots>
+  </Station>
+  <Station>
+    <ID>3</ID>
+    <Name>kiryatMoshe</Name>
+    <Longitude>31.794653</Longitude>
+    <Lattitude>35.149075</Lattitude>
+    <ChargeSlots>8</ChargeSlots>
   </Station>
 </ArrayOfStation>

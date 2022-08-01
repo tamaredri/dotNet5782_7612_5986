@@ -1,27 +1,35 @@
 <?xml version="1.0"?>
 <ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DroneCharge>
-    <Droneld>4</Droneld>
+    <Droneld>5</Droneld>
     <Stationld>3</Stationld>
     <IsInCharge>true</IsInCharge>
-    <TimeStart>2022-01-17T14:30:26.6905945+02:00</TimeStart>
+    <TimeStart>2022-01-20T17:45:57.4818886+02:00</TimeStart>
     <TimeFinish xsi:nil="true" />
     <ID>1</ID>
   </DroneCharge>
   <DroneCharge>
-    <Droneld>2</Droneld>
+    <Droneld>8</Droneld>
     <Stationld>2</Stationld>
     <IsInCharge>true</IsInCharge>
-    <TimeStart>2022-01-17T14:30:26.710009+02:00</TimeStart>
+    <TimeStart>2022-01-20T17:45:57.500791+02:00</TimeStart>
     <TimeFinish xsi:nil="true" />
     <ID>2</ID>
   </DroneCharge>
   <DroneCharge>
-    <Droneld>7</Droneld>
+    <Droneld>1</Droneld>
     <Stationld>1</Stationld>
     <IsInCharge>true</IsInCharge>
-    <TimeStart>2022-01-17T14:30:26.7313012+02:00</TimeStart>
+    <TimeStart>2022-01-20T17:45:57.5056328+02:00</TimeStart>
     <TimeFinish xsi:nil="true" />
     <ID>3</ID>
+  </DroneCharge>
+  <DroneCharge>
+    <Droneld>9</Droneld>
+    <Stationld>3</Stationld>
+    <IsInCharge>true</IsInCharge>
+    <TimeStart>2022-01-20T17:45:57.5130807+02:00</TimeStart>
+    <TimeFinish xsi:nil="true" />
+    <ID>4</ID>
   </DroneCharge>
 </ArrayOfDroneCharge>
