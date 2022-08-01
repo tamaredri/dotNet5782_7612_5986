@@ -50,13 +50,23 @@ namespace PL
 
         private void ManagerlogInWithPassword_Click(object sender, RoutedEventArgs e)
         {
+            EnterPassword();
+                
+        }
+
+        private void EnterPressed_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) EnterPassword();
+        }
+
+        private void EnterPassword()
+        {
             if (PasswordBox.Password == "1234")
             {
                 HomePageManager homeManager = new();
                 PasswordBox.Password = "";
                 homeManager.ShowDialog();
             }
-                
         }
     }
 }
